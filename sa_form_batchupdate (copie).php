@@ -1,0 +1,44 @@
+<?PHP
+	$SQL = new sqlclass();
+	$Req = "UPDATE employe SET IDEmploye = ".$_POST['IDEmployeIni']." WHERE IDEmploye = ".$_POST['IDEmployeFin'];
+	echo $Req."<br>";
+//$SQL->QUERY($Req);
+	$Req = "UPDATE shift SET IDEmploye = ".$_POST['IDEmployeIni']." WHERE IDEmploye = ".$_POST['IDEmployeFin'];
+echo $Req."<br>";
+	//$SQL->QUERY($Req);
+	$Req = "UPDATE shiftbck SET IDEmploye = ".$_POST['IDEmployeIni']." WHERE IDEmploye = ".$_POST['IDEmployeFin'];
+echo $Req."<br>";
+	//$SQL->QUERY($Req);
+	$Req = "UPDATE bonicrusher SET IDEmploye = ".$_POST['IDEmployeIni']." WHERE IDEmploye = ".$_POST['IDEmployeFin'];
+echo $Req."<br>";
+	//$SQL->QUERY($Req);
+	$Req = "UPDATE commentaire SET IDEmploye = ".$_POST['IDEmployeIni']." WHERE IDEmploye = ".$_POST['IDEmployeFin'];
+echo $Req."<br>";
+	//$SQL->QUERY($Req);
+	$Req = "UPDATE confirmation SET IDEmploye = ".$_POST['IDEmployeIni']." WHERE IDEmploye = ".$_POST['IDEmployeFin'];
+echo $Req."<br>";
+	//$SQL->QUERY($Req);
+	$Req = "UPDATE inspection SET IDEmploye = ".$_POST['IDEmployeIni']." WHERE IDEmploye = ".$_POST['IDEmployeFin'];
+echo $Req."<br>";
+	//$SQL->QUERY($Req);
+	$Req = "UPDATE link_employe_qualification SET IDEmploye = ".$_POST['IDEmployeIni']." WHERE IDEmploye = ".$_POST['IDEmployeFin'];
+echo $Req."<br>";
+	//$SQL->QUERY($Req);
+	$Req = "UPDATE message SET IDEmploye = ".$_POST['IDEmployeIni']." WHERE IDEmploye = ".$_POST['IDEmployeFin'];
+echo $Req."<br>";
+	//$SQL->QUERY($Req);
+echo $Req."<br>";
+	$Req = "UPDATE remplacement SET IDEmployeS = ".$_POST['IDEmployeIni']." WHERE IDEmployeS = ".$_POST['IDEmployeFin'];
+echo $Req."<br>";
+	//$SQL->QUERY($Req);
+
+	$Req = "UPDATE remplacement SET IDEmployeE = ".$_POST['IDEmployeIni']." WHERE IDEmployeE = ".$_POST['IDEmployeFin'];
+echo $Req."<br>";
+	//$SQL->QUERY($Req);
+	$Req = "UPDATE remplacement SET IDEmployeE = ".$_POST['IDEmployeIni']." WHERE IDEmployeE = ".$_POST['IDEmployeFin'];
+	//$SQL->QUERY($Req);
+echo $Req."<br>";
+	$Req = "UPDATE timesheet SET IDEmploye = ".$_POST['IDEmployeIni']." WHERE IDEmploye = ".$_POST['IDEmployeFin'];
+	//$SQL->QUERY($Req);
+echo $Req."<br>";
+?>

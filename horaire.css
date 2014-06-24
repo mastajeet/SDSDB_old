@@ -1,0 +1,98 @@
+.warn{
+	background-color: #FFD71C;
+	font-family: Tahoma;
+	font-size: 12;
+	font-variant: normal;
+}
+.comment{
+	background-color: #FFD71C;
+	font-family: Tahoma;
+	font-size: 12;
+	font-variant: normal;
+}
+.safe{
+	background-color: #0CFF00;
+}
+.rempl{
+	background-color: #FF72A4;
+}
+.unconfirmed{
+	background-color: #D8DCE0;
+	font-family: Tahoma;
+	font-size: 12;
+	font-variant: normal;
+}
+
+.scrooling{
+	border-width: thin;
+	border-style: solid;
+	
+}
+
+
+.ok{
+	background-color: #0CFF00;
+	font-family: Tahoma;
+	font-size: 12;
+	font-variant: normal;
+}
+
+.torempl{
+	background-color: #FF72A4;
+	font-family: Tahoma;
+	font-size: 12;
+	font-variant: normal;
+}
+
+
+.HInstall{
+	background-color: #D8DCE0;
+	border-bottom-width: 2;
+	border-style: solid;
+	border-left-width: 2;
+	border-right-width: 1;
+	border-top-width: 2;
+}
+.HDay{
+	border-bottom-width: 2;
+	border-style: solid;
+	border-left-width: 1;
+	border-right-width: 1;
+	border-top-width: 2;
+}
+
+.one{
+	background-color: #D8DCE0;
+	border-bottom-width: 1;
+	border-style: solid;
+	border-left-width: 0;
+	border-right-width: 0;
+	border-top-width: 0;
+}
+.two{
+	background-color: #B1B9C1;
+
+	border-bottom-width: 1;
+	border-style: solid;
+	border-left-width: 0;
+	border-right-width: 0;
+	border-top-width: 0;
+}
+
+.three{
+	background-color: #D8DCE0;
+	border-bottom-width: 1;
+	border-style: solid;
+	border-left-width: 0;
+	border-right-width: 0;
+	border-top-width: 0;
+}
+.four{
+	background-color: #B1B9C1;
+
+	border-bottom-width: 1;
+	border-style: solid;
+	border-left-width: 0;
+	border-right-width: 0;
+	border-top-width: 0;
+}
