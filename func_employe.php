@@ -333,4 +333,24 @@ function get_messages(){
 	return $Ret;
 }
 
+function get_employe_initials($IDEmploye){
+    $Info = get_employe_info($IDEmploye);
+    $Initiales = "";
+
+
+    foreach(explode('-',$Info['Prenom']) as $v){
+        $Initiales .= substr($v,0,1);
+
+    }
+
+    foreach(explode('-',$Info['Nom']) as $v){
+        $Initiales .= substr($v,0,1);
+
+    }
+
+    return $Initiales;
+}
+
+
+
 ?>

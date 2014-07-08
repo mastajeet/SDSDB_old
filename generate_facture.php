@@ -42,7 +42,7 @@ if($Rep[0]>0){
 	$ReqIDIns = "SELECT DISTINCT shift.IDInstallation FROM shift JOIN installation on shift.IDInstallation = installation.IDInstallation WHERE installation.Cote='".$_POST['FORMCote']."' AND Semaine=".$_POST['Semaine']." ORDER BY Nom ASC";
 	$SQLins->SELECT($ReqIDIns);
 	while($Repins = $SQLins->FetchArray()){
-		$Req = "SELECT Start, End, Jour, shift.TXH, installation.Nom, shift.Assistant, Ferie FROM shift JOIN installation JOIN client on shift.IDInstallation = installation.IDInstallation AND client.IDClient = installation.IDClient WHERE shift.IDInstallation = ".$Repins[0]." AND Semaine=".$_POST['Semaine']." ORDER BY installation.Nom ASC, Jour ASC, Assistant ASC, Start ASC";
+		$Req = "SELECT Start, End, Jour, shift.TXH, installation.Nom, shift.Assistant, Ferie, shift.IDEmploye FROM shift JOIN installation JOIN client on shift.IDInstallation = installation.IDInstallation AND client.IDClient = installation.IDClient WHERE shift.IDInstallation = ".$Repins[0]." AND Semaine=".$_POST['Semaine']." ORDER BY installation.Nom ASC, Jour ASC, Assistant ASC, Start ASC";
 		$SQL->SELECT($Req);
 		$i =0;
 		$Shift = array();
@@ -51,10 +51,12 @@ if($Rep[0]>0){
 				$Titre = "Sauveteur";
 			if($Rep[5])
 				$Titre = "Deuxiéme Sauveteur";
-			if($i>0 && $Shift[$i-1]['End'] == $Rep[0])
+			if($i>0 && $Shift[$i-1]['End'] == $Rep[0]){
 				$Shift[$i-1]['End'] = $Rep[1];
-			else{
-				$Shift[$i] = array('Start'=>$Rep[0],'End'=>$Rep[1],'Jour'=>$Rep[2],'TXH'=>$Rep[3],'Notes'=>$Titre.": ".$Rep[4],'Ferie'=>$Rep[6]);
+                $Shift[$i-1]['Notes'] = substr($Shift[$i-1]['Notes'],0,-1);
+                $Shift[$i-1]['Notes'] .= "-".get_employe_initials($Rep[7]).")";
+            }else{
+				$Shift[$i] = array('Start'=>$Rep[0],'End'=>$Rep[1],'Jour'=>$Rep[2],'TXH'=>$Rep[3],'Notes'=>$Titre.": ".$Rep[4]." (".get_employe_initials($Rep[7]).")",'Ferie'=>$Rep[6]);
 				
 				$i++;
 			}
