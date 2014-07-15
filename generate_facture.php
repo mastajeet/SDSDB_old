@@ -50,7 +50,7 @@ if($Rep[0]>0){
 		while($Rep = $SQL->FetchArray()){
 				$Titre = "Sauveteur";
 			if($Rep[5])
-				$Titre = "Deuxiéme Sauveteur";
+				$Titre = "Deuxième Sauveteur";
 			if($i>0 && $Shift[$i-1]['End'] == $Rep[0]){
 				$Shift[$i-1]['End'] = $Rep[1];
                 $Shift[$i-1]['Notes'] = substr($Shift[$i-1]['Notes'],0,-1);
