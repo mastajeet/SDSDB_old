@@ -1,17 +1,17 @@
 <?PHP
 //require_once"languages/".$setting['default_language']."/errors.php";
 ##########################################
-#        CETTE CLASSE SQL À ÉTÉ          #
-# PROGRAMMÉE PAR L'UNIQUE ET FANTASTIQUE #
+#        CETTE CLASSE SQL ï¿½ ï¿½Tï¿½          #
+# PROGRAMMï¿½E PAR L'UNIQUE ET FANTASTIQUE #
 #               CGUIMONT                 #
 #  UTILISATION PERMISE POUR L'AEACT      #
 ##########################################
 class SqlClass
 {
 	var $server = "localhost";
-	var $database = "qcnat_sds_qc";
-	var $username = "qcnat_cyberyder";
-	var $password = "chille";
+	var $database = "sdsdb";
+	var $username = "root";
+	var $password = "chille69";
 	var $debug = 0;
 	var $show_errors = true;
 	var $logfile = "./mysql.log";

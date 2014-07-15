@@ -1,7 +1,7 @@
 <?PHP
 ##########################################
-#       CETTE CLASSE HTML À ÉTÉ          #
-# PROGRAMMÉE PAR L'UNIQUE ET FANTASTIQUE #
+#       CETTE CLASSE HTML ? ?T?          #
+# PROGRAMM?E PAR L'UNIQUE ET FANTASTIQUE #
 #             MASTAJEET                  #
 #  UTILISATION PERMISE POUR L'AEACT      #
 ##########################################
@@ -410,7 +410,7 @@ class HTML
 	
 	function flaglist($name, $option, $selected=array(), $description=NULL)
 	{
-	// FAIRE LES MODIFICATION CAR MONTÉ EN BROCHE A FOIN
+	// FAIRE LES MODIFICATION CAR MONT? EN BROCHE A FOIN
 	if($description==NULL){
 			$description=$name;
 		}
@@ -448,7 +448,7 @@ class HTML
 		$this->closerow();
 	}
 	
-	function formsubmit($string='Exécuter'){
+	function formsubmit($string='Ex?cuter'){
 		$this->openrow();
 		$this->opencol("",2);
 		$this->addoutput($this->center("<input type=submit value=\"".$string."\"></form>"));
