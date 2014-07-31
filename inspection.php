@@ -10,8 +10,7 @@ $NDay= get_day_list();
 	while($Rep = $SQL->FetchArray()){
 		$NOTIN .= ",".$Rep['IDInstallation'];
 	}
-	echo 
-	
+
 $MainOutput->OpenTable(600);
 $MainOutput->OpenRow();
 $MainOutput->OpenCol(300);

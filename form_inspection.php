@@ -20,7 +20,7 @@ $MainOutput->InputHidden_Env('UPDATE',$UPDATE);
 $MainOutput->InputHidden_Env('IDInspection',$_GET['IDInspection']);
 $MainOutput->InputHidden_Env('IDInstallation',$_GET['IDInstallation']);
 
-
+ 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('550');
 	$MainOutput->AddTexte('<img src=carlos.gif width=550 height=1>');
@@ -80,6 +80,7 @@ $MainOutput->flag('Planche',$INFO['Planche'],'Planche dorsale');
 $MainOutput->flag('Couverture',$INFO['Couverture']);
 $MainOutput->flag('Registre',$INFO['Registre'],'Registre des installations');
 $MainOutput->flag('Chlore',$INFO['Chlore'],'Trousse de vérification de Chlore et pH');
+$MainOutput->textarea('NotesMateriel','Notes',25,5,$INFO['NotesMateriel']);
 
 
 $MainOutput->OpenRow();
@@ -119,7 +120,7 @@ $MainOutput->InputText('Verre','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 $MainOutput->InputText('Bousculade','&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Pas de bousculade (en mm)',3,$INFO['Bousculade']);
 
 $MainOutput->InputText('Maximum','Nombre maximum de baigneurs (en 150mm)',3,$INFO['Maximum']);
-
+$MainOutput->textarea('NotesAffichage','Notes',25,5,$INFO['NotesAffichage']);
 $MainOutput->OpenCol('100%',2);
 	$MainOutput->AddTexte('<hr>');
 $MainOutput->CloseCol();
@@ -141,7 +142,7 @@ $MainOutput->Flag('Cloture100',$INFO['Cloture100'],'La clôture ne doit pas perme
 $MainOutput->Flag('Maille38',$INFO['Maille38'],'S\'il s\'agit d\'une clôture de maille, la maille doit être inférieure à 38mm');
 $MainOutput->Flag('Promenade',$INFO['Promenade'],'Si une partie de la promenade peut être utilisée hors des heures d\'ouverture, une clôture de 900mm doit séparer la promenade de la partie réservée de la piscine');
 $MainOutput->Flag('Fermeacle',$INFO['Fermeacle'],'Toutes les ouvertures qui donnent accès à la piscine doivent être fermées à clef lorsque la piscine est sans surveillance');
-
+$MainOutput->textarea('NotesConstruction','Notes',25,5,$INFO['NotesConstruction']);
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 	$MainOutput->AddTexte('<hr>');

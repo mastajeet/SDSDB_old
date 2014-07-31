@@ -24,7 +24,8 @@ DateI= ".$Date.",
 `Gaze100`=".$_POST['FORMGaze100'].",`Ouate`=".$_POST['FORMOuate'].",`Gaze75`=".$_POST['FORMGaze75'].",
 `Compressif`=".$_POST['FORMCompressif'].",`Tape12`=".$_POST['FORMTape12'].",`Tape50`=".$_POST['FORMTape50'].",
 `Eclisses`=".$_POST['FORMEclisses'].",`Ciseau`=".$_POST['FORMCiseau'].",`Pince`=".$_POST['FORMPince'].",
-`Crayon`=".$_POST['FORMCrayon'].",`Masque`=".$_POST['FORMMasque'].",`Gant`=".$_POST['FORMGant']." 
+`Crayon`=".$_POST['FORMCrayon'].",`Masque`=".$_POST['FORMMasque'].",`Gant`=".$_POST['FORMGant'].",
+ `NotesMateriel`='".addslashes($_POST['FORMNotesMateriel'])."',`NotesConstruction`='".addslashes($_POST['FORMNotesConstruction'])."',`NotesAffichage`='".addslashes($_POST['FORMNotesAffichage'])."'
 WHERE IDInspection = ".$_POST['IDInspection'];
 $SQL->Query($Req);
 $_GET['Section'] = "Inspection";

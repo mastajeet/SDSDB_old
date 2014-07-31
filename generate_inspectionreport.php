@@ -76,6 +76,11 @@ $NMois = get_month_list();
 		}
 	}
 	
+	if($INFO['NotesMateriel']<>""){
+			$MainOutput->AddTexte(" - ".$INFO['NotesMateriel']);
+			$MainOutput->br();	
+	}
+	
 			if($NBItem==0){
 			$MainOutput->AddTexte(" - Votre piscine répond à toutes les exigences concernant le matériel");
 			$MainOutput->br();
@@ -97,6 +102,10 @@ $NMois = get_month_list();
 			$Prob = true;
 		}
 		
+	}
+	if($INFO['NotesAffichage']<>""){
+			$MainOutput->AddTexte(" - ".$INFO['NotesAffichage']);
+			$MainOutput->br();	
 	}
 	if(!$Prob){
 			$MainOutput->AddTexte(" - Votre piscine répond à toutes les exigences concernant de l'affichage");
@@ -120,6 +129,11 @@ $NMois = get_month_list();
 	if(!$Prob){
 		$MainOutput->AddTexte(" - Votre piscine répond à toutes les exigences concernant de la construction");
 		$MainOutput->br();
+	}
+	
+	if($INFO['NotesConstruction']<>""){
+			$MainOutput->AddTexte(" - ".$INFO['NotesConstruction']);
+			$MainOutput->br();	
 	}
 	
 	$MainOutput->br();

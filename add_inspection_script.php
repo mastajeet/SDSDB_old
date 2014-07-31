@@ -12,7 +12,7 @@ $Req = "INSERT INTO .`inspection` (`IDEmploye` ,`DateI` ,`IDInstallation` ,`Anne
 `SMU` ,`Procedures` ,`Perche` ,`Bouees` ,`Planche` ,`Couverture` ,`Registre`,`Chlore`,`ProfondeurPP` ,`ProfondeurP` ,`ProfondeurPente` ,`Cercle` ,
 `Verre` ,`Bousculade` ,`Maximum`,`EchellePP` ,`EchelleX2P` ,`Escalier` ,`Cloture12` ,`Cloture100` ,`Maille38` ,`Promenade` ,`Fermeacle` ,`Manuel` ,
 `Antiseptique` ,`Epingle`,`Pansement` ,`BTria` ,`Gaze50` ,`Gaze100` ,`Ouate` ,`Gaze75` ,`Compressif` ,`Tape12` ,`Tape50` ,`Eclisses` ,`Ciseau` ,
-`Pince` ,`Crayon` ,`Masque` ,`Gant`)
+`Pince` ,`Crayon` ,`Masque` ,`Gant`,`NotesMateriel`,`NotesConstruction`,`NotesAffichage`)
 VALUES (".$_POST['FORMIDEmploye'].",".$Date.",".$_POST['IDInstallation'].",".get_vars('BoniYear').",".$_POST['FORMIDResponsable'].",
 ".$_POST['FORMMirador'].",".$_POST['FORMSMU'].",".$_POST['FORMProcedures'].",".$_POST['FORMPerche'].",".$_POST['FORMBouees'].",
 ".$_POST['FORMPlanche'].",".$_POST['FORMCouverture'].",".$_POST['FORMRegistre'].",".$_POST['FORMChlore'].",
@@ -23,7 +23,8 @@ VALUES (".$_POST['FORMIDEmploye'].",".$Date.",".$_POST['IDInstallation'].",".get
 ".$_POST['FORMManuel'].",".$_POST['FORMAntiseptique'].",".$_POST['FORMEpingle'].",
 ".$_POST['FORMPansement'].",".$_POST['FORMBtria'].",".$_POST['FORMGaze50'].",".$_POST['FORMGaze100'].",".$_POST['FORMOuate'].",
 ".$_POST['FORMGaze75'].",".$_POST['FORMCompressif'].",".$_POST['FORMTape12'].",".$_POST['FORMTape50'].",".$_POST['FORMEclisses'].",
-".$_POST['FORMCiseau'].",".$_POST['FORMPince'].",".$_POST['FORMCrayon'].",".$_POST['FORMMasque'].",".$_POST['FORMGant'].")";
+".$_POST['FORMCiseau'].",".$_POST['FORMPince'].",".$_POST['FORMCrayon'].",".$_POST['FORMMasque'].",".$_POST['FORMGant'].",'".addslashes($_POST['FORMNotesMateriel'])."',
+'".addslashes($_POST['FORMNotesConstruction'])."','".addslashes($_POST['FORMNotesAffichage'])."')";
 
 $SQL->INSERT($Req);
 $_GET['Section']="Inspection";

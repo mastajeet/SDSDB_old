@@ -3,6 +3,7 @@ extract($_REQUEST);
 if(isset($_POST['Section'])){
 $_GET['Section'] = $_POST['Section'];
 }
+date_default_timezone_set ('America/Montreal');
 
 if(isset($_COOKIE['IDEmploye']) AND !isset($_COOKIE['CIESDS'])){
 		setcookie('IDEmploye','',0);
