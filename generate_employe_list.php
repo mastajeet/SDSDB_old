@@ -54,7 +54,7 @@ $MainOutput->Addlink('index.php?Section=EmployeList&Session=&Assistant=%','Pas r
 $MainOutput->Addtexte(' - ');
 $MainOutput->Addlink('index.php?Section=EmployeList&Session=%&Assistant=%','Tous');
 $MainOutput->Addtexte(' - ');
-$MainOutput->Addlink('index.php?Section=EmployeList&Cessation=1','Cessationnés');
+$MainOutput->Addlink('index.php?Section=EmployeList&Cessation=1','Cessationnï¿½s');
 
 
 $MainOutput->CloseCol();
@@ -74,7 +74,7 @@ $MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'
 $MainOutput->CloseCol();
 
 $MainOutput->OpenCol(100);
-$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=Prenom&Order='.$Unorder.'&Cessation='.$_GET['Cessation'].'&Assistant='.$_GET['Assistant'],'Prénom');
+$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=Prenom&Order='.$Unorder.'&Cessation='.$_GET['Cessation'].'&Assistant='.$_GET['Assistant'],'Prï¿½nom');
 $MainOutput->CloseCol();
 
 $MainOutput->OpenCol(100);
@@ -185,14 +185,14 @@ if(!$_GET['ToPrint']){
 	$New = TRUE;
 	While($Rep = $SQL2->FetchArray()){
 		$Class='Texte';
-		if(intval(date('n',time())) > intval(date('n',$Rep['Expiration'])) AND intval(date('Y',time()))>=intval(date('Y',$Rep['Expiration'])))
+		if(intval(date('n',time())) > intval(date('n',$Rep['Expiration'])) and intval(date('Y',time()))>=intval(date('Y',$Rep['Expiration'])) or intval(date('Y',time()))>intval(date('Y',$Rep['Expiration'])))
 			$Class='Warning';
 		
 		if($New){
-			$Qualif .= "<span class=".$Class.">: ".$Rep[0]."</span>";			
+			$Qualif .= "<span class=".$Class."><a title=\"Expiration: ".date("d-m-Y",$Rep['Expiration'])."\">: ".$Rep[0]."</a></span>";
 			$New=FALSE;
 		}else{
-			$Qualif = $Qualif."<span class=Texte> - </span><span class=".$Class.">".$Rep[0]."</span>";
+			$Qualif = $Qualif."<span class=Texte> - </span><span class=".$Class."><a title=\"Expiration: ".date("d-m-Y",$Rep['Expiration'])."\">".$Rep[0]."</a></span>";
 		}
 	}
 		
