@@ -1,4 +1,9 @@
 <?PHP
+
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+
 extract($_REQUEST);
 if(isset($_POST['Section'])){
 $_GET['Section'] = $_POST['Section'];
@@ -7,7 +12,7 @@ date_default_timezone_set ('America/Montreal');
 
 if(isset($_COOKIE['IDEmploye']) AND !isset($_COOKIE['CIESDS'])){
 		setcookie('IDEmploye','',0);
-	DIE("Veuillez Rafraîchir votre page");
+	DIE("Veuillez Rafraï¿½chir votre page");
 }
 	
 if((isset($_COOKIE['CIESDS']) AND $_COOKIE['CIESDS']=="QC") OR (isset($_POST['FORMCIESDS']) AND $_POST['FORMCIESDS']=="QC")){
