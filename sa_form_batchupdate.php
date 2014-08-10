@@ -3,19 +3,19 @@
 	$MainOutput->inputhidden_env('Action','Batch_Update');
 	$InstallationReq = "SELECT installation.IDInstallation, installation.Nom FROM `installation` WHERE Saison AND Actif ORDER BY installation.Nom ASC";
 	$MainOutput->InputSelect('IDInstallation',$InstallationReq,'','Piscine');
-	$MainOutput->InputTime('SDate','Date de début',0,array('Time'=>False,'Date'=>TRUE));
+	$MainOutput->InputTime('SDate','Date de dÃ©but',0,array('Time'=>False,'Date'=>TRUE));
 	$MainOutput->InputTime('EDate','Date de fin',0,array('Time'=>False,'Date'=>TRUE));
 	$MainOutput->OpenRow();
 		$MainOutput->OpenCol();
-		$MainOutput->AddTexte('Champs à modifier','Titre');
+		$MainOutput->AddTexte('Champs Ã  modifier','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
 		$MainOutput->AddOutput('<span class=Texte><input type="checkbox" name="Field1" value="IDEmploye">Sauveteur
-		<input type="checkbox" name="Field2" value="Start">Heure de début
+		<input type="checkbox" name="Field2" value="Start">Heure de dÃ©but
 		<input type="checkbox" name="Field3" value="End">Heure de fin
 		<input type="checkbox" name="Field4" value="Salaire">Salaire
 		<input type="checkbox" name="Field5" value="TXH">Taux Horaire
-		<input type="checkbox" name="Field6" value="Warn">Notes pré-shit');
+		<input type="checkbox" name="Field6" value="Warn">Notes prÃ©-shit');
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
 		
@@ -35,7 +35,7 @@
 		$MainOutput->OpenRow();
 		$MainOutput->OpenCol();
 		$MainOutput->AddOutput('<input type="checkbox" name=C_Box1 value=C_IDEmploye>',0,0);
-		$MainOutput->AddTexte('Employé','Titre');
+		$MainOutput->AddTexte('Employe','Titre');
 		$MainOutput->CloseCol();
 		
 		
@@ -55,7 +55,7 @@
 		$MainOutput->OpenRow();
 		$MainOutput->OpenCol();
 		$MainOutput->AddOutput('<input type="checkbox" value=C_Start name=C_Box2>',0,0);
-		$MainOutput->AddTexte('Heure de début','Titre');
+		$MainOutput->AddTexte('Heure de dï¿½but','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
 			$MainOutput->AddOutput('<input type=text name=FORMC_Time22 size=2 class=inputtext value=0> : <input type=text name=FORMC_Time21 size=2 class=inputtext value=0>',0,0);
@@ -73,7 +73,13 @@
 			$MainOutput->AddOutput('<input type=text name=FORMC_Time32 size=2 class=inputtext value=0> : <input type=text name=FORMC_Time31 size=2 class=inputtext value=0>',0,0);
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
-		
+
+
+$MainOutput->OpenRow();
+$MainOutput->OpenCol();
+$MainOutput->AddOutput('<input type="checkbox" name=C_Box4 value=C_Assistant>',0,0);
+$MainOutput->AddTexte('Assistant','Titre');
+$MainOutput->CloseCol();
 
 
 
@@ -92,11 +98,11 @@
 		
 		$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ORDER BY Nom ASC";
 		$MainOutput->InputSelect('IDEmploye',$Req,'','Sauveteur');
-		$MainOutput->InputTime('Time2','Heure de début',0,array('Time'=>TRUE,'Date'=>FALSE));
+		$MainOutput->InputTime('Time2','Heure de dï¿½but',0,array('Time'=>TRUE,'Date'=>FALSE));
 		$MainOutput->InputTime('Time3','Heure de fin',0,array('Time'=>TRUE,'Date'=>FALSE));
 		$MainOutput->InputText('Salaire','Salaire','4');
 		$MainOutput->InputText('TXH','Taux horaire','4');
-		$MainOutput->textarea('Warn','Pré-shit','25','2');
+		$MainOutput->textarea('Warn','Prï¿½-shit','25','2');
 		$MainOutput->FormSubmit('Modifier');
 		echo $MainOutput->Send(1);
 ?>
