@@ -55,7 +55,7 @@
 		$MainOutput->OpenRow();
 		$MainOutput->OpenCol();
 		$MainOutput->AddOutput('<input type="checkbox" value=C_Start name=C_Box2>',0,0);
-		$MainOutput->AddTexte('Heure de d�but','Titre');
+		$MainOutput->AddTexte('Heure de début','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
 			$MainOutput->AddOutput('<input type=text name=FORMC_Time22 size=2 class=inputtext value=0> : <input type=text name=FORMC_Time21 size=2 class=inputtext value=0>',0,0);
@@ -98,11 +98,11 @@ $MainOutput->CloseCol();
 		
 		$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ORDER BY Nom ASC";
 		$MainOutput->InputSelect('IDEmploye',$Req,'','Sauveteur');
-		$MainOutput->InputTime('Time2','Heure de d�but',0,array('Time'=>TRUE,'Date'=>FALSE));
+		$MainOutput->InputTime('Time2','Heure de début',0,array('Time'=>TRUE,'Date'=>FALSE));
 		$MainOutput->InputTime('Time3','Heure de fin',0,array('Time'=>TRUE,'Date'=>FALSE));
 		$MainOutput->InputText('Salaire','Salaire','4');
 		$MainOutput->InputText('TXH','Taux horaire','4');
-		$MainOutput->textarea('Warn','Pr�-shit','25','2');
+		$MainOutput->textarea('Warn','Pré-shit','25','2');
 		$MainOutput->FormSubmit('Modifier');
 		echo $MainOutput->Send(1);
 ?>
