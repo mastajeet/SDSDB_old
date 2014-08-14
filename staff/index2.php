@@ -58,7 +58,7 @@ include('staff/functions.php');
                 <li><a <?PHP echo $Horaire ?>  href="index.php?Section=Horaire">Mon Horaire</a></li>
                 <li><a <?PHP echo $Info ?>  href="index.php?Section=Info">Mes Info</a></li>
                 <li><a <?PHP echo $Confirm_Heures ?>  href="index.php?Section=Confirm_Heures">Confirmation d'heures</a></li>
-                <li><a <?PHP echo $Joindre ?>  href="index.php?Action=Delog">Se Dï¿½connecter</a></li>
+                <li><a <?PHP echo $Joindre ?>  href="index.php?Action=Delog">Se Déconnecter</a></li>
                                 
             </ul>
             <div class="cl">&nbsp;</div>
@@ -69,7 +69,7 @@ include('staff/functions.php');
     <!-- Main -->
       <div id="main">
         <!--<div class="attention">
-            <p>ATTENTION!!! Le dÃ©but de la session d'Ã©tÃ© commence! Assurez-vous de nous <a href="http://www.quebecnatation.com/index.php?Section=CV" target="_BLANK" style="link">envoyer votre CV!</a></p>
+            <p>ATTENTION!!! Le début de la session d'été commence! Assurez-vous de nous <a href="http://www.quebecnatation.com/index.php?Section=CV" target="_BLANK" style="link">envoyer votre CV!</a></p>
         </div> --><br>
        <?PHP
 raisePresence();
