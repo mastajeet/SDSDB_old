@@ -33,7 +33,7 @@ include('staff/functions.php');
             <ul>
                 <?PHP
                 $Active = "class=\"active\"";
-                $Accueil="";
+                $Welcome="";
                 $Info="";
                 $Horaire="";
                 $Confirm_Heures="";
@@ -57,8 +57,8 @@ include('staff/functions.php');
                 
                 <li><a <?PHP echo $Horaire ?>  href="index.php?Section=Horaire">Mon Horaire</a></li>
                 <li><a <?PHP echo $Info ?>  href="index.php?Section=Info">Mes Info</a></li>
-                <li><a <?PHP echo $Liens ?>  href="index.php?Section=Confirm_Heures">Confirmation d'heures</a></li>
-                <li><a <?PHP echo $Liens ?>  href="index.php?Action=Delog">Se Déconnecter</a></li>
+                <li><a <?PHP echo $Confirm_Heures ?>  href="index.php?Section=Confirm_Heures">Confirmation d'heures</a></li>
+                <li><a <?PHP echo $Joindre ?>  href="index.php?Action=Delog">Se Dï¿½connecter</a></li>
                                 
             </ul>
             <div class="cl">&nbsp;</div>
