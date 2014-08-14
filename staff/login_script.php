@@ -5,6 +5,7 @@ if(isset($_POST['FORMIDEmploye']) && isset($_POST['FORMNAS'])){
 	$Rep = $SQL->FetchArray();
         if($_POST['FORMNAS']==get_vars('MP')){
             setcookie("Bureau", 1, time()+60*60*24*180);
+            setcookie("MP",get_vars('MP'), time()+60*60*24*180);
             
         }else{
             setcookie("Bureau", 0, time()+60*60*24*180);

@@ -12,7 +12,7 @@ date_default_timezone_set ('America/Montreal');
 
 if(isset($_COOKIE['IDEmploye']) AND !isset($_COOKIE['CIESDS'])){
 		setcookie('IDEmploye','',0);
-	DIE("Veuillez Rafraï¿½chir votre page");
+	DIE("Veuillez Rafraîchir votre page");
 }
 	
 if((isset($_COOKIE['CIESDS']) AND $_COOKIE['CIESDS']=="QC") OR (isset($_POST['FORMCIESDS']) AND $_POST['FORMCIESDS']=="QC")){
@@ -51,7 +51,7 @@ if(!isset($_COOKIE['IDEmploye'])){
 //$Req = "SELECT Status FROM employe WHERE IDEmploye=".$_COOKIE['IDEmploye'];
 //$SQL->SELECT($Req);
 //$Req = $SQL->FetchArray();
-    if($_COOKIE['Bureau']==1){
+    if($_COOKIE['Bureau']==1 and (isset($_COOKIE['MP']) AND $_COOKIE['MP']==get_vars('MP'))){
 	if(isset($Action))
 		include('action.php');
 	$MenuOutput = new html();
