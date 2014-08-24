@@ -779,7 +779,7 @@ $MainOutput->OpenCol();
 	$MainOutput->AddPic('f_close.png');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('100%',3);
-	$MainOutput->AddLink('index.php?Action=Delog','Se&nbsp;Dï¿½connecter');
+	$MainOutput->AddLink('index.php?Action=Delog','Se&nbsp;Déconnecter');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
