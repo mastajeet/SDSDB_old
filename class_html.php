@@ -38,11 +38,15 @@ class HTML
 	}
 	
 	
-	function addlink($link,$texte="",$target="",$class="link")	{
+	function addlink($link,$texte="",$target="",$class="link",$title=NULL)	{
 		if($texte==""){
 			$texte=$link;
 		}
-		$this->addoutput("<a href=\"".$link."\" target=\"".$target."\"><span class=$class>".$texte."</span></a>");
+        $titre = "";
+        if(!is_null($title)){
+            $titre = "title=\"".$title."\"";
+        }
+		$this->addoutput("<a href=\"".$link."\" target=\"".$target."\" ".$title."><span class=$class>".$texte."</span></a>");
 	}
 	
 	function addpic($pic,$Property="",$link="",$target="")	{

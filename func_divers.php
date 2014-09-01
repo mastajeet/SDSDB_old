@@ -29,4 +29,14 @@ function get_info($Table,$ID){
 	return $SQL->FetchArray();
 }
 
+function StringArrayToString($VarArray,$Separator=","){
+    #This will return a "Separated" string made of items in the array
+    $RetString = "";
+    foreach ($VarArray as $v){
+        $RetString .= $RetString .$v. $Separator;
+    }
+    return substr($RetString,0,-1);
+
+}
+
 ?>

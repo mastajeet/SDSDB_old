@@ -20,8 +20,15 @@ if(!isset($_GET['ToDo'])){
 		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=ToUnpay','Marquer une facture comme <b>Non-Payée</b>');
 		$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
-	
-	$MainOutput->OpenRow();
+
+    $MainOutput->OpenRow();
+    $MainOutput->OpenCol();
+    $MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=Force_Facture','Forcer la génération d\'une facture');
+    $MainOutput->CloseCol();
+    $MainOutput->CloseRow();
+
+
+    $MainOutput->OpenRow();
 		$MainOutput->OpenCol();
 		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=Modifie_Facture_CoteSeq','Modifier une cote et sequence de facture');
 		$MainOutput->CloseCol();
@@ -83,6 +90,10 @@ if(!isset($_GET['ToDo'])){
 			include('sa_change_employeno.php');
 		BREAK;
 		}
+
+        CASE "Force_Facture":{
+            include('sa_form_forcefacture.php');
+        }
 	}
 
 }
