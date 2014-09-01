@@ -38,7 +38,7 @@ if(isset($_POST['FORMInstallation']) and isset($_POST['FORMActionRadio'])){
                 while($Rep = $SQL->FetchArray()){
                     $Titre = "Sauveteur";
                     if($Rep[5])
-                        $Titre = "Deuxi√®me Sauveteur";
+                        $Titre = "DeuxiËme Sauveteur";
                     if($i>0 && $Shift[$i-1]['End'] == $Rep[0]){
                         $Shift[$i-1]['End'] = $Rep[1];
                         $Shift[$i-1]['Notes'] = substr($Shift[$i-1]['Notes'],0,-1);
@@ -66,7 +66,7 @@ if(isset($_POST['FORMInstallation']) and isset($_POST['FORMActionRadio'])){
                     if(is_ferie($v['Jour']*86400+$Info[1])){
                         if($v['Ferie']<>1){
                             $v['TXH'] = $v['TXH']*$v['Ferie'];
-                            $v['Notes'] = $v['Notes']." (x".$v['Ferie']." Journ√©e F√©ri√©e)";
+                            $v['Notes'] = $v['Notes']." (x".$v['Ferie']." JournÈe FÈriÈe)";
                         }
                     }
                     $Req = "INSERT INTO factsheet(`IDFacture`,`Start`,`End`,`Jour`,`TXH`,`Notes`) VALUES(".$IDFacture.",'".$v['Start']."','".$v['End']."','".$v['Jour']."','".$v['TXH']."','".addslashes($v['Notes'])."')";
@@ -101,14 +101,14 @@ if(isset($_POST['FORMActionRadio']) and $_POST['FORMActionRadio']=="GenerateFull
     $Req = "Select distinct Cote, Semaine, count(IDShift) as nb from installation join shift on installation.IDInstallation = shift.IDInstallation where !Facture and IDEmploye<>0 and Semaine+60*60*24*Jour>=".$FirstDayOfYear." AND  Semaine<=".$UpperDate."  group by Cote, Semaine order by Semaine ASC";
     $SQL->SELECT($Req);
 
-    $MainOutput->Addform('Shift n\'ayant pas √©t√© factur√©','index.php?Section=SuperAdmin&ToDo=Force_Facture');
+    $MainOutput->Addform('Shift n\'ayant pas ÈtÈ facturÈ','index.php?Section=SuperAdmin&ToDo=Force_Facture');
     $Radio = array();
     while($Rep = $SQL->FetchArray()){
         $Req2 = "Select IDFacture from facture where !Credit and Cote='".$Rep['Cote']."' and Semaine=".$Rep['Semaine'];
         $Desc = "<a href=index.php?Cote=".$Rep['Cote']." target=_BLANK>".get_associated_cote($Rep['Cote'])."</a>";
         $EndDate = get_end_dates(0,$Rep['Semaine']);
         $SQL2->Select($Req2);
-        $Desc .= " - <a href=index.php?Section=Display_Shift&Semaine=".$Rep['Semaine']." target=_BLANK1>".$EndDate['Start']."</a> (".$Rep['nb']." Shifts non factur√©s)";
+        $Desc .= " - <a href=index.php?Section=Display_Shift&Semaine=".$Rep['Semaine']." target=_BLANK1>".$EndDate['Start']."</a> (".$Rep['nb']." Shifts non facturÈs)";
 
         if($SQL2->NumRow()>0){
             $Rep2 = $SQL2->FetchArray();
@@ -118,8 +118,8 @@ if(isset($_POST['FORMActionRadio']) and $_POST['FORMActionRadio']=="GenerateFull
     }
     $MainOutput->inputradio('Installation',$Radio,$InsSelected,Null,"VER");
 
-    $ActionRadio = array('Marquer shift comme factur√©s'=>'Mark','G√©n√©rer la facture totale'=>'GenerateFull');
-    //$ActionRadio = array('Marquer shift comme factur√©s'=>'Mark','G√©n√©rer une facture partielle'=>'GenerateOnly','G√©n√©rer la facture totale'=>'GenerateFull');
+    $ActionRadio = array('Marquer shift comme facturÈs'=>'Mark','GÈnÈrer la facture totale'=>'GenerateFull');
+    //$ActionRadio = array('Marquer shift comme facturÈs'=>'Mark','GÈnÈrer une facture partielle'=>'GenerateOnly','GÈnÈrer la facture totale'=>'GenerateFull');
     $MainOutput->inputradio('ActionRadio',$ActionRadio);
     $MainOutput->inputhidden_env('Section','SuperAdmin');
 
