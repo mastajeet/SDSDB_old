@@ -53,10 +53,11 @@ if(!$Info['Materiel']){
 	$MainOutput->OpenCol();
 if($Modifie)
  		$MainOutput->addlink('index.php?Section=Factsheet&IDFactsheet='.$Rep['IDFactsheet'],'<img border=0 src=b_edit.png>');
-	$CurrentJour=1;
+    $CurrentJour=1;
     $CurrentDate = 	$Info['Semaine'];
     while($CurrentJour<=$Rep['Jour']){
         $CurrentDate+=get_day_length($CurrentDate);
+        $CurrentJour++;
     }
     $MainOutput->AddTexte(date('j-m-Y',$CurrentDate));
 
