@@ -58,7 +58,6 @@ if($Modifie)
     while($CurrentJour<=$Rep['Jour']){
         $CurrentDate+=get_day_length($CurrentDate);
     }
-true;
     $MainOutput->AddTexte(date('j-m-Y',$CurrentDate));
 
 	$MainOutput->CloseCol();
