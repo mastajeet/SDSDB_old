@@ -162,12 +162,20 @@ SWITCH($Section){
 	CASE "Add_Qualif":{
 		include('qualif_employe_form.php');
 	BREAK;
-	}	
-	
-	CASE "Default_Client":{
-		include('default_client.php');
-	BREAK;
-	}	
+	}
+
+    CASE "Default_Client":{
+        include('default_client.php');
+        BREAK;
+    }
+
+    CASE "Client_ActivateInactivate":{
+        include('Client_ActiveInactive.php');
+        BREAK;
+    }
+
+
+
 	
 	CASE "Paiement":{
 		include('paiement_form.php');
