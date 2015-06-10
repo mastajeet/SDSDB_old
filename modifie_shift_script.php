@@ -1,7 +1,10 @@
 <?PHP
+
 if(isset($_POST['IDShift'])){
 	$Info = get_shift_info($_POST['IDShift']);
-	$_GET['Semaine'] = $Info['Semaine'];
+
+
+    $_GET['Semaine'] = $Info['Semaine'];
 	$SQL = new SQLclass();
 	$SQL2 = new SQLclass();
 	if($_POST['FORMRec']==""){
@@ -14,9 +17,28 @@ if(isset($_POST['IDShift'])){
 	
 	if(!isset($_POST['FORMIDEmploye']))
 		$_POST['IDEmploye']=NULL;
-        $EndWeek = get_next_sunday($_POST['FORMRec']-2, $Info['Semaine']);
-       	if($_POST['FORMStart2']=="" || $_POST['FORMEnd2']==0){
-		
+
+
+    //Trouver ce qui a Ã©tÃ© mis Ã  jour par rapport au shift dans la BD
+    $Difference = array();
+
+    $Difference["Salaire"] = true;
+    $Difference["THX"]= true;
+    $Difference["IDEmploye"] = true;
+
+    if($_POST['FORMSalaire']==$Info['Salaire'])
+        $Difference["Salaire"] = false;
+    if($_POST['FORMTXH']==$Info['TXH'])
+        $Difference["TXH"] = false;
+    if($_POST['FORMIDEmploye']==$Info['IDEmploye'])
+        $Difference["IDEmploye"] = false;
+
+
+
+    $EndWeek = get_next_sunday($_POST['FORMRec']-2, $Info['Semaine']);
+
+    if($_POST['FORMStart2']=="" || $_POST['FORMEnd2']==0){
+
 		while($Info['Semaine']<=$EndWeek){
 			$Req = "SELECT IDShift FROM shift WHERE Semaine='".$Info['Semaine']."' AND IDInstallation = '".$_POST['IDInstallation']."' AND Jour='".$_POST['FORMJour']."' AND Start = '".$Info['Start']."' AND Assistant = '".$_POST['FORMAssistant']."'";
 			$SQL->Select($Req);
@@ -28,64 +50,92 @@ if(isset($_POST['IDShift'])){
 		}
 	}else{
 	
-		//Je ramasse ce qui caractérise le shift Jour, Début, fin, piscine
+		//Je ramasse ce qui caractï¿½rise le shift Jour, Dï¿½but, fin, piscine
 
 		$OldStart = $Info['Start'];
 		$OldEnd = $Info['End'];
 		$Start = 60*($_POST['FORMStart1']+60*$_POST['FORMStart2']);
 		$End = 60*($_POST['FORMEnd1']+60*$_POST['FORMEnd2']);
-		while($Info['Semaine']<=$EndWeek){		
-		//Requete qui va chercher le ID du shift selon les caractéristique du shift sélecitonné
-		// il faut noter qu'ici seulement les shift qui ont le même début seront sélectionnés
-			$Req = "SELECT IDShift FROM shift WHERE Semaine='".$Info['Semaine']."' AND IDInstallation = '".$_POST['IDInstallation']."' AND Jour='".$_POST['FORMJour']."' AND Start = '".$Info['Start']."' AND Assistant = '".$_POST['FORMAssistant']."' ";
-			$SQL->Select($Req);
-			$IDShift = $SQL->FetchArray();
-		
-		if(isset($_POST['FORMAttach'])){
-			// REQUETE QUI VÉRIFIE S'IL Y A UN SHIFT QUI FINI TOUT DE SUITE AVANT
+
+        $Queries = array();
+        $NoError = true;
+        $ErrorStr = "";
+		while($Info['Semaine']<=$EndWeek) {
+            //Requete qui va chercher le ID du shift selon les caractï¿½ristique du shift sï¿½lecitonnï¿½
+            // il faut noter qu'ici seulement les shift qui ont le mï¿½me dï¿½but seront sï¿½lectionnï¿½s
+            $Req = "SELECT IDShift, IDEmploye, TXH, Salaire FROM shift WHERE Semaine='" . $Info['Semaine'] . "' AND IDInstallation = '" . $_POST['IDInstallation'] . "' AND Jour='" . $_POST['FORMJour'] . "' AND Start = '" . $Info['Start'] . "' AND Assistant = '" . $_POST['FORMAssistant'] . "' ";
+            $SQL->Select($Req);
+            $TargetShift = $SQL->FetchArray();
+            $IDShift = $TargetShift['IDShift'];
+
+        /** Lors de la modification de juin 2015, j'ai ajouter ces conditions...je ne sais pas si je devrais les implÃ©menter
+
+            if (($TargetShift['Salaire'] <> $Info['Salaire']) AND $Difference['Salaire']) {
+                $NoError = false;
+                $ErrorStr .= "";
+            }
+            if (($TargetShift['TXH'] <> $Info['TXH']) AND $Difference['TXH']) {
+                $ErrorStr .= "";
+                $NoError = false;
+            }
+           **/
+
+            if (($TargetShift['IDEmploye'] <> 0 or $TargetShift['IDEmploye'] <> "") and (($TargetShift['IDEmploye'] <> $Info['IDEmploye']) AND $Difference['IDEmploye'])){
+                $EmployeInfo = get_info('employe',$TargetShift['IDEmploye']);
+
+                $ErrorStr .= "Vous tentez de remplacer ".$EmployeInfo['Prenom']." ".$EmployeInfo['Nom']." la semaine du ".get_end_dates(0,$Info['Semaine'])['Start']."<br>";
+                $NoError = false;
+            }
+
+
+
+            if(isset($_POST['FORMAttach'])){
+			// REQUETE QUI Vï¿½RIFIE S'IL Y A UN SHIFT QUI FINI TOUT DE SUITE AVANT
 			
 			$Req = "SELECT IDShift FROM shift WHERE IDInstallation = '".$_POST['IDInstallation']."' && `Jour`='".$_POST['FORMJour']."' && `End`='".$OldStart."'  && `Semaine`='".$Info['Semaine']."'&& Assistant='".$_POST['FORMAssistant']."' ";
 			$SQL->SELECT($Req);
 			while($Rep = $SQL->FetchArray()){
-				$Req2 = "UPDATE shift SET `End`= '".$Start."' WHERE `IDShift`='".$Rep['IDShift']."'";
-				$SQL2->UPDATE($Req2);
+                $Queries[] = "UPDATE shift SET `End`= '".$Start."' WHERE `IDShift`='".$Rep['IDShift']."'";
+
+                //$SQL2->UPDATE($Req2);
 			}
 			
-			// REQUETE QUI VÉRIFIE S'IL Y A UN SHIFT QUI COMMENCE TOUT DE SUITE APRÈS
+			// REQUETE QUI Vï¿½RIFIE S'IL Y A UN SHIFT QUI COMMENCE TOUT DE SUITE APRï¿½S
 			
 			$Req = "SELECT IDShift FROM shift WHERE IDInstallation = '".$_POST['IDInstallation']."' && `Jour`='".$_POST['FORMJour']."' && `Start`='".$OldEnd."' && `Semaine`='".$Info['Semaine']."' && Assistant='".$_POST['FORMAssistant']."'";
 			$SQL->SELECT($Req);
 			while($Rep = $SQL->FetchArray()){
-				$Req2 = "UPDATE shift SET `Start`= '".$End."' WHERE `IDShift`='".$Rep['IDShift']."'";
-				$SQL2->UPDATE($Req2);
+                $Queries[] = "UPDATE shift SET `Start`= '".$End."' WHERE `IDShift`='".$Rep['IDShift']."'";
+				//$SQL2->UPDATE($Req2);
 			}
 		}	
 			
 			
-			// REQUETE QUI VÉRIFIE SI UN SHIFT ENGLOBE UN AUTRE AVANT AU COMPLET 
+			// REQUETE QUI Vï¿½RIFIE SI UN SHIFT ENGLOBE UN AUTRE AVANT AU COMPLET 
 			
-			$Req = "SELECT IDShift FROM shift WHERE IDInstallation = '".$_POST['IDInstallation']."' && `Jour`='".$_POST['FORMJour']."' && `Start`='".$Start."' && `Semaine`='".$Info['Semaine']."' && Assistant='".$_POST['FORMAssistant']."' && IDShift<>'".$IDShift[0]."'";
+			$Req = "SELECT IDShift FROM shift WHERE IDInstallation = '".$_POST['IDInstallation']."' && `Jour`='".$_POST['FORMJour']."' && `Start`='".$Start."' && `Semaine`='".$Info['Semaine']."' && Assistant='".$_POST['FORMAssistant']."' && IDShift<>'".$IDShift."'";
 			$SQL->SELECT($Req);
 			
 			while($Rep = $SQL->FetchArray()){
-			
-				$Req2 = "DELETE FROM shift WHERE `IDShift`='".$Rep['IDShift']."'";
-				$SQL2->QUERY($Req2);
+
+                $Queries[] = "DELETE FROM shift WHERE `IDShift`='".$Rep['IDShift']."'";
+				//$SQL2->QUERY($Req2);
 			}
 			
-			// REQUETE QUI VÉRIFIE SI UN SHIFT ENGLOBE UN AUTRE APRÈS AU COMPLET
+			// REQUETE QUI Vï¿½RIFIE SI UN SHIFT ENGLOBE UN AUTRE APRï¿½S AU COMPLET
 			
-			$Req = "SELECT IDShift FROM shift WHERE IDInstallation = '".$_POST['IDInstallation']."' && `Jour`='".$_POST['FORMJour']."' && `End`='".$End."'  && `Semaine`='".$Info['Semaine']."'&& Assistant='".$_POST['FORMAssistant']."' && IDShift<>'".$IDShift[0]."'";
+			$Req = "SELECT IDShift FROM shift WHERE IDInstallation = '".$_POST['IDInstallation']."' && `Jour`='".$_POST['FORMJour']."' && `End`='".$End."'  && `Semaine`='".$Info['Semaine']."'&& Assistant='".$_POST['FORMAssistant']."' && IDShift<>'".$IDShift."'";
 			$SQL->SELECT($Req);
 			while($Rep = $SQL->FetchArray()){
-		
-		
-				$Req2 = "DELETE FROM shift WHERE `IDShift`='".$Rep['IDShift']."'";
-				$SQL2->QUERY($Req2);
+
+
+                $Queries[] = "DELETE FROM shift WHERE `IDShift`='".$Rep['IDShift']."'";
+				//$SQL2->QUERY($Req2);
 			}
 
-		
-			$Req = "UPDATE shift SET
+
+
+            $Queries[] =  "UPDATE shift SET
 			`Start`='".$Start."',
 			`End`='".$End."',
 			`Jour`='".$_POST['FORMJour']."',
@@ -96,17 +146,28 @@ if(isset($_POST['IDShift'])){
 			`Warn`='".addslashes($_POST['FORMWarn'])."',
 			`IDEmploye`='".addslashes($_POST['FORMIDEmploye'])."',
 			`Confirme` ='".$_POST['FORMConfirme']."'
-			WHERE `IDShift`='".$IDShift[0]."'";
-		$SQL->QUERY($Req);
-		
-		$Req = "UPDATE remplacement SET
+			WHERE `IDShift`='".$IDShift."'";
+		//$SQL->QUERY($Req);
+
+            $Queries[] =  "UPDATE remplacement SET
 			`IDEmployeE` = '".$_POST['FORMIDEmploye']."'
-			WHERE `IDShift` = '".$IDShift[0]."'";
+			WHERE `IDShift` = '".$IDShift."'";
                 
-		$SQL->QUERY($Req);
+		//$SQL->QUERY($Req);
 			$Info['Semaine'] = get_next_sunday(0,$Info['Semaine']);
 		}
-	}
+
+        if($NoError){
+            foreach($Queries as $Query){
+               $SQL->QUERY($Query);
+            }
+        }ELSE{
+            echo 'il y a une erreur dans votre modification en batch...';
+            echo "<br>";
+            echo $ErrorStr;
+            die();
+        }
+    }
 }
 
 	?>
