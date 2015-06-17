@@ -83,7 +83,7 @@ if(isset($_POST['IDShift'])){
             if (($TargetShift['IDEmploye'] <> 0 or $TargetShift['IDEmploye'] <> "") and (($TargetShift['IDEmploye'] <> $Info['IDEmploye']) AND $Difference['IDEmploye'])){
                 $EmployeInfo = get_info('employe',$TargetShift['IDEmploye']);
 
-                $ErrorStr .= "Vous tentez de remplacer ".$EmployeInfo['Prenom']." ".$EmployeInfo['Nom']." la semaine du ".get_end_dates(0,$Info['Semaine'])['Start']."<br>";
+             //   $ErrorStr .= "Vous tentez de remplacer ".$EmployeInfo['Prenom']." ".$EmployeInfo['Nom']." la semaine du ".get_end_dates(0,$Info['Semaine'])['Start']."<br>";
                 $NoError = false;
             }
 
