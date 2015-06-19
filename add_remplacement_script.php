@@ -38,16 +38,21 @@ if(!isset($_POST['FORMLastminute']))
             $TO = get_last_sunday(0,$THDate)+intval(date('w',$THDate))*60*60*24;
             
         }
-	
-	
-	$Req = "SELECT 
+
+
+
+
+    $Req = "INSERT INTO `vacances` (`IDEmploye`, `DebutVacances`, `FinVacances`, `Raison`) VALUES (".$_POST['FORMIDEmployeS'].",".$FROM.",".$TO.",'".addslashes($_POST['FORMRaison'])."')";
+       $SQL->SELECT($Req);
+
+    $Req = "SELECT
 	shift.IDShift,shift.Semaine + shift.Jour*60*60*24 as T, installation.Nom, shift.Start, shift.End 
 	FROM shift JOIN installation on shift.IDInstallation = installation.IDInstallation
 	WHERE IDEmploye = ".$_POST['FORMIDEmployeS']." AND Semaine + Jour*60*60*24 >= ".$FROM." AND Semaine + Jour*60*60*24 <= ".$TO."
 	ORDER BY Semaine+Jour*60*60*24+Start ASC";
-	$SQL->SELECT($Req);
-	
-if($SQL->NumRow()==0){
+    $SQL->SELECT($Req);
+
+    if($SQL->NumRow()==0){
 	$Rapport->OpenRow();
 	$Rapport->OpenCol(300,3);
 	$Rapport->AddTexte('Aucun');
@@ -72,6 +77,9 @@ $AUCUN = TRUE;
 	".$Today.",
 	".$_POST['FORMLastminute'].")";
 	$SQL2->INSERT($Req2);
+
+
+
 	$IDShifts .= $Rep['IDShift'].",";
 	
 		
@@ -95,7 +103,7 @@ $AUCUN = TRUE;
 
 
 	$Rapport->OpenCol();
-	$Rapport->addtexte($Start['G']."h".$Start['i']." à ".$End['G']."h".$End['i']);
+	$Rapport->addtexte($Start['G']."h".$Start['i']." ï¿½ ".$End['G']."h".$End['i']);
 	$Rapport->CloseCol();
 	
 	$Rapport->CloseRow();
@@ -115,7 +123,7 @@ if($SQL->NumRow()<>0)
 }else{
 		$Rapport->OpenRow();
 		$Rapport->OpenCol('100%',3);
-		$Rapport->AddTexte('Il manque quelques données','Warning');
+		$Rapport->AddTexte('Il manque quelques donnï¿½es','Warning');
 		$Rapport->CloseCol();
 		$Rapport->CloseRow();
 		$AUCUN=TRUE;
@@ -123,10 +131,10 @@ if($SQL->NumRow()<>0)
 $Rapport->CloseTable();
 $Time = get_date(time());
 $RapportEmail .= "<tr><td width=450 colspan=3><br><font face=tahoma size=2><b>Raison:</b> ".$_POST['FORMRaison']."</font></td></tr>";
-$RapportEmail .= "<tr><td width=450 colspan=3><font face=tahoma size=2><b>Demandé:</b> ".$InfoEmpl2['Prenom']." ".$InfoEmpl2['Nom']."</font></td></tr>";
-$RapportEmail .= "<tr><td width=450 colspan=3><font face=tahoma size=2><b>Demandé le:</b> ".$Time['d']."-".$Month[intval($Time['m'])]."-".$Time['Y']."</font></td></tr>";
-$RapportEmail .= "<tr><td width=450 colspan=3><font face=tahoma size=2><b>Pour tous problèmes, appelle nous au (418) 687-4047</font></b></td></tr></table>";
-//Possibilitï¿½ d'envoyer un email
+$RapportEmail .= "<tr><td width=450 colspan=3><font face=tahoma size=2><b>Demandï¿½:</b> ".$InfoEmpl2['Prenom']." ".$InfoEmpl2['Nom']."</font></td></tr>";
+$RapportEmail .= "<tr><td width=450 colspan=3><font face=tahoma size=2><b>Demandï¿½ le:</b> ".$Time['d']."-".$Month[intval($Time['m'])]."-".$Time['Y']."</font></td></tr>";
+$RapportEmail .= "<tr><td width=450 colspan=3><font face=tahoma size=2><b>Pour tous problï¿½mes, appelle nous au (418) 687-4047</font></b></td></tr></table>";
+//Possibilitïé d'envoyer un email
 if(!$AUCUN AND $_POST['FORMEmail'])
 	send_mail($InfoEmpl['Email'],"Demande de remplacement reçue",$RapportEmail,TRUE);
 ?>

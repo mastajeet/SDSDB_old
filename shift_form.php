@@ -9,15 +9,23 @@ if($Section="Shift_Form"){
 }else{
 	$MainOutput->inputhidden_env('Action','Horshift');
 }
-
+$WhereVacances = "";
 if(isset($_GET['IDHorshift'])){
 	$Info = get_horshift_info($_GET['IDHorshift']);
 	$MainOutput->inputhidden_env('Update',TRUE);
 	$MainOutput->inputhidden_env('IDHorshift',$_GET['IDHorshift']);
 }elseif(isset($_GET['IDShift'])){
-	$Info = get_shift_info($_GET['IDShift']);
-	$MainOutput->inputhidden_env('IDInstallation',$Info['IDInstallation']);
-	;$MainOutput->inputhidden_env('Update',TRUE);
+    $Info = get_shift_info($_GET['IDShift']);
+    $ShiftDay = $Info['Semaine'];
+
+    for($i=0; $i<$Info['Jour'], $i++;){
+        $ShiftDay += get_day_length($ShiftDay);
+    }
+    $WhereVacances = "AND IDEmploye NOT IN(SELECT IDEmploye FROM vacances WHERE DebutVacances<=".$ShiftDay." and FinVacances>= ".$ShiftDay.")";
+
+
+        $MainOutput->inputhidden_env('IDInstallation',$Info['IDInstallation']);
+	$MainOutput->inputhidden_env('Update',TRUE);
 	$MainOutput->inputhidden_env('IDShift',$_GET['IDShift']);
 }else{
 	$MainOutput->inputhidden_env('Update',FALSE);
@@ -28,7 +36,7 @@ $MainOutput->inputselect('Jour',$CJour,$Info['Jour'],'Jour');
 $MainOutput->inputtime('Start','Début',$Info['Start']);
 $MainOutput->inputtime('End','Fin',$Info['End']);
 $MainOutput->flag('Assistant',$Info['Assistant']);
-$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ORDER BY Nom ASC";
+$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ".$WhereVacances." ORDER BY Nom ASC";
 $MainOutput->inputselect('IDEmploye',$Req,$Info['IDEmploye'],'Sauveteur');
 $MainOutput->inputtext('Salaire','Salaire',4,$Info['Salaire']);
 $MainOutput->inputtext('TXH','Taux Horaire',4,$Info['TXH']);

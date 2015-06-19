@@ -37,16 +37,22 @@ SWITCH($Action){
 				
 	BREAK;
 	}
-	
-	
+
+
+        CASE "Delete_Vacances":{
+            include('delete_vacances_script.php');
+            BREAK;
+        }
+
+
 	CASE "Inspection":{
-	if($_POST['UPDATE'])
-		include('modifie_inspection_script.php');
-	else
-		include('add_inspection_script.php');
-	BREAK;
-	}
-	
+        if($_POST['UPDATE'])
+            include('modifie_inspection_script.php');
+        else
+            include('add_inspection_script.php');
+        BREAK;
+    }
+
 	CASE "Generate_FactureInspectiont":{
 		include('generate_facturemateriel.php');
 	BREAK;
@@ -167,7 +173,7 @@ SWITCH($Action){
 		
 	CASE "Add_Remplacement":{
 		include('add_remplacement_script.php');
-		$_GET['Section'] = "Remplacement";
+        $_GET['Section'] = "Remplacement";
 	BREAK;
 	}
 	
