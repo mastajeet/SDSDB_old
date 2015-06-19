@@ -44,7 +44,6 @@ if(!isset($_POST['FORMLastminute']))
 
     $Req = "INSERT INTO `vacances` (`IDEmploye`, `DebutVacances`, `FinVacances`, `Raison`) VALUES (".$_POST['FORMIDEmployeS'].",".$FROM.",".$TO.",'".addslashes($_POST['FORMRaison'])."')";
        $SQL->SELECT($Req);
-echo "$Req";
     $Req = "SELECT
 	shift.IDShift,shift.Semaine + shift.Jour*60*60*24 as T, installation.Nom, shift.Start, shift.End 
 	FROM shift JOIN installation on shift.IDInstallation = installation.IDInstallation
