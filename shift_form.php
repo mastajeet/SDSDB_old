@@ -35,7 +35,7 @@ $MainOutput->inputselect('Jour',$CJour,$Info['Jour'],'Jour');
 $MainOutput->inputtime('Start','Début',$Info['Start']);
 $MainOutput->inputtime('End','Fin',$Info['End']);
 $MainOutput->flag('Assistant',$Info['Assistant']);
-$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ".$WhereVacances." ORDER BY Nom ASC";
+$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ".$WhereVacances." ORDER BY Nom ASC, Prenom ASC";
 $MainOutput->inputselect('IDEmploye',$Req,$Info['IDEmploye'],'Sauveteur');
 $MainOutput->inputtext('Salaire','Salaire',4,$Info['Salaire']);
 $MainOutput->inputtext('TXH','Taux Horaire',4,$Info['TXH']);
