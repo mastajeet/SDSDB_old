@@ -18,13 +18,12 @@ if(isset($_GET['IDHorshift'])){
     $Info = get_shift_info($_GET['IDShift']);
     $ShiftDay = $Info['Semaine'];
 
-    for($i=0; $i<$Info['Jour'], $i++;){
+    for($i=0; $i<$Info['Jour']; $i++){
         $ShiftDay += get_day_length($ShiftDay);
     }
     $WhereVacances = "AND IDEmploye NOT IN(SELECT IDEmploye FROM vacances WHERE DebutVacances<=".$ShiftDay." and FinVacances>= ".$ShiftDay.")";
 
-
-        $MainOutput->inputhidden_env('IDInstallation',$Info['IDInstallation']);
+    $MainOutput->inputhidden_env('IDInstallation',$Info['IDInstallation']);
 	$MainOutput->inputhidden_env('Update',TRUE);
 	$MainOutput->inputhidden_env('IDShift',$_GET['IDShift']);
 }else{
