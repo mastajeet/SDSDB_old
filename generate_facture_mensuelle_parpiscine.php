@@ -7,10 +7,10 @@ $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
 	$SQL = new SQLclass();
 	$SQL2 = new SQLclass();
 	$SQLins = new SQLClass();
-	
+
 	$ThisMonth = date('n',time());
 	$ThisYear = date('Y',time());
-	
+
 	if($ThisMonth==1){
 		$LastMonth = 12;
 		$LastMonthYear = $ThisYear -1;
@@ -22,51 +22,51 @@ $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
 	$FirstDayOfLastMonth = mktime(0,0,0,$LastMonth,1,$LastMonthYear);
 	$FirstWeekOfTheMonth = get_last_sunday(0,$FirstDayOfLastMonth);
 	$FirstWeekDayOfTheMonth = date('w',$FirstDayOfLastMonth);
-	
+
 	$LastDayOfLastMonth = mktime(0,0,0,$ThisMonth,1,$ThisYear) - 24*60*60;
 	$LastWeekOfTheMonth = get_last_sunday(0,$LastDayOfLastMonth);
 	$LastWeekDayOfTheMonth = date('w',$LastDayOfLastMonth);
-	
+
+
 	$InstallationArray = get_installation_bycote($_POST['FORMCote']);
+    foreach ($InstallationArray as $k=>$v){
 
-        foreach ($InstallationArray as $k=>$v){
 
 
-			
 			$IDFacture = add_facture($_POST['FORMCote'],$FirstWeekOfTheMonth);
-			
 			//TraitementPremièreSemaine
-				
-			$Req = "SELECT Start, End, Jour, shift.TXH, installation.Nom, shift.Assistant, Ferie FROM shift JOIN installation JOIN client on shift.IDInstallation = installation.IDInstallation AND client.IDClient = installation.IDClient WHERE shift.IDInstallation = ".$k." AND Semaine=".$FirstWeekOfTheMonth." and Jour >= $FirstWeekDayOfTheMonth ORDER BY installation.Nom ASC, Jour ASC, Assistant ASC, Start ASC";
-			$SQL->SELECT($Req);
-			$i =0;
+
+        $Req = "SELECT Start, End, Jour, shift.TXH, installation.Nom, shift.Assistant, Ferie FROM shift JOIN installation JOIN client on shift.IDInstallation = installation.IDInstallation AND client.IDClient = installation.IDClient WHERE shift.IDInstallation = ".$k." AND Semaine=".$FirstWeekOfTheMonth." and Jour >= $FirstWeekDayOfTheMonth ORDER BY installation.Nom ASC, Jour ASC, Assistant ASC, Start ASC";
+                $SQL->SELECT($Req);
+
+            $i =0;
 			$Shift = array();
-		
+
 			while($Rep = $SQL->FetchArray()){
-					$Titre = "Sauveteur";
+			$Titre = "Sauveteur";
 				if($Rep[5])
 					$Titre = "Deuxième Sauveteur";
 				if($i>0 && $Shift[$i-1]['End'] == $Rep[0])
 					$Shift[$i-1]['End'] = $Rep[1];
 				else{
 					$Shift[$i] = array('Start'=>$Rep[0],'End'=>$Rep[1],'Jour'=>$Rep[2],'TXH'=>$Rep[3],'Notes'=>$Titre.": ".$Rep[4],'Ferie'=>$Rep[6]);
-					
+
 					$i++;
 				}
-				
+
 			}
-	
+
 			foreach($Shift as $v){
-				
-				
+
+
 				$v['End'] = $v['End'] - bcmod($v['End'],36);
 				$v['Start'] = $v['Start'] - bcmod($v['Start'],36);
-				
-				
-				
+
+
+
 				if($v['Start']==0 and $v['End']==14400)
 					$v['Notes'] = $v['Notes']." (Minimum 4h)";
-					
+
 				if(is_ferie($v['Jour']*86400+$FirstWeekOfTheMonth)){
 					if($v['Ferie']<>1){
 						$v['TXH'] = $v['TXH']*$v['Ferie'];
@@ -77,22 +77,19 @@ $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
 			$SQL->Insert($Req);
 			}
 			update_facture_balance($IDFacture);
-		
-		
+
+
 		$Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$FirstWeekOfTheMonth." AND shift.IDInstallation=".$k." AND Jour >= $FirstWeekDayOfTheMonth ";
-		$SQL->SELECT($Req);	
-			
-			
+		$SQL->SELECT($Req);
+
+
 			$CurrentWeek = get_next_sunday(0,$FirstWeekOfTheMonth);
 			//TraitementSemaineSubsequentes
 			$SemaineMultiplicateur = 1;
 			while($CurrentWeek < $LastWeekOfTheMonth){
 
-
-		
-					
-				$Req = "SELECT Start, End, Jour, shift.TXH, installation.Nom, shift.Assistant, Ferie FROM shift JOIN installation JOIN client on shift.IDInstallation = installation.IDInstallation AND client.IDClient = installation.IDClient WHERE shift.IDInstallation = ".$k." AND Semaine=".$CurrentWeek." ORDER BY installation.Nom ASC, Jour ASC, Assistant ASC, Start ASC";
-					$SQL->SELECT($Req);
+                $Req = "SELECT Start, End, Jour, shift.TXH, installation.Nom, shift.Assistant, Ferie FROM shift JOIN installation JOIN client on shift.IDInstallation = installation.IDInstallation AND client.IDClient = installation.IDClient WHERE shift.IDInstallation = ".$k." AND Semaine=".$CurrentWeek." ORDER BY installation.Nom ASC, Jour ASC, Assistant ASC, Start ASC";
+										$SQL->SELECT($Req);
 					$i =0;
 					$Shift = array();
 				
@@ -132,11 +129,12 @@ $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
 					$SQL->Insert($Req);
 					}
 					update_facture_balance($IDFacture);
-				
-				
-				$Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$CurrentWeek." AND Cote='".$_POST['FORMCote'];
-				$SQL->SELECT($Req);
+
+
+                $Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$CurrentWeek." AND Cote='".$_POST['FORMCote']."'";
+				                $SQL->SELECT($Req);
 				$CurrentWeek = get_next_sunday(0,$CurrentWeek);
+
 				$SemaineMultiplicateur++;
 			}
 			
@@ -186,7 +184,7 @@ $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
 					update_facture_balance($IDFacture);
 			
 				
-				$Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$CurrentWeek." AND Jour <= $LastWeekDayOfTheMonth  AND Cote='".$_POST['FORMCote'];
+				$Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$CurrentWeek." AND Jour <= $LastWeekDayOfTheMonth  AND Cote='".$_POST['FORMCote']."'";
 				$SQL->SELECT($Req);
 		
 	 }
