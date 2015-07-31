@@ -12,7 +12,7 @@ date_default_timezone_set ('America/Montreal');
 
 if(isset($_COOKIE['IDEmploye']) AND !isset($_COOKIE['CIESDS'])){
 		setcookie('IDEmploye','',0);
-	DIE("Veuillez Rafraîchir votre page");
+	DIE("Veuillez Rafraï¿½chir votre page");
 }
 	
 if((isset($_COOKIE['CIESDS']) AND $_COOKIE['CIESDS']=="QC") OR (isset($_POST['FORMCIESDS']) AND $_POST['FORMCIESDS']=="QC")){
@@ -39,6 +39,8 @@ include('func_date.php');
 include('func_facture.php');
 include('func_superadmin.php');
 include('func_inspection.php');
+include_once('app/shift.php');
+include_once('app/logshift.php');
 $WarningOutput= new html;
 $MainOutput = new html();
 
