@@ -15,12 +15,11 @@ class LogShift extends Shift
     {
         castFromParent($this, $Shift);
         $this->Action = $Action;
-        $this->OrdinateurNom = gethostbyaddr();
+        $this->OrdinateurNom = php_uname('n');
         $this->RequestURI = $_SERVER['REQUEST_URI'];
         $this->DateAction = time();
         $this->IDEmployeAction = $_COOKIE['IDEmploye'];
         $this->IP = $_SERVER['REMOTE_ADDR'];
-
         $this->save();
     }
 
