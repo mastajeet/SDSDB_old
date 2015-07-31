@@ -66,7 +66,9 @@ $AUCUN = TRUE;
 	$IDShifts="";
 	
 	while($Rep = $SQL->FetchArray()){
-		
+
+
+	$SQL2->Delete_data("DELETE FROM remplacement WHERE IDShift = ".$Rep['IDShift']);
 	$Req2 = "INSERT INTO remplacement(`IDEmployeS`,`IDShift`,`Raison`,`Talkedto`,`Asked`,`Lastminute`) 
 	VALUES(
 	".$_POST['FORMIDEmployeS'].",
