@@ -5,6 +5,7 @@ if(!isset($_GET['ToPrint']))
 $SQL2 = new sqlclass();
 $SemD = get_date($_GET['Semaine']);
 $CurrentDay = $_GET['Semaine'];
+$i=0;
 while($i<=5){
  $CurrentDay+= get_day_length($CurrentDay);
 	$i++;
