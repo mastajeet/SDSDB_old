@@ -15,7 +15,7 @@ class LogShift extends Shift
     {
         castFromParent($this, $Shift);
         $this->Action = $Action;
-        $this->OrdinateurNom = gethostname();
+        $this->OrdinateurNom = gethostbyaddr();
         $this->RequestURI = $_SERVER['REQUEST_URI'];
         $this->DateAction = time();
         $this->IDEmployeAction = $_COOKIE['IDEmploye'];
