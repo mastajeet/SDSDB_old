@@ -3,6 +3,10 @@
 if (isset($_POST['IDShift'])) {
     $Info = get_shift_info($_POST['IDShift']);
 
+    if($_POST['FORMIDEmploye']==" "){
+        $_POST['FORMIDEmploye']=0;
+    }
+
 
     $_GET['Semaine'] = $Info['Semaine'];
     $SQL = new SQLclass();
