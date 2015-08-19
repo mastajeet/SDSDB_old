@@ -7,7 +7,8 @@ function get_employe_horaire($IDEmploye,$Semaine){
 	if(!is_array($Semaine)){
 		$Semaine = array($Semaine);
 	}
-	
+	echo "<!-- généré le ".date("d-m-Y",time())."--!>";
+    
 	$MainOutput->OpenTable(700);
 	$Month = get_month_list('court');
 	foreach($Semaine as $v){
