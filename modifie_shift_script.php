@@ -7,6 +7,11 @@ if (isset($_POST['IDShift'])) {
         $_POST['FORMIDEmploye']=0;
     }
 
+    if(!isset($_POST['FORMTXH']) OR $_POST['FORMTXH']=="")
+        $_POST['FORMTXH']=0;
+
+    if(!isset($_POST['FORMSalaire']) OR $_POST['FORMSalaire']=="")
+        $_POST['FORMSalaire']=0;
 
     $_GET['Semaine'] = $Info['Semaine'];
     $SQL = new SQLclass();
