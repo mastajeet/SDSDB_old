@@ -136,7 +136,7 @@ $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
 					update_facture_balance($IDFacture);
 				
 				
-				$Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$CurrentWeek." AND Cote='".$_POST['FORMCote'];
+				$Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$CurrentWeek." AND Cote='".$_POST['FORMCote']."'";
 				$SQL->SELECT($Req);
 				$CurrentWeek = get_next_sunday(0,$CurrentWeek);
 				$SemaineMultiplicateur++;
@@ -188,7 +188,7 @@ $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
 					update_facture_balance($IDFacture);
 			
 				
-				$Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$CurrentWeek." AND Jour <= $LastWeekDayOfTheMonth  AND Cote='".$_POST['FORMCote'];
+				$Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$CurrentWeek." AND Jour <= $LastWeekDayOfTheMonth  AND Cote='".$_POST['FORMCote']."'";
 				$SQL->SELECT($Req);
 		
 	 }
@@ -220,7 +220,7 @@ $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
 	$MainOutput->OpenRow();
 	$MainOutput->Opencol();
 		$MainOutput->addform('Ajouter une facture');
-		$MainOutput->inputhidden_env('Section','Generate_Facture_Mensuelle_currentmonth');
+		$MainOutput->inputhidden_env('Section','Generate_Facture_Mensuelle_CurrentMonth');
 		$MainOutput->InputRadio('GenerateCote',$Installation,'','Piscine','VER');
 		$MainOutput->formsubmit('Créer');
 	$MainOutput->CloseCol();
