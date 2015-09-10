@@ -249,10 +249,6 @@ SWITCH($Section){
 	BREAK;
 	}
 	
-	
-	
-	
-	
 	CASE "Employe_Report":{
 		include('employe_report.php');
 	BREAK;
@@ -405,12 +401,14 @@ SWITCH($Section){
 	}	
 
 	
-		CASE "Test":{
+	CASE "Test":{
 		include('test.php');
 		BREAK;
 	}
 	
-	
+	DEFAULT:{
+		echo "Aucune Route de tracée pour la Requete GET : ".$Section;
+	}
 
 }
 
