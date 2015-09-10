@@ -10,6 +10,7 @@ include('staff/functions.php');
 <link rel="STYLESHEET" type="text/css" href="horaire.css">
 </head>
 <body link=black alink=black vlink=black>
+<!-- HTML Généré après le 18 août... --!>
 <table>
 <tr>
 <td width=250 valign=top><img src=logo.jpg width=250><br>
