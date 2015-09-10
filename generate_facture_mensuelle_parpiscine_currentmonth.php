@@ -10,8 +10,12 @@ $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
 	
 	$ThisMonth = date('n',time());
 	$ThisYear = date('Y',time());
-		
-		
+
+    if($ThisMonth<12)
+        $ThisMonth++;
+    else
+        $ThisMonth=1;
+
 	if($ThisMonth==1){
 		$LastMonth = 12;
 		$LastMonthYear = $ThisYear -1;
