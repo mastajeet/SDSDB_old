@@ -102,7 +102,7 @@ $MainOutput->OpenCol(300);
 	$MainOutput->OpenTable(300);
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol(300,3);
-			$MainOutput->AddTexte('Inspections planifiï¿½es','Titre');
+			$MainOutput->AddTexte('Inspections planifiées','Titre');
 	$MainOutput->Closecol();
 	$MainOutput->CloseRow();
 	
