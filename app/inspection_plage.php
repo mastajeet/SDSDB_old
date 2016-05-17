@@ -1,5 +1,5 @@
 <?php
-
+include_once('base_model.php');
 class inspection_plage extends base_model
 {
     public $IDInstallation;

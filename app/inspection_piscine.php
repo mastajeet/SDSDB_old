@@ -1,6 +1,6 @@
 <?php
 include_once('base_model.php');
-class inspection_plage extends base_model
+class inspection_piscine extends base_model
 {
     public $IDInstallation;
     public $IDClient;

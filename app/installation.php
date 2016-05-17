@@ -1,4 +1,5 @@
 <?php
+include_once('base_model.php');
 
 class installation extends base_model
 {
