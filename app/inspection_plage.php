@@ -27,6 +27,7 @@ class inspection_plage extends base_model
     public $ASFact;
     public $AdresseFact;
     public $Inspections;
+    public $Chaloupe;
 
     function select_all_query(){
         return "SELECT * FROM inspection WHERE IDInspection = ";
