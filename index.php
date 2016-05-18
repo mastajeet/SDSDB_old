@@ -1,12 +1,12 @@
 <?PHP
 
-//    error_reporting(E_ALL);
-//    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 
 
 extract($_REQUEST);
 if(isset($_POST['Section'])){
-$_GET['Section'] = $_POST['Section'];
+	$_GET['Section'] = $_POST['Section'];
 }
 date_default_timezone_set ('America/Montreal');
 
@@ -39,6 +39,10 @@ include('func_date.php');
 include('func_facture.php');
 include('func_superadmin.php');
 include('func_inspection.php');
+include_once('app/shift.php');
+include_once('app/installation.php');
+include_once('app/inspection.php');
+
 include_once('app/shift.php');
 include_once('app/logshift.php');
 $WarningOutput= new html;

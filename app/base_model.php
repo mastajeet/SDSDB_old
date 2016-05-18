@@ -1,9 +1,7 @@
 <?php
-include_once('../mysql_class_qc.php');
+
 class NotImplementedException extends BadMethodCallException
 {}
-
-
 
 class base_model{
 
@@ -16,6 +14,12 @@ class base_model{
     {
         if (is_null($Arg)) {
             return FALSE;
+        }
+
+        if(is_array($Arg)){
+            foreach ($Arg as $Key => $val) {
+                $this->$Key = $val;
+            }
         }
 
         if (is_numeric($Arg)) {
