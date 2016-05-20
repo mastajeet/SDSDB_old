@@ -42,7 +42,6 @@ include('func_inspection.php');
 include_once('app/shift.php');
 include_once('app/installation.php');
 include_once('app/inspection.php');
-
 include_once('app/shift.php');
 include_once('app/logshift.php');
 $WarningOutput= new html;
