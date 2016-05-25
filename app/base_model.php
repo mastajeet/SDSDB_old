@@ -5,6 +5,8 @@ class NotImplementedException extends BadMethodCallException
 
 class base_model{
 
+    public $UpdatedValues = array();
+
     function select_all_query(){
         throw new NotImplementedException();
     }
@@ -19,6 +21,7 @@ class base_model{
         if(is_array($Arg)){
             foreach ($Arg as $Key => $val) {
                 $this->$Key = $val;
+                $this->UpdatedValues[] = $Key;
             }
         }
 
@@ -29,9 +32,17 @@ class base_model{
             $Req = $SQL->FetchArray();
             foreach ($Req as $Key => $val) {
                 $this->$Key = $val;
+                $this->UpdatedValues[] = $Key;
             }
             $SQL->CloseConnection();
         }
     }
 
+    function __set($item,$value){
+        $this->$item = $value;
+        if(!in_array($item,$this->UpdatedValues)){
+            $this->UpdatedValues[] = $item;
+        }
+        $this->$item = $value;
+    }
 }
