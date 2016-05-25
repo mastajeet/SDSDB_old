@@ -112,86 +112,87 @@ class inspection extends base_model
 
     function define_data_types(){
         $this->data_type = array(
-        'IDInspection'=>'int',
-        'IDEmploye'=>'int',
+        'IDInspection'=>'ID',
+//        'IDEmploye'=>'int',
         'DateR'=>'int',
         'DateP'=>'int',
         'DateI'=>'int',
-        'IDInstallation'=>'int',
-        'Annee'=>'int',
-        'IDResponsable'=>'int',
-        'IDFacture'=>'int',
-
-        'Mirador'=>'int',
-        'SMU'=>'int',
-        'Procedures'=>'int',
-        'Couverture'=>'int',
-        'Registre'=>'int',
-        'Bouees'=>'int',
-
-        'Perche'=>'int',
-        'Planche'=>'int',
-        'Chlore'=>'int',
-
-        'Chaloupe'=>'int',
-        'ChaloupeRame'=>'int',
-        'ChaloupeAncre'=>'int',
-        'ChaloupeGilets'=>'int',
-        'ChaloupeBouee'=>'int',
-        'LigneBouee'=>'int',
-        'BoueeProfond'=>'int',
-
-        'Verre'=>'int',
-
-        'Canotage'=>'int',
-        'HeureSurveillance'=>'int',
-        'LimitePlage'=>'int',
-
-        'Bousculade'=>'int',
-        'Maximum'=>'int',
-        'ProfondeurPP'=>'int',
-        'ProfondeurP'=>'int',
-        'ProfondeurPente'=>'int',
-        'Cercle'=>'int',
-
-        'EchellePP'=>'int',
-        'EchelleX2P'=>'int',
-        'Escalier'=>'int',
-        'Cloture12'=>'int',
-        'Cloture100'=>'int',
-        'Maille38'=>'int',
-        'Promenade'=>'int',
-        'Fermeacle'=>'int',
-
-        'LongueurPlage'=>'int',
-
-        'Manuel'=>'int',
-        'Antiseptique'=>'int',
-        'Epingle'=>'int',
-        'Pansement'=>'int',
-        'BTria'=>'int',
-        'Gaze50'=>'int',
-        'Gaze100'=>'int',
-        'Ouate'=>'int',
-        'Gaze75'=>'int',
-        'Compressif'=>'int',
-        'Tape12'=>'int',
-        'Tape50'=>'int',
-        'Eclisses'=>'int',
-        'Ciseau'=>'int',
-        'Pince'=>'int',
-        'Crayon'=>'int',
-        'Masque'=>'int',
-        'Gant'=>'int',
-        'Envoye'=>'int',
-        'Confirme'=>'int',
-        'Materiel'=>'int',
-        'MaterielPret'=>'int',
-        'MaterielLivre'=>'int',
-        'Notes'=> 'string',
-        'NotesMateriel'=> 'string',
-        'NotesAffichage'=> 'string',
-        'NotesConstruction'=> 'string');
+//        'IDInstallation'=>'int',
+//        'Annee'=>'int',
+//        'IDResponsable'=>'int',
+//        'IDFacture'=>'int',
+//
+//        'Mirador'=>'int',
+//        'SMU'=>'int',
+//        'Procedures'=>'int',
+//        'Couverture'=>'int',
+//        'Registre'=>'int',
+//        'Bouees'=>'int',
+//
+//        'Perche'=>'int',
+//        'Planche'=>'int',
+//        'Chlore'=>'int',
+//
+//        'Chaloupe'=>'int',
+//        'ChaloupeRame'=>'int',
+//        'ChaloupeAncre'=>'int',
+//        'ChaloupeGilets'=>'int',
+//        'ChaloupeBouee'=>'int',
+//        'LigneBouee'=>'int',
+//        'BoueeProfond'=>'int',
+//
+//        'Verre'=>'int',
+//
+//        'Canotage'=>'int',
+//        'HeureSurveillance'=>'int',
+//        'LimitePlage'=>'int',
+//
+//        'Bousculade'=>'int',
+//        'Maximum'=>'int',
+//        'ProfondeurPP'=>'int',
+//        'ProfondeurP'=>'int',
+//        'ProfondeurPente'=>'int',
+//        'Cercle'=>'int',
+//
+//        'EchellePP'=>'int',
+//        'EchelleX2P'=>'int',
+//        'Escalier'=>'int',
+//        'Cloture12'=>'int',
+//        'Cloture100'=>'int',
+//        'Maille38'=>'int',
+//        'Promenade'=>'int',
+//        'Fermeacle'=>'int',
+//
+//        'LongueurPlage'=>'int',
+//
+//        'Manuel'=>'int',
+//        'Antiseptique'=>'int',
+//        'Epingle'=>'int',
+//        'Pansement'=>'int',
+//        'BTria'=>'int',
+//        'Gaze50'=>'int',
+//        'Gaze100'=>'int',
+//        'Ouate'=>'int',
+//        'Gaze75'=>'int',
+//        'Compressif'=>'int',
+//        'Tape12'=>'int',
+//        'Tape50'=>'int',
+//        'Eclisses'=>'int',
+//        'Ciseau'=>'int',
+//        'Pince'=>'int',
+//        'Crayon'=>'int',
+//        'Masque'=>'int',
+//        'Gant'=>'int',
+//        'Envoye'=>'int',
+//        'Confirme'=>'int',
+//        'Materiel'=>'int',
+//        'MaterielPret'=>'int',
+//        'MaterielLivre'=>'int',
+//        'Notes'=> 'string',
+//        'NotesMateriel'=> 'string',
+//        'NotesAffichage'=> 'string',
+//        'NotesConstruction'=> 'string'
+           );
     }
 
     function __construct($arg){
@@ -206,19 +207,42 @@ class inspection extends base_model
 
     function save(){
         parent::save();
+        $Req="";
+        if($this->IDInspection == 0){
+            if(count($this->updated_values)>0){
+                $Req .= "INSERT INTO inspection(";
+                $fields = "";
+                $values = "";
+                foreach($this->updated_values as $value){
+                    $value_type = $this->get_data_type($value,$this->$value);
+                    if($value_type!="ID"){
+                        $fields .= "`".$value."`, ";
+                        $field_value = $this->convert_data($this->$value,$value_type);
+                        $values .= $field_value .", ";
 
-        if($this->IDInspection != 0){
-            #Not yet implemented
+                    }
+                }
+                $values = substr($values,0,-2);
+                $fields = substr($fields,0,-2);
+            $Req .= $fields .") VALUES (". $values .")";
+            }
         }else{
-
-            $Req = "UPDATE inspection SET ";
-            foreach($this->UpdatedValues as $value){
-                #Not yet implemented
+            if(count($this->updated_values)>0){
+                $Req .= "UPDATE inspection SET ";
+                foreach($this->updated_values as $value){
+                    $value_type = $this->get_data_type($value,$this->$value);
+                    if($value_type!="ID"){
+                        $field = $value;
+                        $field_value = $this->convert_data($this->$value,$value_type);
+                        $Req .= $field . "=" . $field_value .", ";
+                    }
+                }
+                $Req = substr($Req,0,-2);
+                $Req .= " WHERE IDInspection = ".$this->IDInspection;
             }
 
-
         }
-
+        return $Req;
     }
 
 }
