@@ -1,5 +1,6 @@
 <?php
 require_once('../app/base_model.php');
+require_once('../mysql_class_qc.php');
 
 class test_base_model extends PHPUnit_Framework_TestCase
 {
