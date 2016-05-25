@@ -52,7 +52,25 @@ class test_base_model extends PHPUnit_Framework_TestCase
         catch(UnexpectedValueException $e){
 
         }
-
     }
 
+    public function test_data_type_guessing_string(){
+        $this->assertEquals('string',base_model::guess_data_type('test1'));
+    }
+
+    public function test_data_type_guessing_int(){
+        $this->assertEquals('int',base_model::guess_data_type(1234));
+    }
+
+    public function test_data_type_guessing_float(){
+        $this->assertEquals('float',base_model::guess_data_type(1234.));
+    }
+
+    public function test_get_data_type_string(){
+        $this->assertEquals('string',base_model::get_data_type('Test1','Value1'));
+    }
+
+    public function test_get_data_type_int(){
+        $this->assertEquals('int',base_model::get_data_type('Test1',1));
+    }
 }

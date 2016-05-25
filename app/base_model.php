@@ -11,7 +11,7 @@ class base_model{
     }
 
     function define_data_types(){
-        throw new NotImplementedException();
+
     }
 
 
@@ -67,5 +67,34 @@ class base_model{
         }
         throw new UnexpectedValueException;
     }
+
+    function guess_data_type($value){
+
+        if(is_int($value))
+            return 'int';
+        if(is_float($value))
+            return 'float';
+        if(is_numeric($value)){
+            if(strrpos('.',$value))
+                return 'float';
+            return 'int';
+        }
+        if(is_string($value))
+            return 'string';
+        if(is_numeric($value))
+            return 'int';
+        else
+            return 'string';
+
+    }
+
+    function get_data_type($field,$value){
+        if(isset($this->data_types) and array_key_exists($field,$this->data_types)){
+            return $this->data_types[$field];
+        }else{
+            return base_model::guess_data_type($value);
+        }
+    }
+
 }
 
