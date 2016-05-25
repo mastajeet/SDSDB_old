@@ -4,7 +4,7 @@ class NotImplementedException extends BadMethodCallException
 {}
 
 class base_model{
-    public $UpdatedValues = array();
+    public $updated_values = array();
 
     function select_all_query(){
         throw new NotImplementedException();
@@ -25,7 +25,7 @@ class base_model{
         if(is_array($Arg)){
             foreach ($Arg as $Key => $val) {
                 $this->$Key = $val;
-                $this->UpdatedValues[] = $Key;
+                $this->updated_values[] = $Key;
             }
         }
 
@@ -33,20 +33,20 @@ class base_model{
             //Assuming ID, search for ID
             $SQL = new sqlclass();
             $SQL->SELECT($this->select_all_query() . $Arg);
-            $Req = $SQL->FetchArray();
+            $Req = $SQL->FetchAssoc();
             foreach ($Req as $Key => $val) {
                 $this->$Key = $val;
-                $this->UpdatedValues[] = $Key;
+                $this->updated_values[] = $Key;
             }
             $SQL->CloseConnection();
         }
     }
 
     function __set($item,$value){
-        $this->$item = $value;
-        if(!in_array($item,$this->UpdatedValues)){
-            $this->UpdatedValues[] = $item;
-        }
+        if(!in_array($item,array('data_type','updated_values')))
+            if(!in_array($item,$this->updated_values)){
+                $this->updated_values[] = $item;
+            }
         $this->$item = $value;
     }
 
@@ -89,8 +89,8 @@ class base_model{
     }
 
     function get_data_type($field,$value){
-        if(isset($this->data_types) and array_key_exists($field,$this->data_types)){
-            return $this->data_types[$field];
+        if(isset($this->data_type) and array_key_exists($field,$this->data_type)){
+            return $this->data_type[$field];
         }else{
             return base_model::guess_data_type($value);
         }
