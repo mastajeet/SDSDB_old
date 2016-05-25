@@ -26,4 +26,33 @@ class test_base_model extends PHPUnit_Framework_TestCase
             $this->assertEquals(1,1);
         }
     }
+
+    public function test_value_convertion_string(){
+        $data_type = base_model::convert_data("test1",'string');
+        $this->assertEquals($data_type,"'test1'");
+    }
+
+    public function test_value_convertion_int(){
+        $data_type = base_model::convert_data("1",'int');
+        $this->assertEquals($data_type,1);
+        $this->assertEquals(is_int($data_type),true);
+    }
+
+    public function test_value_convertion_float(){
+        $data_type = base_model::convert_data("1",'float');
+        $this->assertEquals($data_type,1);
+        $this->assertEquals(is_float($data_type),true);
+    }
+
+    public function test_value_convertion_unknown(){
+        try{
+            $data_type = base_model::convert_data("1",'unknown');
+            $this->assertEquals(-1,1);
+        }
+        catch(UnexpectedValueException $e){
+
+        }
+
+    }
+
 }

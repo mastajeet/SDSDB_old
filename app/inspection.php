@@ -110,6 +110,90 @@ class inspection extends base_model
         return "SELECT * FROM inspection WHERE IDInspection = ";
     }
 
+    function define_data_types(){
+        $this->data_type = array(
+        'IDInspection'=>'int',
+        'IDEmploye'=>'int',
+        'DateR'=>'int',
+        'DateP'=>'int',
+        'DateI'=>'int',
+        'IDInstallation'=>'int',
+        'Annee'=>'int',
+        'IDResponsable'=>'int',
+        'IDFacture'=>'int',
+
+        'Mirador'=>'int',
+        'SMU'=>'int',
+        'Procedures'=>'int',
+        'Couverture'=>'int',
+        'Registre'=>'int',
+        'Bouees'=>'int',
+
+        'Perche'=>'int',
+        'Planche'=>'int',
+        'Chlore'=>'int',
+
+        'Chaloupe'=>'int',
+        'ChaloupeRame'=>'int',
+        'ChaloupeAncre'=>'int',
+        'ChaloupeGilets'=>'int',
+        'ChaloupeBouee'=>'int',
+        'LigneBouee'=>'int',
+        'BoueeProfond'=>'int',
+
+        'Verre'=>'int',
+
+        'Canotage'=>'int',
+        'HeureSurveillance'=>'int',
+        'LimitePlage'=>'int',
+
+        'Bousculade'=>'int',
+        'Maximum'=>'int',
+        'ProfondeurPP'=>'int',
+        'ProfondeurP'=>'int',
+        'ProfondeurPente'=>'int',
+        'Cercle'=>'int',
+
+        'EchellePP'=>'int',
+        'EchelleX2P'=>'int',
+        'Escalier'=>'int',
+        'Cloture12'=>'int',
+        'Cloture100'=>'int',
+        'Maille38'=>'int',
+        'Promenade'=>'int',
+        'Fermeacle'=>'int',
+
+        'LongueurPlage'=>'int',
+
+        'Manuel'=>'int',
+        'Antiseptique'=>'int',
+        'Epingle'=>'int',
+        'Pansement'=>'int',
+        'BTria'=>'int',
+        'Gaze50'=>'int',
+        'Gaze100'=>'int',
+        'Ouate'=>'int',
+        'Gaze75'=>'int',
+        'Compressif'=>'int',
+        'Tape12'=>'int',
+        'Tape50'=>'int',
+        'Eclisses'=>'int',
+        'Ciseau'=>'int',
+        'Pince'=>'int',
+        'Crayon'=>'int',
+        'Masque'=>'int',
+        'Gant'=>'int',
+        'Envoye'=>'int',
+        'Confirme'=>'int',
+        'Materiel'=>'int',
+        'MaterielPret'=>'int',
+        'MaterielLivre'=>'int',
+        'Notes'=> 'string',
+        'NotesMateriel'=> 'string',
+        'NotesAffichage'=> 'string',
+        'NotesConstruction'=> 'string');
+    }
+
     function __construct($arg){
         parent::__construct($arg);
         $installation = new installation($this->IDInstallation);
@@ -120,5 +204,21 @@ class inspection extends base_model
         }
     }
 
+    function save(){
+        parent::save();
+
+        if($this->IDInspection != 0){
+            #Not yet implemented
+        }else{
+
+            $Req = "UPDATE inspection SET ";
+            foreach($this->UpdatedValues as $value){
+                #Not yet implemented
+            }
+
+
+        }
+
+    }
 
 }

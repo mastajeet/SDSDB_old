@@ -4,12 +4,16 @@ class NotImplementedException extends BadMethodCallException
 {}
 
 class base_model{
-
     public $UpdatedValues = array();
 
     function select_all_query(){
         throw new NotImplementedException();
     }
+
+    function define_data_types(){
+        throw new NotImplementedException();
+    }
+
 
 
     function __construct($Arg)
@@ -45,4 +49,23 @@ class base_model{
         }
         $this->$item = $value;
     }
+
+    function save(){
+        $this->define_data_types();
+
+    }
+
+    function convert_data($data,$data_type){
+        if($data_type=="string"){
+            return "'".addslashes($data)."'";
+        }
+        if($data_type=="int"){
+            return intval($data);
+        }
+        if($data_type=="float"){
+            return floatval($data);
+        }
+        throw new UnexpectedValueException;
+    }
 }
+
