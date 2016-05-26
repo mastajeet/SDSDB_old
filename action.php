@@ -46,10 +46,10 @@ SWITCH($Action){
 
 
 	CASE "Inspection":{
-        if($_POST['UPDATE'])
-            include('modifie_inspection_script.php');
-        else
-            include('add_inspection_script.php');
+//        if($_POST['UPDATE'])
+//            include('modifie_inspection_script.php');
+//        else
+        include('add_inspection_script.php');
         BREAK;
     }
 

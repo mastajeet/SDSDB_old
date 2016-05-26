@@ -225,6 +225,7 @@ class inspection extends base_model
                 $values = substr($values,0,-2);
                 $fields = substr($fields,0,-2);
             $Req .= $fields .") VALUES (". $values .")";
+                parent::insert($Req);
             }
         }else{
             if(count($this->updated_values)>0){
@@ -239,6 +240,7 @@ class inspection extends base_model
                 }
                 $Req = substr($Req,0,-2);
                 $Req .= " WHERE IDInspection = ".$this->IDInspection;
+                parent::update($Req);
             }
 
         }
