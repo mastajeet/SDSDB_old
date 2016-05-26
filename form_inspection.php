@@ -239,13 +239,13 @@ if($current_inspection->InspectionType=="Piscine") {
         ', 'Titre');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
-    $options = [
+    $options = array(
             0=>'- de 125m',
             1=>'125m a 250m',
             2=>'250m a 375m',
             3=>'375m a 500m',
             4=>'500m a 625m'
-        ];
+    );
     $MainOutput->InputSelect('LongueurPlage',$options,$current_inspection->LongueurPlage, 'Longueur de la plage');
 }
 $MainOutput->OpenRow();
