@@ -171,7 +171,7 @@ $NMois = get_month_list();
 		);
 
 		$MainOutput->br();
-		$MainOutput->AddTexte('Votre plage doit avoir '.$NBRessource[$current_inspection->LongueurPlage]);
+		$MainOutput->AddTexte('Votre plage doit avoir '.$NBRessource[$current_inspection->LongueurPlage],'Titre');
 		$MainOutput->br(2);
 	}
 	
