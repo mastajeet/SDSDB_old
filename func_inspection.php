@@ -50,8 +50,9 @@ function materielneeded($IDInspection)
 
     if ($current_inspection->InspectionType == "Piscine") {
         $MaterielTrack[] = array('Champ' => 'Planche', 'IDItem' => 20, 'Needed' => 1);
+        $MaterielTrack[] = array('Champ' => 'Perche', 'IDItem' => 21, 'Needed' => 1);
     }
-    $MaterielTrack[] = array('Champ' => 'Perche', 'IDItem' => 21, 'Needed' => 1);
+
     $MaterielTrack[] = array('Champ' => 'Couverture', 'IDItem' => 22, 'Needed' => 1);
 
     foreach ($MaterielTrack as $Rail) {
