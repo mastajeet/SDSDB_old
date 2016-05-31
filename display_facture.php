@@ -234,7 +234,7 @@ else
 	
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol('',7);
-$MainOutput->AddTexte('<div align=center><span class="Titre">'.$Bottom[5].' '.$Bottom[6].' </span>'.$Bottom[7].' '.$Bottom[8].' '.$Bottom[9].' </div>','Small');
+$MainOutput->AddTexte('<div align=center><span class="Titre">'.$Bottom[5].' '.$Bottom[6].' </span>'.$Bottom[7].' '.$Bottom[8].'</div>','Small');
 	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
 	
