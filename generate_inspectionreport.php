@@ -57,7 +57,7 @@ $NMois = get_month_list();
 		$AffichageTrack['HeureSurveillance'] = array('Message'=>"Une affiche comportant les heures de surveilance doit etre affichée aux limites des terrains adjacents et a des intervalles maximales de 60m",'Taille'=>1);
 		$AffichageTrack['LimitePlage'] = array('Message'=>"Une affiche comportant les limites de la zone surveillées doit etre affichée aux limites des terrains adjacents et a des intervalles maximaux de 60m.",'Taille'=>1);
 
-		$Obligatoire = array(1,2,3,4,5,6,7,8,9,10,11,12,13,21);
+		$Obligatoire = array(1,2,3,4,5,6,7,8,9,10,11,12,13);
 	}
 	
 	$QteMateriel = materielneeded($_GET['IDInspection']);
