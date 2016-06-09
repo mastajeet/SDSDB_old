@@ -106,10 +106,6 @@ class inspection extends base_model
     public $NotesAffichage;
     public $NotesConstruction;
 
-    function select_all_query(){
-        return "SELECT * FROM inspection WHERE IDInspection = ";
-    }
-
     function define_data_types(){
         $this->data_type = array(
         'IDInspection'=>'ID',
@@ -205,46 +201,13 @@ class inspection extends base_model
         }
     }
 
+    function define_table_info(){
+        $this->model_table = "inspection";
+        $this->model_table_id = "IDInspection";
+    }
+
     function save(){
         parent::save();
-        $Req="";
-        if($this->IDInspection == 0){
-            if(count($this->updated_values)>0){
-                $Req .= "INSERT INTO inspection(";
-                $fields = "";
-                $values = "";
-                foreach($this->updated_values as $value){
-                    $value_type = $this->get_data_type($value,$this->$value);
-                    if($value_type!="ID"){
-                        $fields .= "`".$value."`, ";
-                        $field_value = $this->convert_data($this->$value,$value_type);
-                        $values .= $field_value .", ";
-
-                    }
-                }
-                $values = substr($values,0,-2);
-                $fields = substr($fields,0,-2);
-            $Req .= $fields .") VALUES (". $values .")";
-                parent::insert($Req);
-            }
-        }else{
-            if(count($this->updated_values)>0){
-                $Req .= "UPDATE inspection SET ";
-                foreach($this->updated_values as $value){
-                    $value_type = $this->get_data_type($value,$this->$value);
-                    if($value_type!="ID"){
-                        $field = $value;
-                        $field_value = $this->convert_data($this->$value,$value_type);
-                        $Req .= $field . "=" . $field_value .", ";
-                    }
-                }
-                $Req = substr($Req,0,-2);
-                $Req .= " WHERE IDInspection = ".$this->IDInspection;
-                parent::update($Req);
-            }
-
-        }
-        return $Req;
     }
 
 }

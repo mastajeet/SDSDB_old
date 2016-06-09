@@ -28,8 +28,9 @@ class installation extends base_model
   public $AdresseFact;
   public $Inspections;
 
-  function select_all_query(){
-    return "SELECT * FROM installation WHERE IDInstallation = ";
+  function define_table_info(){
+    $this->model_table = 'installation';
+    $this->model_table_id = 'IDInstallation';
   }
 
 

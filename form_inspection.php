@@ -8,6 +8,7 @@ if(!isset($_GET['IDInspection']) AND isset($_GET['IDInstallation'])){
 }else{
     $current_inspection = new inspection($_GET['IDInspection']);
     $MainOutput->InputHidden_Env('IDInstallation',$current_inspection->IDInstallation);
+    $MainOutput->InputHidden_Env('IDInspection',$_GET['IDInspection']);
 }
 
 if($current_inspection->DateI=="" OR is_null($current_inspection->DateI))
@@ -15,7 +16,7 @@ if($current_inspection->DateI=="" OR is_null($current_inspection->DateI))
 
 
 $MainOutput->InputHidden_Env('Action','Inspection');
-$MainOutput->InputHidden_Env('IDInspection',$_GET['IDInspection']);
+
 
 
  
