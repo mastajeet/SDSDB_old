@@ -121,7 +121,6 @@ FROM employe
 LEFT JOIN secteur ON employe.IDSecteur = secteur.IDSecteur
 WHERE `Session` LIKE '".$_GET['Session']."' AND !`Cessation` ".$CondAssistant." ORDER BY ".$_GET['Field']." ".$_GET['Order'];
 }
-print($Req);
 $SQL->SELECT($Req);
 $c="two";
 
