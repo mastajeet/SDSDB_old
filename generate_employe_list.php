@@ -54,7 +54,7 @@ $MainOutput->Addlink('index.php?Section=EmployeList&Session=&Assistant=%','Pas r
 $MainOutput->Addtexte(' - ');
 $MainOutput->Addlink('index.php?Section=EmployeList&Session=%&Assistant=%','Tous');
 $MainOutput->Addtexte(' - ');
-$MainOutput->Addlink('index.php?Section=EmployeList&Cessation=1','Cessationn�s');
+$MainOutput->Addlink('index.php?Section=EmployeList&Cessation=1','Cessationnes');
 
 
 $MainOutput->CloseCol();
@@ -74,7 +74,7 @@ $MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'
 $MainOutput->CloseCol();
 
 $MainOutput->OpenCol(100);
-$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=Prenom&Order='.$Unorder.'&Cessation='.$_GET['Cessation'].'&Assistant='.$_GET['Assistant'],'Pr�nom');
+$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=Prenom&Order='.$Unorder.'&Cessation='.$_GET['Cessation'].'&Assistant='.$_GET['Assistant'],'Prenom');
 $MainOutput->CloseCol();
 
 $MainOutput->OpenCol(100);
@@ -101,7 +101,7 @@ if(!$_GET['ToPrint']){
 	
 	if(!$_GET['ToPrint']){
 	$MainOutput->OpenCol();
-	$MainOutput->addTexte('Dernier&nbsp;Accés');
+	$MainOutput->addTexte('Dernier&nbsp;Acces');
 	$MainOutput->CloseCol();
 }
 
@@ -121,6 +121,7 @@ FROM employe
 LEFT JOIN secteur ON employe.IDSecteur = secteur.IDSecteur
 WHERE `Session` LIKE '".$_GET['Session']."' AND !`Cessation` ".$CondAssistant." ORDER BY ".$_GET['Field']." ".$_GET['Order'];
 }
+print($Req);
 $SQL->SELECT($Req);
 $c="two";
 
