@@ -11,7 +11,7 @@ $SemainePreformat[6]= get_next_sunday(0, $SemainePreformat[5]);
 $SemainePreformat[7]= get_next_sunday(0, $SemainePreformat[6]);
 $SemainePreformat[8]= get_next_sunday(0, $SemainePreformat[7]);
         
-$Semaine = array($SemainePreformat[0],$SemainePreformat[1],$SemainePreformat[2],$SemainePreformat[3],$SemainePreformat[4],$SemainePreformat[5],$SemainePreformat[6],$SemainePreformat[7]);
+$Semaine = array($SemainePreformat[0],$SemainePreformat[1],$SemainePreformat[2],$SemainePreformat[3]); #,$SemainePreformat[4],$SemainePreformat[5],$SemainePreformat[6],$SemainePreformat[7]);
         
         
         
