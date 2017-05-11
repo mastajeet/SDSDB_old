@@ -158,6 +158,7 @@ if (isset($_POST['IDShift'])) {
 			Salaire=" . $_POST['FORMSalaire'] . ",
 			Commentaire='" . addslashes($_POST['FORMCommentaire']) . "',
 			Warn='" . addslashes($_POST['FORMWarn']) . "',
+			Message = '".addslashes($_POST['FORMMessage'])."',
 			IDEmploye=" . $_POST['FORMIDEmploye'] . ",
 			Confirme =" . $_POST['FORMConfirme'] . "
 			WHERE IDShift=" . $IDShift;

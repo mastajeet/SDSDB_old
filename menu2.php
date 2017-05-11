@@ -1,5 +1,5 @@
 <?PHP
-// il faut ramasser dans REQUEST les valeurs qui pourraient nous intÃ¯Â¿Å“resser.
+// il faut ramasser dans REQUEST les valeurs qui pourraient nous intï¿?resser.
 
 // IDFacture - IDInstallation - IDClient - IDHoraire
 
@@ -229,7 +229,7 @@ $MainOutput->OpenCol(20);
 $MainOutput->AddPic('f_cat.png');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('230',3);
-$MainOutput->AddLink('index.php?MenuCat=Employe','EmployÃ©');
+$MainOutput->AddLink('index.php?MenuCat=Employe','Employé');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
@@ -250,7 +250,7 @@ if(isset($_GET['MenuCat']) && $_GET['MenuCat']=="Employe"){
         $MainOutput->AddPic('f_close.png');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=EmployeList','Liste d\'employÃ©');
+    $MainOutput->AddLink('index.php?MenuSection=EmployeList','Liste d\'employé');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -266,7 +266,7 @@ if(isset($_GET['MenuCat']) && $_GET['MenuCat']=="Employe"){
         $MainOutput->AddPic('f_close.png');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Modifie_Employe','Ajouter un employÃ©');
+    $MainOutput->AddLink('index.php?MenuSection=Modifie_Employe','Ajouter un employé');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -441,7 +441,7 @@ if($Categorie=="Horaire"){
 
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Display_Shift&Semaine='.get_last_sunday(1),'Afficher l\'horaire passÃ©');
+    $MainOutput->AddLink('index.php?MenuSection=Display_Shift&Semaine='.get_last_sunday(1),'Afficher l\'horaire passé');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -578,7 +578,7 @@ if($Categorie=="Paye"){
 
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Calcul_Ferie','Calculer un fÃ©riÃ©','_BLANK');
+    $MainOutput->AddLink('index.php?MenuSection=Calcul_Ferie','Calculer un férié','_BLANK');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -619,7 +619,7 @@ $MainOutput->OpenCol(20);
 $MainOutput->AddPic('f_cat.png');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('230',3);
-$MainOutput->AddLink('index.php?MenuCat=Materiel','MatÃ©riel');
+$MainOutput->AddLink('index.php?MenuCat=Materiel','Matériel');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
@@ -649,7 +649,7 @@ if($Categorie=="Inspection"){
 
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Inspection&TODO=TRUE','Liste Ã  faire');
+    $MainOutput->AddLink('index.php?MenuSection=Inspection&TODO=TRUE','Liste à faire');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -665,7 +665,7 @@ if($Categorie=="Inspection"){
 
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Inspection','Liste effectuÃ©e');
+    $MainOutput->AddLink('index.php?MenuSection=Inspection','Liste effectuée');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -682,7 +682,7 @@ $MainOutput->OpenCol(20);
 $MainOutput->AddPic('f_cat.png');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('230',3);
-$MainOutput->AddLink('index.php?MenuCat=Rapport&ToPrint=TRUE','DÃ©tails de facturation','_BLANK');
+$MainOutput->AddLink('index.php?MenuCat=Rapport&ToPrint=TRUE','Détails de facturation','_BLANK');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
@@ -779,7 +779,7 @@ $MainOutput->OpenCol();
 $MainOutput->AddPic('f_close.png');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('100%',3);
-$MainOutput->AddLink('index.php?Action=Delog','Se&nbsp;DÃ©connecter');
+$MainOutput->AddLink('index.php?Action=Delog','Se&nbsp;Déconnecter');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
@@ -790,4 +790,4 @@ if($_GET['ToPrint']==FALSE)
 else
     $MainOutput->EmptyOutput();
 
-?>
+?> 

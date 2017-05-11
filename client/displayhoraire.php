@@ -28,7 +28,7 @@ if(!$_GET['ToPrint']){
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('450',3);
 	$MainOutput->addoutput('<div align=left>',0,0);
-	$MainOutput->AddLink('index.php?Section=Display_Shift&Semaine='.get_last_sunday(1,$_GET['Semaine']),'Semaine précédente');
+	$MainOutput->AddLink('index.php?Section=Display_Shift&Semaine='.get_last_sunday(1,$_GET['Semaine']),'Semaine pr?c?dente');
 	$MainOutput->addoutput('</div>',0,0);
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('450',3);
@@ -109,7 +109,7 @@ while($Rep = $SQL->FetchArray()){
 			$End['i']="";
 		$Output[$Rep2['Jour']]->openrow();
 		$Output[$Rep2['Jour']]->opencol();
-		$Output[$Rep2['Jour']]->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'Titre2');
+		$Output[$Rep2['Jour']]->addtexte($Start['G']."h".$Start['i']."&nbsp;?&nbsp;".$End['G']."h".$End['i'], 'Titre2');
 		$Output[$Rep2['Jour']]->closecol();
 		$Output[$Rep2['Jour']]->closerow();
 		$Output[$Rep2['Jour']]->openrow();

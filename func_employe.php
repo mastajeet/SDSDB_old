@@ -30,7 +30,7 @@ function get_employe_horaire($IDEmploye,$Semaine){
 	$MainOutput->OpenRow();
 		for($d=0;$d<=6;$d++){
 			$IDInstallation="";
-			$Req = "SELECT shift.IDShift, Jour, IDInstallation, Start, End, Warn FROM shift LEFT JOIN remplacement on shift.IDShift = remplacement.IDShift WHERE (IDEmploye = ".$IDEmploye."  OR IDEmployeS = ".$IDEmploye.") AND Semaine = ".$v." AND Jour=".$d." ORDER BY Jour ASC, `Start` ASC";
+			$Req = "SELECT shift.IDShift, Jour, IDInstallation, Start, End, Warn, Message FROM shift LEFT JOIN remplacement on shift.IDShift = remplacement.IDShift WHERE (IDEmploye = ".$IDEmploye."  OR IDEmployeS = ".$IDEmploye.") AND Semaine = ".$v." AND Jour=".$d." ORDER BY Jour ASC, `Start` ASC";
 			$SQL->SELECT($Req);
 			$MainOutput->opencol(115,1,'top','Square');
 			while($Rep = $SQL->FetchArray()){
@@ -40,40 +40,41 @@ function get_employe_horaire($IDEmploye,$Semaine){
 					$IDInstallation = $Rep['IDInstallation'];
 					$MainOutput->br();
 				}else{
-				$MainOutput->br();
+				    $MainOutput->br();
 				}
 
 
-			$Start= get_date($Rep['Start']);
-			$End = get_date($Rep['End']);
-					if($Start['i']==0)
-						$Start['i']="";
-					if($End['i']==0)
-						$End['i']="";
+                $Start= get_date($Rep['Start']);
+                $End = get_date($Rep['End']);
+                        if($Start['i']==0)
+                            $Start['i']="";
+                        if($End['i']==0)
+                            $End['i']="";
 
-			$Req2 = "SELECT IDEmployeE, Prenom, Nom, IDEmployeS FROM remplacement LEFT JOIN employe on IDEmployeE = IDEmploye WHERE IDShift = ".$Rep['IDShift'];
-			$SQL2->SELECT($Req2);
+                $Req2 = "SELECT IDEmployeE, Prenom, Nom, IDEmployeS FROM remplacement LEFT JOIN employe on IDEmployeE = IDEmploye WHERE IDShift = ".$Rep['IDShift'];
+                $SQL2->SELECT($Req2);
 
-			if($Rep['Warn']<>"")
-					$MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'unconfirmed');
-		else{
-			
-			if($SQL2->NumRow()==0)
-					$MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'ok');
-	
-			else{
-				$Rep2 = $SQL2->FetchArray();
-				if($Rep2[0]==0)
-						$MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'torempl');
-				else{
-					if($Rep2[0]==$IDEmploye)
-						$MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'ok');
-					else
-						$MainOutput->addtexte($Rep2[1]." ".$Rep2[2]);
-				}
-			}
-		}
-				$MainOutput->br();
+                if($Rep['Message']<>""){
+                    $MainOutput->addtexte("<a title=\"".$Rep['Message']."\">".$Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i']."</a>", 'unconfirmed');
+                }elseif($Rep['Warn']<>""){
+                    $MainOutput->addtexte("<a title=\"Appelles nous svp!\">".$Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'unconfirmed');
+                }else{
+
+                    if($SQL2->NumRow()==0){
+                        $MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'ok');
+                    }else{
+                        $Rep2 = $SQL2->FetchArray();
+                        if($Rep2[0]==0)
+                                $MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'torempl');
+                        else{
+                            if($Rep2[0]==$IDEmploye)
+                                $MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'ok');
+                            else
+                                $MainOutput->addtexte($Rep2[1]." ".$Rep2[2]);
+                        }
+                    }
+                }
+                    $MainOutput->br();
 			}
 				$MainOutput->closecol();
 		}
@@ -109,7 +110,7 @@ function get_employe_horaire_email($IDEmploye,$Semaine){
 	$MainOutput->OpenRow();
 		for($d=0;$d<=6;$d++){
 			$IDInstallation="";
-			$Req = "SELECT shift.IDShift, Jour, IDInstallation, Start, End, Warn FROM shift LEFT JOIN remplacement on shift.IDShift = remplacement.IDShift WHERE (IDEmploye = ".$IDEmploye."  OR IDEmployeS = ".$IDEmploye.") AND Semaine = ".$v." AND Jour=".$d." ORDER BY Jour ASC, `Start` ASC";
+			$Req = "SELECT shift.IDShift, Jour, IDInstallation, Start, End, Warn, Commentaire FROM shift LEFT JOIN remplacement on shift.IDShift = remplacement.IDShift WHERE (IDEmploye = ".$IDEmploye."  OR IDEmployeS = ".$IDEmploye.") AND Semaine = ".$v." AND Jour=".$d." ORDER BY Jour ASC, `Start` ASC";
 			$SQL->SELECT($Req);
 			$MainOutput->addoutput('<td width=115 valign=Top Style="border-bottom-width: 1;
 	border-left-width: 1;

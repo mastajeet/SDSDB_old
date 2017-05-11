@@ -20,25 +20,6 @@ $Semaine = array($SemainePreformat[0],$SemainePreformat[1],$SemainePreformat[2],
 	$EmplInfo = get_employe_info($_COOKIE['IDEmploye']);
 	
 	$MainOutput->OpenTable();
-		/**
-		$MainOutput->OpenRow();
-		$MainOutput->OpenCol();
-			$MainOutput->AddTexte('Mon horaire Hebdomadaire','Titre');
-		$MainOutput->CloseCol();
-		$MainOutput->CloseRow();
-		
-	
-	
-	
-		$MainOutput->OpenRow();
-		$MainOutput->OpenCol();
-//			$MainOutput->AddOutput(get_employe_horaire($_COOKIE['IDEmploye'],$Semaine),0,0);
-		$MainOutput->AddOutput(get_employe_horshift($_COOKIE['IDEmploye']),0,0);
-	
-		$MainOutput->CloseCol();
-		$MainOutput->CloseRow();
-	**/
-	
 		$MainOutput->OpenRow();
 		$MainOutput->OpenCol();
 			$MainOutput->AddTexte('Mon horaire avec remplacements - '.$EmplInfo['Prenom']." ".$EmplInfo['Nom'],'Titre');
@@ -50,9 +31,6 @@ $Semaine = array($SemainePreformat[0],$SemainePreformat[1],$SemainePreformat[2],
 			$MainOutput->AddOutput(get_employe_horaire($_COOKIE['IDEmploye'],$Semaine),0,0);
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
-	
-	
-	
 	$MainOutput->CloseTable();
 	
 	echo $MainOutput->Send(1);

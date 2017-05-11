@@ -28,7 +28,7 @@ if(isset($_GET['IDHorshift'])){
 	$MainOutput->inputhidden_env('IDShift',$_GET['IDShift']);
 }else{
 	$MainOutput->inputhidden_env('Update',FALSE);
-	$Info = array('Salaire'=>'','IDEmploye'=>'','TXH'=>'','Jour'=>'','Start'=>'','End'=>'','Commentaire'=>'','Warn'=>'','Assistant'=>'0','Confirme'=>0);
+	$Info = array('Salaire'=>'','IDEmploye'=>'','TXH'=>'','Jour'=>'','Start'=>'','End'=>'','Commentaire'=>'','Warn'=>'','Message'=>'','Assistant'=>'0','Confirme'=>0);
 }
 $CJour = array(0=>'Dimanche',1=>'Lundi',2=>'Mardi',3=>'Mercredi',4=>'Jeudi',5=>'Vendredi',6=>'Samedi');
 $MainOutput->inputselect('Jour',$CJour,$Info['Jour'],'Jour');
@@ -42,6 +42,7 @@ $MainOutput->inputtext('TXH','Taux Horaire',4,$Info['TXH']);
 $MainOutput->textarea('Commentaire','Commentaire','25','2',$Info['Commentaire']);
 $MainOutput->inputtext('Rec','Nb de récurrences','2');
 if($Section=="Shift_Form"){
+    $MainOutput->textarea('Message','Message','25','2',$Info['Message']);
 	$MainOutput->textarea('Warn','Pré-shit','25','2',$Info['Warn']);
 	$MainOutput->flag('Confirme',$Info['Confirme'],'Heures Confirmées');
 	}
