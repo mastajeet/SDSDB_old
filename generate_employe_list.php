@@ -3,36 +3,36 @@
 $Month = get_month_list("court");
 
 if($_GET['ToPrint'])
-	$NBCol = 7;
+    $NBCol = 7;
 else
-	$NBCol = 10;
+    $NBCol = 10;
 
 
 if(!isset($_GET['Cessation']))
-	$_GET['Cessation']=0;
+    $_GET['Cessation']=0;
 
 if(!isset($_GET['Session']))
-	$_GET['Session']=get_vars('Saison');
+    $_GET['Session']=get_vars('Saison');
 
 if(!isset($_GET['Field'])){
-	$_GET['Field']="employe.Nom";
+    $_GET['Field']="employe.Nom";
 }
 
 if(!isset($_GET['Order'])){
-	$_GET['Order']="ASC";
+    $_GET['Order']="ASC";
 }
 
 if($_GET['Order']=="ASC")
-	$Unorder = "DESC";
+    $Unorder = "DESC";
 else
-	$Unorder = "ASC";
+    $Unorder = "ASC";
 if(!isset($_GET['Assistant']))
-	$_GET['Assistant']=0;
+    $_GET['Assistant']=0;
 $CondAssistant = "AND `EAssistant` = 0";
 if(isset($_GET['Assistant']) and $_GET['Assistant']=="1")
-$CondAssistant = "AND `EAssistant` = 1";
+    $CondAssistant = "AND `EAssistant` = 1";
 if(isset($_GET['Assistant']) AND $_GET['Assistant']=="%")
-$CondAssistant = "";
+    $CondAssistant = "";
 
 $MainOutput->OpenTable('800');
 $MainOutput->OpenRow();
@@ -40,13 +40,13 @@ $MainOutput->OpenCol('100%',$NBCol);
 
 $MainOutput->Addlink('index.php?Section=EmployeList&Assistant=1&Session=%','Assistants');
 $MainOutput->Addtexte(' - ');
-	
-	$List = get_saison_list();
+
+$List = get_saison_list();
 Foreach($List as $v){
-	$MainOutput->Addlink('index.php?Section=EmployeList&Session='.$v.'&Assistant=0',$v);
-	$MainOutput->Addtexte(' ( ');
-	$MainOutput->Addlink('index.php?Section=EmployeEmailList&Session='.$v.'&Assistant=0&ToPrint=TRUE&Email=TRUE&Target=_BLANK',"Email");
-	$MainOutput->Addtexte(' ) - ');
+    $MainOutput->Addlink('index.php?Section=EmployeList&Session='.$v.'&Assistant=0',$v);
+    $MainOutput->Addtexte(' ( ');
+    $MainOutput->Addlink('index.php?Section=EmployeEmailList&Session='.$v.'&Assistant=0&ToPrint=TRUE&Email=TRUE&Target=_BLANK',"Email");
+    $MainOutput->Addtexte(' ) - ');
 }
 
 
@@ -86,37 +86,37 @@ $MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'
 $MainOutput->CloseCol();
 
 if(!$_GET['ToPrint']){
-	$MainOutput->OpenCol(100);
-	$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=secteur.Nom&Order='.$Unorder.'&Cessation='.$_GET['Cessation'].'&Assistant='.$_GET['Assistant'],'Secteur');
-	$MainOutput->CloseCol();
-	
-	$MainOutput->OpenCol(100);
-	$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=`Status`&Order='.$Unorder.'&Cessation='.$_GET['Cessation'].'&Assistant='.$_GET['Assistant'],'Status');
-	$MainOutput->CloseCol();
+    $MainOutput->OpenCol(100);
+    $MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=secteur.Nom&Order='.$Unorder.'&Cessation='.$_GET['Cessation'].'&Assistant='.$_GET['Assistant'],'Secteur');
+    $MainOutput->CloseCol();
+
+    $MainOutput->OpenCol(100);
+    $MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=`Status`&Order='.$Unorder.'&Cessation='.$_GET['Cessation'].'&Assistant='.$_GET['Assistant'],'Status');
+    $MainOutput->CloseCol();
 }
-	$MainOutput->OpenCol(100);
-	$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=`DateNaissance`&Order='.$Unorder.'&Cessation='.$_GET['Cessation'].'&Assistant='.$_GET['Assistant'],'Qualification');
-	$MainOutput->CloseCol();
-	
-	
-	if(!$_GET['ToPrint']){
-	$MainOutput->OpenCol();
-	$MainOutput->addTexte('Dernier&nbsp;Acces');
-	$MainOutput->CloseCol();
+$MainOutput->OpenCol(100);
+$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=`DateNaissance`&Order='.$Unorder.'&Cessation='.$_GET['Cessation'].'&Assistant='.$_GET['Assistant'],'Qualification');
+$MainOutput->CloseCol();
+
+
+if(!$_GET['ToPrint']){
+    $MainOutput->OpenCol();
+    $MainOutput->addTexte('Dernier&nbsp;Acces');
+    $MainOutput->CloseCol();
 }
 
 $MainOutput->CloseRow();
- 
+
 $SQL = new sqlclass;
 $SQL2 = new sqlclass;
 
 if($_GET['Cessation']==1){
-$Req = "SELECT IDEmploye, employe.`Nom` , Prenom, TelP, Cell, secteur.Nom, `Status`, DateNaissance, Session, EAssistant
+    $Req = "SELECT IDEmploye, employe.`Nom` , Prenom, TelP, Cell, secteur.Nom, `Status`, DateNaissance, Session, EAssistant
 FROM employe
 LEFT JOIN secteur ON employe.IDSecteur = secteur.IDSecteur
-WHERE `Cessation` ORDER BY ".$_GET['Field']." ".$_GET['Order'];	
+WHERE `Cessation` ORDER BY ".$_GET['Field']." ".$_GET['Order'];
 }ELSE{
-$Req = "SELECT IDEmploye, employe.`Nom` , Prenom, TelP, Cell, secteur.Nom, `Status`, DateNaissance, Session, EAssistant
+    $Req = "SELECT IDEmploye, employe.`Nom` , Prenom, TelP, Cell, secteur.Nom, `Status`, DateNaissance, Session, EAssistant
 FROM employe
 LEFT JOIN secteur ON employe.IDSecteur = secteur.IDSecteur
 WHERE `Session` LIKE '".$_GET['Session']."' AND !`Cessation` ".$CondAssistant." ORDER BY ".$_GET['Field']." ".$_GET['Order'];
@@ -125,97 +125,97 @@ $SQL->SELECT($Req);
 $c="two";
 
 while($v = $SQL->FetchArray()){
-$LV = get_lastvisited($v['IDEmploye']);
+    $LV = get_lastvisited($v['IDEmploye']);
 
 
-if($c=="two")
-	$c="one";
-else
-	$c="two";
-$MainOutput->OpenRow('',$c);
-		
-		$MainOutput->OpenCol('10');
-		$MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$v[0],'<img src=b_edit.png border=0>');
-		$MainOutput->CloseCol();
-		$MainOutput->OpenCol('20');
-		$MainOutput->addtexte($v[0]);
-		$MainOutput->CloseCol();
-		$MainOutput->OpenCol('100');
-		$MainOutput->addtexte(substr($v[1],0,12));
-		$MainOutput->CloseCol();
-		$MainOutput->OpenCol('100');
-		$MainOutput->addtexte(substr($v[2],0,15));
-		$MainOutput->CloseCol();
-		
-		if(strlen($v[3])<10)
-			$v[3]="";
-		else
-			$v[3] = "(".substr($v[3],0,3).") ".substr($v[3],3,3)."-".substr($v[3],6,4);
-		
-		$MainOutput->OpenCol(40);
-		$MainOutput->addtexte($v[3]);
-		$MainOutput->CloseCol();
-		
-		if(strlen($v[4])<10)
-			$v[4]="";
-		else
-			$v[4] = "(".substr($v[4],0,3).") ".substr($v[4],3,3)."-".substr($v[4],6,4);
-		
-		$MainOutput->OpenCol(40);
-		$MainOutput->addtexte($v[4]);
-		$MainOutput->CloseCol();
-if(!$_GET['ToPrint']){
-		$MainOutput->OpenCol('100');
-		$MainOutput->addtexte(substr($v[5],0,15));
-		$MainOutput->CloseCol();
-	if(!$v['EAssistant']){
-		$MainOutput->OpenCol('100');
-		$MainOutput->addtexte($v[6]);
-		$MainOutput->CloseCol();
-	}else{
-		$MainOutput->OpenCol('100');
-		$MainOutput->addtexte($v['Session']);
-		$MainOutput->CloseCol();
-	}
-		}
+    if($c=="two")
+        $c="one";
+    else
+        $c="two";
+    $MainOutput->OpenRow('',$c);
+
+    $MainOutput->OpenCol('10');
+    $MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$v[0],'<img src=b_sheet.png border=0>');
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol('20');
+    $MainOutput->addtexte($v[0]);
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol('100');
+    $MainOutput->addtexte(substr($v[1],0,12));
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol('100');
+    $MainOutput->addtexte(substr($v[2],0,15));
+    $MainOutput->CloseCol();
+
+    if(strlen($v[3])<10)
+        $v[3]="";
+    else
+        $v[3] = "(".substr($v[3],0,3).") ".substr($v[3],3,3)."-".substr($v[3],6,4);
+
+    $MainOutput->OpenCol(40);
+    $MainOutput->addtexte($v[3]);
+    $MainOutput->CloseCol();
+
+    if(strlen($v[4])<10)
+        $v[4]="";
+    else
+        $v[4] = "(".substr($v[4],0,3).") ".substr($v[4],3,3)."-".substr($v[4],6,4);
+
+    $MainOutput->OpenCol(40);
+    $MainOutput->addtexte($v[4]);
+    $MainOutput->CloseCol();
+    if(!$_GET['ToPrint']){
+        $MainOutput->OpenCol('100');
+        $MainOutput->addtexte(substr($v[5],0,15));
+        $MainOutput->CloseCol();
+        if(!$v['EAssistant']){
+            $MainOutput->OpenCol('100');
+            $MainOutput->addtexte($v[6]);
+            $MainOutput->CloseCol();
+        }else{
+            $MainOutput->OpenCol('100');
+            $MainOutput->addtexte($v['Session']);
+            $MainOutput->CloseCol();
+        }
+    }
     $cutoff_delay = 4*365*24*60*60; //cutoff is 4 years
     $cutoff_date = time()-$cutoff_delay;
 
 
-	$Req2 = "SELECT Qualification, Expiration FROM link_employe_qualification JOIN qualification ON qualification.IDQualification = link_employe_qualification.IDQualification WHERE IDEmploye = ".$v[0]." and Expiration > ".$cutoff_date." ORDER BY link_employe_qualification.IDQualification ASC";
-	$SQL2->SELECT($Req2);
-	$Qualif="<span class=Titre>".get_age($v[7])."</span>";
-	$New = TRUE;
-	While($Rep = $SQL2->FetchArray()){
-		$Class='Texte';
-		if(intval(date('n',time())) > intval(date('n',$Rep['Expiration'])) and intval(date('Y',time()))>=intval(date('Y',$Rep['Expiration'])) or intval(date('Y',time()))>intval(date('Y',$Rep['Expiration'])))
-			$Class='Warning';
-		
-		if($New){
-			$Qualif .= "<span class=".$Class."><a title=\"Expiration: ".date("d-m-Y",$Rep['Expiration'])."\">: ".$Rep[0]."</a></span>";
-			$New=FALSE;
-		}else{
-			$Qualif = $Qualif."<span class=Texte> - </span><span class=".$Class."><a title=\"Expiration: ".date("d-m-Y",$Rep['Expiration'])."\">".$Rep[0]."</a></span>";
-		}
-	}
-		
-	$MainOutput->OpenCol('100');	
-	$MainOutput->addoutput($Qualif,0,0);
-	$MainOutput->CloseCol();		
+    $Req2 = "SELECT Qualification, Expiration FROM link_employe_qualification JOIN qualification ON qualification.IDQualification = link_employe_qualification.IDQualification WHERE IDEmploye = ".$v[0]." and Expiration > ".$cutoff_date." ORDER BY link_employe_qualification.IDQualification ASC";
+    $SQL2->SELECT($Req2);
+    $Qualif="<span class=Titre>".get_age($v[7])."</span>";
+    $New = TRUE;
+    While($Rep = $SQL2->FetchArray()){
+        $Class='Texte';
+        if(intval(date('n',time())) > intval(date('n',$Rep['Expiration'])) and intval(date('Y',time()))>=intval(date('Y',$Rep['Expiration'])) or intval(date('Y',time()))>intval(date('Y',$Rep['Expiration'])))
+            $Class='Warning';
 
-	if(!$_GET['ToPrint']){
-		if($LV[0]<>0){
-			$MainOutput->OpenCol('100');
-			$MainOutput->addtexte($LV['mday']." ".$Month[$LV['mon']]." ".$LV['year']);
-			$MainOutput->CloseCol();
-		}else{
-			$MainOutput->OpenCol('100');
-			$MainOutput->addtexte('Jamais');
-			$MainOutput->CloseCol();
-		}
-	}
-		
-$MainOutput->CloseRow();
+        if($New){
+            $Qualif .= "<span class=".$Class."><a title=\"Expiration: ".date("d-m-Y",$Rep['Expiration'])."\">: ".$Rep[0]."</a></span>";
+            $New=FALSE;
+        }else{
+            $Qualif = $Qualif."<span class=Texte> - </span><span class=".$Class."><a title=\"Expiration: ".date("d-m-Y",$Rep['Expiration'])."\">".$Rep[0]."</a></span>";
+        }
+    }
+
+    $MainOutput->OpenCol('100');
+    $MainOutput->addoutput($Qualif,0,0);
+    $MainOutput->CloseCol();
+
+    if(!$_GET['ToPrint']){
+        if($LV[0]<>0){
+            $MainOutput->OpenCol('100');
+            $MainOutput->addtexte($LV['mday']." ".$Month[$LV['mon']]." ".$LV['year']);
+            $MainOutput->CloseCol();
+        }else{
+            $MainOutput->OpenCol('100');
+            $MainOutput->addtexte('Jamais');
+            $MainOutput->CloseCol();
+        }
+    }
+
+    $MainOutput->CloseRow();
 }
 $MainOutput->CloseTable();
 echo $MainOutput->Send(1);
