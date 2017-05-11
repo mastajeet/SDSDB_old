@@ -2,6 +2,7 @@
 $Info = get_employe_info($_GET['IDEmploye']);
 
 $MainOutput->addlink('index.php?Section=Modifie_Employe&IDEmploye='.$Info['IDEmploye'],'<img src=b_edit.png border=0>');
+$MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE','<img src=b_print.png border=0>','_blank');
 $MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'],'<img src=b_fact.png border=0>');
 $MainOutput->addlink('index.php?Section=Employe_Report&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE','<img src=b_sheet.png border=0>');
 $MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'],'<img src=b_fact.png border=0>');
