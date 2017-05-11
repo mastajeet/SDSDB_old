@@ -80,8 +80,21 @@ $MainOutput->OpenCol('100%',2);
 
 
 $MainOutput->addtitledoutput('Adresse',$Info['Adresse']);
-$Req = "SELECT IDSecteur, Nom FROM secteur ORDER BY Nom ASC";
-$MainOutput->addtitledoutput('Secteur',$Info['IDSecteur']);
+
+$str_secteur = "";
+if($Info['IDSecteur']<>""){
+    $SQL_secteur = new SQLClass();
+    $Req_secteur = "SELECT IDSecteur, Nom FROM secteur WHERE IDSecteur = ".$Info['IDSecteur'];
+    $SQL_secteur->Select($Req_secteur);
+    while ($Rep_secteur = $SQL_secteur->FetchArray())
+    {
+        $str_secteur = $Rep_secteur['Nom'];
+    }
+
+
+}
+
+$MainOutput->addtitledoutput('Secteur',$str_secteur);
 $MainOutput->addtitledoutput('Ville',$Info['Ville']);
 $MainOutput->addtitledoutput('Code Postal',$Info['CodePostal']);
 $MainOutput->addtitledoutput('Email',$Info['Email']);
@@ -131,6 +144,7 @@ $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
 $MainOutput->CloseTable();
+
 
 echo $MainOutput->send(1);
 
