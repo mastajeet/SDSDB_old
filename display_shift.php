@@ -38,7 +38,7 @@ if(!$_GET['ToPrint']){
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('450',3);
 	$MainOutput->addoutput('<div align=left>',0,0);
-	$MainOutput->AddLink('index.php?Section=Display_Shift&Semaine='.get_last_sunday(1,$_GET['Semaine']),'Semaine pr?c?dente');
+	$MainOutput->AddLink('index.php?Section=Display_Shift&Semaine='.get_last_sunday(1,$_GET['Semaine']),'Semaine précédente');
 	$MainOutput->addoutput('</div>',0,0);
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('450',3);
