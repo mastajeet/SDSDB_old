@@ -120,9 +120,9 @@ if(array_key_exists($Info['Session'],$Status))
 
 $MainOutput->addtitledoutput('Session',$Info['Session']);
 $MainOutput->addtitledoutput('Status',$str_status);
-$MainOutput->addtitledoutput('SalaireB','Salaire Bureau','5',$Info['SalaireB']);
-$MainOutput->addtitledoutput('SalaireS','Salaire Sauveteur','5',$Info['SalaireS']);
-$MainOutput->addtitledoutput('SalaireA','Salaire Assitant','5',$Info['SalaireA']);
+$MainOutput->addtitledoutput('SalaireB',$Info['SalaireB']);
+$MainOutput->addtitledoutput('SalaireS',$Info['SalaireS']);
+$MainOutput->addtitledoutput('SalaireA',$Info['SalaireA']);
 $MainOutput->addtitledoutput('Cessation',$Info['Cessation']);
 $MainOutput->addtitledoutput('Raison',$Info['Raison']);
 
