@@ -11,6 +11,15 @@ $MainOutput->addlink('index.php?Section=Display_AskedRemplacement&IDEmploye='.$I
 
 
 $MainOutput->OpenTable();
+
+$MainOutput->OpenRow();
+$MainOutput->OpenCol('100%',2);
+$MainOutput->addtexte('Fiche Employé','Titre');
+$MainOutput->br(2);
+$MainOutput->CloseCol();
+$MainOutput->CloseRow();
+
+
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 	$MainOutput->addtexte('----------Personnel------------------------------','Titre');
