@@ -24,13 +24,13 @@ $MainOutput->addtitledoutput('Nom',$string=$Info['Nom']);
 $MainOutput->addtitledoutput('Prenom',$Info['Prenom']);
 $MainOutput->addtitledoutput('Nom Horaire',$Info['HName']);
 $MainOutput->addtitledoutput('Date Naissance', datetostr($Info['DateNaissance']));
-$MainOutput->addtitledoutput('NumÃ©ro d\'assurance sociale', $Info['NAS']);
+$MainOutput->addtitledoutput('Numéro d\'assurance sociale', $Info['NAS']);
 $MainOutput->addtitledoutput('Notes',$Info['Notes']);
 $MainOutput->CloseCol();
-$MainOutput->CloseRow();
+$MainOutput->CloseRow(); 
 
 
-//check s'il y a des vacances Ã  venir
+//check s'il y a des vacances à venir
 $Req = "SELECT * FROM vacances WHERE FinVacances > ".time()." and IDEmploye = ".$Info['IDEmploye']." ORDER BY DebutVacances ASC";
 $SQL = new sqlclass();
 $SQL->Select($Req);
@@ -69,7 +69,7 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 
 
-$MainOutput->addtitledoutput('Adresse','Adresse','28',$Info['Adresse']);
+$MainOutput->addtitledoutput('Adresse',$Info['Adresse']);
 $Req = "SELECT IDSecteur, Nom FROM secteur ORDER BY Nom ASC";
 $MainOutput->addtitledoutput('Secteur',$Info['IDSecteur']);
 $MainOutput->addtitledoutput('Ville',$Info['Ville']);
@@ -94,7 +94,7 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 
 $MainOutput->addtitledoutput('Date d\'embauche', datetostr($Info['DateEmbauche']));
-$Status = array('Temps plein'=>'Temps plein','Secondaire'=>'Secondaire','CÃ©GEP'=>'CÃ©GEP','UniversitÃ©'=>'UniversitÃ©','Bureau'=>'Bureau');
+$Status = array('Temps plein'=>'Temps plein','Secondaire'=>'Secondaire','CéGEP'=>'CéGEP','Université'=>'Université','Bureau'=>'Bureau');
 $Session = get_saison_list();
 $Saison = array();
 
