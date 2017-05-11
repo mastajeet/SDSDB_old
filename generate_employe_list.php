@@ -178,8 +178,11 @@ if(!$_GET['ToPrint']){
 		$MainOutput->CloseCol();
 	}
 		}
+    $cutoff_delay = 4*365*24*60*60; //cutoff is 4 years
+    $cutoff_date = time()-$cutoff_delay;
 
-	$Req2 = "SELECT Qualification, Expiration FROM link_employe_qualification JOIN qualification ON qualification.IDQualification = link_employe_qualification.IDQualification WHERE IDEmploye = ".$v[0]." ORDER BY link_employe_qualification.IDQualification ASC";
+
+	$Req2 = "SELECT Qualification, Expiration FROM link_employe_qualification JOIN qualification ON qualification.IDQualification = link_employe_qualification.IDQualification WHERE IDEmploye = ".$v[0]." and Expiration > ".$cutoff_date." ORDER BY link_employe_qualification.IDQualification ASC";
 	$SQL2->SELECT($Req2);
 	$Qualif="<span class=Titre>".get_age($v[7])."</span>";
 	$New = TRUE;
