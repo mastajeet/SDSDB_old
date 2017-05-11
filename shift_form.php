@@ -21,7 +21,7 @@ if(isset($_GET['IDHorshift'])){
     for($i=0; $i<$Info['Jour']; $i++){
         $ShiftDay += get_day_length($ShiftDay);
     }
-    $WhereVacances = "AND IDEmploye NOT IN(SELECT IDEmploye FROM vacances WHERE DebutVacances<=".$ShiftDay." and FinVacances>= ".$ShiftDay.")";
+    $WhereVacances = "AND employe.IDEmploye NOT IN(SELECT vacances.IDEmploye FROM vacances WHERE DebutVacances<=".$ShiftDay." and FinVacances>= ".$ShiftDay.")";
 
     $MainOutput->inputhidden_env('IDInstallation',$Info['IDInstallation']);
 	$MainOutput->inputhidden_env('Update',TRUE);
@@ -35,7 +35,9 @@ $MainOutput->inputselect('Jour',$CJour,$Info['Jour'],'Jour');
 $MainOutput->inputtime('Start','Début',$Info['Start']);
 $MainOutput->inputtime('End','Fin',$Info['End']);
 $MainOutput->flag('Assistant',$Info['Assistant']);
-$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ".$WhereVacances." ORDER BY Nom ASC, Prenom ASC";
+
+
+$Req = "select employe.IDEmploye, employe.Nom, employe.Prenom, qualification.Qualification FROM employe JOIN (select IDEmploye, Max(IDQualification) as max_qualif from link_employe_qualification WHERE UNIX_TIMESTAMP(NOW()) < link_employe_qualification.Expiration and link_employe_qualification.IDQualification IN (2,3) GROUP BY IDEmploye) maximum_effective_qualification on employe.IDEmploye = maximum_effective_qualification.IDEmploye JOIN qualification on qualification.IDQualification = maximum_effective_qualification.max_qualif WHERE !Cessation ".$WhereVacances." ORDER BY Nom ASC, Prenom ASC";
 $MainOutput->inputselect('IDEmploye',$Req,$Info['IDEmploye'],'Sauveteur');
 $MainOutput->inputtext('Salaire','Salaire',4,$Info['Salaire']);
 $MainOutput->inputtext('TXH','Taux Horaire',4,$Info['TXH']);

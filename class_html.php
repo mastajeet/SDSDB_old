@@ -394,6 +394,8 @@ class HTML
                 $this->addoutput("<option value='".$rep[0]."' ".$text.">".$rep[1]);
                 if(isset($rep[2]))
                     $this->addoutput(" ".$rep[2]);
+                if(isset($rep[3]))
+                    $this->addoutput(" [".$rep[3]."]");
                 $this->addoutput("</option>");
             }
 
