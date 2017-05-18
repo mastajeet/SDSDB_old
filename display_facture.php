@@ -9,7 +9,7 @@ if(!isset($Modifie))
 	$Req = "SELECT * FROM factsheet WHERE IDFacture = ".$_GET['IDFacture']." ORDER BY Jour ASC, Start ASC";
 	$SQL->SELECT($Req);
 	$Head = new HTML;
-	$Req2 = "SELECT client.`Nom`, client.`Adresse`, client.`Facturation`, client.`Fax`, client.`Email`, responsable.`Nom`, responsable.Prenom, installation.Factname, installation.ASFact, installation.AdresseFact, client.FrequenceFacturation FROM facture join installation join client join responsable on facture.Cote = installation.Cote AND installation.IDClient = client.IDClient AND client.RespF = responsable.IDResponsable WHERE IDFacture = ".$_GET['IDFacture'];
+	$Req2 = "SELECT client.`Nom`, client.`Adresse`, client.`Facturation`, client.`Fax`, client.`Email`, responsable.`Nom`, responsable.Prenom, installation.Factname, installation.ASFact, installation.AdresseFact, client.FrequenceFacturation, installation.PONo FROM facture join installation join client join responsable on facture.Cote = installation.Cote AND installation.IDClient = client.IDClient AND client.RespF = responsable.IDResponsable WHERE IDFacture = ".$_GET['IDFacture'];
 	
 	$MainOutput->OpenTable(660);
 	
@@ -303,8 +303,8 @@ $MainOutput->AddTexte('<div align=center><span class="Titre">'.$Bottom[5].' '.$B
 		$MainOutput->AddTexte(number_format($Cash,2)."&nbsp;$");
 		$MainOutput->br();
 		$MainOutput->AddTexte("Facturé: ",'Titre');
-$month = get_month_list('long');
-$date = get_date($Info['EnDate']);
+        $month = get_month_list('long');
+        $date = get_date($Info['EnDate']);
 		$MainOutput->AddTexte($date['d']."-".$month[intval($date['m'])]."-".$date['Y']);
 		$MainOutput->br();
 		$MainOutput->AddTexte("Pour la période: ",'Titre');
@@ -334,6 +334,12 @@ elseif($Rep['FrequenceFacturation']=='M'){
 		else
 			$MainOutput->AddTexte($Rep[0]);
 		$MainOutput->br();
+
+		if($Rep['PONo']!=""){
+            $MainOutput->AddTexte('PO: ','Titre');
+		    $MainOutput->AddTexte($Rep['PONo']);
+            $MainOutput->br();
+        }
 	
 		$MainOutput->AddTexte('A/S: ','Titre');
 		if($Rep[8]<>"")
