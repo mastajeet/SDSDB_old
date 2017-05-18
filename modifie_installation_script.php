@@ -13,6 +13,11 @@ if(!isset($_POST['FORMCadenas'])){
 if(!isset($_POST['FORMAssistant'])){
 	$_POST['FORMAssistant']=0;
 }
+
+if($_POST['FORMIDSecteur']==" "){
+    $_POST['FORMIDSecteur']=0;
+}
+
 if($_POST['FORMAdresse']==""){
 	$Req = "SELECT Adresse FROM client WHERE IDClient = '".$_POST['FORMIDClient']."'";
 	$SQL->SELECT($Req);
@@ -45,7 +50,10 @@ $Req = "UPDATE installation SET
 `Nom`='".addslashes($_POST['FORMNom'])."',
 `Tel`='".$FullTel."',
 `Adresse`='".addslashes($_POST['FORMAdresse'])."',
-`IDSecteur`='".$_POST['FORMIDSecteur']."',
+`AdresseFact`='".addslashes($_POST['FORMAdresseFact'])."',
+`ASFact`='".addslashes($_POST['FORMASFact'])."',
+`PONo`='".addslashes($_POST['FORMPONo'])."',
+`IDSecteur`=".$_POST['FORMIDSecteur'].",
 `Lien`='".$_POST['FORMLien']."',
 `Cote`='".$_POST['FORMCote']."',
 `Notes`='".addslashes($_POST['FORMNotes'])."',

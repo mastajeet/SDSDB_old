@@ -10,7 +10,7 @@ if(isset($_GET['IDInstallation'])){
 }else{
 	$MainOutput->inputhidden_env('Update',FALSE);
 	$MainOutput->inputhidden_env('FORMIDClient',$_GET['IDClient']);
-	$Info = array('Nom'=>'','Punch'=>'0','Cadenas'=>'0','Assistant'=>'0','Cote'=>'','IDSecteur'=>'','IDHoraire'=>'','IDType'=>'','IDResponsable'=>'','Adresse'=>'','Tel'=>'418','Note'=>'','Lien'=>'','Notes'=>'','IDClient'=>$_GET['IDClient'],'IDResponsable'=>'','Actif'=>1,'Toilettes'=>'');
+	$Info = array('Nom'=>'','Punch'=>'0','Cadenas'=>'0','Assistant'=>'0','Cote'=>'','IDSecteur'=>'','IDHoraire'=>'','IDType'=>'','IDResponsable'=>'','Adresse'=>'','Tel'=>'418','Note'=>'','Lien'=>'','Notes'=>'','IDClient'=>$_GET['IDClient'],'IDResponsable'=>'','Actif'=>1,'Toilettes'=>'','ASFact'=>'','AdresseFact'=>'','PONo'=>'');
 }
 if(isset($FORMIDClient))
 $Info['IDClient'] = $FORMIDClient;
@@ -25,6 +25,11 @@ $MainOutput->inputselect('IDType',$Type,$Info['IDType'],'Type d\'installation');
 $MainOutput->inputselect('IDResponsable',$Responsable,$Info['IDResponsable'],'Répondant');
 $MainOutput->inputphone('Tel','Téléphone de la piscine',$Info['Tel'],1);
 $MainOutput->textarea('Adresse','Adresse','25','4',$Info['Adresse']);
+$MainOutput->inputtext('ASFact','Facture au soin de','28',$Info['ASFact']);
+$MainOutput->textarea('AdresseFact','Adresse de facturation','25','4',$Info['AdresseFact']);
+$MainOutput->inputtext('PONo','Numero PO','28',$Info['PONo']);
+
+
 $Secteur = "SELECT IDSecteur, Nom FROM secteur ORDER BY Nom ASC";
 $MainOutput->inputselect('IDSecteur',$Secteur,$Info['IDSecteur'],'Secteur');
 $MainOutput->textarea('Toilettes','Toilettes','25','2',$Info['Toilettes']);
@@ -34,6 +39,8 @@ $MainOutput->flag('Punch',$Info['Punch']);
 $MainOutput->flag('Assistant',$Info['Assistant']);
 $MainOutput->flag('Cadenas',$Info['Cadenas']);
 $MainOutput->flag('Actif',$Info['Actif']);
+
+
 $MainOutput->formsubmit('Ajouter / Modifier');
 echo $MainOutput->send(1);
 

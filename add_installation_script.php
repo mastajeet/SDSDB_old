@@ -12,12 +12,19 @@ if(!isset($_POST['FORMCadenas'])){
 if(!isset($_POST['FORMAssistant'])){
 	$_POST['FORMAssistant']=0;
 }
+
+if($_POST['FORMIDSecteur']==" "){
+    $_POST['FORMIDSecteur']=0;
+}
+
+
 if($_POST['FORMAdresse']==""){
 	$Req = "SELECT Adresse FROM client WHERE IDClient = '".$_POST['FORMIDClient']."'";
 	$SQL->SELECT($Req);
 	$Rep = $SQL->FetchArray();
 	$_POST['FORMAdresse'] = $Rep['Adresse'];
 }
+
 if($_POST['FORMTel2']==""){
 	$Req = "SELECT Tel FROM client WHERE IDClient = '".$_POST['FORMIDClient']."'";
 	$SQL->SELECT($Req);
@@ -39,14 +46,17 @@ if($_POST['FORMNom']==""){
 
 $FullTel = $_POST['FORMTel1'].$_POST['FORMTel2'].$_POST['FORMTel3'].$_POST['FORMTel4'];
 
-$Req = "INSERT INTO installation(`IDClient`,`IDResponsable`,`Nom`,`Tel`,`Adresse`,`IDSecteur`,`Lien`,`Cote`,`Notes`,`Actif`,`Punch`,`IDType`,`Toilettes`,`Cadenas`,`Assistant`) VALUES
+$Req = "INSERT INTO installation(`IDClient`,`IDResponsable`,`Nom`,`Tel`,`Adresse`,`AdresseFact`,`ASFact`,`PONo`,`IDSecteur`,`Lien`,`Cote`,`Notes`,`Actif`,`Punch`,`IDType`,`Toilettes`,`Cadenas`,`Assistant`) VALUES
 (
 '".$_POST['FORMIDClient']."',
 '".$_POST['FORMIDResponsable']."',
 '".addslashes($_POST['FORMNom'])."',
 '".$FullTel."',
 '".addslashes($_POST['FORMAdresse'])."',
-'".$_POST['FORMIDSecteur']."',
+'".addslashes($_POST['FORMAdresseFact'])."',
+'".addslashes($_POST['FORMASFact'])."',
+'".addslashes($_POST['FORMPONo'])."',
+".$_POST['FORMIDSecteur'].",
 '".$_POST['FORMLien']."',
 '".$_POST['FORMCote']."',
 '".addslashes($_POST['FORMNotes'])."',
