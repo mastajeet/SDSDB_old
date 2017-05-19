@@ -1,6 +1,6 @@
 <?PHP
 $ItemList = Array(	'EchellePP','EchelleX2P','Couverture','Chlore','Escalier','Cloture12','Cloture100','Maille38','Promenade','Fermeacle','ProfondeurPP','ProfondeurP','ProfondeurPente','Cercle','Verre','Bousculade','Maximum','Mirador','SMU','Procedures','Perche','Bouees','Planche','Registre',
-					'LigneBouee','Bouees','Chaloupe','ChaloupeRame','ChaloupeAncre','ChaloupeGilets','ChaloupeBouee','HeureSurveillance','LimitePlage',
+					'LigneBouee','Bouees','NotesBouees','Chaloupe','ChaloupeRame','ChaloupeAncre','ChaloupeGilets','ChaloupeBouee','HeureSurveillance','LimitePlage',
 					'Manuel','Antiseptique','Epingle','Pansement','BTria','Gaze50','Gaze100','Ouate','Gaze75','Compressif','Tape12','Tape50','Eclisses','Ciseau','Pince','Crayon','Masque','Gant');
 
 foreach($ItemList as $k){

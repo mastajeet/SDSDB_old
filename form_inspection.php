@@ -17,9 +17,6 @@ if($current_inspection->DateI=="" OR is_null($current_inspection->DateI))
 
 $MainOutput->InputHidden_Env('Action','Inspection');
 
-
-
- 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('550');
 	$MainOutput->AddTexte('<img src=carlos.gif width=550 height=1>');
@@ -76,6 +73,7 @@ if($current_inspection->InspectionType=="Piscine") {
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) annulaires entre 275 et 380mm de diamètre
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;avec cordage de 3m + ½ largeur de la piscine
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OU b) Bouée torpille avec 2m de cordage et une bandouillère');
+    $MainOutput->textarea('NotesBouees', 'Notes', 25, 5, $current_inspection->NotesBouees);
     $MainOutput->flag('Planche', $current_inspection->Planche, 'Planche dorsale');
     $MainOutput->flag('Couverture', $current_inspection->Couverture);
     $MainOutput->flag('Registre', $current_inspection->Registre, 'Registre des installations');

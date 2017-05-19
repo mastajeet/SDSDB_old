@@ -8,7 +8,7 @@ foreach($ItemList as $k){
 }
 $Date = mktime(0,0,0,$_POST['FORMDateI4'],$_POST['FORMDateI5'],$_POST['FORMDateI3']);
 $Req = "UPDATE inspection SET 
-DateI= ".$Date.", 
+DateI= ".$Date.", NotesBouees=''".addslashes($_POST['FORMNotesBouees'])."'
 
 
 `Mirador`=".$_POST['FORMMirador'].",`SMU`=".$_POST['FORMSMU'].",`Procedures`=".$_POST['FORMProcedures'].",
