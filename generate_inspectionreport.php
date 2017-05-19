@@ -80,7 +80,7 @@ $NMois = get_month_list();
     $MainOutput->AddTexte("Quebec, le ".$Date['mday']." ".$NMois[$Date['mon']]." ".$Date['year'],"Titre");
     $MainOutput->addoutput("</div align=right>");
 
-    $MainOutput->AddTexte("Bonjour ".strtolower($INFOR['Titre'])." ".ucfirst($INFOR['Nom']).",
+    $MainOutput->AddTexte("Bonjour ".$INFOR['Titre']." ".ucfirst($INFOR['Nom']).",
 	
 	",'Titre');
 
