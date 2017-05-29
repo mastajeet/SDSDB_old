@@ -27,6 +27,7 @@ class inspection extends base_model
     public $Couverture;
     public $Registre;
     public $Bouees;
+    public $NotesBouees;
 
     # Piscine #####
     public $Perche;
@@ -105,6 +106,7 @@ class inspection extends base_model
     public $NotesMateriel;
     public $NotesAffichage;
     public $NotesConstruction;
+
 
     function define_data_types(){
         $this->data_type = array(
