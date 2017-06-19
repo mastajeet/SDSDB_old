@@ -98,16 +98,24 @@ SWITCH($Action){
 		$_GET['TODO']=TRUE;
 	BREAK;
 	}
-	
 
-	
-	
-	CASE "Batch_Update":{
-		include('batch_update_script.php');
-		$MainOutput->AddTexte('Shifts modifi�s','Warning');
-		$_GET['Section'] = "SuperAdmin";
-	BREAK;
-	}
+
+
+
+    CASE "Batch_Update":{
+        include('batch_update_script.php');
+        $MainOutput->AddTexte('Shifts modifi�s','Warning');
+        $_GET['Section'] = "SuperAdmin";
+        BREAK;
+    }
+
+
+    CASE "Batch_Delete":{
+        include('batch_delete_script.php');
+        $MainOutput->AddTexte('Shifts supprimes','Warning');
+        $_GET['Section'] = "SuperAdmin";
+        BREAK;
+    }
 	
 	
 	CASE "Add_ClientComment":{

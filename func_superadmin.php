@@ -34,18 +34,34 @@ function modifie_paiement($IDPaiement,$Montant,$TimeStamp,$Notes){
 }
 
 function batch_update($SDate,$EDate,$IDInstallation,$UpdateStr,$WhereStr){
-	$SQL = new sqlclass();
-	$GenerateLogReq = "SELECT IDShift FROM shift WHERE IDInstallation=".$IDInstallation." AND Semaine+Jour*(24*3600)+Start>=".$SDate." AND Semaine+Jour*(24*3600)+Start<=".$EDate." ".$WhereStr;
-	$SQL->Select($GenerateLogReq);
-	while($Rep = $SQL->FetchArray()){
-		$LogShift = new logshift(new shift($Rep['IDShift']),"SA BATCH UPDATE");
-	}
-	$SQL = new sqlclass();
-	$Req = "UPDATE shift SET ".$UpdateStr." WHERE IDInstallation=".$IDInstallation." AND Semaine+Jour*(24*3600)+Start>=".$SDate." AND Semaine+Jour*(24*3600)+Start<=".$EDate." ".$WhereStr;
-	$SQL->UPDATE($Req);
+    $SQL = new sqlclass();
+    $GenerateLogReq = "SELECT IDShift FROM shift WHERE IDInstallation=".$IDInstallation." AND Semaine+Jour*(24*3600)+Start>=".$SDate." AND Semaine+Jour*(24*3600)+Start<=".$EDate." ".$WhereStr;
+    $SQL->Select($GenerateLogReq);
+    while($Rep = $SQL->FetchArray()){
+        $LogShift = new logshift(new shift($Rep['IDShift']),"SA BATCH UPDATE");
+    }
+    $SQL = new sqlclass();
+    $Req = "UPDATE shift SET ".$UpdateStr." WHERE IDInstallation=".$IDInstallation." AND Semaine+Jour*(24*3600)+Start>=".$SDate." AND Semaine+Jour*(24*3600)+Start<=".$EDate." ".$WhereStr;
+    $SQL->UPDATE($Req);
 
 
 }
+
+
+function batch_delete($SDate,$EDate,$IDInstallation,$WhereStr){
+    $SQL = new sqlclass();
+    $GenerateLogReq = "SELECT IDShift FROM shift WHERE IDInstallation=".$IDInstallation." AND Semaine+Jour*(24*3600)+Start>=".$SDate." AND Semaine+Jour*(24*3600)+Start<=".$EDate." ".$WhereStr;
+    $SQL->Select($GenerateLogReq);
+    while($Rep = $SQL->FetchArray()){
+        $LogShift = new logshift(new shift($Rep['IDShift']),"SA BATCH UPDATE");
+    }
+    $SQL = new sqlclass();
+    $Req = "DELETE FROM shift WHERE IDInstallation=".$IDInstallation." AND Semaine+Jour*(24*3600)+Start>=".$SDate." AND Semaine+Jour*(24*3600)+Start<=".$EDate." ".$WhereStr;
+    $SQL->UPDATE($Req);
+
+
+}
+
 
 function modifie_facture_coteseq($ini,$fin){
 	$SQL = new sqlclass();

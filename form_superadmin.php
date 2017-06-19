@@ -39,14 +39,22 @@ if(!isset($_GET['ToDo'])){
 		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=Modifie_Paiement','Modifier un paiement');
 		$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
-	
-	$MainOutput->OpenRow();
-		$MainOutput->OpenCol();
-		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=Batch_Update','Modifier des shifts en batch');
-		$MainOutput->CloseCol();
-	$MainOutput->CloseRow();
-	
-	$MainOutput->OpenRow();
+
+    $MainOutput->OpenRow();
+    $MainOutput->OpenCol();
+    $MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=Batch_Update','Modifier des shifts en batch');
+    $MainOutput->CloseCol();
+    $MainOutput->CloseRow();
+
+
+    $MainOutput->OpenRow();
+    $MainOutput->OpenCol();
+    $MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=Batch_Delete','Supprimer des shifts en batch');
+    $MainOutput->CloseCol();
+    $MainOutput->CloseRow();
+
+
+    $MainOutput->OpenRow();
 		$MainOutput->OpenCol();
 		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=ChangeEmployeNo','Modifier un numéro d\'employé');
 		$MainOutput->CloseCol();
@@ -77,10 +85,16 @@ if(!isset($_GET['ToDo'])){
 			include('sa_form_casemodifiepaiement.php');
 		BREAK;
 		}
-		CASE "Batch_Update":{
-			include('sa_form_batchupdate.php');
-		BREAK;
-		}
+        CASE "Batch_Update":{
+            include('sa_form_batchupdate.php');
+            BREAK;
+        }
+
+        CASE "Batch_Delete":{
+            include('sa_form_batchdelete.php');
+            BREAK;
+        }
+
 		CASE "Modifie_Facture_CoteSeq":{
 			include('sa_form_factureseq.php');
 		BREAK;
