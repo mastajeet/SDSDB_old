@@ -1,12 +1,12 @@
 <?PHP
-$MainOutput->addform('Ajouter / Modifier un employé');
+$MainOutput->addform('Ajouter / Modifier un employï¿½');
 $MainOutput->inputhidden_env('Action','Employe');
 if(isset($_GET['IDEmploye'])){
 	$Info = get_employe_info($_GET['IDEmploye']);
 	$MainOutput->inputhidden_env('IDEmploye',$_GET['IDEmploye']);
 	$MainOutput->inputhidden_env('Update',TRUE);
 }else{
-	$Info = array('IDEmploye'=>'','HName'=>'','Ville'=>'Quï0bec','Status'=>'','NAS'=>'','Nom'=>'','Prenom'=>'','Session'=>get_vars('Saison'),'DateNaissance'=>0,'Adresse'=>'','CodePostal'=>'','Email'=>'','TelM'=>'','TelP'=>'','TelA'=>'','Cell'=>'','Paget'=>'','IDSecteur'=>'','Cessation'=>'','Notes'=>'','Raison'=>'','SalaireB'=>'9.50','SalaireS'=>'9.75','SalaireA'=>'9.25','DateEmbauche'=>0,'Engage'=>1,'EAssistant'=>'');
+	$Info = array('IDEmploye'=>'','HName'=>'','Ville'=>'Quï¿½0bec','Status'=>'','NAS'=>'','Nom'=>'','Prenom'=>'','Session'=>get_vars('Saison'),'DateNaissance'=>0,'Adresse'=>'','CodePostal'=>'','Email'=>'','TelM'=>'','TelP'=>'','TelA'=>'','Cell'=>'','Paget'=>'','IDSecteur'=>'','Cessation'=>'','Notes'=>'','Raison'=>'','SalaireB'=>'9.50','SalaireS'=>'9.75','SalaireA'=>'9.25','DateEmbauche'=>0,'Engage'=>1,'EAssistant'=>'');
 	$MainOutput->inputhidden_env('Update',FALSE);
 }
 
@@ -17,7 +17,7 @@ $MainOutput->addlink('index.php?Section=Employe_Report&IDEmploye='.$Info['IDEmpl
 $MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'],'<img src=b_fact.png border=0>');
 $MainOutput->addlink('index.php?Section=Display_AskedRemplacement&IDEmploye='.$Info['IDEmploye'],'<img src=b_del.png border=0>');
 
-$MainOutput->inputtext('IDEmploye','Numéro d\'employé','3',$Info['IDEmploye']);
+$MainOutput->inputtext('IDEmploye','Numï¿½ro d\'employï¿½','3',$Info['IDEmploye']);
 
 
 $MainOutput->OpenRow();
@@ -27,16 +27,17 @@ $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
 $MainOutput->inputtext('Nom','Nom','28',$Info['Nom']);
-$MainOutput->inputtext('Prenom','Prénom','28',$Info['Prenom']);
+$MainOutput->inputtext('Prenom','Prï¿½nom','28',$Info['Prenom']);
 $MainOutput->inputtext('HName','Nom Horaire','28',$Info['HName']);
 $MainOutput->inputtime('DateNaissance','Date de naissance',$Info['DateNaissance'],array('Date'=>TRUE,'Time'=>FALSE));
-$MainOutput->inputtext('NAS','Numéro d\assurance sociale','9',$Info['NAS']);
+$MainOutput->inputtext('NAS','Numï¿½ro d\assurance sociale','9',$Info['NAS']);
 $MainOutput->textarea('Notes','Notes','25','2',$Info['Notes']);
 
 
 
-//check s'il y a des vacances à venir
-$Req = "SELECT * FROM vacances WHERE FinVacances > ".time()." and IDEmploye = ".$Info['IDEmploye']." ORDER BY DebutVacances ASC";
+//check s'il y a des vacances ï¿½ venir
+$vacances_threshold = time()-3600*24;
+$Req = "SELECT * FROM vacances WHERE FinVacances >= ".$vacances_threshold." and IDEmploye = ".$Info['IDEmploye']." ORDER BY DebutVacances ASC";
 $SQL = new sqlclass();
 $SQL->Select($Req);
 
@@ -76,8 +77,8 @@ $MainOutput->inputselect('IDSecteur',$Req,$Info['IDSecteur'],'Secteur');
 $MainOutput->inputtext('Ville','Ville','28',$Info['Ville']);
 $MainOutput->inputtext('CodePostal','Code Postal','7',$Info['CodePostal']);
 $MainOutput->inputtext('Email','Courriel','28',$Info['Email']);
-$MainOutput->inputphone('TelP','Tél. Principal',$Info['TelP']);
-$MainOutput->inputphone('TelA','Tél. Autre',$Info['TelA']);
+$MainOutput->inputphone('TelP','Tï¿½l. Principal',$Info['TelP']);
+$MainOutput->inputphone('TelA','Tï¿½l. Autre',$Info['TelA']);
 $MainOutput->inputphone('Cell','Cellulaire',$Info['Cell']);
 $MainOutput->inputphone('Paget','Paget',$Info['Paget']);
 
@@ -89,7 +90,7 @@ $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
 $MainOutput->inputtime('DateEmbauche','Date d\'embauche',$Info['DateEmbauche'],array('Date'=>TRUE,'Time'=>FALSE));
-$Status = array('Temps plein'=>'Temps plein','Secondaire'=>'Secondaire','CéGEP'=>'CéGEP','Université'=>'Université','Bureau'=>'Bureau');
+$Status = array('Temps plein'=>'Temps plein','Secondaire'=>'Secondaire','Cï¿½GEP'=>'Cï¿½GEP','Universitï¿½'=>'Universitï¿½','Bureau'=>'Bureau');
 $Session = get_saison_list();
 $Saison = array();
 foreach($Session as $v){
@@ -102,7 +103,7 @@ $MainOutput->inputtext('SalaireB','Salaire Bureau','5',$Info['SalaireB']);
 $MainOutput->inputtext('SalaireS','Salaire Sauveteur','5',$Info['SalaireS']);
 $MainOutput->inputtext('SalaireA','Salaire Assitant','5',$Info['SalaireA']);
 $MainOutput->flag('Cessation',$Info['Cessation']);
-$MainOutput->textarea('Raison','Raison du départ','25','2',$Info['Raison']);
+$MainOutput->textarea('Raison','Raison du dï¿½part','25','2',$Info['Raison']);
 
 
 

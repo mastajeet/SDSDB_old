@@ -41,7 +41,8 @@ $MainOutput->CloseRow();
 
 
 //check s'il y a des vacances à venir
-$Req = "SELECT * FROM vacances WHERE FinVacances > ".time()." and IDEmploye = ".$Info['IDEmploye']." ORDER BY DebutVacances ASC";
+$vacances_threshold = time()-24*3600;
+$Req = "SELECT * FROM vacances WHERE FinVacances > ".$vacances_threshold." and IDEmploye = ".$Info['IDEmploye']." ORDER BY DebutVacances ASC";
 $SQL = new sqlclass();
 $SQL->Select($Req);
 
