@@ -1,5 +1,7 @@
 <?PHP
-$Time = mktime(0,0,0,$_POST['FORMMonth'],1,$_POST['FORMAnnee']);
+
+$number = cal_days_in_month(CAL_GREGORIAN, $_POST['FORMMonth'], $_POST['FORMAnnee']);
+$Time = mktime(0,0,0,$_POST['FORMMonth'],$number,$_POST['FORMAnnee']);
 
 $SQL = new sqlclass;
 
@@ -28,6 +30,6 @@ $Req = "INSERT INTO link_employe_qualification(`IDEmploye`,`IDQualification`,`Ex
 
 $SQL->INSERT($Req);
 $_GET['Section'] = "Add_Qualif";
-$MainOutput->AddTexte('Qualification Ajoutée','Warning');
+$MainOutput->AddTexte('Qualification Ajoutï¿½e','Warning');
 $MainOutput->br();
 ?>
