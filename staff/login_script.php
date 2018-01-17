@@ -13,7 +13,7 @@ if(isset($_POST['FORMIDEmploye']) && isset($_POST['FORMNAS'])){
 			setcookie("Bureau", 0, time()+60*60*24*180);
 		}
 
-		if(substr($Rep[0],6,3)==$_POST['FORMNAS'] or $_POST['FORMNAS']==get_vars('MP')){
+		if( strlen($_POST['FORMNAS'])>0 and (substr($Rep[0],6,3)==$_POST['FORMNAS'] or $_POST['FORMNAS']==get_vars('MP'))){
 		setcookie("IDEmploye", $_POST['FORMIDEmploye'], time()+60*60*24*180);
 		setcookie("CIESDS", $_POST['FORMCIESDS'], time()+60*60*24*180);
 
