@@ -13,8 +13,7 @@ $End = $_POST['FORMEnd']*60*60;
     if($_POST['FORMJour']==" "){
         $Req = "UPDATE factsheet SET `Start` = ".$Start.", `End` = ".$End.", `TXH` = ".$_POST['FORMTXH'].", `Notes`='".$_POST['FORMNotes']."' WHERE IDFactsheet = ".$_POST['IDFactsheet'];
     }else{
-        $Req = "UPDATE factsheet SET `Start` = ".$Start.", `End` = ".$End.", `Jour`=".$_POST['FORMJour'].", `TXH` = ".$_POST['FORMTXH'].", `Notes`='".$_POST['FORMNotes']."' WHERE IDFactsheet = ".$_POST['IDFactsheet'];
-    }
+        $Req = "UPDATE factsheet SET `Start` = ".$Start.", `End` = ".$End.", `Jour`=".$_POST['FORMJour'].", `TXH` = ".$_POST['FORMTXH'].", `Notes`='".addslashes($_POST['FORMNotes'])."' WHERE IDFactsheet = ".$_POST['IDFactsheet'];}
 }
 
 $SQL->QUERY($Req);
