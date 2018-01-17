@@ -1,5 +1,4 @@
 <?PHP
-
 //require_once"languages/".$setting['default_language']."/errors.php";
 ##########################################
 #        CETTE CLASSE SQL � �T�          #
