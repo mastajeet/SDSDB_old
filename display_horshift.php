@@ -1,4 +1,5 @@
 <?PHP
+const FROM_TO = "&nbsp;à&nbsp;";
 $MainOutput->OpenTable();
 if(!isset($_GET['ToPrint'])){
 	$_GET['ToPrint']=False;
@@ -109,7 +110,7 @@ $MainOutput->CloseRow();
 					
 					}
 
-					$MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'Titre2');
+					$MainOutput->addtexte($Start['G']."h".$Start['i']. FROM_TO .$End['G']."h".$End['i'], 'Titre2');
 					
 					$OldTStart = $TStart;
 					$OldTEnd = $TEnd;
