@@ -13,7 +13,7 @@ const CELLPHONE = 'Cellulaire';
 const PAGET = 'Paget';
 const LEAVING_REASON = 'Raison du départ';
 const ADD_MODIFY = 'Ajouter / Modifier';
-const EMPLOYEE_STATUS = array('Temps plein' => 'Temps plein', 'Secondaire' => 'Secondaire', 'CÉGEP' => 'CÉGEP', 'Université' => 'Université', 'Bureau' => 'Bureau');
+$EMPLOYEE_STATUS = array('Temps plein' => 'Temps plein', 'Secondaire' => 'Secondaire', 'CÉGEP' => 'CÉGEP', 'Université' => 'Université', 'Bureau' => 'Bureau');
 
 $MainOutput->addform(ADD_MODIFY_EMPLOYEE);
 $MainOutput->inputhidden_env('Action','Employe');
@@ -106,7 +106,7 @@ $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
 $MainOutput->inputtime('DateEmbauche','Date d\'embauche',$Info['DateEmbauche'],array('Date'=>TRUE,'Time'=>FALSE));
-$Status = EMPLOYEE_STATUS;
+$Status = $EMPLOYEE_STATUS;
 $Session = get_saison_list();
 $Saison = array();
 foreach($Session as $v){
