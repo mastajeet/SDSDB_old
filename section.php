@@ -53,7 +53,7 @@ SWITCH($Section){
 
 
     CASE "Client_DossierFacturation":{
-        include('client_dossierfacturation2.php');
+        include('client_dossier_facturation.php');
         BREAK;
     }
 

@@ -259,15 +259,14 @@ function get_flag($flag){
 	Return "Non";
 }
 
-function get_associated_cote($Cote,$Actif=1,$Saison=1){
+function get_installation_by_cote_in_string($Cote, $Actif=1, $Saison=1){
 	$SQL = new sqlclass;
-
-	//$Req = "SELECT Nom FROM installation WHERE `Cote` = '".$Cote."' AND Actif=".$Actif." AND Saison=".$Saison." ORDER BY Nom ASC";
 	$Req = "SELECT Nom FROM installation WHERE `Cote` = '".$Cote."' AND Actif=".$Actif." ORDER BY Nom ASC";
 	$SQL->SELECT($Req);
 	$ret = "";
 	while($Rep = $SQL->FetchArray())
 		$ret = $ret.", ".stripslashes($Rep[0]);
+
 	return substr($ret,2);
 }
 

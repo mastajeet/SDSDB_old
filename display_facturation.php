@@ -1,4 +1,10 @@
 <?PHP
+const AMOUNT_PAID = " $ (payé)";
+const BALANCE_IN_ERROR = 'Débalance';
+const DETAIL = 'Détail';
+const DEPOSIT = 'Dépot';
+const BILLED_TO = 'Facturé à: ';
+const PAID = 'Payé';
 if(isset($_GET['Cote'])){
 
 $MainOutput->OpenTable();
@@ -10,7 +16,7 @@ if($_GET['ToPrint']){
 }
 
 	$MainOutput->AddTexte('Installation(s): ','Titre');
-	$MainOutput->AddTexte(get_associated_cote($_GET['Cote']));
+	$MainOutput->AddTexte(get_installation_by_cote_in_string($_GET['Cote']));
 	$MainOutput->br();
 	$MainOutput->AddTexte('Cote: ','Titre');
 	$MainOutput->AddTexte($_GET['Cote']);
@@ -19,13 +25,13 @@ if($_GET['ToPrint']){
 if(!$_GET['ToPrint']){
 	if($InfoClicli['Depot']<>0){
 	
-		$MainOutput->Addlink('http://gestionsds/SDSDB/index.php?Section=Client_Form&IDClient='.$InfoClicli['IDClient'],'Dépot','_BLANK','Titre');
+		$MainOutput->Addlink('http://gestionsds/SDSDB/index.php?Section=Client_Form&IDClient='.$InfoClicli['IDClient'], DEPOSIT,'_BLANK','Titre');
 		if($InfoClicli['DepotP'])
-			$MainOutput->AddTexte(": ".number_format($InfoClicli['Depot'],2)." $ (payé)");
+			$MainOutput->AddTexte(": ".number_format($InfoClicli['Depot'],2). AMOUNT_PAID);
 		else
 			$MainOutput->AddTexte(": ".number_format($InfoClicli['Depot'],2)." $",'Warning');
 		}else{
-		$MainOutput->Addlink('http://gestionsds/SDSDB/index.php?Section=Client_Form&IDClient='.$InfoClicli['IDClient'],'Dépot','_BLANK','Titre');
+		$MainOutput->Addlink('http://gestionsds/SDSDB/index.php?Section=Client_Form&IDClient='.$InfoClicli['IDClient'], DEPOSIT,'_BLANK','Titre');
 			$MainOutput->AddTexte(": Aucun");
 		}
 	}
@@ -52,10 +58,10 @@ if(!isset($_GET['Year']))
 	$MainOutput->AddTexte('Total: ','Titre');
 	
 	$MainOutput->AddTexte(number_format($Total,2)." $");
-	$MainOutput->AddLink('index.php?Section=Paiement&Cote='.$_GET['Cote'].'&Year='.$_GET['Year'],'Payé','','Titre');
+	$MainOutput->AddLink('index.php?Section=Paiement&Cote='.$_GET['Cote'].'&Year='.$_GET['Year'], PAID,'','Titre');
 	$MainOutput->AddTexte(": ".number_format($Info['Paiement'],2)." $");
 
-	$MainOutput->AddTexte('Débalance','Titre');
+	$MainOutput->AddTexte(BALANCE_IN_ERROR,'Titre');
 	$MainOutput->AddTexte(": ".number_format($Info['SoldeImpaye'] - $Info['Solde'],2)." $");
 
 
@@ -75,7 +81,7 @@ $MainOutput->OpenCol('',3);
 $Req2 = "SELECT client.`Nom`, client.`Adresse`, client.`Facturation`, client.`Fax`, client.`Email`, responsable.`Nom`, responsable.Prenom, client.Tel FROM installation join client join responsable on installation.IDClient = client.IDClient AND client.RespF = responsable.IDResponsable WHERE installation.Cote = '".$_GET['Cote']."'";
 $SQL->SELECT($Req2);
 $Rep = $SQL->FetchArray();
-$MainOutput->AddTexte('Facturé à: ','Titre');
+$MainOutput->AddTexte(BILLED_TO,'Titre');
 		$MainOutput->AddTexte($Rep[0]);
 		$MainOutput->br();
 		$MainOutput->AddTexte('A/S: ','Titre');
@@ -103,7 +109,7 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',8);
 $MainOutput->br();
 
-	$MainOutput->AddTexte('Détail','Titre');
+	$MainOutput->AddTexte(DETAIL,'Titre');
 if(!$_GET['ToPrint']){
 	$MainOutput->addlink('index.php?Section=Add_Facture&Cote='.$_GET['Cote'],'<img border=0 src=b_ins.png>');
 	$MainOutput->addlink('index.php?Section=Client_DossierFacturation&Cote='.$_GET['Cote'].'&ToPrint=TRUE&NB=15','<img border=0 src=b_print.png>','_BLANK');
@@ -136,7 +142,7 @@ $MainOutput->OpenRow();
 		$MainOutput->AddTexte('Total','Titre');
 	$MainOutput->CloseCol();
 		$MainOutput->OpenCol(20);
-		$MainOutput->AddTexte('Payé','Titre');
+		$MainOutput->AddTexte(AMOUNT_PAID,'Titre');
 	$MainOutput->CloseCol();
 $MainOutput->CloseRow();
 $SQL3 = new sqlclass;
@@ -180,14 +186,14 @@ foreach($Info as $k =>$v){
 			$MainOutput->OpenCol();
 			
 			if($v['Credit'])
-				$MainOutput->AddTexte('N/A','Titre'); //METTRE LA DATE OU ENCORE LE NUMÉRO DE DÉPOT OU LE NUMÉRO DE CHEQUE...
+				$MainOutput->AddTexte('N/A','Titre'); //METTRE LA DATE OU ENCORE LE NUM?RO DE D?POT OU LE NUM?RO DE CHEQUE...
 			elseif($v['Paye'] && !$v['Credit']){
 				$Req = "SELECT Date FROM paiement WHERE Notes LIKE '%~".$_GET['Cote']."-".$v['Sequence']."~%'";
 				$SQL3->SELECT($Req);
 				$Rep3 = $SQL3->FetchArray();
 				$DatePaid = get_date($Rep3[0]);
 				$month = get_month_list('long');
-				$MainOutput->AddTexte($DatePaid['d']." ".$month[intval($DatePaid['m'])]." ".$DatePaid['Y'],'Titre'); //METTRE LA DATE OU ENCORE LE NUMÉRO DE DÉPOT OU LE NUMÉRO DE CHEQUE...
+				$MainOutput->AddTexte($DatePaid['d']." ".$month[intval($DatePaid['m'])]." ".$DatePaid['Y'],'Titre'); //METTRE LA DATE OU ENCORE LE NUM?RO DE D?POT OU LE NUM?RO DE CHEQUE...
 			}
 			
 		$MainOutput->CloseCol();
@@ -202,7 +208,7 @@ $Req = "SELECT distinct Cote FROM installation WHERE Actif ORDER BY Cote ASC";
 $SQL->SELECT($Req);
 $Opt = array();
 while($Rep = $SQL->FetchArray()){
-	$Ins = get_associated_cote($Rep[0]);
+	$Ins = get_installation_by_cote_in_string($Rep[0]);
 	$Opt[$Rep[0]] = $Rep[0].": ".$Ins;
 }
 

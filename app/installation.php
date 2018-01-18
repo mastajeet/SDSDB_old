@@ -33,8 +33,4 @@ class installation extends base_model
     $this->model_table_id = 'IDInstallation';
   }
 
-
-
-
-
 }

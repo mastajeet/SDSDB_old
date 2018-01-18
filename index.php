@@ -81,7 +81,7 @@ if(!isset($_COOKIE['IDEmploye'])){
 	<?PHP
 	}
 	
-	 include('menu2.php'); 
+	 include('menu.php');
 		if(isset($_GET['Section']))
 			$Section = $_GET['Section'];
 		if(!isset($_GET['ToPrint']) OR !$_GET['ToPrint']){

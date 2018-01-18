@@ -1,6 +1,10 @@
 <?PHP
+const AJOUTER_UNE_FACTURE = 'Ajouter une facture';
+const CREER = 'Creer';
+
 $SQL = new sqlclass;
 $SQL2 = new sqlclass;
+
 if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
 	$MainOutput->OpenTable();
 	$MainOutput->OpenRow();
@@ -9,21 +13,22 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
 	$MainOutput->AddTexte('Semaine du '.$ENDS['Start'].' au '.$ENDS['End'],'Titre');
  	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
-	
-	$Req = "SELECT Cote, sum(Facture) as a FROM shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation WHERE `Semaine`=".$_GET['Semaine']." GROUP BY Cote ORDER BY Cote ASC";
+
+
+    $Req = "SELECT Cote, sum(Facture) as isFactured FROM shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation WHERE `Semaine`=".$_GET['Semaine']." GROUP BY Cote HAVING isFactured=0 ORDER BY Cote ASC ";
+
 	$SQL->select($Req);
 	$Installation = array();
 	while($Rep = $SQL->FetchArray()){
-		if($Rep[1]==0)
-			$Installation[$Rep[0]] = get_associated_cote($Rep[0]);
+        $Installation[$Rep[0]] = get_installation_by_cote_in_string($Rep[0]);
 	}
 	$MainOutput->OpenRow();
 	$MainOutput->Opencol();
-		$MainOutput->addform('Ajouter une facture');
+		$MainOutput->addform(AJOUTER_UNE_FACTURE);
 		$MainOutput->inputhidden_env('Section','Generate_Facture');
 		$MainOutput->inputhidden_env('Semaine',$_GET['Semaine']);
 		$MainOutput->InputRadio('GenerateCote',$Installation,'','Piscine','VER');
-		$MainOutput->formsubmit('Cr�er');
+		$MainOutput->formsubmit(CREER);
 	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
 	$MainOutput->CloseTable();

@@ -1,14 +1,25 @@
 <?php
+const NO_SELECTED_COTE = 'Aucune cote n\'a été sélectionnée';
+const BILLED_TO = 'Facturé à: ';
+const BALANCE_TO_RECOVER = "<b>Solde du compte à recevoir: </b>";
+const EFFECTIVE_DATE = "<b>En date du: </b>";
+const TO_RECOVER = "<b>à recevoir</b>";
+const DETAILS = "<b>Détail</b>";
+const RECIEVED = "<b>Reçu</b>";
+const BALANCE = "<b>Solde</b>";
+const DATE = "<b>Date</b>";
+const ANTERIOR_BALANCE = "<b>Solde Antérieur</b>";
+
+
 if(!isset($_GET['Cote'])){
-	$MainOutput->AddTexte('Aucune cote n\'à été sélectionnée');	
+	$MainOutput->AddTexte(NO_SELECTED_COTE);
 }else{
     
     if(!isset($_GET['NB']))
         $nbMax = 15;
     else
         $nbMax = $_GET['NB'];
-        
-        
+
     
 	$YearStamp = mktime(0,0,0,1,1,intval(date("Y")));
 
@@ -74,7 +85,7 @@ $MainOutput->OpenCol('60%');
 	$MainOutput->br();
 
 	$MainOutput->AddTexte('Installation(s): ','Titre');
-	$MainOutput->AddTexte(get_associated_cote($_GET['Cote']));
+	$MainOutput->AddTexte(get_installation_by_cote_in_string($_GET['Cote']));
 	$MainOutput->br();
 	$MainOutput->AddTexte('Cote: ','Titre');
 	$MainOutput->AddTexte($_GET['Cote']);
@@ -88,7 +99,7 @@ $MainOutput->OpenCol('40%');
 $Req2 = "SELECT client.`Nom`, client.`Adresse`, client.`Facturation`, client.`Fax`, client.`Email`, responsable.`Nom`, responsable.Prenom, client.Tel FROM installation join client join responsable on installation.IDClient = client.IDClient AND client.RespF = responsable.IDResponsable WHERE installation.Cote = '".$_GET['Cote']."'";
 $SQL->SELECT($Req2);
 $Rep = $SQL->FetchArray();
-$MainOutput->AddTexte('Facturé à: ','Titre');
+$MainOutput->AddTexte(BILLED_TO,'Titre');
 		$MainOutput->AddTexte($Rep[0]);
 		$MainOutput->br();
 		$MainOutput->AddTexte('A/S: ','Titre');
@@ -115,13 +126,13 @@ $MainOutput->CloseTable();
 $MainOutput->OpenTable();
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%');
-    $MainOutput->AddTexte("<b>En date du: </b>".datetostr(time()));
+    $MainOutput->AddTexte(EFFECTIVE_DATE .datetostr(time()));
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%');
-    $MainOutput->AddTexte("<b>Solde du compte à recevoir: </b>".number_format($Solde,2)." $");
+    $MainOutput->AddTexte(BALANCE_TO_RECOVER .number_format($Solde,2)." $");
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();    
 
@@ -138,21 +149,21 @@ $MainOutput->CloseTable();
 $MainOutput->OpenTable();
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('20%');
-    $MainOutput->AddTexte("<b>Date</b>");
+    $MainOutput->AddTexte(DATE);
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('35%');
-    $MainOutput->AddTexte("<b>Détail</b>");
+    $MainOutput->AddTexte(DETAILS);
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('10%');
-    $MainOutput->AddTexte("<b>À recevoir</b>");
-$MainOutput->CloseCol();
-
-$MainOutput->OpenCol('10%');
-    $MainOutput->AddTexte("<b>Reçu</b>");
+    $MainOutput->AddTexte(TO_RECOVER);
 $MainOutput->CloseCol();
 
 $MainOutput->OpenCol('10%');
-    $MainOutput->AddTexte("<b>Solde</b>");
+    $MainOutput->AddTexte(RECIEVED);
+$MainOutput->CloseCol();
+
+$MainOutput->OpenCol('10%');
+    $MainOutput->AddTexte(BALANCE);
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
@@ -169,7 +180,7 @@ $MainOutput->CloseRow();
     
     $MainOutput->OpenRow();
 $MainOutput->OpenCol('',3);
-    $MainOutput->AddTexte("<b>Solde Antérieur</b>");
+    $MainOutput->AddTexte(ANTERIOR_BALANCE);
 $MainOutput->CloseCol();
 
 $MainOutput->OpenCol();
