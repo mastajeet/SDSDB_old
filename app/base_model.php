@@ -27,6 +27,7 @@ class base_model
 
     function __construct($Arg)
     {
+
         if (is_null($Arg)) {
             return FALSE;
         }

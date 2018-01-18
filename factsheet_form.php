@@ -48,7 +48,7 @@ $MainOutput->InputSelect('Jour',$CJour,$Rep['Jour']);
 	$MainOutput->InputSelect('Item',$Req,'Item');
 	$MainOutput->InputText('Notes','Item','40',$Rep['Notes']);
 	$Req = "SELECT Nom, Nom FROM installation WHERE Cote = '".$Info['Cote']."' ORDER BY Nom ASC";
-	$MainOutput->InputSelect('Installation',$Req,'Installation');
+	$MainOutput->InputSelect('Installation',$Req, 'Installation');
 	$MainOutput->InputText('End','Quantité','1',$Rep['End']);
 	$MainOutput->InputText('TXH','Prix',5,abs($Rep['TXH']));
 }

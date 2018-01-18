@@ -67,7 +67,7 @@ $NMois = get_month_list();
 		$NBItem = $NBItem + $QteMateriel[$i]['Unitaire']+$QteMateriel[$i]['Forfait'];
 	}
 	$Item = get_itemlist();
-	$current_installation = new installation($current_inspection->IDInstallation);
+	$current_installation = new Installation($current_inspection->IDInstallation);
 	$INFOE = get_info('employe',$current_inspection->IDEmploye);
 	$INFOR = get_info('responsable',$current_inspection->IDResponsable);
 	$Date = getdate($current_inspection->DateI);

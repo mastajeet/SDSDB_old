@@ -195,7 +195,7 @@ class inspection extends base_model
 
     function __construct($arg){
         parent::__construct($arg);
-        $installation = new installation($this->IDInstallation);
+        $installation = new Installation($this->IDInstallation);
         if($installation->IDType=="P"){
             $this->InspectionType = "Plage";
         }else{

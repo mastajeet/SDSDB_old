@@ -1,6 +1,6 @@
 <?PHP
 $MainOutput->addform('Ajouter / Modifier une installation');
-	$MainOutput->inputhidden_env('Action','Installation');
+	$MainOutput->inputhidden_env('Action', 'Installation');
 
 if(isset($_GET['IDInstallation'])){
 	$Info = get_installation_info($_GET['IDInstallation']);

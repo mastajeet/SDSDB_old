@@ -1,14 +1,11 @@
 <?PHP
 const AJOUTER_UNE_FACTURE = 'Ajouter une facture';
 const CREER = 'Creer';
-const ALREADY_BILLED = 'La facture pour cette période est déjà faite';
+const ALREADY_BILLED = 'La facture pour cette période est déjà faite ou rien n\'est à facturer';
 const INCOMPLETE_PERIOD = 'Vous ne pouvez pas faire la facturation pour une période non complétée';
 const HOLIDAY = " Journée Fériée";
 const SECOND_LIFEGUARD = "Deuxième Sauveteur";
 const FIRST_LIFEGUARD = "Sauveteur";
-
-$SQL = new sqlclass;
-$SQL2 = new sqlclass;
 
 if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
 	$MainOutput->OpenTable();
@@ -19,7 +16,7 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
  	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
 
-    $installation_to_bill = installation::get_installations_to_bill($_GET['Semaine']);
+    $installation_to_bill = Installation::get_installations_in_string_to_bill($_GET['Semaine']);
 
 	$MainOutput->OpenRow();
 	$MainOutput->Opencol();
@@ -34,40 +31,39 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
 }elseif(isset($_POST['Semaine']) AND isset($_POST['FORMGenerateCote'])){
     $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
 
-    $installation_to_bill = installation::get_installations_to_bill($_GET['Semaine']);
-
-    if(in_array($_POST['FORMGenerateCote'],$installation_to_bill)){
+    $installation_to_bill = Installation::get_installations_to_bill($_POST['FORMCote'], $_POST['Semaine']);
+    if(count($installation_to_bill)==0){
         $MainOutput->AddTexte(ALREADY_BILLED,'Warning');
     }elseif($_POST['Semaine'] >= get_last_sunday(0,time()) ) {
         $MainOutput->AddTexte(INCOMPLETE_PERIOD, 'Warning');
     }else{
-        $SQLins = new sqlclass();
-        $ReqIDIns = "SELECT DISTINCT shift.IDInstallation FROM shift JOIN installation on shift.IDInstallation = installation.IDInstallation WHERE installation.Cote='".$_POST['FORMCote']."' AND Semaine=".$_POST['Semaine']." ORDER BY Nom ASC";
-        $SQLins->SELECT($ReqIDIns);
-        while($Repins = $SQLins->FetchArray()){
-            $Req = "SELECT Start, End, Jour, shift.TXH, installation.Nom, shift.Assistant, Ferie, shift.IDEmploye FROM shift JOIN installation JOIN client on shift.IDInstallation = installation.IDInstallation AND client.IDClient = installation.IDClient WHERE shift.IDInstallation = ".$Repins[0]." AND Semaine=".$_POST['Semaine']." ORDER BY installation.Nom ASC, Jour ASC, Assistant ASC, Start ASC";
-            $SQL->SELECT($Req);
+
+        $customer = customer::find_customer_by_cote($_POST['FORMCote']);
+
+
+        foreach($installation_to_bill as $installation){
+
+            $shifts = Shift::find_billable_shift_by_installation($installation->IDInstallation,$_POST['Semaine']);
             $i =0;
-            $Shift = array();
-
-            while($Rep = $SQL->FetchArray()){
-                    $Titre = FIRST_LIFEGUARD;
-                if($Rep[5])
+            $Shift_to_bill = array();
+            foreach($shifts as $Rep){
+                $Titre = FIRST_LIFEGUARD;
+                if($Rep->is_shift_assistant()) {
                     $Titre = SECOND_LIFEGUARD;
-                if($i>0 && ($Shift[$i-1]['End'] == $Rep[0]) and ($Shift[$i-1]['Jour']==$Rep[2])){
-                    $Shift[$i-1]['End'] = $Rep[1];
-                    $Shift[$i-1]['Notes'] = substr($Shift[$i-1]['Notes'],0,-1);
-                    $Shift[$i-1]['Notes'] .= "-".get_employe_initials($Rep[7]).")";
+                }
+                if(isset($last_shift) and $Rep->is_connected_after($last_shift)){
+                    $Shift_to_bill[$i-1]['End'] = $Rep->End;
+                    $Shift_to_bill[$i-1]['Notes'] = substr($Shift_to_bill[$i-1]['Notes'],0,-1);
+                    $Shift_to_bill[$i-1]['Notes'] .= "-".get_employe_initials($Rep->IDEmploye).")";
                 }else{
-                    $Shift[$i] = array('Start'=>$Rep[0],'End'=>$Rep[1],'Jour'=>$Rep[2],'TXH'=>$Rep[3],'Notes'=>$Titre.": ".$Rep[4]." (".get_employe_initials($Rep[7]).")",'Ferie'=>$Rep[6]);
-
+                    $Shift_to_bill[$i] = array('Start'=>$Rep->Start,'End'=>$Rep->End,'Jour'=>$Rep->Jour,'TXH'=>$Rep->TXH,'Notes'=>$Titre.": ".$installation->Nom." (".get_employe_initials($Rep->IDEmploye).")",'Ferie'=>$customer->Ferie);
                     $i++;
                 }
-
+                $last_shift = $Rep;
             }
             $IDFacture = add_facture($_POST['FORMCote'],$_POST['Semaine']);
 
-            foreach($Shift as $v){
+            foreach($Shift_to_bill as $v){
 
                 $v['End'] = $v['End'] - bcmod($v['End'],36);
                 $v['Start'] = $v['Start'] - bcmod($v['Start'],36);
@@ -81,8 +77,13 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
                         $v['Notes'] = $v['Notes']." (x".$v['Ferie']. HOLIDAY.")";
                     }
                 }
-            $Req = "INSERT INTO factsheet(`IDFacture`,`Start`,`End`,`Jour`,`TXH`,`Notes`) VALUES(".$IDFacture.",'".$v['Start']."','".$v['End']."','".$v['Jour']."','".$v['TXH']."','".addslashes($v['Notes'])."')";
-            $SQL->Insert($Req);
+                $Req = "INSERT INTO factsheet(`IDFacture`,`Start`,`End`,`Jour`,`TXH`,`Notes`) VALUES(".$IDFacture.",'".$v['Start']."','".$v['End']."','".$v['Jour']."','".$v['TXH']."','".addslashes($v['Notes'])."')";
+
+
+                $SQL = new sqlclass;
+                $SQL2 = new sqlclass;
+                $SQLins = new sqlclass();
+                $SQL->Insert($Req);
             }
             update_facture_balance($IDFacture);
         }
