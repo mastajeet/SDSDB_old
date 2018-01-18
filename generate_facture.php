@@ -1,8 +1,12 @@
 <?PHP
 const AJOUTER_UNE_FACTURE = 'Ajouter une facture';
 const CREER = 'Creer';
-const ALREADY_BILLED = 'La facture pour cette pÃ©riode est dÃ©jÃ© faite';
-const INCOMPLETE_PERIOD = 'Vous ne pouvez pas faire la facturation pour une pÃ©riode non complÃ©tÃ©e';
+const ALREADY_BILLED = 'La facture pour cette période est déjà faite';
+const INCOMPLETE_PERIOD = 'Vous ne pouvez pas faire la facturation pour une période non complétée';
+const HOLIDAY = " Journée Fériée";
+const SECOND_LIFEGUARD = "Deuxième Sauveteur";
+const FIRST_LIFEGUARD = "Sauveteur";
+
 $SQL = new sqlclass;
 $SQL2 = new sqlclass;
 
@@ -32,7 +36,7 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
 
     $installation_to_bill = installation::get_installations_to_bill($_GET['Semaine']);
 
-    if(!in_array($_POST['FORMGenerateCote'],$installation_to_bill)){
+    if(in_array($_POST['FORMGenerateCote'],$installation_to_bill)){
         $MainOutput->AddTexte(ALREADY_BILLED,'Warning');
     }elseif($_POST['Semaine'] >= get_last_sunday(0,time()) ) {
         $MainOutput->AddTexte(INCOMPLETE_PERIOD, 'Warning');
@@ -47,9 +51,9 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
             $Shift = array();
 
             while($Rep = $SQL->FetchArray()){
-                    $Titre = "Sauveteur";
+                    $Titre = FIRST_LIFEGUARD;
                 if($Rep[5])
-                    $Titre = "Deuxiï¿½me Sauveteur";
+                    $Titre = SECOND_LIFEGUARD;
                 if($i>0 && ($Shift[$i-1]['End'] == $Rep[0]) and ($Shift[$i-1]['Jour']==$Rep[2])){
                     $Shift[$i-1]['End'] = $Rep[1];
                     $Shift[$i-1]['Notes'] = substr($Shift[$i-1]['Notes'],0,-1);
@@ -74,7 +78,7 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
                 if(is_ferie($v['Jour']*86400+$_POST['Semaine'])){
                     if($v['Ferie']<>1){
                         $v['TXH'] = $v['TXH']*$v['Ferie'];
-                        $v['Notes'] = $v['Notes']." (x".$v['Ferie']." Journï¿½e Fï¿½riï¿½e)";
+                        $v['Notes'] = $v['Notes']." (x".$v['Ferie']. HOLIDAY.")";
                     }
                 }
             $Req = "INSERT INTO factsheet(`IDFacture`,`Start`,`End`,`Jour`,`TXH`,`Notes`) VALUES(".$IDFacture.",'".$v['Start']."','".$v['End']."','".$v['Jour']."','".$v['TXH']."','".addslashes($v['Notes'])."')";
