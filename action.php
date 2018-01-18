@@ -1,12 +1,35 @@
 <?PHP
+const RESPONSABLE_ADDED = 'Reponsable ajouté';
+const RESPONSABLE_MODIFIED = 'Responsable modifié';
+const EMPLOYEE_ADDED = 'Employé ajouté';
+const CUSTOMER_MODIFIED = 'Client modifié';
+const CUSTOMER_ADDED = 'Client ajouté';
+const MODIFIED = '</b> Modifiée';
+const PAYMENT_MODIFIED = 'Paiement modifié';
+const SHIFT_MODIFIED = 'Shifts modifiés';
+const SHIFT_DELETED = 'Shifts supprimes';
+const COMMENT_ADDED = 'Commentaire ajouté';
+const MESSAGE_MODIFIED = 'Message modifié';
+const MESSAGE_ADDED = 'Message ajouté';
+const BILL_MARKED_AS_UNPAID = 'Facture marquée comme inpayée';
+const BILL_MARKED_AS_PAID = 'Facture marquée comme payée';
+const ITEM_MODIFIED = 'Item modifié';
+const ITEM_ADDED = 'Item ajouté';
+const SEASON_ADDED = 'Saison ajoutée';
+const SEASON_CLOSED = 'Saison fermée';
+const SHIFT_CONFIRMED = 'Heures de travail confirmées';
+const INSTALLATION_MODIFIED = 'Installation modifiée';
+const INSTALLATION_ADDED = 'Installation ajoutée';
+const EMPLOYEE_MODIFIED = 'Employé modifié';
+
 SWITCH($Action){
 	CASE "Client":{
 		if($_POST['Update']){
 			include('modifie_client_script.php');
-			$MainOutput->AddTexte('Client modifiï¿½','Warning');
+			$MainOutput->AddTexte(CUSTOMER_MODIFIED,'Warning');
 		}else{
 			include('add_client_script.php');
-			$MainOutput->AddTexte('Client ajoutï¿½','Warning');
+			$MainOutput->AddTexte(CUSTOMER_ADDED,'Warning');
 		}
 		
 	BREAK;
@@ -27,7 +50,7 @@ SWITCH($Action){
 
 	CASE "ModifieVars":{
 		include('modifievars_script.php');
-		$MainOutput->AddTexte('Variable <b>'.$_POST['Vars'].'</b> Modifiï¿½e','Warning');
+		$MainOutput->AddTexte('Variable <b>'.$_POST['Vars']. MODIFIED,'Warning');
 	BREAK;
 	}
 	
@@ -75,7 +98,7 @@ SWITCH($Action){
 	CASE "Modifie_Paiement":{
 		$Date = mktime(0,0,0,$_POST['FORMDate4'],$_POST['FORMDate5'],$_POST['FORMDate3']);
 		modifie_paiement($_POST['IDPaiement'],$_POST['FORMMontant'],$Date,$_POST['FORMNotes']);
-		$MainOutput->AddTexte('Paiement modifiï¿½','Warning');
+		$MainOutput->AddTexte(PAYMENT_MODIFIED,'Warning');
 		$_GET['Section'] = "SuperAdmin";
 	BREAK;
 	}
@@ -104,7 +127,7 @@ SWITCH($Action){
 
     CASE "Batch_Update":{
         include('batch_update_script.php');
-        $MainOutput->AddTexte('Shifts modifiï¿½s','Warning');
+        $MainOutput->AddTexte(SHIFT_MODIFIED,'Warning');
         $_GET['Section'] = "SuperAdmin";
         BREAK;
     }
@@ -112,7 +135,7 @@ SWITCH($Action){
 
     CASE "Batch_Delete":{
         include('batch_delete_script.php');
-        $MainOutput->AddTexte('Shifts supprimes','Warning');
+        $MainOutput->AddTexte(SHIFT_DELETED,'Warning');
         $_GET['Section'] = "SuperAdmin";
         BREAK;
     }
@@ -121,7 +144,7 @@ SWITCH($Action){
 	CASE "Add_ClientComment":{
 		
 			include('add_clientcomment_script.php');
-			$MainOutput->AddTexte('Commentaire ajoutï¿½','Warning');
+			$MainOutput->AddTexte(COMMENT_ADDED,'Warning');
 			$info = get_installation_info($_POST['FORMIDInstallation']);
 			$_GET['MenuClient']= $info['IDClient'];
 	
@@ -130,10 +153,10 @@ SWITCH($Action){
 	CASE "Message":{
 		if($_POST['Update']){
 			include('modifie_message_script.php');
-			$MainOutput->AddTexte('Message modifiï¿½','Warning');
+			$MainOutput->AddTexte(MESSAGE_MODIFIED,'Warning');
 		}else{
 			include('add_message_script.php');
-			$MainOutput->AddTexte('Message ajoutï¿½','Warning');
+			$MainOutput->AddTexte(MESSAGE_ADDED,'Warning');
 		}
 		$_GET['Section'] = "Message";
 	BREAK;
@@ -145,7 +168,7 @@ SWITCH($Action){
 		$SQL->SELECT($Req2);
 		$Rep2 = $SQL->FetchArray();
 		mark_unpaid($Rep2[0]);
-		$MainOutput->AddTexte('Facture marquï¿½e comme inpayï¿½e','Warning');
+		$MainOutput->AddTexte(BILL_MARKED_AS_UNPAID,'Warning');
 		$_GET['Section'] = "SuperAdmin";
 	BREAK;
 	}
@@ -153,17 +176,17 @@ SWITCH($Action){
 	CASE "MarkPayee":{
 		mark_paid($_POST['IDFacture'],$_POST['FORMIDPaiement']);
 		$_GET['Section'] = "SuperAdmin";
-		$MainOutput->AddTexte('Facture marquï¿½e comme payï¿½e','Warning');
+		$MainOutput->AddTexte(BILL_MARKED_AS_PAID,'Warning');
 	BREAK;
 	}
 
 	CASE "Materiel":{
 		if($_POST['Update']){
 			include('modifie_materiel_script.php');
-			$MainOutput->AddTexte('Item modifiï¿½','Warning');
+			$MainOutput->AddTexte(ITEM_MODIFIED,'Warning');
 		}else{
 			include('add_materiel_script.php');
-			$MainOutput->AddTexte('Item ajoutï¿½','Warning');
+			$MainOutput->AddTexte(ITEM_ADDED,'Warning');
 		}
 	BREAK;
 	}
@@ -254,10 +277,10 @@ SWITCH($Action){
 	CASE "Saison":{
 		if(!isset($_POST['FORMIDSaison'])){
 			add_saison($_POST['FORMSaison'],$_POST['FORMAnnee']);
-			$MainOutput->AddTexte('Saison ajoutï¿½e','Warning');
+			$MainOutput->AddTexte(SEASON_ADDED,'Warning');
 		}else{
 			close_saison($_POST['FORMIDSaison']);
-		$MainOutput->AddTexte('Saison fermï¿½e','Warning');
+		$MainOutput->AddTexte(SEASON_CLOSED,'Warning');
 		}
 		BREAK;
 	}
@@ -287,7 +310,7 @@ SWITCH($Action){
 
 	CASE "Conf_Shift":{
 		include('conf_shift_script.php');
-		$MainOutput->AddTexte('Heures de travail confirmï¿½es','Warning');
+		$MainOutput->AddTexte(SHIFT_CONFIRMED,'Warning');
 		BREAK;
 	}
 
@@ -308,12 +331,12 @@ SWITCH($Action){
 	CASE "Installation":{
 		if($_POST['Update']){
 			include('modifie_installation_script.php');
-			$MainOutput->AddTexte('Installation modifiï¿½e','Warning');
+			$MainOutput->AddTexte(INSTALLATION_MODIFIED,'Warning');
 		}else{
 			include('add_installation_script.php');
 			$_GET['MenuSection']="Horshift";
 			$_GET['IDInstallation'] = get_last_id('installation');
-			$MainOutput->AddTexte('Installation ajoutï¿½e','Warning');
+			$MainOutput->AddTexte(INSTALLATION_ADDED,'Warning');
 		}
 
 	BREAK;
@@ -334,11 +357,11 @@ SWITCH($Action){
 	CASE "Employe":{
 		if($_POST['Update']){
 			include('modifie_employe_script.php');
-			$MainOutput->AddTexte('Employï¿½ modifiï¿½','Warning');
+            $MainOutput->AddTexte($EMPLOYEE_MODIFIED,'Warning');
 		}else{
 			include('add_employe_script.php');
 			$_GET['IDEmploye'] = get_last_id('employe');
-			$MainOutput->AddTexte('Employï¿½ ajoutï¿½','Warning');
+			$MainOutput->AddTexte(EMPLOYEE_ADDED,'Warning');
 		}
 		$_GET['Section'] = "EmployeList";
 	BREAK;
@@ -349,10 +372,10 @@ SWITCH($Action){
 	CASE "Responsable":{
 		if($_POST['Update']){
 			include('modifie_responsable_script.php');
-			$MainOutput->AddTexte('Responsable modifiï¿½','Warning');
+			$MainOutput->AddTexte(RESPONSABLE_MODIFIED,'Warning');
 		}else{
 			include('add_responsable_script.php');
-			$MainOutput->AddTexte('Reponsable ajoutï¿½','Warning');
+			$MainOutput->AddTexte(RESPONSABLE_ADDED,'Warning');
 		}
 	BREAK;
 	}
