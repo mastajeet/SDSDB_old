@@ -1,6 +1,8 @@
 <?PHP
 
 
+const SHIFT_TO_CONFIRM = '<div align=center>Heure à confirmer</div>';
+
 $CJour = array(0=>'Dimanche',1=>'Lundi',2=>'Mardi',3=>'Mercredi',4=>'Jeudi',5=>'Vendredi',6=>'Samedi');
 $SQL = new sqlclass;
 $SQL2 = new sqlclass;
@@ -18,7 +20,7 @@ if($SQL->NumRow()<>0){
 	$MainOutput->opentable('100%');
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol('',8);
-		$MainOutput->AddTexte('<div align=center>Heure à confirmer</div>','Titre');
+		$MainOutput->AddTexte(SHIFT_TO_CONFIRM,'Titre');
 	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
 	
@@ -79,7 +81,7 @@ if($SQL->NumRow()<>0){
 						$MainOutput->CloseCol();
 						
 						$MainOutput->OpenCol();
-							$MainOutput->addtexte('à');
+							$MainOutput->addtexte('?');
 						$MainOutput->CloseCol();					
 						
 						$MainOutput->OpenCol();
