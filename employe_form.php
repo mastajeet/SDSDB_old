@@ -52,34 +52,35 @@ $MainOutput->textarea(NOTES, NOTES,'25','2',$Info[NOTES]);
 
 
 //check s'il y a des vacances ? venir
-$vacances_threshold = time()-3600*24;
-$Req = "SELECT * FROM vacances WHERE FinVacances >= ".$vacances_threshold." and IDEmploye = ".$Info['IDEmploye']." ORDER BY DebutVacances ASC";
-$SQL = new sqlclass();
-$SQL->Select($Req);
+if(!$Info['IDEmploye']==''){
+    $vacances_threshold = time()-3600*24;
+    $Req = "SELECT * FROM vacances WHERE FinVacances >= ".$vacances_threshold." and IDEmploye = ".$Info['IDEmploye']." ORDER BY DebutVacances ASC";
+    $SQL = new sqlclass();
+    $SQL->Select($Req);
 
-if($SQL->NumRow() <> 0){
+    if($SQL->NumRow() <> 0){
 
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol('100%',2);
-    $MainOutput->addtexte('----------Vacances--------------------------------------','Titre');
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-    While($Rep = $SQL->FetchArray()){
         $MainOutput->OpenRow();
-        $MainOutput->OpenCol();
-            $MainOutput->AddTexte($Rep['Raison']);
-        $MainOutput->addlink("index.php?Action=Delete_Vacances&Section=Employe&IDVacances=".$Rep['IDVacances']."&IDEmploye=".$Info['IDEmploye'],"<img src=b_del.png border=0>");
+        $MainOutput->OpenCol('100%',2);
+        $MainOutput->addtexte('----------Vacances--------------------------------------','Titre');
         $MainOutput->CloseCol();
-        $MainOutput->OpenCol();
-            $MainOutput->addTexte(date("d M Y",$Rep['DebutVacances'])." au ".date("d M Y",$Rep['FinVacances']));
-        $MainOutput->CloseCol();
-
         $MainOutput->CloseRow();
+
+        While($Rep = $SQL->FetchArray()){
+            $MainOutput->OpenRow();
+            $MainOutput->OpenCol();
+                $MainOutput->AddTexte($Rep['Raison']);
+            $MainOutput->addlink("index.php?Action=Delete_Vacances&Section=Employe&IDVacances=".$Rep['IDVacances']."&IDEmploye=".$Info['IDEmploye'],"<img src=b_del.png border=0>");
+            $MainOutput->CloseCol();
+            $MainOutput->OpenCol();
+                $MainOutput->addTexte(date("d M Y",$Rep['DebutVacances'])." au ".date("d M Y",$Rep['FinVacances']));
+            $MainOutput->CloseCol();
+
+            $MainOutput->CloseRow();
+        }
     }
+
 }
-
-
 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
