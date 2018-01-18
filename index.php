@@ -53,9 +53,7 @@ if(isset($_POST['ToPrint'])){
 if(!isset($_COOKIE['IDEmploye'])){
 	include('staff/index2.php');
 }else{
-//$Req = "SELECT Status FROM employe WHERE IDEmploye=".$_COOKIE['IDEmploye'];
-//$SQL->SELECT($Req);
-//$Req = $SQL->FetchArray();
+
     if($_COOKIE['Bureau']==1 and (isset($_COOKIE['MP']) AND $_COOKIE['MP']==get_vars('MP'))){
 	if(isset($Action))
 		include('action.php');

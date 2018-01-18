@@ -13,6 +13,9 @@ const LIST_DONE = 'Liste effectuée';
 const BILLING_DETAILS = 'Détails de facturation';
 const DELOG = 'Se&nbsp;Déconnecter';
 const EMPLOYEE = 'Employé';
+const DISPLAY_CURRENT_SCHEDULE = 'Afficher l\'horaire courant';
+const DISPLAY_PAST_SCHEDULE = 'Afficher l\'horaire passé';
+
 $SQL = new sqlclass;
 
 $Categorie = NULL;
@@ -434,7 +437,7 @@ if($Categorie=="Horaire"){
 
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Display_Shift','Afficher l\'horaire courant');
+    $MainOutput->AddLink('index.php?MenuSection=Display_Shift', DISPLAY_CURRENT_SCHEDULE);
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -451,7 +454,7 @@ if($Categorie=="Horaire"){
 
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Display_Shift&Semaine='.get_last_sunday(1),'Afficher l\'horaire pass?');
+    $MainOutput->AddLink('index.php?MenuSection=Display_Shift&Semaine='.get_last_sunday(1), DISPLAY_PAST_SCHEDULE);
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
