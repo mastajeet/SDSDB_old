@@ -357,7 +357,7 @@ SWITCH($Action){
 	CASE "Employe":{
 		if($_POST['Update']){
 			include('modifie_employe_script.php');
-            $MainOutput->AddTexte($EMPLOYEE_MODIFIED,'Warning');
+            $MainOutput->AddTexte(EMPLOYEE_MODIFIED,'Warning');
 		}else{
 			include('add_employe_script.php');
 			$_GET['IDEmploye'] = get_last_id('employe');
