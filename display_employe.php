@@ -1,4 +1,11 @@
 <?php
+const EMPLOYEE_INFO = 'Fiche Employé';
+const NAME = 'Nom';
+const SURNAME = 'Prenom';
+const SCHEDULE_NAME = 'Nom Horaire';
+const DATE_OF_BIRTH = 'Date Naissance';
+const SOCIAL_SECURITY_NUMBER = 'Numéro d\'assurance sociale';
+const NOTES = 'Notes';
 $Info = get_employe_info($_GET['IDEmploye']);
 
 $MainOutput->addlink('index.php?Section=Modifie_Employe&IDEmploye='.$Info['IDEmploye'],'<img src=b_edit.png border=0>');
@@ -14,7 +21,7 @@ $MainOutput->OpenTable();
 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
-$MainOutput->addtexte('Fiche Employé','Titre');
+$MainOutput->addtexte(EMPLOYEE_INFO,'Titre');
 $MainOutput->br(2);
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
@@ -30,12 +37,12 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 $MainOutput->addtitledoutput($title='Numero Employe', $string = $Info['IDEmploye']);
 
-$MainOutput->addtitledoutput('Nom',$string=$Info['Nom']);
-$MainOutput->addtitledoutput('Prenom',$Info['Prenom']);
-$MainOutput->addtitledoutput('Nom Horaire',$Info['HName']);
-$MainOutput->addtitledoutput('Date Naissance', datetostr($Info['DateNaissance']));
-$MainOutput->addtitledoutput('Numéro d\'assurance sociale', $Info['NAS']);
-$MainOutput->addtitledoutput('Notes',$Info['Notes']);
+$MainOutput->addtitledoutput(NAME,$string=$Info[NAME]);
+$MainOutput->addtitledoutput(SURNAME,$Info[SURNAME]);
+$MainOutput->addtitledoutput(SCHEDULE_NAME,$Info['HName']);
+$MainOutput->addtitledoutput(DATE_OF_BIRTH, datetostr($Info['DateNaissance']));
+$MainOutput->addtitledoutput(SOCIAL_SECURITY_NUMBER, $Info['NAS']);
+$MainOutput->addtitledoutput(NOTES,$Info['Notes']);
 $MainOutput->CloseCol();
 $MainOutput->CloseRow(); 
 
@@ -89,7 +96,7 @@ if($Info['IDSecteur']<>""){
     $SQL_secteur->Select($Req_secteur);
     while ($Rep_secteur = $SQL_secteur->FetchArray())
     {
-        $str_secteur = $Rep_secteur['Nom'];
+        $str_secteur = $Rep_secteur[NAME];
     }
 
 
@@ -118,7 +125,7 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 
 $MainOutput->addtitledoutput('Date d\'embauche', datetostr($Info['DateEmbauche']));
-$Status = array('Temps plein'=>'Temps plein','Secondaire'=>'Secondaire','CéGEP'=>'CéGEP','Université'=>'Université','Bureau'=>'Bureau');
+$Status = array('Temps plein'=>'Temps plein','Secondaire'=>'Secondaire','CéGEP'=>'CÉGEP','Université'=>'Université','Bureau'=>'Bureau');
 $Session = get_saison_list();
 $Saison = array();
 
