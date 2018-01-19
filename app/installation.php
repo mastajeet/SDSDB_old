@@ -1,6 +1,6 @@
 <?php
-include_once('base_model.php');
-class Installation extends base_model
+include_once('BaseModel.php');
+class Installation extends BaseModel
 {
     public $IDInstallation;
     public $IDClient;
@@ -28,9 +28,9 @@ class Installation extends base_model
     public $AdresseFact;
     public $Inspections;
 
-    function define_table_info(){
-        $this->model_table = 'installation';
-        $this->model_table_id = 'IDInstallation';
+    static function define_table_info(){
+        return array("model_table" => 'installation',
+                     "model_table_id" => 'IDInstallation');
     }
 
     static function get_installations_in_string_to_bill($semaine){

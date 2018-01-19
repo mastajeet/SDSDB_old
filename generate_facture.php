@@ -38,60 +38,15 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
         $MainOutput->AddTexte(INCOMPLETE_PERIOD, 'Warning');
     }else{
 
-        $customer = customer::find_customer_by_cote($_POST['FORMCote']);
+
+        $facture = Facture::generate_facture($_POST['FORMCote'],$_POST['Semaine']);
 
 
-        foreach($installation_to_bill as $installation){
-
-            $shifts = Shift::find_billable_shift_by_installation($installation->IDInstallation,$_POST['Semaine']);
-            $i =0;
-            $Shift_to_bill = array();
-            foreach($shifts as $Rep){
-                $Titre = FIRST_LIFEGUARD;
-                if($Rep->is_shift_assistant()) {
-                    $Titre = SECOND_LIFEGUARD;
-                }
-                if(isset($last_shift) and $Rep->is_connected_after($last_shift)){
-                    $Shift_to_bill[$i-1]['End'] = $Rep->End;
-                    $Shift_to_bill[$i-1]['Notes'] = substr($Shift_to_bill[$i-1]['Notes'],0,-1);
-                    $Shift_to_bill[$i-1]['Notes'] .= "-".get_employe_initials($Rep->IDEmploye).")";
-                }else{
-                    $Shift_to_bill[$i] = array('Start'=>$Rep->Start,'End'=>$Rep->End,'Jour'=>$Rep->Jour,'TXH'=>$Rep->TXH,'Notes'=>$Titre.": ".$installation->Nom." (".get_employe_initials($Rep->IDEmploye).")",'Ferie'=>$customer->Ferie);
-                    $i++;
-                }
-                $last_shift = $Rep;
-            }
-            $IDFacture = add_facture($_POST['FORMCote'],$_POST['Semaine']);
-
-            foreach($Shift_to_bill as $v){
-
-                $v['End'] = $v['End'] - bcmod($v['End'],36);
-                $v['Start'] = $v['Start'] - bcmod($v['Start'],36);
-
-                if($v['Start']==0 and $v['End']==14400)
-                    $v['Notes'] = $v['Notes']." (Minimum 4h)";
-
-                if(is_ferie($v['Jour']*86400+$_POST['Semaine'])){
-                    if($v['Ferie']<>1){
-                        $v['TXH'] = $v['TXH']*$v['Ferie'];
-                        $v['Notes'] = $v['Notes']." (x".$v['Ferie']. HOLIDAY.")";
-                    }
-                }
-                $Req = "INSERT INTO factsheet(`IDFacture`,`Start`,`End`,`Jour`,`TXH`,`Notes`) VALUES(".$IDFacture.",'".$v['Start']."','".$v['End']."','".$v['Jour']."','".$v['TXH']."','".addslashes($v['Notes'])."')";
-
-
-                $SQL = new sqlclass;
-                $SQL2 = new sqlclass;
-                $SQLins = new sqlclass();
-                $SQL->Insert($Req);
-            }
-            update_facture_balance($IDFacture);
-        }
-
+        $SQL = new SqlClass();
         $Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$_POST['Semaine']." AND Cote='".$_POST['FORMCote']."'";
         $SQL->Query($Req);
         $Modifie=TRUE;
-        $_GET['IDFacture'] = $IDFacture;
+        $_GET['IDFacture'] = $facture->IDFacture;
         $MainOutput->emptyoutput();
         $MainOutput->addoutput(include('display_facture.php'),0,0);
 	}

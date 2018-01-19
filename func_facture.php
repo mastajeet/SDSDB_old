@@ -78,7 +78,7 @@ function add_facture($Cote,$Semaine,$Credit=FALSE,$Notes="",$Seq="",$Materiel=FA
 
 	$TVQ = 0;
 	$TPS = 0;
-		if($Taxes){
+    if($Taxes){
 		$TVQ = get_vars('TVQ');
 		$TPS = get_vars('TPS');
 	}
@@ -92,10 +92,10 @@ function add_facture($Cote,$Semaine,$Credit=FALSE,$Notes="",$Seq="",$Materiel=FA
 		if($Credit){
 			$Seq = get_last_credit($Cote);
 			$Credit=1;
-			}else{
+        }else{
 			$Seq = get_last_facture($Cote);
 			$Credit=0;
-			}
+        }
 		$Seq++;
 	}
 	$Req = "INSERT INTO facture(`Sequence`,`Cote`,`TVQ`,`TPS`,`Semaine`,`EnDate`,`Notes`,`Credit`,`Paye`,`Materiel`) VALUES(".$Seq.",'".$Cote."','".$TVQ."','".$TPS."',".$Semaine.",".time().",'".addslashes($Notes)."',".$Credit.",".$Paye.",".$Materiel.")";

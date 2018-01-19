@@ -45,6 +45,7 @@ include_once('app/inspection.php');
 include_once('app/shift.php');
 include_once('app/logshift.php');
 include_once('app/customer.php');
+include_once('app/facture.php');
 $WarningOutput= new html;
 $MainOutput = new html();
 

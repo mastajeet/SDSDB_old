@@ -1,16 +1,16 @@
 <?php
-include_once('base_model.php');
+include_once('BaseModel.php');
 
 const NO_CLIENT_ASSOCIATED_WITH_COTE = "Aucun client n'est associe à la cote";
 
-class Customer extends base_model
+class Customer extends BaseModel
 {
     public $IDClient;
     public $Ferie;
 
-    function define_table_info(){
-        $this->model_table = 'client';
-        $this->model_table_id = 'IDClient';
+    static function define_table_info(){
+        return array("model_table" => 'client',
+        "model_table_id" => 'IDClient');
     }
 
     function calculate_billable_hours($start,$end,$isFerie){
@@ -26,7 +26,7 @@ class Customer extends base_model
             throw new InvalidArgumentException(NO_CLIENT_ASSOCIATED_WITH_COTE." ".$cote);
         }
         $customer_id = $sql->Get_first();
-        $sql->CloseConnection();
+//        $sql->CloseConnection();
 
         return new Customer($customer_id['IDClient']);
     }

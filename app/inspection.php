@@ -1,8 +1,8 @@
 <?php
 include_once('installation.php');
-include_once('base_model.php');
+include_once('BaseModel.php');
 
-class inspection extends base_model
+class inspection extends BaseModel
 {
 
 
@@ -108,89 +108,13 @@ class inspection extends base_model
     public $NotesConstruction;
 
 
-    function define_data_types(){
-        $this->data_type = array(
+    static function define_data_types(){
+        return array(
         'IDInspection'=>'ID',
-//        'IDEmploye'=>'int',
         'DateR'=>'int',
         'DateP'=>'int',
         'DateI'=>'int',
-//        'IDInstallation'=>'int',
-//        'Annee'=>'int',
-//        'IDResponsable'=>'int',
-//        'IDFacture'=>'int',
-//
-//        'Mirador'=>'int',
-//        'SMU'=>'int',
-//        'Procedures'=>'int',
-//        'Couverture'=>'int',
-//        'Registre'=>'int',
-//        'Bouees'=>'int',
-//
-//        'Perche'=>'int',
-//        'Planche'=>'int',
-//        'Chlore'=>'int',
-//
-//        'Chaloupe'=>'int',
-//        'ChaloupeRame'=>'int',
-//        'ChaloupeAncre'=>'int',
-//        'ChaloupeGilets'=>'int',
-//        'ChaloupeBouee'=>'int',
-//        'LigneBouee'=>'int',
-//        'BoueeProfond'=>'int',
-//
-//        'Verre'=>'int',
-//
-//        'Canotage'=>'int',
-//        'HeureSurveillance'=>'int',
-//        'LimitePlage'=>'int',
-//
-//        'Bousculade'=>'int',
-//        'Maximum'=>'int',
-//        'ProfondeurPP'=>'int',
-//        'ProfondeurP'=>'int',
-//        'ProfondeurPente'=>'int',
-//        'Cercle'=>'int',
-//
-//        'EchellePP'=>'int',
-//        'EchelleX2P'=>'int',
-//        'Escalier'=>'int',
-//        'Cloture12'=>'int',
-//        'Cloture100'=>'int',
-//        'Maille38'=>'int',
-//        'Promenade'=>'int',
-//        'Fermeacle'=>'int',
-//
-//        'LongueurPlage'=>'int',
-//
-//        'Manuel'=>'int',
-//        'Antiseptique'=>'int',
-//        'Epingle'=>'int',
-//        'Pansement'=>'int',
-//        'BTria'=>'int',
-//        'Gaze50'=>'int',
-//        'Gaze100'=>'int',
-//        'Ouate'=>'int',
-//        'Gaze75'=>'int',
-//        'Compressif'=>'int',
-//        'Tape12'=>'int',
-//        'Tape50'=>'int',
-//        'Eclisses'=>'int',
-//        'Ciseau'=>'int',
-//        'Pince'=>'int',
-//        'Crayon'=>'int',
-//        'Masque'=>'int',
-//        'Gant'=>'int',
-//        'Envoye'=>'int',
-//        'Confirme'=>'int',
-//        'Materiel'=>'int',
-//        'MaterielPret'=>'int',
-//        'MaterielLivre'=>'int',
-//        'Notes'=> 'string',
-//        'NotesMateriel'=> 'string',
-//        'NotesAffichage'=> 'string',
-//        'NotesConstruction'=> 'string'
-           );
+        );
     }
 
     function __construct($arg){
@@ -203,13 +127,8 @@ class inspection extends base_model
         }
     }
 
-    function define_table_info(){
-        $this->model_table = "inspection";
-        $this->model_table_id = "IDInspection";
+    static function define_table_info(){
+        return array("model_table" => "inspection",
+        "model_table_id" => "IDInspection");
     }
-
-    function save(){
-        parent::save();
-    }
-
 }
