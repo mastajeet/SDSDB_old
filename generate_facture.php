@@ -47,9 +47,8 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
         $SQL->Query($Req);
         $Modifie=TRUE;
         $_GET['IDFacture'] = $facture->IDFacture;
-        $MainOutput->emptyoutput();
-        $MainOutput->addoutput(include('display_facture.php'),0,0);
+        include_once('display_facture.php');
 	}
 	
 }
-echo $MainOutput->send();
+echo $MainOutput->send(1);
