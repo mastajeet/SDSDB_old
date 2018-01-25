@@ -126,7 +126,7 @@ class BaseModel
                     $this->updated_values[] = $Key;
                 }
             }
-//            $SQL->CloseConnection();
+
 
         }
     }
@@ -137,7 +137,7 @@ class BaseModel
         if (!in_array($item, array('data_type', 'updated_values', 'model_table', 'model_table_id')))
             $this->add_to_updated_values($item);
             if ($object::get_data_type($item, $value) == "has_many") {
-//            $this->{$item}[] = $value;
+
             } else {
                 $this->$item = $value;
             }
@@ -258,21 +258,18 @@ class BaseModel
     {
         $SQL = new SQLClass();
         $SQL->Insert($Req);
-//        $SQL->CloseConnection();
     }
 
     static function update($Req)
     {
         $SQL = new SQLClass();
         $SQL->Update($Req);
-//        $SQL->CloseConnection();
     }
 
     static function delete($Req)
     {
         $SQL = new SQLClass();
         $SQL->Delete($Req);
-//        $SQL->CloseConnection();
     }
 
 
@@ -310,7 +307,7 @@ class BaseModel
         while ($rep = $SQL->FetchAssoc()) {
             $return_value[] = new $class($rep[$model_table_id]);
         }
-//        $SQL->CloseConnection();
+
         return $return_value;
     }
 
@@ -326,7 +323,7 @@ class BaseModel
         while ($rep = $SQL->FetchAssoc()) {
             $return_value[] = $rep;
         }
-//        $SQL->CloseConnection();
+
         return $return_value;
     }
 

@@ -19,13 +19,11 @@ class Shift
     public $Facture;
     public $Paye;
 
-    function __construct($Arg)
-    {
+    function __construct($Arg){
 
         if (is_null($Arg)) {
             return FALSE;
         }
-
         if (is_numeric($Arg)) {
             //Assuming ID, search for ID
             $SQL = new sqlclass();
@@ -39,6 +37,7 @@ class Shift
     }
 
     static function find_billable_shift_by_installation($IDInstallation, $Semaine){
+
         $sql = new SqlClass();
         $Req = "SELECT shift.IDShift FROM shift JOIN installation JOIN client on shift.IDInstallation = installation.IDInstallation AND client.IDClient = installation.IDClient WHERE shift.IDInstallation = ".$IDInstallation." AND Semaine=".$Semaine." ORDER BY installation.Nom ASC, Jour ASC, shift.Assistant ASC, Start ASC";
         $sql->SELECT($Req);
@@ -46,16 +45,19 @@ class Shift
         while($shift_result = $sql->FetchArray()){
             $shifts[] = new Shift($shift_result['IDShift']);
         }
+
         return $shifts;
     }
 
      function is_connected_after($PreviousShift){
+
         if($PreviousShift){
          return ($PreviousShift->End == $this->Start and $PreviousShift->Jour == $PreviousShift->Jour);
         }
     }
 
      function is_shift_assistant(){
+
         if($this->Assistant==0){
             return false;
         }else{
@@ -76,13 +78,10 @@ class Shift
              $FactsheetValues = array('IDFacture'=>$Facture->IDFacture,'Start'=>$this->Start,'End'=>$this->End,'Jour'=>$this->Jour,'TXH'=>$this->TXH,'Notes'=>$titre.": ".$RelatedInstallation->Nom." (".get_employe_initials($this->IDEmploye).")");
              $Facture->add_factsheet(new Factsheet($FactsheetValues));
          }
-
      }
 
-    function generate_log($Action, $Info)
-    {
+    function generate_log($Action, $Info){
         $log = new LogShift($this, $Action, $Info);
         return $log;
     }
-
 }
