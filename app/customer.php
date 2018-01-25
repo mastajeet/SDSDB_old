@@ -26,9 +26,14 @@ class Customer extends BaseModel
             throw new InvalidArgumentException(NO_CLIENT_ASSOCIATED_WITH_COTE." ".$cote);
         }
         $customer_id = $sql->Get_first();
-//        $sql->CloseConnection();
 
         return new Customer($customer_id['IDClient']);
+    }
+
+    function update_facture(&$facture){
+        foreach ($facture->Factsheet as $factsheet){
+            $factsheet->update_using_customer_ferie($this->Ferie);
+        }
     }
 
 }

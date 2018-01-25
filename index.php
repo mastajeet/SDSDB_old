@@ -12,7 +12,7 @@ date_default_timezone_set ('America/Montreal');
 
 if(isset($_COOKIE['IDEmploye']) AND !isset($_COOKIE['CIESDS'])){
 		setcookie('IDEmploye','',0);
-	DIE("Veuillez Rafra�chir votre page");
+	DIE("Veuillez Rafraichir votre page");
 }
 	
 if((isset($_COOKIE['CIESDS']) AND $_COOKIE['CIESDS']=="QC") OR (isset($_POST['FORMCIESDS']) AND $_POST['FORMCIESDS']=="QC")){
@@ -43,6 +43,7 @@ include_once('app/shift.php');
 include_once('app/installation.php');
 include_once('app/inspection.php');
 include_once('app/shift.php');
+include_once('app/factsheet.php');
 include_once('app/logshift.php');
 include_once('app/customer.php');
 include_once('app/facture.php');

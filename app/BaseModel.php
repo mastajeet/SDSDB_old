@@ -1,8 +1,5 @@
 <?php
 
-class NotImplementedException extends BadMethodCallException
-{
-}
 
 class BaseModel
 {
@@ -138,13 +135,17 @@ class BaseModel
     {
         $object = get_called_class();
         if (!in_array($item, array('data_type', 'updated_values', 'model_table', 'model_table_id')))
-            if (!in_array($item, $this->updated_values)) {
-                $this->updated_values[] = $item;
+            $this->add_to_updated_values($item);
+            if ($object::get_data_type($item, $value) == "has_many") {
+//            $this->{$item}[] = $value;
+            } else {
+                $this->$item = $value;
             }
-        if ($object::get_data_type($item, $value) == "has_many") {
-            $this->{$item}[] = $value;
-        } else {
-            $this->$item = $value;
+    }
+
+    function add_to_updated_values($item){
+        if (!in_array($item, $this->updated_values)) {
+            $this->updated_values[] = $item;
         }
     }
 
@@ -203,7 +204,6 @@ class BaseModel
         $values = "";
         foreach ($this->updated_values as $value) {
             $value_type = $this->get_data_type($value, $this->$value);
-
             if ($value_type == "has_many") {
                 foreach ($this->$value as $model) {
                     $model->save();
@@ -229,7 +229,6 @@ class BaseModel
         $table_info = $object::define_table_info();
 
         $model_table_id = $table_info['model_table_id'];
-
 
         if ($this->$model_table_id == 0) {
             if (count($this->updated_values) > 0) {
@@ -259,21 +258,21 @@ class BaseModel
     {
         $SQL = new SQLClass();
         $SQL->Insert($Req);
-        $SQL->CloseConnection();
+//        $SQL->CloseConnection();
     }
 
     static function update($Req)
     {
         $SQL = new SQLClass();
         $SQL->Update($Req);
-        $SQL->CloseConnection();
+//        $SQL->CloseConnection();
     }
 
     static function delete($Req)
     {
         $SQL = new SQLClass();
         $SQL->Delete($Req);
-        $SQL->CloseConnection();
+//        $SQL->CloseConnection();
     }
 
 
@@ -311,7 +310,7 @@ class BaseModel
         while ($rep = $SQL->FetchAssoc()) {
             $return_value[] = new $class($rep[$model_table_id]);
         }
-        $SQL->CloseConnection();
+//        $SQL->CloseConnection();
         return $return_value;
     }
 
@@ -327,7 +326,7 @@ class BaseModel
         while ($rep = $SQL->FetchAssoc()) {
             $return_value[] = $rep;
         }
-        $SQL->CloseConnection();
+//        $SQL->CloseConnection();
         return $return_value;
     }
 
@@ -387,6 +386,9 @@ class BaseModel
             return BaseModel::guess_data_type($value);
         }
     }
+}
 
 
+class NotImplementedException extends BadMethodCallException
+{
 }

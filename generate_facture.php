@@ -52,4 +52,4 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
 	}
 	
 }
-echo $MainOutput->send(1);
+echo $MainOutput->send();
