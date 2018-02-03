@@ -38,13 +38,18 @@ class Factsheet extends baseModel
         }
     }
 
+    function add_factshift_to_balance(&$Balance){
+        $Balance += round(($this->End - $this->Start)/NB_SECONDS_PER_HOUR*$this->TXH,2);
+    }
+
     static function define_table_info(){
         return array("model_table" => "factsheet",
             "model_table_id" => "IDFactsheet");
     }
 
     static function define_data_types(){
-        return array("IDFactsheet"=>'ID');
+        return array("IDFactsheet"=>'ID',
+        'TXH'=>'float');
     }
 
 }

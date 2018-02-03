@@ -39,6 +39,9 @@ include('func_date.php');
 include('func_facture.php');
 include('func_superadmin.php');
 include('func_inspection.php');
+
+include('constants.php');
+
 include_once('app/shift.php');
 include_once('app/installation.php');
 include_once('app/inspection.php');

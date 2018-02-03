@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jtbai
- * Date: 18/01/18
- * Time: 9:20 PM
- */
 
 class Facture extends BaseModel
 {
@@ -29,7 +23,6 @@ class Facture extends BaseModel
         $facture = new Facture($bill_information);
         $facture->save();
 
-        $IDFacture = $facture->IDFacture;
         $customer = customer::find_customer_by_cote($_POST['FORMCote']);
         $installation_to_bill = Installation::get_installations_to_bill($Cote,$Semaine);
 
@@ -39,23 +32,24 @@ class Facture extends BaseModel
             foreach ($shifts as $current_shift) {
                 $current_shift->add_to_facture($facture);
             }
-
             $customer->update_facture($facture);
 
             foreach($facture->Factsheet as $v){
-
                 $v->End -= bcmod($v->End,36);
                 $v->Start -= bcmod($v->Start,36);
-
             }
             $facture->save();
-            update_facture_balance($IDFacture);
         }
+
         return $facture;
     }
 
     function update_balance(){
-//        echo "il faudrait que j'implemente ca!";
+        $balance = 0;
+        foreach($this->Factsheet as $factsheet){
+            $factsheet->add_factshift_to_balance($balance);
+        }
+        $this->STotal = $balance;
     }
 
     function save(){
@@ -63,19 +57,19 @@ class Facture extends BaseModel
         parent::save();
     }
 
-
     function add_factsheet(&$factsheet){
         $this->Factsheet[] = $factsheet;
         $this->add_to_updated_values("Factsheet");
     }
+
     static function define_table_info(){
         return array("model_table" => "facture",
-        "model_table_id" => "IDFacture");
+            "model_table_id" => "IDFacture");
     }
 
     static function define_data_types(){
-      return array("IDFacture"=>'ID',
-                    "Factsheet"=>'has_many');
+        return array("IDFacture"=>'ID',
+            "Factsheet"=>'has_many');
     }
 
 }

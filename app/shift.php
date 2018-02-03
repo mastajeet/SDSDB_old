@@ -49,10 +49,9 @@ class Shift
         return $shifts;
     }
 
-     function is_connected_after($PreviousShift){
-
+    function is_connected_after($PreviousShift){
         if($PreviousShift){
-         return ($PreviousShift->End == $this->Start and $PreviousShift->Jour == $PreviousShift->Jour);
+            return ($PreviousShift->End == $this->Start and $PreviousShift->Jour == $PreviousShift->Jour);
         }
     }
 
@@ -65,23 +64,24 @@ class Shift
         }
      }
 
-     function add_to_facture(&$Facture){
-
-         $titre = FIRST_LIFEGUARD;
-         if($this->is_shift_assistant()) {
-             $titre = SECOND_LIFEGUARD;
-         }
-         if($this->is_connected_after(end($Facture->Factsheet))){
-            end($Facture->Factsheet)->update_using_next_shift($this);
-         }else{
-             $RelatedInstallation = new Installation($this->IDInstallation);
-             $FactsheetValues = array('IDFacture'=>$Facture->IDFacture,'Start'=>$this->Start,'End'=>$this->End,'Jour'=>$this->Jour,'TXH'=>$this->TXH,'Notes'=>$titre.": ".$RelatedInstallation->Nom." (".get_employe_initials($this->IDEmploye).")");
-             $Facture->add_factsheet(new Factsheet($FactsheetValues));
-         }
-     }
-
     function generate_log($Action, $Info){
         $log = new LogShift($this, $Action, $Info);
         return $log;
     }
+
+    function add_to_facture(&$Facture){
+
+        $titre = FIRST_LIFEGUARD;
+        if($this->is_shift_assistant()) {
+            $titre = SECOND_LIFEGUARD;
+        }
+        if($this->is_connected_after(end($Facture->Factsheet))){
+            end($Facture->Factsheet)->update_using_next_shift($this);
+        }else{
+            $RelatedInstallation = new Installation($this->IDInstallation);
+            $FactsheetValues = array('IDFacture'=>$Facture->IDFacture,'Start'=>$this->Start,'End'=>$this->End,'Jour'=>$this->Jour,'TXH'=>$this->TXH,'Notes'=>$titre.": ".$RelatedInstallation->Nom." (".get_employe_initials($this->IDEmploye).")");
+            $Facture->add_factsheet(new Factsheet($FactsheetValues));
+        }
+    }
+
 }
