@@ -35,9 +35,6 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
         $facture = Facture::generate_facture($_POST['FORMCote'],$_POST['Semaine']);
 
 
-        $SQL = new SqlClass();
-        $Req = "UPDATE shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation SET Facture=1 WHERE `Semaine`=".$_POST['Semaine']." AND Cote='".$_POST['FORMCote']."'";
-        $SQL->Query($Req);
         $Modifie=TRUE;
         $_GET['IDFacture'] = $facture->IDFacture;
         include_once('display_facture.php');

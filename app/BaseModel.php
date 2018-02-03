@@ -1,6 +1,5 @@
 <?php
 
-
 class BaseModel
 {
     public $updated_values = array();

@@ -31,10 +31,12 @@ class Facture extends BaseModel
 
             foreach ($shifts as $current_shift) {
                 $current_shift->add_to_facture($facture);
+                $current_shift->Facture=True;
+                $current_shift->save();
             }
             $customer->update_facture($facture);
 
-            foreach($facture->Factsheet as $v){
+            foreach($facture->Factsheet as $v){  // A QUOI CA SERT CA ??
                 $v->End -= bcmod($v->End,36);
                 $v->Start -= bcmod($v->Start,36);
             }

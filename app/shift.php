@@ -1,6 +1,8 @@
 <?PHP
+include_once('BaseModel.php');
 
-class Shift
+
+class Shift extends BaseModel
 {
     public $IDShift;
     public $IDInstallation;
@@ -18,23 +20,6 @@ class Shift
     public $Empconf;
     public $Facture;
     public $Paye;
-
-    function __construct($Arg){
-
-        if (is_null($Arg)) {
-            return FALSE;
-        }
-        if (is_numeric($Arg)) {
-            //Assuming ID, search for ID
-            $SQL = new sqlclass();
-            $SQL->SELECT("SELECT * FROM shift WHERE IDShift = " . $Arg);
-            $Req = $SQL->FetchArray();
-            foreach ($Req as $Key => $val) {
-                $this->$Key = $val;
-            }
-            $SQL->CloseConnection();
-        }
-    }
 
     static function find_billable_shift_by_installation($IDInstallation, $Semaine){
 
@@ -82,6 +67,17 @@ class Shift
             $FactsheetValues = array('IDFacture'=>$Facture->IDFacture,'Start'=>$this->Start,'End'=>$this->End,'Jour'=>$this->Jour,'TXH'=>$this->TXH,'Notes'=>$titre.": ".$RelatedInstallation->Nom." (".get_employe_initials($this->IDEmploye).")");
             $Facture->add_factsheet(new Factsheet($FactsheetValues));
         }
+    }
+
+    static function define_table_info(){
+        return array("model_table" => "shift",
+            "model_table_id" => "IDShift");
+    }
+
+    static function define_data_types(){
+        return array("IDShift"=>'ID',
+            'TXH'=>'float'
+        );
     }
 
 }
