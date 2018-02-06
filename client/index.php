@@ -22,7 +22,7 @@ if(isset($_COOKIE['CIE'])){
 
 
 
-
+date_default_timezone_set ('America/Montreal');
 
 $WarnOutput = new HTML();
 include('action.php') ;
