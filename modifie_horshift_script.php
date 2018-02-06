@@ -26,7 +26,7 @@ if(isset($_POST['IDHorshift'])){
 	
 			$SQL->SELECT($Req);
 			while($Rep = $SQL->FetchArray()){
-				$Req2 = "UPDATE Horshift SET `End`= '".$Start."' WHERE `IDHorshift`='".$Rep['IDHorshift']."'";
+				$Req2 = "UPDATE horshift SET `End`= '".$Start."' WHERE `IDHorshift`='".$Rep['IDHorshift']."'";
 			$SQL2->UPDATE($Req2);
 			}
 			
@@ -35,7 +35,7 @@ if(isset($_POST['IDHorshift'])){
 			$Req = "SELECT IDHorshift FROM horshift WHERE IDHoraire = '".$_POST['IDHoraire']."' && `Jour`='".$_POST['FORMJour']."' && `Start`='".$OldEnd."' && Assistant='".$_POST['FORMAssistant']."'";
 			$SQL->SELECT($Req);
 			while($Rep = $SQL->FetchArray()){
-				$Req2 = "UPDATE Horshift SET `Start`= '".$End."' WHERE `IDHorshift`='".$Rep['IDHorshift']."'";
+				$Req2 = "UPDATE horshift SET `Start`= '".$End."' WHERE `IDHorshift`='".$Rep['IDHorshift']."'";
 			$SQL2->UPDATE($Req2);
 			}
 		}
