@@ -1,11 +1,11 @@
 <?PHP
 if(isset($_POST['FORMIDEmploye']) && isset($_POST['FORMNAS'])){
-	$Req = "SELECT NAS, Cessation FROM employe WHERE IDEmploye =".$_POST['FORMIDEmploye'];
+	$Req = "SELECT NAS, Cessation, Status FROM employe WHERE IDEmploye =".$_POST['FORMIDEmploye'];
 	$SQL->SELECT($Req);
 	$Rep = $SQL->FetchArray();
 
 	if(!$Rep['Cessation']){
-		if($_POST['FORMNAS']==get_vars('MP')){
+		if($_POST['FORMNAS']==get_vars('MP') && $Rep['Status']=="Bureau"){
 			setcookie("Bureau", 1, time()+60*60*24*180);
 			setcookie("MP",get_vars('MP'), time()+60*60*24*180);
 
