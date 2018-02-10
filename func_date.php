@@ -16,41 +16,23 @@
 function get_last_sunday($Delta=0,$Time=""){
     if($Time=="")
         $Time = time();
+
     $InitialWeekDay = intval(date("w",$Time));
     $InitialHour = intval(date("G",$Time));
     $InitialMinute = intval(date("i",$Time));
     $InitialSecond = intval(date("s",$Time));
 
-    $ProjectedTime = $Time;
-/**
-    
-    $ProjectedWeekDay = intval(date("w",$ProjectedTime));
-    $ProjectedHour = intval(date("G",$ProjectedTime));
-    $ProjectedMinute = intval(date("i",$ProjectedTime));
-    $ProjectedSecond = intval(date("s",$ProjectedTime));
-     **/
+	$ProjectedTime = $Time - 60*60*24*7*$Delta;
+	$TimeToReturn = $ProjectedTime - ( $InitialSecond + 60 * ($InitialMinute + 60 * ($InitialHour + 24 * $InitialWeekDay)));
 
-    
-        $ProjectedTime = $Time - 60*60*24*7*$Delta; 
-       
-           
+	$ProjectedHour = intval(date("G",$TimeToReturn));
 
+	if($ProjectedHour==23)
+		$TimeToReturn += 3600;
+	elseif($ProjectedHour==1)
+		$TimeToReturn -= 3600;
 
-
-
-$TimeToReturn = $ProjectedTime - ( $InitialSecond + 60 * ($InitialMinute + 60 * ($InitialHour + 24 * $InitialWeekDay)));
-        
-        $ProjectedWeekDay = intval(date("w",$TimeToReturn));
-        $ProjectedHour = intval(date("G",$TimeToReturn));
-        $ProjectedMinute = intval(date("i",$TimeToReturn));
-        $ProjectedSecond = intval(date("s",$TimeToReturn));
-        
-        if($ProjectedHour==23)
-            $TimeToReturn += 3600;
-        elseif($ProjectedHour==1)
-            $TimeToReturn -= 3600;
-        
-        return $TimeToReturn;
+	return $TimeToReturn;
   
   
 }

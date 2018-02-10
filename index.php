@@ -65,7 +65,7 @@ if(!isset($_COOKIE['IDEmploye'])){
 		include('action.php');
 	$MenuOutput = new html();
 	if(!isset($_GET['Semaine']))
-		$_GET['Semaine']=get_last_sunday();
+        $_GET['Semaine']=get_last_sunday();
 	if(!isset($_GET['ToPrint']))
 		$_GET['ToPrint']=FALSE;
 	?>
