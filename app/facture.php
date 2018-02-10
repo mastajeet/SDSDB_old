@@ -13,36 +13,17 @@ class Facture extends BaseModel
         $this->Factsheet = array();
     }
 
-    static function generate_facture($Cote, $Semaine){
-        $bill_information = array(  "Cote"=>$Cote,
-                                    "Semaine"=>$Semaine,
-                                    "TPS"=>get_vars('TPS'),
-                                    "TVQ"=>get_vars('TVQ'),
-                                    "Sequence"=>get_last_facture($Cote),
-                                    "EnDate"=>time());
-        $facture = new Facture($bill_information);
-        $facture->save();
-
-        $customer = customer::find_customer_by_cote($_POST['FORMCote']);
-        $installation_to_bill = Installation::get_installations_to_bill($Cote,$Semaine);
-
-        foreach($installation_to_bill as $installation) {
-            $shifts = Shift::find_billable_shift_by_installation($installation->IDInstallation, $_POST['Semaine']);
-
-            foreach ($shifts as $current_shift) {
-                $current_shift->add_to_facture($facture);
-                $current_shift->Facture=True;
-                $current_shift->save();
-            }
-            $customer->update_facture($facture);
-
-            foreach($facture->Factsheet as $v){  // A QUOI CA SERT CA ??
-                $v->End -= bcmod($v->End,36);
-                $v->Start -= bcmod($v->Start,36);
-            }
-            $facture->save();
+    static function get_last_for_cote($Cote, $Materiel=0, $Credit=0){
+        $database_information = Facture::define_table_info();
+        $last_facture_query = "SELECT IDFacture FROM ".$database_information['model_table']." WHERE Cote='".$Cote."' and Materiel=".$Materiel." and Credit=".$Credit." ORDER BY Sequence DESC LIMIT 0,1";
+        $SQL = new SQLClass();
+        $SQL->Select($last_facture_query);
+        $facture = new Facture([]);
+        if($SQL->NumRow()>0){
+            $facture_response = $SQL->FetchArray();
+            $facture_id = intval($facture_response[$database_information['model_table_id']]);
+            $facture = new Facture($facture_id);
         }
-
         return $facture;
     }
 

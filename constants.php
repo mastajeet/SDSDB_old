@@ -1,4 +1,5 @@
 <?php
+    const WARNING_UNKNOWN_MODEL_VALUE = "Aucun attribut du model egal a ";
 
     const NB_SECONDS_PER_HOUR = 3600;
 

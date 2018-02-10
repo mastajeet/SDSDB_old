@@ -27,7 +27,7 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
     }elseif($_POST['Semaine'] >= get_last_sunday(0,time()) ) {
         $MainOutput->AddTexte(INCOMPLETE_PERIOD, 'Warning');
     }else{
-        $facture = Facture::generate_facture($_POST['FORMCote'],$_POST['Semaine']);
+        $facture = Customer::generate_facture_hebdomadaire_shifts($_POST['FORMCote'],$_POST['Semaine']);
         $Modifie=TRUE;
         $_GET['IDFacture'] = $facture->IDFacture;
         include_once('display_facture.php');

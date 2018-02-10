@@ -30,4 +30,47 @@ class Customer extends BaseModel
         }
     }
 
+    private function get_new_facture_sequence($Facture){
+        $next_sequence = $Facture->Sequence;
+        $next_sequence++;
+        return $next_sequence;
+    }
+
+    static function generate_facture_hebdomadaire_shifts($Cote, $Semaine){
+
+        $customer = customer::find_customer_by_cote($Cote);
+        $last_facture = Facture::get_last_for_cote($Cote);
+        $new_facture_sequence = $customer->get_new_facture_sequence($last_facture);
+
+        $facture_information = array(  "Cote"=>$Cote,
+            "Semaine"=>$Semaine,
+            "TPS"=>get_vars('TPS'),
+            "TVQ"=>get_vars('TVQ'),
+            "Sequence"=>$new_facture_sequence,
+            "EnDate"=>time());
+        $facture = new Facture($facture_information);
+        $facture->save();
+
+        $installation_to_bill = Installation::get_installations_to_bill($Cote,$Semaine);
+
+        foreach($installation_to_bill as $installation) {
+            $shifts = Shift::find_billable_shift_by_installation($installation->IDInstallation, $Semaine);
+
+            foreach ($shifts as $current_shift) {
+                $current_shift->add_to_facture($facture);
+                $current_shift->Facture=True;
+                $current_shift->save();
+            }
+            $customer->update_facture($facture);
+
+            foreach($facture->Factsheet as $v){  // A QUOI CA SERT CA ??
+                $v->End -= bcmod($v->End,36);
+                $v->Start -= bcmod($v->Start,36);
+            }
+            $facture->save();
+        }
+
+        return $facture;
+    }
+
 }
