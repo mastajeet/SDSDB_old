@@ -27,10 +27,18 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
     }elseif($_POST['Semaine'] >= get_last_sunday(0,time()) ) {
         $MainOutput->AddTexte(INCOMPLETE_PERIOD, 'Warning');
     }else{
-        $facture = Customer::generate_facture_hebdomadaire_shifts($_POST['FORMCote'],$_POST['Semaine']);
-        $Modifie=TRUE;
-        $_GET['IDFacture'] = $facture->IDFacture;
-        include_once('display_facture.php');
-	}
+        $factures = Customer::generate_facture_hebdomadaire_shifts($_POST['FORMCote'],$_POST['Semaine']);
+        $nombre_facture_generated = count($factures);
+        if($nombre_facture_generated >=2){
+            $MainOutput->addtexte(MORE_THAN_ONE_BILL_HAS_BEEN_ADDED,'warning');
+            echo $MainOutput->send(1);
+        }
+        if($nombre_facture_generated >= 1){
+            $facture = $factures[0];
+            $Modifie=TRUE;
+            $_GET['IDFacture'] = $facture->IDFacture;
+            include_once('display_facture.php');
+        }
+    }
 }
 echo $MainOutput->send(1);

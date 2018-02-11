@@ -48,12 +48,14 @@ class Customer extends BaseModel
             "TVQ"=>get_vars('TVQ'),
             "Sequence"=>$new_facture_sequence,
             "EnDate"=>time());
-        $facture = new Facture($facture_information);
-        $facture->save();
 
         $installation_to_bill = Installation::get_installations_to_bill($Cote,$Semaine);
-
+        $factures = [];
         foreach($installation_to_bill as $installation) {
+
+            $facture = new Facture($facture_information);
+            $facture->save();
+
             $shifts = Shift::find_billable_shift_by_installation($installation->IDInstallation, $Semaine);
 
             foreach ($shifts as $current_shift) {
@@ -63,9 +65,10 @@ class Customer extends BaseModel
             }
             $customer->update_facture($facture);
             $facture->save();
+            $factures[] = $facture;
         }
 
-        return $facture;
+        return $factures;
     }
 
 }

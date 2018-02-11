@@ -1,6 +1,8 @@
 <?php
     const WARNING_UNKNOWN_MODEL_VALUE = "Aucun attribut du model egal a ";
 
+
+
     const NB_SECONDS_PER_HOUR = 3600;
 
     const AJOUTER_UNE_FACTURE = 'Ajouter une facture';
@@ -13,3 +15,4 @@
 
 
     const NO_CLIENT_ASSOCIATED_WITH_COTE = "Aucun client n'est associe à la cote";
+    const MORE_THAN_ONE_BILL_HAS_BEEN_ADDED = "Plus d'une facture a été ajoutée";
