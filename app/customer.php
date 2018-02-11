@@ -62,11 +62,6 @@ class Customer extends BaseModel
                 $current_shift->save();
             }
             $customer->update_facture($facture);
-
-            foreach($facture->Factsheet as $v){  // A QUOI CA SERT CA ??
-                $v->End -= bcmod($v->End,36);
-                $v->Start -= bcmod($v->Start,36);
-            }
             $facture->save();
         }
 
