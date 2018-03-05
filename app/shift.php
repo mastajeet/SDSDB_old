@@ -24,7 +24,7 @@ class Shift extends BaseModel
 
     function is_connected_after($PreviousShift){
         if($PreviousShift){
-            return ($PreviousShift->End == $this->Start and $PreviousShift->Jour == $ssthis->Jour);
+            return ($PreviousShift->End == $this->Start and $PreviousShift->Jour == $this->Jour);
         }
     }
 
