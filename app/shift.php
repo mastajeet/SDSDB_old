@@ -21,22 +21,10 @@ class Shift extends BaseModel
     public $Facture;
     public $Paye;
 
-    static function find_billable_shift_by_installation($IDInstallation, $Semaine){
-
-        $sql = new SqlClass();
-        $Req = "SELECT shift.IDShift FROM shift JOIN installation JOIN client on shift.IDInstallation = installation.IDInstallation AND client.IDClient = installation.IDClient WHERE shift.IDInstallation = ".$IDInstallation." AND Semaine=".$Semaine." ORDER BY installation.Nom ASC, Jour ASC, shift.Assistant ASC, Start ASC";
-        $sql->SELECT($Req);
-        $shifts  = array();
-        while($shift_result = $sql->FetchArray()){
-            $shifts[] = new Shift($shift_result['IDShift']);
-        }
-
-        return $shifts;
-    }
 
     function is_connected_after($PreviousShift){
         if($PreviousShift){
-            return ($PreviousShift->End == $this->Start and $PreviousShift->Jour == $PreviousShift->Jour);
+            return ($PreviousShift->End == $this->Start and $PreviousShift->Jour == $ssthis->Jour);
         }
     }
 
@@ -67,6 +55,9 @@ class Shift extends BaseModel
             $FactsheetValues = array('IDFacture'=>$Facture->IDFacture,'Start'=>$this->Start,'End'=>$this->End,'Jour'=>$this->Jour,'TXH'=>$this->TXH,'Notes'=>$titre.": ".$RelatedInstallation->Nom." (".get_employe_initials($this->IDEmploye).")");
             $Facture->add_factsheet(new Factsheet($FactsheetValues));
         }
+
+        $this->Facture=True;
+        $this->save();
     }
 
     static function define_table_info(){

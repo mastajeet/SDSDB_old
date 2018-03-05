@@ -40,31 +40,23 @@ class Customer extends BaseModel
 
         $customer = customer::find_customer_by_cote($Cote);
         $installation_to_bill = Installation::get_installations_to_bill($Cote,$Semaine);
-
         $factures = [];
+
         foreach($installation_to_bill as $installation) {
 
             $last_facture = Facture::get_last_for_cote($Cote);
             $new_facture_sequence = $customer->get_new_facture_sequence($last_facture);
 
-            $facture_information = array(  "Cote"=>$Cote,
+            $facture_information = array("Cote"=>$Cote,
                 "Semaine"=>$Semaine,
                 "TPS"=>get_vars('TPS'),
                 "TVQ"=>get_vars('TVQ'),
                 "Sequence"=>$new_facture_sequence,
                 "EnDate"=>time());
 
-
             $facture = new Facture($facture_information);
             $facture->save();
-
-            $shifts = $installation->get_billable_shift_by_installation($Semaine);
-
-            foreach ($shifts as $current_shift) {
-                $current_shift->add_to_facture($facture);
-                $current_shift->Facture=True;
-                $current_shift->save();
-            }
+            $installation->fill_facture($facture);
             $customer->update_facture($facture);
             $facture->save();
             $factures[] = $facture;

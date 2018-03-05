@@ -60,4 +60,25 @@ class Installation extends BaseModel
 
         return $Installations;
     }
+
+
+    function fill_facture(&$Facture){
+        $shifts = $this->get_billable_shift_by_installation($Facture->Semaine);
+        foreach ($shifts as $current_shift) {
+            $current_shift->add_to_facture($Facture);
+        }
+    }
+
+    function get_billable_shift_by_installation($Semaine){
+
+        $sql = new SqlClass();
+        $Req = "SELECT shift.IDShift FROM shift JOIN installation JOIN client on shift.IDInstallation = installation.IDInstallation AND client.IDClient = installation.IDClient WHERE shift.IDInstallation = ".$this->IDInstallation." AND Semaine=".$Semaine." ORDER BY installation.Nom ASC, Jour ASC, shift.Assistant ASC, Start ASC";
+        $sql->SELECT($Req);
+        $shifts  = array();
+        while($shift_result = $sql->FetchArray()){
+            $shifts[] = new Shift($shift_result['IDShift']);
+        }
+
+        return $shifts;
+    }
 }
