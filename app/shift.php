@@ -67,7 +67,8 @@ class Shift extends BaseModel
 
     static function define_data_types(){
         return array("IDShift"=>'ID',
-            'TXH'=>'float'
+            'TXH'=>'float',
+            'Salaire'=>'float'
         );
     }
 
