@@ -1,0 +1,10 @@
+creer une facture pour un client
+creer une facture avec un ferie pour un client qui as ferie  = 1
+creer une facture avec un ferie pou un client qui as ferie > 1
+creer une facture avec un minimum 4h
+creer une facture avec deux shift colles
+creer une facture avec deux shift colle mais pas la meme journee (bogue)
+
+
+creer une facture pour un client qui en a pas
+creer une facture pour un client qui en a deja

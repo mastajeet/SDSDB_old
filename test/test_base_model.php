@@ -1,6 +1,6 @@
 <?php
-require_once('../app/BaseModel.php');
-require_once('../mysql_class_qc.php');
+require_once('app/BaseModel.php');
+require_once('mysql_class_qc.php');
 
 class test_base_model extends PHPUnit_Framework_TestCase
 {
@@ -29,7 +29,7 @@ class test_base_model extends PHPUnit_Framework_TestCase
 
     public function test_value_convertion_string(){
         $data_type = BaseModel::convert_data("test1",'string');
-        $this->assertEquals($data_type,"'test1'");
+        $this->assertEquals($data_type,"\"test1\"");
     }
 
     public function test_value_convertion_int(){
