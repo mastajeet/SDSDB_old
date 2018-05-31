@@ -9,13 +9,13 @@
 class SqlClass
 {
 	var $server = "mysql-test-sdsdb";
-	var $database = "qcnat_sds_qc";
+	var $database = "qcnat_sds_test";
 	var $username = "root";
 	var $password = "lolk1234";
 	var $debug = 0;
 	var $show_errors = true;
 	var $logfile = "./mysql.log";
-	var $log = TRUE;
+	var $log = true;
 	var $auto_connect = TRUE;
 	var $error_message = "";
 	var $result;
@@ -218,13 +218,13 @@ class SqlClass
 			if($this->log == True)
 			{
 				$fd = fopen($this->logfile, "a");
-				
+
 				if(!$fd)
 				{
 					echo $sql_error['logfile'];
 					exit;
 				}
-				
+
 				$string = "[".$sql."][".mysql_error($this->connection)."][".$error."][".date('d/m/Y H:i:s')."]\n";
 				if(!fwrite($fd, $string)) 
 				{

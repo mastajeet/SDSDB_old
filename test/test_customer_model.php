@@ -1,7 +1,7 @@
 <?php
 
 require_once('app/customer.php');
-require_once('mysql_class_qc.php');
+require_once('mysql_class_test.php');
 
 //class TestCustomerModel extends PHPUnit_Framework_TestCase
 //{

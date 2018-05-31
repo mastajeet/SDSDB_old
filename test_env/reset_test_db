@@ -1,0 +1,7 @@
+
+test_db_ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-test-sdsdb)
+mysql -uroot -plolk1234 -h $test_db_ip -P 3306 < drop_test_db.sql
+mysql -uroot -plolk1234 -h $test_db_ip -P 3306 < create_test_db.sql
+mysql -uroot -plolk1234 -h $test_db_ip -P 3306 < create_initial_tables.sql
+mysql -uroot -plolk1234 -h $test_db_ip -P 3306 < create_initial_values.sql
+

@@ -4,17 +4,14 @@ class BaseModel
 {
     public $updated_values = array();
 
-    static function find_by_id()
-    {
+    static function generate_find_by_id_request($id){
         $object = get_called_class();
         $table_info = $object::define_table_info();
 
-        return ("SELECT * FROM " . $table_info['model_table'] . " WHERE " . $table_info['model_table_id'] . " = ");
+        return ("SELECT * FROM " . $table_info['model_table'] . " WHERE " . $table_info['model_table_id'] . " = ". $id);
     }
 
-
-    static function get_all($filter, $order_by, $order,$nb_per_page, $page)
-    {
+    static function get_all($filter, $order_by, $order,$nb_per_page, $page){
         $object = get_called_class();
         $table_info = $object::define_table_info();
         $request = "SELECT " . $table_info['model_table_id'] . " FROM " . $table_info['model_table'] . " WHERE " . $filter . " ORDER BY " . $order_by ." ". $order;
@@ -22,8 +19,7 @@ class BaseModel
         return $result;
     }
 
-    static function get_all_in_list($filter, $include_id=False)
-    {
+    static function get_all_in_list($filter, $include_id=False){
         $object = get_called_class();
         $table_info = $object::define_table_info();
         $request = "SELECT * FROM " . $table_info['model_table'] . " WHERE " . $filter;
@@ -44,31 +40,29 @@ class BaseModel
             }
             $result_set[$object_id] = $value;
         }
-        return $result_set;
 
-        $result = BaseModel::find($request, $object);
-        return $result;
+        return $result_set;
     }
 
 
-    static function get_last_id()
-    {
+    static function get_last_id(){
         $object = get_called_class();
         $table_info = $object::define_table_info();
         $model_table_id = $table_info['model_table_id'];
         $request = "SELECT " . $table_info['model_table_id'] . " FROM " . $table_info['model_table'] . " WHERE 1 ORDER BY " . $table_info['model_table_id'] . " DESC LIMIT 0,1";
         $result = BaseModel::select($request);
+
         return $result[0][$model_table_id];
     }
 
 
-    static function last()
-    {
+    static function last(){
         $object = get_called_class();
         $table_info = $object::define_table_info();
         $model_table_id = $table_info['model_table_id'];
         $request = "SELECT * FROM " . $table_info['model_table'] . " WHERE 1 ORDER BY " . $table_info['model_table_id'] . " DESC LIMIT 0,1";
         $result = BaseModel::select($request);
+
         return new $object($result[0][$model_table_id]);
     }
 
@@ -99,14 +93,10 @@ class BaseModel
             $this->updated_values[] = $key;
         }
 
-
-
-
         if (is_array($Arg)) {
             foreach ($Arg as $Key => $val) {
                 $this->$Key = $val;
-                if(!in_array($Key,$this->updated_values))
-                {
+                if(!in_array($Key,$this->updated_values)){
                     $this->updated_values[] = $Key;
                 }
             }
@@ -115,18 +105,15 @@ class BaseModel
         if (is_numeric($Arg)) {
             //Assuming ID, search for ID
             $SQL = new SQLClass();
-            $SQL->SELECT($this->find_by_id() . $Arg);
-
+            $select_request = $this->generate_find_by_id_request($Arg);
+            $SQL->Select($select_request);
             $Req = $SQL->FetchAssoc();
-
             foreach ($Req as $Key => $val) {
                 if (!is_null($val) and $val != "") {
                     $this->$Key = $val;
                     $this->updated_values[] = $Key;
                 }
             }
-
-
         }
     }
 
@@ -157,7 +144,6 @@ class BaseModel
         } elseif (in_array($name, get_class_methods($object))) {
             $this->$name();
         } else {
-
             throw new Exception(WARNING_UNKNOWN_MODEL_VALUE . ": " . $name . " for " . $object);
         }
 
@@ -189,6 +175,7 @@ class BaseModel
         }
         $Req = substr($Req, 0, -2);
         $Req .= " WHERE " . $table_info['model_table_id'] . " = " . $this->$model_table_id;
+
         return ($Req);
     }
 
@@ -240,8 +227,8 @@ class BaseModel
                 BaseModel::update($this->generate_update_statement());
             }
         }
-        return $this->$model_table_id;
 
+        return $this->$model_table_id;
     }
 
     function destroy()
@@ -253,28 +240,24 @@ class BaseModel
         return True;
     }
 
-    static function insert($Req)
-    {
+    static function insert($Req){
         $SQL = new SQLClass();
         $SQL->Insert($Req);
     }
 
-    static function update($Req)
-    {
+    static function update($Req){
         $SQL = new SQLClass();
         $SQL->Update($Req);
     }
 
-    static function delete($Req)
-    {
+    static function delete($Req){
         $SQL = new SQLClass();
         $SQL->Delete($Req);
     }
 
 
 
-    static function find_by($attribute,$value)
-    {
+    static function find_by($attribute,$value){
         $object = get_called_class();
         $table_info = $object::define_table_info();
         $where_clause = "";
@@ -295,8 +278,7 @@ class BaseModel
     }
 
 
-    static function find($Req, $class)
-    {
+    static function find($Req, $class){
         $table_info = $class::define_table_info();
         $model_table_id = $table_info['model_table_id'];
 
@@ -311,8 +293,7 @@ class BaseModel
     }
 
 
-    static function select($Req)
-    {
+    static function select($Req){
         $SQL = new SQLClass();
         $SQL->Select($Req);
         $return_value = array();
@@ -327,8 +308,7 @@ class BaseModel
     }
 
 
-    static function convert_data($data, $data_type)
-    {
+    static function convert_data($data, $data_type){
         if ($data_type == "string") {
             return "\"" . addslashes($data) . "\"";
         }
@@ -351,8 +331,7 @@ class BaseModel
         throw new UnexpectedValueException;
     }
 
-    static function guess_data_type($value)
-    {
+    static function guess_data_type($value){
 
         if (is_int($value))
             return 'int';
@@ -372,8 +351,7 @@ class BaseModel
 
     }
 
-    static function get_data_type($field, $value)
-    {
+    static function get_data_type($field, $value){
         $object = get_called_class();
         $data_types = $object::define_data_types();
         if (array_key_exists($field, $data_types)) {
@@ -385,6 +363,6 @@ class BaseModel
 }
 
 
-class NotImplementedException extends BadMethodCallException
+class NotImplementedException extends Exception
 {
 }
