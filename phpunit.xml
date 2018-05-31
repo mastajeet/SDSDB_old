@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <phpunit>
     <testsuite name='sdsdb_test'>
-        <directory suffix='.php'>./test</directory>
+        <directory suffix='.php'>./test/app</directory>
+        <directory suffix='.php'>./test/helper</directory>
     </testsuite>
 </phpunit>
