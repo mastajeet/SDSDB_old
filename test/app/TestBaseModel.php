@@ -2,7 +2,7 @@
 require_once('app/BaseModel.php');
 require_once('mysql_class_test.php');
 
-class test_base_model extends PHPUnit_Framework_TestCase
+class TestBaseModel extends PHPUnit_Framework_TestCase
 {
 
     public function test_validate_set_onload(){

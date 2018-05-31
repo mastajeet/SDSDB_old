@@ -3,7 +3,7 @@
 require_once('app/inspection.php');
 require_once('mysql_class_test.php');
 
-class test_inspection extends PHPUnit_Framework_TestCase
+class TestInspection extends PHPUnit_Framework_TestCase
 {
     function test_constructeur()
     {

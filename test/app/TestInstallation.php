@@ -3,7 +3,7 @@
 require_once('app/installation.php');
 require_once('mysql_class_test.php');
 
-class test_installation extends PHPUnit_Framework_TestCase
+class TestInstallation extends PHPUnit_Framework_TestCase
 {
     function test_constructeur(){
         $Installation = new Installation(1);
