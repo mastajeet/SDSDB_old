@@ -44,6 +44,8 @@ $MainOutput->addtitledoutput(DATE_OF_BIRTH, datetostr($Info['DateNaissance']));
 
 if($can_see_protected_fields){
     $MainOutput->addtitledoutput(SOCIAL_SECURITY_NUMBER, $Info['NAS']);
+}else{
+    $MainOutput->addtitledoutput(SOCIAL_SECURITY_NUMBER, "*** *** ".substr($Info['NAS'],6,3));
 }
 $MainOutput->addtitledoutput(NOTES,$Info['Notes']);
 $MainOutput->CloseCol();
@@ -93,7 +95,7 @@ $MainOutput->OpenCol('100%',2);
 $MainOutput->addtitledoutput('Adresse',$Info['Adresse']);
 
 $str_secteur = "";
-if($Info['IDSecteur']<>""){
+if($Info['IDSecteur']<>" " and $Info['IDSecteur']<>""){
     $SQL_secteur = new SQLClass();
     $Req_secteur = "SELECT IDSecteur, Nom FROM secteur WHERE IDSecteur = ".$Info['IDSecteur'];
     $SQL_secteur->Select($Req_secteur);

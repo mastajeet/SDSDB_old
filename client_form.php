@@ -22,7 +22,13 @@ $MainOutput->inputphone('Fax','Télécopieur',$Info['Fax']);
 $MainOutput->inputtext('Email','Courriel','28',$Info['Email']);
 $MainOutput->inputselect('Facturation',$Facturation,$Info['Facturation'],NULL);
 $MainOutput->inputselect('FrequenceFacturation',$Frequence,$Info['FrequenceFacturation'],'Fréquence');
-$MainOutput->inputtext('TXH','Taux Horaire','5',$Info['TXH']);
+if($authorization->verifySuperAdmin($_COOKIE)){
+    $MainOutput->inputtext('TXH','Taux Horaire','5',$Info['TXH']);
+}else{
+    $MainOutput->inputhidden('TXH',$Info['TXH']);
+
+}
+
 $MainOutput->inputtext('Ferie','Mod. Férié','1',$Info['Ferie']);
 $MainOutput->inputtext('Depot','Dépot','4',$Info['Depot']);
 $MainOutput->flag('DepotPaye',$Info['DepotP']);

@@ -81,7 +81,7 @@ function get_installations($IDClient){
 	return $Ret;
 }
 
-function format_installation($IDInstallation){
+function format_installation($IDInstallation, $is_super_admin){
 	$Info = get_installation_info($IDInstallation);
 	$SQL = new sqlclass();
 	$Req = "SELECT IDRapport FROM clientrapport WHERE IDInstallation=".$IDInstallation;
@@ -95,7 +95,10 @@ function format_installation($IDInstallation){
 		$Output->AddTexte("&nbsp; (".$Info['Cote'].")",'Titre');
 		$Output->AddLink('index.php?Section=Installation_Form&IDInstallation='.$IDInstallation,'<img src=b_edit.png border=0>');
 		$Output->AddLink('index.php?Section=Horshift&IDInstallation='.$IDInstallation,'<img src=b_save.png border=0>');
-		$Output->AddLink('index.php?Cote='.$Info['Cote'],'<img src=b_fact.png border=0>');
+		if($is_super_admin){
+		    $Output->AddLink('index.php?Cote='.$Info['Cote'],'<img src=b_fact.png border=0>');
+        }
+
 		$Output->AddLink('index.php?Section=ClientComment_Form&IDInstallation='.$IDInstallation,'<img src=b_conf.png border=0>');
 		
 	$Output->closecol();

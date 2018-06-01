@@ -306,13 +306,6 @@ $NMois = get_month_list();
     }
 
 
-
-
-
-
-
-
-
     $MainOutput->CloseCol();
 	$MainOutput->CloseRow();
 	$MainOutput->CloseTable();

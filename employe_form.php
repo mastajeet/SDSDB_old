@@ -21,7 +21,10 @@ if(isset($_GET['IDEmploye'])){
 	$Info = get_employe_info($_GET['IDEmploye']);
 	$MainOutput->inputhidden_env('IDEmploye',$_GET['IDEmploye']);
 	$MainOutput->inputhidden_env('Update',TRUE);
+
+    $new_employe = false;
 }else{
+    $new_employe = true;
 	$Info = array('IDEmploye'=>'','HName'=>'','Ville'=>'Québec','Status'=>'','NAS'=>'', NAME =>'','Prenom'=>'','Session'=>get_vars('Saison'),'DateNaissance'=>0,'Adresse'=>'','CodePostal'=>'','Email'=>'','TelM'=>'','TelP'=>'','TelA'=>'','Cell'=>'', PAGET =>'','IDSecteur'=>'','Cessation'=>'', NOTES =>'','Raison'=>'','SalaireB'=>'9.50','SalaireS'=>'9.75','SalaireA'=>'9.25','DateEmbauche'=>0,'Engage'=>1,'EAssistant'=>'');
 	$MainOutput->inputhidden_env('Update',FALSE);
 }
@@ -49,7 +52,7 @@ $MainOutput->inputtext(NAME, NAME,'28',$Info[NAME]);
 $MainOutput->inputtext('Prenom', SURNAME,'28',$Info['Prenom']);
 $MainOutput->inputtext('HName', SCHEDULE_NAME,'28',$Info['HName']);
 $MainOutput->inputtime('DateNaissance', DATE_OF_BIRTH,$Info['DateNaissance'],array('Date'=>TRUE,'Time'=>FALSE));
-if($can_see_protected_fields){
+if($can_see_protected_fields or $new_employe){
     $MainOutput->inputtext('NAS', SOCIAL_SECURITY_NUMBER,'9',$Info['NAS']);
 }else{
     $MainOutput->inputhidden('NAS', $Info['NAS']);
@@ -125,9 +128,9 @@ $MainOutput->inputselect('Session',$Saison,$Info['Session'],'Session');
 $MainOutput->inputselect('Status',$Status,$Info['Status'],'Status',$cannot_edit_company_field );
 
 $MainOutput->inputselect('Emploi',array('1'=>'Assistant','0'=>'Sauveteur'),$Info['EAssistant']);
-$MainOutput->inputtext('SalaireB','Salaire Bureau','5',$Info['SalaireB'],$cannot_edit_company_field );
-$MainOutput->inputtext('SalaireS','Salaire Sauveteur','5',$Info['SalaireS'],$cannot_edit_company_field );
-$MainOutput->inputtext('SalaireA','Salaire Assitant','5',$Info['SalaireA'],$cannot_edit_company_field );
+$MainOutput->inputtext('SalaireB','Salaire Bureau','5',$Info['SalaireB'],$cannot_edit_company_field and !$new_employe);
+$MainOutput->inputtext('SalaireS','Salaire Sauveteur','5',$Info['SalaireS'],$cannot_edit_company_field and !$new_employe);
+$MainOutput->inputtext('SalaireA','Salaire Assitant','5',$Info['SalaireA'],$cannot_edit_company_field and !$new_employe);
 $MainOutput->flag('Cessation',$Info['Cessation']);
 $MainOutput->textarea('Raison', LEAVING_REASON,'25','2',$Info['Raison']);
 

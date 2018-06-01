@@ -205,6 +205,7 @@ class HTML
         $read_only_as_string = "";
         if($read_only){
             $read_only_as_string = " disabled=\"disabled\" ";
+            $this->inputhidden($name, $value);
         }
         $this->openrow();
         $this->opencol();
@@ -371,6 +372,7 @@ class HTML
         $disabled = "";
         if($read_only){
             $disabled = " disabled";
+            $this->inputhidden($name, $selected );
         }
         $this->openrow();
         $this->opencol();

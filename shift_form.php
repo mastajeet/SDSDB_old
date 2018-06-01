@@ -39,8 +39,16 @@ $MainOutput->flag('Assistant',$Info['Assistant']);
 
 $Req = "select employe.IDEmploye, employe.Nom, employe.Prenom, qualification.Qualification FROM employe JOIN (select IDEmploye, Max(IDQualification) as max_qualif from link_employe_qualification WHERE UNIX_TIMESTAMP(NOW()) < link_employe_qualification.Expiration and link_employe_qualification.IDQualification IN (2,3) GROUP BY IDEmploye) maximum_effective_qualification on employe.IDEmploye = maximum_effective_qualification.IDEmploye JOIN qualification on qualification.IDQualification = maximum_effective_qualification.max_qualif WHERE !Cessation ".$WhereVacances." ORDER BY Nom ASC, Prenom ASC";
 $MainOutput->inputselect('IDEmploye',$Req,$Info['IDEmploye'],'Sauveteur');
+
 $MainOutput->inputtext('Salaire','Salaire',4,$Info['Salaire']);
-$MainOutput->inputtext('TXH','Taux Horaire',4,$Info['TXH']);
+
+
+if($authorization->verifySuperAdmin($_COOKIE)){
+    $MainOutput->inputtext('TXH','Taux Horaire',4,$Info['TXH']);
+}else{
+    $MainOutput->inputhidden('TXH',$Info['TXH']);
+}
+
 $MainOutput->textarea('Commentaire','Commentaire','25','2',$Info['Commentaire']);
 $MainOutput->inputtext('Rec','Nb de récurrences','2');
 if($Section=="Shift_Form"){

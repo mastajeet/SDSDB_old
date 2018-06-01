@@ -17,7 +17,7 @@ if(!isset($_POST['FORMIDClient'])){
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
 		$MainOutput->CloseTable();
-			$MainOutput->AddOutput(format_installation($v),0,0);
+			$MainOutput->AddOutput(format_installation($v, $authorization->verifySuperAdmin($_COOKIE)),0,0);
 		}
 	echo $MainOutput->send(1);
 }

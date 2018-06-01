@@ -565,6 +565,7 @@ if($Categorie=="Horaire"){
 
 
 
+if($authorization->verifySuperAdmin($_COOKIE)) {
 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol(20);
@@ -575,61 +576,59 @@ $MainOutput->AddLink('index.php?MenuCat=Paye','Paye');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
-if($Categorie=="Paye"){
+    if ($Categorie == "Paye") {
 
 
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND $Section=="Add_Paye")
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
+        $MainOutput->OpenRow();
+        $MainOutput->OpenCol(20);
+        $MainOutput->AddTexte('&nbsp;');
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol(20);
+        if (isset($Section) AND $Section == "Add_Paye")
+            $MainOutput->AddPic('f_open.png');
+        else
+            $MainOutput->AddPic('f_close.png');
 
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Add_Paye','Ajouter une paye');
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol('230', 2);
+        $MainOutput->AddLink('index.php?MenuSection=Add_Paye', 'Ajouter une paye');
+        $MainOutput->CloseCol();
+        $MainOutput->CloseRow();
 
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND $Section=="Display_Timesheet")
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
+        $MainOutput->OpenRow();
+        $MainOutput->OpenCol(20);
+        $MainOutput->AddTexte('&nbsp;');
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol(20);
+        if (isset($Section) AND $Section == "Display_Timesheet")
+            $MainOutput->AddPic('f_open.png');
+        else
+            $MainOutput->AddPic('f_close.png');
 
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Display_Timesheet','Afficher une paye');
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol('230', 2);
+        $MainOutput->AddLink('index.php?MenuSection=Display_Timesheet', 'Afficher une paye');
+        $MainOutput->CloseCol();
+        $MainOutput->CloseRow();
 
 
+        $MainOutput->OpenRow();
+        $MainOutput->OpenCol(20);
+        $MainOutput->AddTexte('&nbsp;');
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol(20);
+        if (isset($Section) AND $Section == "Calcul_Ferie")
+            $MainOutput->AddPic('f_open.png');
+        else
+            $MainOutput->AddPic('f_close.png');
 
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND $Section=="Calcul_Ferie")
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol('230', 2);
+        $MainOutput->AddLink('index.php?MenuSection=Calcul_Ferie', CALCULATE_HOLIDAY, '_BLANK');
+        $MainOutput->CloseCol();
+        $MainOutput->CloseRow();
 
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Calcul_Ferie', CALCULATE_HOLIDAY,'_BLANK');
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-}
-
+    }
 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol(20);
@@ -657,6 +656,21 @@ $MainOutput->OpenCol('230',3);
 $MainOutput->AddLink('index.php?MenuCat=FacturationMensuelleCurrentMonth','Facturation Mensuelle courant');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
+
+
+
+
+    $MainOutput->OpenRow();
+    $MainOutput->OpenCol(20);
+    $MainOutput->AddPic('f_cat.png');
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol('230',3);
+    $MainOutput->AddLink('index.php?MenuCat=Rapport&ToPrint=TRUE', BILLING_DETAILS,'_BLANK');
+    $MainOutput->CloseCol();
+    $MainOutput->CloseRow();
+
+
+}
 
 
 
@@ -721,18 +735,6 @@ if($Categorie=="Inspection"){
 
 
 
-
-
-$MainOutput->OpenRow();
-$MainOutput->OpenCol(20);
-$MainOutput->AddPic('f_cat.png');
-$MainOutput->CloseCol();
-$MainOutput->OpenCol('230',3);
-$MainOutput->AddLink('index.php?MenuCat=Rapport&ToPrint=TRUE', BILLING_DETAILS,'_BLANK');
-$MainOutput->CloseCol();
-$MainOutput->CloseRow();
-
-
 $MainOutput->OpenRow();
 $MainOutput->OpenCol(20);
 $MainOutput->AddPic('f_cat.png');
@@ -753,6 +755,7 @@ if($authorization->verifySuperAdmin($_COOKIE)){
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
+}
     $MainOutput->OpenRow();
     $MainOutput->OpenCol(20);
     $MainOutput->AddPic('f_cat.png');
@@ -761,8 +764,8 @@ if($authorization->verifySuperAdmin($_COOKIE)){
     $MainOutput->AddLink('index.php?MenuCat=Client','Client');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
-}
-if(!isset($Section) && $Categorie=="Client")
+
+    if(!isset($Section) && $Categorie=="Client")
     $Section = "Default_Client";
 if($Categorie=="Client"){
     $Req = "SELECT DISTINCT `client`.IDClient, `client`.Nom, sum(installation.Actif)
