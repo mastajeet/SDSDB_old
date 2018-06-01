@@ -3,6 +3,12 @@ $WarningOutput = new HTML;
 $MainOutput = new HTML;
 include('staff/action.php');
 include('staff/functions.php');
+
+include('helper/Authorization.php');
+include('helper/PasswordGetter.php');
+include('app/Variable.php');
+
+
 ?>
 <HTML>
 <title>Gestion Service de Sauveteur</title>

@@ -27,6 +27,9 @@ if(isset($_GET['IDEmploye'])){
 }
 
 
+$cannot_edit_company_field = !$authorization->verifySuperAdmin($_COOKIE);
+$can_see_protected_fields = $authorization->verifySuperAdmin($_COOKIE);
+
 
 
 $MainOutput->addlink('index.php?Section=Employe_Report&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE','<img src=b_sheet.png border=0>');
@@ -46,7 +49,11 @@ $MainOutput->inputtext(NAME, NAME,'28',$Info[NAME]);
 $MainOutput->inputtext('Prenom', SURNAME,'28',$Info['Prenom']);
 $MainOutput->inputtext('HName', SCHEDULE_NAME,'28',$Info['HName']);
 $MainOutput->inputtime('DateNaissance', DATE_OF_BIRTH,$Info['DateNaissance'],array('Date'=>TRUE,'Time'=>FALSE));
-$MainOutput->inputtext('NAS', SOCIAL_SECURITY_NUMBER,'9',$Info['NAS']);
+if($can_see_protected_fields){
+    $MainOutput->inputtext('NAS', SOCIAL_SECURITY_NUMBER,'9',$Info['NAS']);
+}else{
+    $MainOutput->inputhidden('NAS', $Info['NAS']);
+}
 $MainOutput->textarea(NOTES, NOTES,'25','2',$Info[NOTES]);
 
 
@@ -113,12 +120,14 @@ $Saison = array();
 foreach($Session as $v){
 	$Saison[$v]=$v;
 }
+
 $MainOutput->inputselect('Session',$Saison,$Info['Session'],'Session');
-$MainOutput->inputselect('Status',$Status,$Info['Status'],'Status');
+$MainOutput->inputselect('Status',$Status,$Info['Status'],'Status',$cannot_edit_company_field );
+
 $MainOutput->inputselect('Emploi',array('1'=>'Assistant','0'=>'Sauveteur'),$Info['EAssistant']);
-$MainOutput->inputtext('SalaireB','Salaire Bureau','5',$Info['SalaireB']);
-$MainOutput->inputtext('SalaireS','Salaire Sauveteur','5',$Info['SalaireS']);
-$MainOutput->inputtext('SalaireA','Salaire Assitant','5',$Info['SalaireA']);
+$MainOutput->inputtext('SalaireB','Salaire Bureau','5',$Info['SalaireB'],$cannot_edit_company_field );
+$MainOutput->inputtext('SalaireS','Salaire Sauveteur','5',$Info['SalaireS'],$cannot_edit_company_field );
+$MainOutput->inputtext('SalaireA','Salaire Assitant','5',$Info['SalaireA'],$cannot_edit_company_field );
 $MainOutput->flag('Cessation',$Info['Cessation']);
 $MainOutput->textarea('Raison', LEAVING_REASON,'25','2',$Info['Raison']);
 

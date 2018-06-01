@@ -15,7 +15,7 @@ $MainOutput->addlink('index.php?Section=Employe_Report&IDEmploye='.$Info['IDEmpl
 $MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'],'<img src=b_fact.png border=0>');
 $MainOutput->addlink('index.php?Section=Display_AskedRemplacement&IDEmploye='.$Info['IDEmploye'],'<img src=b_del.png border=0>');
 
-
+$can_see_protected_fields = $authorization->verifySuperAdmin($_COOKIE);
 
 $MainOutput->OpenTable();
 
@@ -41,7 +41,10 @@ $MainOutput->addtitledoutput(NAME,$string=$Info[NAME]);
 $MainOutput->addtitledoutput(SURNAME,$Info[SURNAME]);
 $MainOutput->addtitledoutput(SCHEDULE_NAME,$Info['HName']);
 $MainOutput->addtitledoutput(DATE_OF_BIRTH, datetostr($Info['DateNaissance']));
-$MainOutput->addtitledoutput(SOCIAL_SECURITY_NUMBER, $Info['NAS']);
+
+if($can_see_protected_fields){
+    $MainOutput->addtitledoutput(SOCIAL_SECURITY_NUMBER, $Info['NAS']);
+}
 $MainOutput->addtitledoutput(NOTES,$Info['Notes']);
 $MainOutput->CloseCol();
 $MainOutput->CloseRow(); 
@@ -134,7 +137,7 @@ foreach($Session as $v){
 }
 
 $str_status = "";
-if(array_key_exists($Info['Session'],$Status))
+if(array_key_exists($Info['Status'],$Status))
 {
     $str_status = $Status[$Info['Status']];
 }

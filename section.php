@@ -1,13 +1,12 @@
 <?PHP
 
+
 SWITCH($Section){
 
     CASE "Date_Lookup":{
         include('datelookup_form.php');
         BREAK;
     }
-
-
 
     CASE "Client_Form":{
         include('client_form.php');
@@ -62,7 +61,6 @@ SWITCH($Section){
     CASE "Mail_Horaire":{
         include('mail_horaire.php');
         BREAK;
-        BREAK;
     }
 
     CASE "PlanifieInspection":{
@@ -88,6 +86,7 @@ SWITCH($Section){
 
 
     CASE "SuperAdmin":{
+
         include('form_superadmin.php');
         BREAK;
     }
@@ -175,6 +174,10 @@ SWITCH($Section){
     }
 
 
+    CASE "List_Bureau_Employee":{
+        include('list_bureau_employee.php');
+        BREAK;
+    }
 
 
     CASE "Paiement":{
@@ -404,6 +407,7 @@ SWITCH($Section){
         include('display_askedremplacement.php');
         BREAK;
     }
+
 
 
     CASE "Test":{

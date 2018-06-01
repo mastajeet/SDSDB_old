@@ -197,17 +197,21 @@ class HTML
         $this->closerow();
     }
 
-    function inputtext($name, $description=NULL, $size=28, $value=""){
+    function inputtext($name, $description=NULL, $size=28, $value="", $read_only=false){
         if($description==NULL)
         {
             $description=$name;
+        }
+        $read_only_as_string = "";
+        if($read_only){
+            $read_only_as_string = " disabled=\"disabled\" ";
         }
         $this->openrow();
         $this->opencol();
         $this->addtexte(ucfirst($description),"titre");
         $this->closecol();
         $this->opencol();
-        $this->addoutput("<input type=text name=\"".$this->formname.$name."\" size=".$size." value=\"".$value."\" class=inputtext>");
+        $this->addoutput("<input $read_only_as_string type=text name=\"".$this->formname.$name."\" size=".$size." value=\"".$value."\" class=inputtext>");
         $this->closecol();
         $this->closerow();
     }
@@ -358,17 +362,22 @@ class HTML
         $this->closerow();
     }
 
-    function inputselect($name, $option, $selected=NULL, $description=NULL)	{
+    function inputselect($name, $option, $selected=NULL, $description=NULL, $read_only=false){
         if($description==NULL)
         {
             $description=$name;
+        }
+
+        $disabled = "";
+        if($read_only){
+            $disabled = " disabled";
         }
         $this->openrow();
         $this->opencol();
         $this->addtexte(ucfirst($description),"titre");
         $this->closecol();
         $this->opencol();
-        $this->addoutput("<select name=\"".$this->formname.$name."\" class=inputselect class=inputselect>");
+        $this->addoutput("<select ".$disabled." name=\"".$this->formname.$name."\" class=inputselect class=inputselect>");
         $this->addoutput("<option value=' '> </option>");
 
         if(is_array($option))

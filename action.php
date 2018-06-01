@@ -39,8 +39,13 @@ SWITCH($Action){
 		CASE "Delog":{
 			setcookie('IDEmploye','',0);
 			setcookie('CIE','',0);
-                        setcookie('CIESDS','',0);
-			?>
+			setcookie('CIESDS','',0);
+            setcookie('MP','',0);
+            setcookie('Bureau','',0);
+            setcookie(Authorization::KEY_AUTHORIZATION_LEVEL,'',0);
+            setcookie(Authorization::KEY_PASSWORD,'',0);
+
+            ?>
 		<script>
 		window.location = 'index.php';
 		</script>
@@ -96,18 +101,23 @@ SWITCH($Action){
 	}
 	
 	CASE "Modifie_Paiement":{
-		$Date = mktime(0,0,0,$_POST['FORMDate4'],$_POST['FORMDate5'],$_POST['FORMDate3']);
-		modifie_paiement($_POST['IDPaiement'],$_POST['FORMMontant'],$Date,$_POST['FORMNotes']);
-		$MainOutput->AddTexte(PAYMENT_MODIFIED,'Warning');
-		$_GET['Section'] = "SuperAdmin";
+        if($authorization->verifySuperAdmin($_COOKIE)) {
+
+            $Date = mktime(0, 0, 0, $_POST['FORMDate4'], $_POST['FORMDate5'], $_POST['FORMDate3']);
+            modifie_paiement($_POST['IDPaiement'], $_POST['FORMMontant'], $Date, $_POST['FORMNotes']);
+            $MainOutput->AddTexte(PAYMENT_MODIFIED, 'Warning');
+            $_GET['Section'] = "SuperAdmin";
+        }
 	BREAK;
 	}
 
 
 	CASE "Modifie_Facture_CoteSeq":{
-		$MainOutput->AddTexte(modifie_facture_coteseq($_POST['FORMInitial'],$_POST['FORMFinal']),'Warning');
-		$_GET['Section'] = "SuperAdmin";
-		
+        if($authorization->verifySuperAdmin($_COOKIE)) {
+
+            $MainOutput->AddTexte(modifie_facture_coteseq($_POST['FORMInitial'], $_POST['FORMFinal']), 'Warning');
+            $_GET['Section'] = "SuperAdmin";
+        }
 	BREAK;
 	}
 	
@@ -126,17 +136,22 @@ SWITCH($Action){
 
 
     CASE "Batch_Update":{
-        include('batch_update_script.php');
-        $MainOutput->AddTexte(SHIFT_MODIFIED,'Warning');
-        $_GET['Section'] = "SuperAdmin";
+        if($authorization->verifySuperAdmin($_COOKIE)) {
+            include('batch_update_script.php');
+            $MainOutput->AddTexte(SHIFT_MODIFIED, 'Warning');
+            $_GET['Section'] = "SuperAdmin";
+        }
         BREAK;
     }
 
 
     CASE "Batch_Delete":{
-        include('batch_delete_script.php');
-        $MainOutput->AddTexte(SHIFT_DELETED,'Warning');
-        $_GET['Section'] = "SuperAdmin";
+        if($authorization->verifySuperAdmin($_COOKIE)) {
+
+            include('batch_delete_script.php');
+            $MainOutput->AddTexte(SHIFT_DELETED, 'Warning');
+            $_GET['Section'] = "SuperAdmin";
+        }
         BREAK;
     }
 	
@@ -163,20 +178,25 @@ SWITCH($Action){
 	}
 
 	CASE "MarkUnpayee":{
-		$Cote = explode('-',$_POST['FORMCote']);
-		$Req2 = "SELECT IDFacture FROM facture WHERE Cote = '".$Cote[0]."' AND Sequence=".$Cote[1];
-		$SQL->SELECT($Req2);
-		$Rep2 = $SQL->FetchArray();
-		mark_unpaid($Rep2[0]);
-		$MainOutput->AddTexte(BILL_MARKED_AS_UNPAID,'Warning');
-		$_GET['Section'] = "SuperAdmin";
+        if($authorization->verifySuperAdmin($_COOKIE)) {
+
+            $Cote = explode('-', $_POST['FORMCote']);
+            $Req2 = "SELECT IDFacture FROM facture WHERE Cote = '" . $Cote[0] . "' AND Sequence=" . $Cote[1];
+            $SQL->SELECT($Req2);
+            $Rep2 = $SQL->FetchArray();
+            mark_unpaid($Rep2[0]);
+            $MainOutput->AddTexte(BILL_MARKED_AS_UNPAID, 'Warning');
+            $_GET['Section'] = "SuperAdmin";
+        }
 	BREAK;
 	}
 	
 	CASE "MarkPayee":{
-		mark_paid($_POST['IDFacture'],$_POST['FORMIDPaiement']);
-		$_GET['Section'] = "SuperAdmin";
-		$MainOutput->AddTexte(BILL_MARKED_AS_PAID,'Warning');
+        if($authorization->verifySuperAdmin($_COOKIE)){
+            mark_paid($_POST['IDFacture'],$_POST['FORMIDPaiement']);
+            $_GET['Section'] = "SuperAdmin";
+            $MainOutput->AddTexte(BILL_MARKED_AS_PAID,'Warning');
+        }
 	BREAK;
 	}
 

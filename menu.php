@@ -15,6 +15,7 @@ const DELOG = 'Se&nbsp;Déconnecter';
 const EMPLOYEE = 'Employé';
 const DISPLAY_CURRENT_SCHEDULE = 'Afficher l\'horaire courant';
 const DISPLAY_PAST_SCHEDULE = 'Afficher l\'horaire passé';
+const LIST_BUREAU_EMPLOYEE = 'Liste employe bureau';
 
 $SQL = new sqlclass;
 
@@ -112,6 +113,8 @@ if(isset($_GET['MenuCat'])){
     if($Categorie=="Search")
         $Section = "Search";
 
+
+
     if($Categorie=="Rapport")
         $Section = "Rapport";
     if($Categorie=="Vars")
@@ -131,6 +134,17 @@ if(isset($_GET['MenuSection'])){
     $Section = $_GET['MenuSection'];
     if($_GET['MenuSection']=="EmployeList" OR $_GET['MenuSection']=="Add_Saison" OR $_GET['MenuSection']=="Close_Saison")
         $_GET['MenuCat'] = "Employe";
+
+
+    if($_GET['MenuSection']=="Modifie_Employe")
+            $_GET['MenuCat'] = "Employe";
+
+    if($_GET['MenuSection']=="List_Bureau_Employee")
+        $_GET['MenuCat'] = "Employe";
+
+
+
+
     if($_GET['MenuSection']== MESSAGE || $_GET['MenuSection']=="Message_Form")
         $_GET['MenuCat'] = "Employe";
     if($_GET['MenuSection']=="Copy_Horaire")
@@ -147,6 +161,8 @@ if(isset($_GET['MenuSection'])){
         $_GET['MenuCat'] = "Horaire";
     if($_GET['MenuSection']=="NonWorking")
         $_GET['MenuCat'] = "Employe";
+
+
     if($_GET['MenuSection']=="Next_WorkingDay")
         $_GET['MenuCat'] = "Employe";
     if($_GET['MenuSection']=="Display_Horshift")
@@ -282,6 +298,23 @@ if(isset($_GET['MenuCat']) && $_GET['MenuCat']=="Employe"){
     $MainOutput->AddLink('index.php?MenuSection=Modifie_Employe', ADD_EMPLOYEE);
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
+
+if($authorization->verifySuperAdmin($_COOKIE)){
+        $MainOutput->OpenRow();
+        $MainOutput->OpenCol(20);
+        $MainOutput->AddTexte('&nbsp;');
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol(20);
+        if(isset($Section) AND $Section=="List_Bureau_Employee")
+            $MainOutput->AddPic('f_open.png');
+        else
+            $MainOutput->AddPic('f_close.png');
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol('230',2);
+        $MainOutput->AddLink('index.php?MenuSection=List_Bureau_Employee', LIST_BUREAU_EMPLOYEE);
+        $MainOutput->CloseCol();
+        $MainOutput->CloseRow();
+}
 
 
     $MainOutput->OpenRow();
@@ -709,24 +742,26 @@ $MainOutput->AddLink('index.php?MenuCat=Search','Recherche');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
-$MainOutput->OpenRow();
-$MainOutput->OpenCol(20);
-$MainOutput->AddPic('f_cat.png');
-$MainOutput->CloseCol();
-$MainOutput->OpenCol('230',3);
-$MainOutput->AddLink('index.php?MenuCat=SuperAdmin','Modifications Super-Admin');
-$MainOutput->CloseCol();
-$MainOutput->CloseRow();
 
-$MainOutput->OpenRow();
-$MainOutput->OpenCol(20);
-$MainOutput->AddPic('f_cat.png');
-$MainOutput->CloseCol();
-$MainOutput->OpenCol('230',3);
-$MainOutput->AddLink('index.php?MenuCat=Client','Client');
-$MainOutput->CloseCol();
-$MainOutput->CloseRow();
+if($authorization->verifySuperAdmin($_COOKIE)){
+    $MainOutput->OpenRow();
+    $MainOutput->OpenCol(20);
+    $MainOutput->AddPic('f_cat.png');
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol('230',3);
+    $MainOutput->AddLink('index.php?MenuCat=SuperAdmin','Modifications Super-Admin');
+    $MainOutput->CloseCol();
+    $MainOutput->CloseRow();
 
+    $MainOutput->OpenRow();
+    $MainOutput->OpenCol(20);
+    $MainOutput->AddPic('f_cat.png');
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol('230',3);
+    $MainOutput->AddLink('index.php?MenuCat=Client','Client');
+    $MainOutput->CloseCol();
+    $MainOutput->CloseRow();
+}
 if(!isset($Section) && $Categorie=="Client")
     $Section = "Default_Client";
 if($Categorie=="Client"){

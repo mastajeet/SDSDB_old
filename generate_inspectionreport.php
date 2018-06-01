@@ -298,17 +298,22 @@ $NMois = get_month_list();
 	$MainOutput->AddTexte("___________________________________");
 	$INFOW = get_info('employe',$_COOKIE['IDEmploye']);
 	$MainOutput->br();
-	$MainOutput->AddTexte($INFOW['Prenom']." ".$INFOW['Nom'],'Titre');
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	$MainOutput->CloseCol();
+    $MainOutput->AddTexte($INFOW['Prenom']." ".$INFOW['Nom'],'Titre');
+    if($_COOKIE['IDEmploye']==2){
+        // miam miam le hacking
+        $MainOutput->AddTexte("Directrice");
+        $MainOutput->AddTexte("(418) 687-4047");
+    }
+
+
+
+
+
+
+
+
+
+    $MainOutput->CloseCol();
 	$MainOutput->CloseRow();
 	$MainOutput->CloseTable();
 	

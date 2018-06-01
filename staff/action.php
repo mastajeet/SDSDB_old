@@ -15,9 +15,13 @@ if(isset($_REQUEST['Action'])){
 		}
 
 		CASE "Delog":{
-			setcookie('IDEmploye','',0);
-			setcookie('CIE','',0);
-                        setcookie('CIESDS','',0);
+            setcookie('IDEmploye','',0);
+            setcookie('CIE','',0);
+            setcookie('CIESDS','',0);
+            setcookie('MP','',0);
+            setcookie('Bureau','',0);
+            setcookie(Authorization::KEY_AUTHORIZATION_LEVEL,'',0);
+            setcookie(Authorization::KEY_PASSWORD,'',0);
                         
 			?>
 		<script>

@@ -14,7 +14,10 @@ class TestAuthorization extends PHPUnit_Framework_TestCase
      * @before
      */
     function setup_mock(){
-        $this->mocked_password_getter = $this->getMock(PasswordGetter::class);
+        $this->mocked_password_getter = $this->getMockBuilder(PasswordGetter::class)
+                                        ->disableOriginalConstructor()
+                                        ->getMock();
+
         $this->mocked_password_getter->method('get_super_admin_password')
             ->willreturn(self::GOOD_PASSWORD);
     }

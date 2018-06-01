@@ -1,5 +1,6 @@
 
 <?PHP
+$can_see_protected_fields = $authorization->verifySuperAdmin($_COOKIE);
 
 //$SQL3 = new sqlclass;
 //$Req3 = "SELECT IDEmploye FROM employe WHERE Session = 'E10' ORDER BY Nom ASC, Prenom ASC";
@@ -50,16 +51,17 @@ $MainOutput->CloseRow();
 		$MainOutput->AddTexte($Info['Prenom']." ".$Info['Nom']);
 	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
-	
-	
-	$MainOutput->OpenRow();
-	$MainOutput->OpenCol('10%');
-		$MainOutput->AddTexte('NAS','Titre');
-	$MainOutput->CloseCol();
-	$MainOutput->OpenCol();
-		$MainOutput->AddTexte(substr($Info['NAS'],0,3)." ".substr($Info['NAS'],3,3)." ".substr($Info['NAS'],6,3));
-	$MainOutput->CloseCol();
-	$MainOutput->CloseRow();
+
+	if($can_see_protected_fields){
+	    $MainOutput->OpenRow();
+        $MainOutput->OpenCol('10%');
+            $MainOutput->AddTexte('NAS','Titre');
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol();
+            $MainOutput->AddTexte(substr($Info['NAS'],0,3)." ".substr($Info['NAS'],3,3)." ".substr($Info['NAS'],6,3));
+        $MainOutput->CloseCol();
+        $MainOutput->CloseRow();
+    }
 	
 	if($Info['DateNaissance']<>0)
 		$Naissance = get_date($Info['DateNaissance']);

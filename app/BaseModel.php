@@ -257,16 +257,23 @@ class BaseModel
 
 
 
-    static function find_by($attribute,$value){
+    static function find_by($attribute, $value, $sort_by=""){
         $object = get_called_class();
         $table_info = $object::define_table_info();
         $where_clause = "";
         if(!is_array($attribute) and !is_array($value)){
-            $where_clause = $attribute . " = ".$value;
+            $data_type = self::get_data_type($attribute, $value);
+            $converted_value = self::convert_data($value, $data_type);
+
+            $where_clause = $attribute . " = ".$converted_value ;
         }else{
             if(count($attribute)==count($value)){
                 for($i=0; $i<count($attribute); $i++) {
-                    $where_clause .= $attribute[$i].' = '.$value[$i]." and ";
+
+                    $data_type = self::get_data_type($attribute[$i], $value[$i]);
+                    $converted_value = self::convert_data($value[$i], $data_type);
+
+                    $where_clause .= $attribute[$i].' = '.$converted_value." and ";
                 }
                 $where_clause = substr($where_clause,0,-5);
             }else{
@@ -274,7 +281,7 @@ class BaseModel
             }
         }
 
-        return self::find("SELECT * FROM " . $table_info['model_table'] . " WHERE " .$where_clause ,$object);
+        return self::find("SELECT * FROM " . $table_info['model_table'] . " WHERE " .$where_clause." ".$sort_by ,$object);
     }
 
 
