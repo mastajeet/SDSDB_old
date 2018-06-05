@@ -13,7 +13,10 @@ const CELLPHONE = 'Cellulaire';
 const PAGET = 'Paget';
 const LEAVING_REASON = 'Raison du départ';
 const ADD_MODIFY = 'Ajouter / Modifier';
-$EMPLOYEE_STATUS = array('Temps plein' => 'Temps plein', 'Secondaire' => 'Secondaire', 'CÉGEP' => 'CÉGEP', 'Université' => 'Université', 'Bureau' => 'Bureau');
+
+$EMPLOYEE_STATUS = array('Temps plein' => 'Temps plein', 'Secondaire' => 'Secondaire', 'CÉGEP' => 'CÉGEP', 'Université' => 'Université');
+$SA_EMPLOYEE_STATUS = array('Temps plein' => 'Temps plein', 'Secondaire' => 'Secondaire', 'CÉGEP' => 'CÉGEP', 'Université' => 'Université', 'Bureau' => 'Bureau');
+
 
 $MainOutput->addform(ADD_MODIFY_EMPLOYEE);
 $MainOutput->inputhidden_env('Action','Employe');
@@ -98,9 +101,10 @@ $MainOutput->OpenCol('100%',2);
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
+$secteurs = Secteur::get_all(1,"Nom","ASC");
+
 $MainOutput->inputtext('Adresse','Adresse','28',$Info['Adresse']);
-$Req = "SELECT IDSecteur, Nom FROM secteur ORDER BY Nom ASC";
-$MainOutput->inputselect('IDSecteur',$Req,$Info['IDSecteur'],'Secteur');
+$MainOutput->inputselect('IDSecteur',ModelToKVPConverter::to_kvp($secteurs, "IDSecteur", "Nom"),$Info['IDSecteur'],'Secteur');
 $MainOutput->inputtext('Ville','Ville','28',$Info['Ville']);
 $MainOutput->inputtext('CodePostal','Code Postal','7',$Info['CodePostal']);
 $MainOutput->inputtext('Email','Courriel','28',$Info['Email']);
@@ -117,7 +121,7 @@ $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
 $MainOutput->inputtime('DateEmbauche','Date d\'embauche',$Info['DateEmbauche'],array('Date'=>TRUE,'Time'=>FALSE));
-$Status = $EMPLOYEE_STATUS;
+
 $Session = get_saison_list();
 $Saison = array();
 foreach($Session as $v){
@@ -125,12 +129,19 @@ foreach($Session as $v){
 }
 
 $MainOutput->inputselect('Session',$Saison,$Info['Session'],'Session');
-$MainOutput->inputselect('Status',$Status,$Info['Status'],'Status',$cannot_edit_company_field );
+if($authorization->verifySuperAdmin($_COOKIE)){
+    $MainOutput->inputselect('Status',$SA_EMPLOYEE_STATUS,$Info['Status'],'Status');
+}elseif($Info['Status']=="Bureau"){
+    $MainOutput->inputselect('Status',$SA_EMPLOYEE_STATUS,$Info['Status'],'Status', True);
+}else{
+    $MainOutput->inputselect('Status',$EMPLOYEE_STATUS,$Info['Status'],'Status', False);
+}
+
 
 $MainOutput->inputselect('Emploi',array('1'=>'Assistant','0'=>'Sauveteur'),$Info['EAssistant']);
-$MainOutput->inputtext('SalaireB','Salaire Bureau','5',$Info['SalaireB'],$cannot_edit_company_field and !$new_employe);
-$MainOutput->inputtext('SalaireS','Salaire Sauveteur','5',$Info['SalaireS'],$cannot_edit_company_field and !$new_employe);
-$MainOutput->inputtext('SalaireA','Salaire Assitant','5',$Info['SalaireA'],$cannot_edit_company_field and !$new_employe);
+$MainOutput->inputtext('SalaireB','Salaire Bureau','5',$Info['SalaireB']);
+$MainOutput->inputtext('SalaireS','Salaire Sauveteur','5',$Info['SalaireS']);
+$MainOutput->inputtext('SalaireA','Salaire Assitant','5',$Info['SalaireA']);
 $MainOutput->flag('Cessation',$Info['Cessation']);
 $MainOutput->textarea('Raison', LEAVING_REASON,'25','2',$Info['Raison']);
 
