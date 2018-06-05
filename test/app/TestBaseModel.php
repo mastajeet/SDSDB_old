@@ -16,15 +16,11 @@ class TestBaseModel extends PHPUnit_Framework_TestCase
         $this->assertTrue(in_array('Test',$this->base_model->updated_values));
     }
 
-
+    /**
+     * @expectedException     NotImplementedException
+     */
     public function test_unimplmented(){
-        try{
             $this->base_model = new BaseModel(1);
-            $this->assertEquals(1,-1);
-        }
-        catch(NotImplementedException $e){
-            $this->assertEquals(1,1);
-        }
     }
 
     public function test_value_convertion_string(){
@@ -44,14 +40,12 @@ class TestBaseModel extends PHPUnit_Framework_TestCase
         $this->assertEquals(is_float($data_type),true);
     }
 
-    public function test_value_convertion_unknown(){
-        try{
-            $data_type = BaseModel::convert_data("1",'unknown');
-            $this->assertEquals(-1,1);
-        }
-        catch(UnexpectedValueException $e){
 
-        }
+    /**
+     * @expectedException     UnexpectedValueException
+     */
+    public function test_value_convertion_unknown(){
+        $data_type = BaseModel::convert_data("1",'unknown');
     }
 
     public function test_data_type_guessing_string(){
