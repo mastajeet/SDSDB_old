@@ -1,7 +1,6 @@
 <?php
 
-class PasswordGetter
-{
+class PasswordGetter{
 
     private $variable;
 

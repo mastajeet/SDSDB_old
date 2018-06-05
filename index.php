@@ -54,9 +54,13 @@ include_once('app/customer.php');
 include_once('app/facture.php');
 include_once('app/Variable.php');
 include_once('app/Employee.php');
+include_once('app/Responsable.php');
+include_once('app/Secteur.php');
 
 include_once('helper/Authorization.php');
 include_once('helper/PasswordGetter.php');
+include_once('helper/ModelToKVPConverter.php');
+include_once('helper/ConstantArray.php');
 
 
 $variable = new Variable();

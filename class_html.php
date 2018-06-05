@@ -432,6 +432,8 @@ class HTML
 
     function flag($name, $chk=0, $description=NULL)
     {
+        $this->inputhidden($name, 0);
+
         $checked ="";
         if($chk==1)
         {

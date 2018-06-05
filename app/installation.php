@@ -27,6 +27,8 @@ class Installation extends BaseModel
     public $ASFact;
     public $AdresseFact;
     public $Inspections;
+    public $PONo;
+    public $Stationnement;
 
     static function define_table_info(){
         return array("model_table" => 'installation',

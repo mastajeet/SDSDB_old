@@ -11,7 +11,7 @@ class BaseModel
         return ("SELECT * FROM " . $table_info['model_table'] . " WHERE " . $table_info['model_table_id'] . " = ". $id);
     }
 
-    static function get_all($filter, $order_by, $order,$nb_per_page, $page){
+    static function get_all($filter, $order_by, $order,$nb_per_page=0, $page=0){
         $object = get_called_class();
         $table_info = $object::define_table_info();
         $request = "SELECT " . $table_info['model_table_id'] . " FROM " . $table_info['model_table'] . " WHERE " . $filter . " ORDER BY " . $order_by ." ". $order;

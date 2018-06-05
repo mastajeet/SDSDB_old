@@ -20,6 +20,8 @@ if [ "$current_value" == "$expected_value" ]
 	source ./reset_test_db
         ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mysql-sdsdb)
         mysql -uroot -plolk1234 -h $ip -P 3306 < sdsdb.sql
+        mysql -uroot -plolk1234 -h $ip -P 3306 < additionnal_migrations.sql
+
         source_dir=${current_dir:0:$len-9}
         docker run --name=php-sdsdb -d -w "/var/www/html/" -p 8080:80 -v $source_dir:/var/www/html --link mysql-sdsdb:dev_db --link mysql-test-sdsdb:test_db jtbai/php5-phpunit
         sleep 5
