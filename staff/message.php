@@ -28,15 +28,18 @@ if($Inst<>""){
 	$MainOutput->Addtexte("	<ul>".$Inst."</ul>");
 }
 
-$Req = "SELECT Distinct Nom, Notes, Toilettes FROM shift JOIN installation ON shift.IDInstallation = installation.IDInstallation WHERE IDEmploye = ".$_COOKIE['IDEmploye']." AND Semaine>=".get_last_sunday();
+$Req = "SELECT Distinct Nom, Notes, Toilettes, Stationnement FROM shift JOIN installation ON shift.IDInstallation = installation.IDInstallation WHERE IDEmploye = ".$_COOKIE['IDEmploye']." AND Semaine>=".get_last_sunday();
 $SQL2->SELECT($Req);
 $MainOutput->AddTexte("Plus spécifiquement :
 <ul>");
 while($Rep = $SQL2->FetchArray()){
 	if($Rep['Toilettes']<>"")
 		$MainOutput->AddTexte('<li><b>'.$Rep['Nom'].' - Toilettes</b>: '.$Rep['Toilettes']);
-	if($Rep['Notes']<>"")
-		$MainOutput->AddTexte('<li><b>'.$Rep['Nom'].' - Notes</b>: '.$Rep['Notes']);
+    if($Rep['Notes']<>"")
+        $MainOutput->AddTexte('<li><b>'.$Rep['Nom'].' - Notes</b>: '.$Rep['Notes']);
+    if($Rep['Notes']<>"")
+        $MainOutput->AddTexte('<li><b>'.$Rep['Nom'].' - Stationnement</b>: '.array_get(ConstantArray::get_installation_parking_type_kvp()[$Rep['Stationnement']]));
+
 }
 $MainOutput->AddTexte("</ul>");
 

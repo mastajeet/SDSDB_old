@@ -6,6 +6,9 @@ include('staff/functions.php');
 
 include('helper/Authorization.php');
 include('helper/PasswordGetter.php');
+include('helper/ConstantArray.php');
+include('func_divers.php');
+
 include('app/Variable.php');
 
 
