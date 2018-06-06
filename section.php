@@ -290,7 +290,7 @@ SWITCH($Section){
     }
 
     CASE "Installation_Form":{
-        include('installation_form.php');
+        include('view/installation/installation_form.php');
         BREAK;
     }
 

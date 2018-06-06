@@ -7,9 +7,10 @@ if(!isset($_POST['FORMIDClient'])){
 	$MainOutput->formsubmit('Afficher');
 	echo $MainOutput->send(1);
 }else{
-	$MainOutput->AddOutput(format_client($_POST['FORMIDClient']),0,0);
-	$Installations = get_installations($_POST['FORMIDClient']);
-		foreach($Installations as $v){
+    $customer = new Customer($_POST['FORMIDClient']);
+    $MainOutput->AddOutput(format_client($_POST['FORMIDClient']),0,0);
+	$Installations = $customer->get_installations();
+		foreach($Installations as $installation){
 			$MainOutput->OpenTable(500);
 		$MainOutput->Openrow();
 		$MainOutput->OpenCol();
@@ -17,7 +18,7 @@ if(!isset($_POST['FORMIDClient'])){
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
 		$MainOutput->CloseTable();
-			$MainOutput->AddOutput(format_installation($v, $authorization->verifySuperAdmin($_COOKIE)),0,0);
+		include('view/installation/display_installation_information.php');
 		}
 	echo $MainOutput->send(1);
 }

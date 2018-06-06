@@ -30,6 +30,13 @@ class Customer extends BaseModel
         }
     }
 
+    function get_installations(){
+        $installations = Installation::get_all("IDClient=".$this->IDClient, "Nom", "ASC");
+
+        return $installations;
+    }
+
+
     private function get_new_facture_sequence($Facture){
         $next_sequence = $Facture->Sequence;
         $next_sequence++;

@@ -81,102 +81,26 @@ function get_installations($IDClient){
 	return $Ret;
 }
 
-function format_installation($IDInstallation, $is_super_admin){
-	$Info = get_installation_info($IDInstallation);
-	$SQL = new sqlclass();
-	$Req = "SELECT IDRapport FROM clientrapport WHERE IDInstallation=".$IDInstallation;
-	$SQL->SELECT($Req);
-	$NumRapport = $SQL->NumRow();
-	$Output = new HTML();
-	$Output->opentable('500');
-	$Output->openrow();
-	$Output->opencol('100%',2);
-		$Output->AddLink($Info['Lien'],$Info['Nom'],"_BLANK",'Titre');
-		$Output->AddTexte("&nbsp; (".$Info['Cote'].")",'Titre');
-		$Output->AddLink('index.php?Section=Installation_Form&IDInstallation='.$IDInstallation,'<img src=b_edit.png border=0>');
-		$Output->AddLink('index.php?Section=Horshift&IDInstallation='.$IDInstallation,'<img src=b_save.png border=0>');
-		if($is_super_admin){
-		    $Output->AddLink('index.php?Cote='.$Info['Cote'],'<img src=b_fact.png border=0>');
-        }
-
-		$Output->AddLink('index.php?Section=ClientComment_Form&IDInstallation='.$IDInstallation,'<img src=b_conf.png border=0>');
-		
-	$Output->closecol();
-	$Output->closerow();
-	
-	
-	$Output->openrow();
-	$Output->opencol();
-		$Output->AddTexte("Type: ".get_installation_type($Info['IDType'])."
-		Punch: ".get_flag($Info['Punch'])."
-		Assistant: ".get_flag($Info['Assistant'])."
-		Cadenas SdS: ".get_flag($Info['Cadenas']),'Texte');
-	$Output->closecol();
-	$Output->opencol();
-		$Output->AddTexte("Dernière Inspection: � venir");
-		$Output->br();
-		if($NumRapport<>0)
-			$Output->AddLink("index.php?Section=Rapport_ClientComment&IDInstallation=".$IDInstallation,"Rapport des commentaires des clients");
-		
-	$Output->closecol();
-	$Output->closerow();
-	
-	
-	
-	$Output->Openrow();
-	$Output->OpenCol('50%');
-	$Output->addoutput(format_responsable($Info['IDResponsable'],'de la piscine',$Info['IDClient']),0,0);
-	$Output->closecol();
-	$Output->OpenCol('50%');
-		$Output->AddTexte('Adresse de la piscine','Titre');
-		$Output->br();
-		$Output->AddTexte($Info['Adresse']);
-		if(strlen($Info['Tel'])>4){
-			$Output->br();
-			$Output->AddTexte("Tel.: (".substr($Info['Tel'],0,3).") ".substr($Info['Tel'],3,3)."-".substr($Info['Tel'],6,4));
-		if(strlen(substr($Info['Tel'],10,4))>1)
-				$Output->AddTexte(" #".substr($Info['Tel'],10,4));
-		}
-	$Output->closecol();
-	$Output->closerow();
-if($Info['Notes']<>""){	
-	$Output->openrow();
-	$Output->opencol('100%',2);
-		$Output->AddTexte("Notes: ".$Info['Notes'],'Texte');
-	$Output->closecol();
-	$Output->closerow();
-	}
-if($Info['Toilettes']<>""){	
-	$Output->openrow();
-	$Output->opencol('100%',2);
-		$Output->AddTexte("Toilettes: ".$Info['Toilettes'],'Texte');
-	$Output->closecol();
-	$Output->closerow();
-	}
-	
-	
-	$Output->CloseTable();
-	return $Output->send(1);
-}
 function format_responsable($IDResponsable,$What = "de la piscine",$IDClient=""){
-		$Output = new HTML();
-		$Repondant = get_responsable_info($IDResponsable);
-		$Output->AddTexte('Responsable '.$What,'Titre');
-		$Output->br();
-		$Output->AddTexte($Repondant['Prenom']." ".$Repondant['Nom']);
-		if(strlen($Repondant['Tel'])>4){
-			$Output->br();
-			$Output->AddTexte("Tel.: (".substr($Repondant['Tel'],0,3).") ".substr($Repondant['Tel'],3,3)."-".substr($Repondant['Tel'],6,4));
-			if(strlen(substr($Repondant['Tel'],10,4))>1)
-				$Output->AddTexte(" #".substr($Repondant['Tel'],10,4));
-		}		
-		if(strlen($Repondant['Cell'])>4){
-			$Output->br();
-			$Output->AddTexte("Cell.: (".substr($Repondant['Cell'],0,3).") ".substr($Repondant['Cell'],3,3)."-".substr($Repondant['Cell'],6,4));
-		}
-		
-	return $Output->Send();
+    $MainOutput = new HTML();
+    $Repondant = get_responsable_info($IDResponsable);
+    $MainOutput->AddTexte('Responsable '.$What,'Titre');
+    $MainOutput->br();
+    $MainOutput->AddTexte($Repondant['Prenom']." ".$Repondant['Nom']);
+    if(strlen($Repondant['Tel'])>4){
+        $MainOutput->br();
+        $MainOutput->AddTexte("Tel.: (".substr($Repondant['Tel'],0,3).") ".substr($Repondant['Tel'],3,3)."-".substr($Repondant['Tel'],6,4));
+        if(strlen(substr($Repondant['Tel'],10,4))>1)
+            $MainOutput->AddTexte(" #".substr($Repondant['Tel'],10,4));
+    }
+    if(strlen($Repondant['Cell'])>4){
+        $MainOutput->br();
+        $MainOutput->AddTexte("Cell.: (".substr($Repondant['Cell'],0,3).") ".substr($Repondant['Cell'],3,3)."-".substr($Repondant['Cell'],6,4));
+    }
+    return $MainOutput->send(1);
 }
+
+
 function format_client($IDClient){
 	$Info = get_client_info($IDClient);
 	$RespP = get_responsable_info($Info['RespP']);
@@ -237,22 +161,24 @@ function format_client($IDClient){
 	$Output->CloseTable();
 	return $Output->send(1);
 }
+
+
 function get_installation_type($str){
 	SWITCH ($str){
 		CASE "E":{
-			Return "Ext�rieure";
+			Return "Extérieure";
 		}
 		CASE "ES":{
-			Return "Ext�rieure + Spa";
+			Return "Extérieure + Spa";
 		}
 		CASE "I":{
-			Return "Int�rieure";
+			Return "Intérieure";
 		}
 		CASE "IS":{
-			Return "Int�rieure + Spa";
+			Return "Intérieure + Spa";
 		}
 		CASE "EP":{
-			Return "Ext�rieure + Patogeoire";
+			Return "Extérieure + Patogeoire";
 		}	
 	}
 }

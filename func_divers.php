@@ -13,6 +13,11 @@ function get_vars($Vars)
     return $Rep['Valeur'];
 }
 
+
+function array_get(&$array_element, $default=""){
+    return isset($array_element) ? $array_element :  $default;
+}
+
 function castFromParent(&$ChildObject, $ParentObject)
 {
     $ParentVars = get_class_vars(get_parent_class($ChildObject));
