@@ -349,16 +349,15 @@ SWITCH($Action){
 	
 	
 	CASE "Installation":{
-		if($_POST['Update']){
-			include('modifie_installation_script.php');
+        include('save_installation_script.php');
+        if($_POST['Update']){
 			$MainOutput->AddTexte(INSTALLATION_MODIFIED,'Warning');
+            $_GET['Section'] = "Display_Client";
 		}else{
-			include('add_installation_script.php');
 			$_GET['MenuSection']="Horshift";
 			$_GET['IDInstallation'] = get_last_id('installation');
 			$MainOutput->AddTexte(INSTALLATION_ADDED,'Warning');
 		}
-
 	BREAK;
 	}
 	 

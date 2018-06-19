@@ -20,6 +20,6 @@ foreach($_POST as $k=>$v){
 
 $installation = new Installation($installation_value);
 $installation->save();
-$_GET['Section'] = "Display_Client";
+
 
 ?>
