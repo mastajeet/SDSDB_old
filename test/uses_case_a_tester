@@ -8,3 +8,5 @@ creer une facture avec deux shift colle mais pas la meme journee (bogue)
 
 creer une facture pour un client qui en a pas
 creer une facture pour un client qui en a deja
+
+creer une facture pour un client qui a deja une facture de materiel et s'assurer que le ID est le bon

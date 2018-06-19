@@ -13,9 +13,9 @@ class Facture extends BaseModel
         $this->Factsheet = array();
     }
 
-    static function get_last_for_cote($Cote, $Materiel=0, $Credit=0){
+    static function get_last_for_cote($Cote, $Credit=0){
         $database_information = Facture::define_table_info();
-        $last_facture_query = "SELECT IDFacture FROM ".$database_information['model_table']." WHERE Cote='".$Cote."' and Materiel=".$Materiel." and Credit=".$Credit." ORDER BY Sequence DESC LIMIT 0,1";
+        $last_facture_query = "SELECT IDFacture FROM ".$database_information['model_table']." WHERE Cote='".$Cote."' and Credit=".$Credit." ORDER BY Sequence DESC LIMIT 0,1";
         $SQL = new SQLClass();
         $SQL->Select($last_facture_query);
         $facture = new Facture([]);
