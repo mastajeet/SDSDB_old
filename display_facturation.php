@@ -1,10 +1,10 @@
 <?PHP
-const AMOUNT_PAID = " $ (payÃ©)";
-const BALANCE_IN_ERROR = 'DÃ©balance';
-const DETAIL = 'DÃ©tail';
-const DEPOSIT = 'DÃ©pot';
-const BILLED_TO = 'FacturÃ© Ã : ';
-const PAID = 'PayÃ©';
+const AMOUNT_PAID = " $ (payé)";
+const BALANCE_IN_ERROR = 'Débalance';
+const DETAIL = 'Détail';
+const DEPOSIT = 'Dépot';
+const BILLED_TO = 'Facturé à: ';
+const PAID = 'Payé';
 if(isset($_GET['Cote'])){
 
 $MainOutput->OpenTable();

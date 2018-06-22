@@ -143,33 +143,51 @@ function get_cote_summary($Cote,$Year=NULL){
 	if(is_null($Year))
 		$Year = intval(date("Y"));
 	$SQL = new sqlclass;
-	$Req = "SELECT `Sequence`, `STotal`,`STotal`*round(`TPS`,3), `STotal`*round((1+`TPS`),3)*round(`TVQ`,3), Paye, Credit FROM facture WHERE Cote='".$Cote."' and semaine>=".mktime(0,0,0,1,1,$Year)." AND semaine<".mktime(0,0,0,1,1,$Year+1);
+    $Req = "SELECT `Sequence`, `STotal`,`STotal`*round(`TPS`,3), `STotal`*round((1+`TPS`),3)*round(`TVQ`,3), Paye, Credit FROM facture WHERE Cote='".$Cote."' and semaine>=".mktime(0,0,0,1,1,$Year)." AND semaine<".mktime(0,0,0,1,1,$Year+1);
+	print($Req );
 	$SQL->SELECT($Req);
-		$STot = 0;
-		$TPSp = 0;
-		$TVQp = 0;
+		$total_sous_total = 0;
+		$total_tps = 0;
+		$total_tvq = 0;
 		$Solde = 0;
 		$SoldeImpaye = 0;
 		$IDFactureStr ="AND (0 ";
 	while($Rep = $SQL->FetchArray()){
-		if($Rep['Credit']==0)
+
+        $isPaid = $Rep[4];
+        $isCredit = $Rep['Credit'];
+
+	    if(!$isCredit)
 			$IDFactureStr .= "OR Notes LIKE '%~".$Cote."-".$Rep[0]."~%'";
-		$STot = $STot+round($Rep[1],2);
-		$TPSp = $TPSp+round($Rep[2],2);
-		$TVQp = $TVQp+round($Rep[3],2);
-		$SoldeImpaye = $SoldeImpaye+(round($Rep[3],2)+round($Rep[2],2)+round($Rep[1],2))*(1-$Rep[4]);
-	}
+
+        $current_sous_total = round($Rep[1], 2);
+        $current_tps = round($Rep[2], 2);
+        $current_tvq = round($Rep[3], 2);
+
+        $total_sous_total += $current_sous_total;
+        $total_tps += $current_tps;
+        $total_tvq += $current_tvq;
+
+        if(!$isPaid or $isCredit){
+            $SoldeImpaye += $current_sous_total+ $current_tps + $current_tvq;
+        }
+    }
+
 	$IDFactureStr .= ")";
 	//$Req = "SELECT round(sum(`Balance`),2), sum(`Seq`), sum(`Seqc`) FROM installation WHERE Cote='".$Cote."' GROUP BY Cote";
 	//$SQL->SELECT($Req);
 	//$Rep3 = $SQL->FetchArray();
-	$Req = "SELECT round(sum(`Montant`),2) FROM paiement WHERE Cote='".$Cote."' ".$IDFactureStr." GROUP BY Cote";
+    $Req = "SELECT round(sum(`Montant`),2) FROM paiement WHERE Cote='".$Cote."' ".$IDFactureStr." GROUP BY Cote";
+	print("<br>");
+    print($Req);
 	$SQL->SELECT($Req);
 	$Rep2 = $SQL->FetchArray();
 	if($Rep2[0]=='')
 		$Rep2[0]=0;
-	$Solde = $STot+$TPSp+$TVQp - $Rep2[0];
-	return array('STotal'=>$STot,'TPS'=>$TPSp,'TVQ'=>$TVQp,'Total'=>$STot+$TPSp+$TVQp,'Paiement'=>$Rep2[0],'Solde'=>$Solde,'Seq'=>NULL,'Seqc'=>NULL,'SoldeImpaye'=>$SoldeImpaye);
+	$Solde = $total_sous_total+$total_tps+$total_tvq - $Rep2[0];
+    $cote_summary = array('STotal'=>$total_sous_total,'TPS'=>$total_tps,'TVQ'=>$total_tvq,'Total'=>$total_sous_total+$total_tps+$total_tvq,'Paiement'=>$Rep2[0],'Solde'=>$Solde,'Seq'=>NULL,'Seqc'=>NULL,'SoldeImpaye'=>$SoldeImpaye);
+	print_r($cote_summary);
+	return($cote_summary);
 }
 
 function update_facture_balance($IDFacture){
