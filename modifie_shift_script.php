@@ -98,7 +98,7 @@ if (isset($_POST['IDShift'])) {
             }
 
 
-            if (isset($_POST['FORMAttach'])) {
+            if ($_POST['FORMAttach']) {
                 // REQUETE QUI V�RIFIE S'IL Y A UN SHIFT QUI FINI TOUT DE SUITE AVANT
 
                 $Req = "SELECT IDShift FROM shift WHERE IDInstallation = '" . $_POST['IDInstallation'] . "' && `Jour`='" . $_POST['FORMJour'] . "' && `End`='" . $OldStart . "'  && `Semaine`='" . $Info['Semaine'] . "'&& Assistant='" . $_POST['FORMAssistant'] . "' ";
