@@ -5,6 +5,7 @@ class Facture extends BaseModel
     public $credit = false;
     public $materiel = false;
     public $IDFacture;
+    public $Sequence;
     public $Semaine;
     public $Factsheet;
 
