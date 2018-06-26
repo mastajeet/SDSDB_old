@@ -143,7 +143,7 @@ function get_cote_summary($Cote,$Year=NULL){
 	if(is_null($Year))
 		$Year = intval(date("Y"));
 	$SQL = new sqlclass;
-    $Req = "SELECT `Sequence`, `STotal`,`STotal`*round(`TPS`,3), `STotal`*round((1+`TPS`),3)*round(`TVQ`,3), Paye, Credit FROM facture WHERE Cote='".$Cote."' and semaine>=".mktime(0,0,0,1,1,$Year)." AND semaine<".mktime(0,0,0,1,1,$Year+1);
+    $Req = "SELECT `Sequence`, round(`STotal`,2) as STotal,`STotal`*round(`TPS`,3), `STotal`*round((1+`TPS`),3)*round(`TVQ`,3), Paye, Credit FROM facture WHERE Cote='".$Cote."' and semaine>=".mktime(0,0,0,1,1,$Year)." AND semaine<".mktime(0,0,0,1,1,$Year+1);
 	$SQL->SELECT($Req);
 		$total_sous_total = 0;
 		$total_tps = 0;
@@ -176,10 +176,11 @@ function get_cote_summary($Cote,$Year=NULL){
 	//$Req = "SELECT round(sum(`Balance`),2), sum(`Seq`), sum(`Seqc`) FROM installation WHERE Cote='".$Cote."' GROUP BY Cote";
 	//$SQL->SELECT($Req);
 	//$Rep3 = $SQL->FetchArray();
-    $Req = "SELECT round(sum(`Montant`),2) FROM paiement WHERE Cote='".$Cote."' ".$IDFactureStr." GROUP BY Cote";
+    $Req = "SELECT sum(round(`Montant`,2)) FROM paiement WHERE Cote='".$Cote."' ".$IDFactureStr." GROUP BY Cote";
 	$SQL->SELECT($Req);
 	$Rep2 = $SQL->FetchArray();
-	if($Rep2[0]=='')
+    $payment_amount = $Rep2[0];
+    if($Rep2[0]=='')
 		$Rep2[0]=0;
 	$Solde = $total_sous_total+$total_tps+$total_tvq - $Rep2[0];
     $cote_summary = array('STotal'=>$total_sous_total,'TPS'=>$total_tps,'TVQ'=>$total_tvq,'Total'=>$total_sous_total+$total_tps+$total_tvq,'Paiement'=>$Rep2[0],'Solde'=>$Solde,'Seq'=>NULL,'Seqc'=>NULL,'SoldeImpaye'=>$SoldeImpaye);
