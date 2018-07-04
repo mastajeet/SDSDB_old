@@ -5,10 +5,16 @@ $Req = "SELECT IDFacture, Sequence,Semaine FROM facture WHERE !Paye AND Cote='".
 $SQL->SELECT($Req);
 $Paid = "~";
 
-if($_POST['FORMDate5']=="")
-	$Time = time();
+$paiement_day = $_POST['FORMDate5'];
+$paiement_month = $_POST['FORMDate4'];
+$paiement_year = $_POST['FORMDate3'];
+
+
+if($paiement_day==""){
+    $paiement_timestamp = $time_service->get_today_timestamp();
+}
 else
-	$Time = mktime(0,0,0,$_POST['FORMDate4'],$_POST['FORMDate5'],$_POST['FORMDate3']);
+	$paiement_timestamp = $time_service->get_date_timestamp($paiement_month, $paiement_day, $paiement_year);
 
 
 $UpdateQueries = array();
@@ -37,7 +43,7 @@ if($FactureSameYear){
         
     $Montant = floatval(str_replace(',','.',$_POST['FORMMontant']));
     $Notes = $_POST['FORMNotes']." Paye:".$Paid;
-    $Req2 = "INSERT INTO paiement(`Cote`,`Montant`,`Notes`,`Date`) VALUES('".$_POST['Cote']."',".$Montant.",'".addslashes($Notes)."',".$Time.")";
+    $Req2 = "INSERT INTO paiement(`Cote`,`Montant`,`Notes`,`Date`) VALUES('".$_POST['Cote']."',".$Montant.",'".addslashes($Notes)."',".$paiement_timestamp.")";
     $SQL->INSERT($Req2);
     $MainOutput->AddTexte('Paiement ajouté','Warning');
 }else{
