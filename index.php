@@ -61,12 +61,13 @@ include_once('helper/Authorization.php');
 include_once('helper/PasswordGetter.php');
 include_once('helper/ModelToKVPConverter.php');
 include_once('helper/ConstantArray.php');
+include_once('helper/TimeService.php');
 
 
 $variable = new Variable();
 $password_getter = new PasswordGetter($variable);
 $authorization = new Authorization($password_getter);
-
+$time_service = new TimeService();
 
 $WarningOutput= new html;
 $MainOutput = new html();
