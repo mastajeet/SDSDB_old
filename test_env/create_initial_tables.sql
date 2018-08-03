@@ -99,7 +99,6 @@ CREATE TABLE `inspection` (
   `NotesBouees` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
 CREATE TABLE `installation` (
   `IDInstallation` int(11) NOT NULL,
   `IDClient` int(11) NOT NULL DEFAULT '0',
@@ -128,9 +127,6 @@ CREATE TABLE `installation` (
   `PONo` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-
-
-
 CREATE TABLE `facture` (
   `IDFacture` int(11) NOT NULL,
   `Cote` char(3) NOT NULL DEFAULT '0',
@@ -147,8 +143,6 @@ CREATE TABLE `facture` (
   `Materiel` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-
-
 CREATE TABLE `paiement` (
   `IDPaiement` int(11) NOT NULL,
   `Cote` char(3) NOT NULL DEFAULT '',
@@ -157,3 +151,65 @@ CREATE TABLE `paiement` (
   `Notes` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+CREATE TABLE `employe` (
+  `IDEmploye` int(11) NOT NULL,
+  `Prenom` varchar(255) NOT NULL DEFAULT '',
+  `Nom` varchar(255) NOT NULL DEFAULT '',
+  `HName` varchar(25) NOT NULL DEFAULT '',
+  `NAS` varchar(9) NOT NULL DEFAULT '',
+  `Adresse` mediumtext NOT NULL,
+  `CodePostal` varchar(6) NOT NULL DEFAULT '',
+  `DateNaissance` bigint(20) NOT NULL DEFAULT '0',
+  `DateEmbauche` bigint(20) NOT NULL DEFAULT '0',
+  `IDSecteur` varchar(255) NOT NULL DEFAULT '',
+  `Ville` varchar(50) NOT NULL DEFAULT 'QC',
+  `TelP` varchar(10) NOT NULL DEFAULT '',
+  `TelA` varchar(10) NOT NULL DEFAULT '',
+  `Cell` varchar(10) NOT NULL DEFAULT '',
+  `Paget` varchar(10) NOT NULL DEFAULT '',
+  `Email` varchar(255) NOT NULL DEFAULT '',
+  `Session` char(3) NOT NULL DEFAULT '',
+  `Status` varchar(255) NOT NULL DEFAULT '',
+  `Engage` tinyint(4) NOT NULL DEFAULT '1',
+  `Cessation` tinyint(4) NOT NULL DEFAULT '0',
+  `Notes` mediumtext NOT NULL,
+  `Raison` mediumtext NOT NULL,
+  `SalaireB` float NOT NULL DEFAULT '0',
+  `SalaireS` float NOT NULL DEFAULT '0',
+  `SalaireA` float NOT NULL DEFAULT '0',
+  `Ajustement` float NOT NULL DEFAULT '0',
+  `LastVisited` bigint(20) NOT NULL DEFAULT '0',
+  `EAssistant` tinyint(4) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+ALTER TABLE `employe`
+  ADD PRIMARY KEY (`IDEmploye`);
+
+ALTER TABLE `employe`
+  MODIFY `IDEmploye` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12347;
+
+CREATE TABLE `shift` (
+  `IDShift` int(11) NOT NULL,
+  `IDInstallation` int(11) NOT NULL DEFAULT '0',
+  `IDEmploye` int(11) DEFAULT '0',
+  `TXH` float NOT NULL DEFAULT '0',
+  `Salaire` float NOT NULL DEFAULT '0',
+  `Start` bigint(20) NOT NULL DEFAULT '0',
+  `End` bigint(20) NOT NULL DEFAULT '0',
+  `Jour` int(11) NOT NULL DEFAULT '0',
+  `Semaine` bigint(20) NOT NULL DEFAULT '0',
+  `Assistant` tinyint(4) NOT NULL DEFAULT '0',
+  `Commentaire` mediumtext NOT NULL,
+  `Warn` mediumtext NOT NULL,
+  `Confirme` tinyint(4) NOT NULL DEFAULT '0',
+  `Empconf` tinyint(4) NOT NULL DEFAULT '0',
+  `Facture` tinyint(4) NOT NULL DEFAULT '0',
+  `Paye` tinyint(4) NOT NULL DEFAULT '0',
+  `Message` mediumtext NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+ALTER TABLE `shift`
+  ADD PRIMARY KEY (`IDShift`);
+
+ALTER TABLE `shift`
+  MODIFY `IDShift` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202808;

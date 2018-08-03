@@ -42,4 +42,41 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
         $this->assertEquals(0, date("i", $date_timestamp));
         $this->assertEquals(0, date("s", $date_timestamp));
     }
+
+    function test_givenTwoCorrectTimeStamp_whenGetWeekDifference_thenGetIntegerValueOfNumberOfWeeks(){
+
+        $week_1_timestamp = new DateTime();
+        $week_1_timestamp->setTimestamp(1532232000);
+        $week_2_timestamp = new DateTime();
+        $week_2_timestamp->setTimestamp(1532836800);
+
+        $number_of_weeks_in_between = $this->time_service->calculate_number_of_weeks_between($week_1_timestamp, $week_2_timestamp);
+
+        $this->assertEquals(1, $number_of_weeks_in_between);
+    }
+
+    function test_givenTimeStampWithDaylightSavingChange_whenGetWeekDifference_thenGetCorrectIntegerValueOfNumberOfWeeks(){
+
+        $week_1_timestamp = new DateTime();
+        $week_1_timestamp->setTimestamp(1520139600);
+        $week_2_timestamp = new DateTime();
+        $week_2_timestamp->setTimestamp(1521345600);
+
+        $number_of_weeks_in_between = $this->time_service->calculate_number_of_weeks_between($week_1_timestamp, $week_2_timestamp);
+
+        $this->assertEquals(2, $number_of_weeks_in_between);
+    }
+
+    function test_givenTimeStampWithDaylightSavingChange2_whenGetWeekDifference_thenGetCorrectIntegerValueOfNumberOfWeeks(){
+
+        $week_1_timestamp = new DateTime();
+        $week_1_timestamp->setTimestamp(1540699200);
+        $week_2_timestamp = new DateTime();
+        $week_2_timestamp->setTimestamp(1541912400);
+
+        $number_of_weeks_in_between = $this->time_service->calculate_number_of_weeks_between($week_1_timestamp, $week_2_timestamp);
+
+        $this->assertEquals(2, $number_of_weeks_in_between);
+    }
+
 }

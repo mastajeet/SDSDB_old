@@ -122,7 +122,7 @@ class BaseModel
         $object = get_called_class();
         if (!in_array($item, array('data_type', 'updated_values', 'model_table', 'model_table_id')))
             $this->add_to_updated_values($item);
-            if ($object::get_data_type($item, $value) == "has_many") {
+            if ($object::get_data_type($item, $value) == "has_many" or $object::get_data_type($item, $value) == "service") {
 
             } else {
                 $this->$item = $value;

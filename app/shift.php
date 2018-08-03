@@ -20,7 +20,12 @@ class Shift extends BaseModel
     public $Empconf;
     public $Facture;
     public $Paye;
+    public $timeService;
 
+    function __construct($Arg = null, $timeService){
+        $this->timeService = $timeService;
+        parent::__construct($Arg);
+    }
 
     function is_connected_after($PreviousShift){
         if($PreviousShift){
@@ -51,13 +56,29 @@ class Shift extends BaseModel
         if($this->is_connected_after(end($Facture->Factsheet))){
             end($Facture->Factsheet)->update_using_next_shift($this);
         }else{
-            $RelatedInstallation = new Installation($this->IDInstallation);
-            $FactsheetValues = array('IDFacture'=>$Facture->IDFacture,'Start'=>$this->Start,'End'=>$this->End,'Jour'=>$this->Jour,'TXH'=>$this->TXH,'Notes'=>$titre.": ".$RelatedInstallation->Nom." (".get_employe_initials($this->IDEmploye).")");
+            $relatedInstallation = new Installation($this->IDInstallation);
+            $employee = new Employee($this->IDEmploye);
+            $jourFromFactureSemaine = $this->calculate_day_since_semaine($Facture);
+            $FactsheetValues = array('IDFacture'=>$Facture->IDFacture,'Start'=>$this->Start,'End'=>$this->End,'Jour'=>$jourFromFactureSemaine,'TXH'=>$this->TXH,'Notes'=>$titre.": ".$relatedInstallation->Nom." (".$employee->initials().")");
             $Facture->add_factsheet(new Factsheet($FactsheetValues));
         }
 
         $this->Facture=True;
         $this->save();
+    }
+
+    function calculate_day_since_semaine($facture){
+
+        $week_1_timestamp = new DateTime();
+        $week_1_timestamp->setTimestamp($this->Semaine);
+        $week_2_timestamp = new DateTime();
+        $week_2_timestamp->setTimestamp($facture->Semaine);
+
+
+        $number_of_weeks_between = $this->timeService->calculate_number_of_weeks_between($week_1_timestamp, $week_2_timestamp);
+        $number_of_days_between = $number_of_weeks_between *7 + $this->Jour;
+
+        return($number_of_days_between);
     }
 
     static function define_table_info(){
@@ -68,7 +89,8 @@ class Shift extends BaseModel
     static function define_data_types(){
         return array("IDShift"=>'ID',
             'TXH'=>'float',
-            'Salaire'=>'float'
+            'Salaire'=>'float',
+            'timeService'=>'service'
         );
     }
 
