@@ -7,7 +7,7 @@
  */
 
 include_once ('app/customer.php');
-include_once ('app/facture.php');
+include_once ('app/facture/facture.php');
 include_once ('app/shift.php');
 include_once ('helper/TimeService.php');
 include_once('app/factsheet.php');

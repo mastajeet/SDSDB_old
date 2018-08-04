@@ -213,3 +213,10 @@ ALTER TABLE `shift`
 
 ALTER TABLE `shift`
   MODIFY `IDShift` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202808;
+
+
+CREATE TABLE `vars` (
+  `Nom` varchar(50) NOT NULL DEFAULT '',
+  `Valeur` varchar(255) NOT NULL DEFAULT '',
+  `Type` varchar(25) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;

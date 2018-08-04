@@ -21,13 +21,17 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
 	$MainOutput->CloseTable();
 }elseif(isset($_POST['Semaine']) AND isset($_POST['FORMGenerateCote'])){
     $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
-    $installation_to_bill = Installation::get_installations_to_bill($_POST['FORMCote'], $_POST['Semaine']);
+    $semaine = DateTime::createFromFormat('U', $_POST['Semaine']);
+    $installation_to_bill = Installation::get_installations_to_bill_for_semaine($_POST['FORMCote'], $semaine);
+
     if(count($installation_to_bill)==0){
         $MainOutput->AddTexte(ALREADY_BILLED,'Warning');
     }elseif($_POST['Semaine'] >= get_last_sunday(0,time()) ) {
         $MainOutput->AddTexte(INCOMPLETE_PERIOD, 'Warning');
     }else{
-        $factures = Customer::generate_facture_hebdomadaire_shifts($_POST['FORMCote'],$_POST['Semaine']);
+        $customer = Customer::find_customer_by_cote($_POST['FORMCote']);
+        $factures = $customer->generate_factures($_POST['FORMCote'], $semaine);
+
         $nombre_facture_generated = count($factures);
         if($nombre_facture_generated >=2){
             $MainOutput->addtexte(MORE_THAN_ONE_BILL_HAS_BEEN_ADDED,'warning');

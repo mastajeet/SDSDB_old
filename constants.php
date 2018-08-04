@@ -14,3 +14,5 @@
 
     const NO_CLIENT_ASSOCIATED_WITH_COTE = "Aucun client n'est associe à la cote";
     const MORE_THAN_ONE_BILL_HAS_BEEN_ADDED = "Plus d'une facture a été ajoutée";
+
+    const INEXISTING_FACTURATION_FREQUENCE = "La frequence de facturation n'existe pas";

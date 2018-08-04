@@ -1,5 +1,5 @@
 <?PHP
-
+    ini_set("default_charset", "iso-8859-1");
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
@@ -51,7 +51,7 @@ include_once('app/shift.php');
 include_once('app/factsheet.php');
 include_once('app/logshift.php');
 include_once('app/customer.php');
-include_once('app/facture.php');
+include_once('app/facture/facture.php');
 include_once('app/Variable.php');
 include_once('app/employee.php');
 include_once('app/Responsable.php');

@@ -336,6 +336,7 @@ function get_messages(){
 }
 
 function get_employe_initials($IDEmploye){
+    print("contactez JT avec l'adresse de la page");
     $Info = get_employe_info($IDEmploye);
     $Initiales = "";
 

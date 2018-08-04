@@ -1,11 +1,24 @@
 <?php
 include_once('BaseModel.php');
+include_once('func_divers.php');
 
+include_once ('facture/facture_hebdomadaire.php');
+include_once ('facture/facture_mensuelle.php');
+
+$INEXISTING_FACTURATION_FREQUENCE = "Le mode de facture n<existe pas";
 
 class Customer extends BaseModel
 {
     public $IDClient;
     public $Ferie;
+    public $FrequenceFacturation;
+    public $time_service;
+
+    function __construct($Arg = null)
+    {
+        parent::__construct($Arg);
+        $this->time_service = new TimeService();
+    }
 
     static function define_table_info(){
         return array("model_table" => 'client',
@@ -36,34 +49,49 @@ class Customer extends BaseModel
         return $installations;
     }
 
-
-    private function get_new_facture_sequence($Facture){
-        $next_sequence = $Facture->Sequence;
-        $next_sequence++;
+    private function get_new_facture_sequence($cote){
+        $last_facture = Facture::get_last_for_cote($cote);
+        $last_sequence = $last_facture->Sequence;
+        $next_sequence = $last_sequence + 1;
         return $next_sequence;
     }
 
-    static function generate_facture_hebdomadaire_shifts($Cote, $Semaine){
+    public function generate_next_time_facture($cote_to_bill, $start_of_billable_time){
+        $facture = null;
+        $start_of_week_timestamp =$this->time_service->get_start_of_week($start_of_billable_time)->getTimestamp();
+        $facture_information = array("Cote"=>$cote_to_bill,
+            "Semaine"=>$start_of_week_timestamp,
+            "TPS"=>get_vars('TPS'),
+            "TVQ"=>get_vars('TVQ'),
+            "Sequence"=>$this->get_new_facture_sequence($cote_to_bill),
+            "EnDate"=>time());
 
+        if($this->FrequenceFacturation=="M"){
+            $facture = new FactureMensuelle($facture_information, $start_of_billable_time);
+        }elseif($this->FrequenceFacturation=="H"){
+            $facture = new FactureHebdomadaire($facture_information);
+        }else{
+            throw new UnexpectedValueException(INEXISTING_FACTURATION_FREQUENCE);
+        }
+
+        return $facture;
+    }
+
+    function generate_factures($Cote, $start_of_billable_time){
         $customer = customer::find_customer_by_cote($Cote);
-        $installation_to_bill = Installation::get_installations_to_bill($Cote,$Semaine);
-        $factures = [];
+        $installation_to_bill = Installation::get_installations_to_bill($Cote);
+        $factures = array();
 
         foreach($installation_to_bill as $installation) {
-
-            $last_facture = Facture::get_last_for_cote($Cote);
-            $new_facture_sequence = $customer->get_new_facture_sequence($last_facture);
-
-            $facture_information = array("Cote"=>$Cote,
-                "Semaine"=>$Semaine,
-                "TPS"=>get_vars('TPS'),
-                "TVQ"=>get_vars('TVQ'),
-                "Sequence"=>$new_facture_sequence,
-                "EnDate"=>time());
-
-            $facture = new Facture($facture_information);
+            $facture = $this->generate_next_time_facture($Cote, $start_of_billable_time);
+            $shift_to_bill = $facture->get_billable_shift($installation);
+            if(count($shift_to_bill)>0){
+                $facture->save();
+                foreach($shift_to_bill as $shift){
+                    $shift->add_to_facture($facture);
+                }
+            }
             $facture->save();
-            $installation->fill_facture($facture);
             $customer->update_facture($facture);
             $facture->save();
             $factures[] = $facture;

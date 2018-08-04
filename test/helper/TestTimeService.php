@@ -79,4 +79,39 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
         $this->assertEquals(2, $number_of_weeks_in_between);
     }
 
+    function test_givenTimeStampOnSundayAtMidnight_whenGetStartOfWeek_thenGetTheSameDateTime(){
+        $time_to_test = new datetime();
+        $time_to_test->setDate(2018,7,8);
+        $time_to_test->setTime(0,0,0);
+
+        $start_of_week = $this->time_service->get_start_of_week($time_to_test);
+
+        $this->assertEquals($start_of_week, $time_to_test);
+    }
+
+    function test_givenTimeStampOMondayAtNoon_whenGetStartOfWeek_thenGetTheSundayAtMidnight(){
+        $time_to_test = new datetime();
+        $time_to_test->setDate(2018,7,9);
+        $time_to_test->setTime(15,1,1);
+
+        $start_of_week = $this->time_service->get_start_of_week($time_to_test);
+
+        $expected_time = new datetime();
+        $expected_time->setDate(2018,7,8);
+        $expected_time->setTime(0,0,0);
+        $this->assertEquals($expected_time, $start_of_week);
+    }
+
+    function test_givenTimeStampDuringWeekOfDayLightSaving_whenGetStartOfWeek_thenGetTheSundayAtMidnight(){
+        $time_to_test = new datetime();
+        $time_to_test->setDate(2018,3,12);
+        $time_to_test->setTime(0,0,0);
+
+        $start_of_week = $this->time_service->get_start_of_week($time_to_test);
+
+        $expected_time = new datetime();
+        $expected_time->setDate(2018,3,11);
+        $expected_time->setTime(0,0,0);
+        $this->assertEquals($expected_time, $start_of_week);
+    }
 }
