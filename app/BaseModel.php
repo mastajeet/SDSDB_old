@@ -304,9 +304,6 @@ class BaseModel
         $SQL = new SQLClass();
         $SQL->Select($Req);
         $return_value = array();
-        if ($SQL->NumRow() == 0) {
-            return false;
-        }
         while ($rep = $SQL->FetchAssoc()) {
             $return_value[] = $rep;
         }

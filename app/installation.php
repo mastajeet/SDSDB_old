@@ -51,7 +51,7 @@ class Installation extends BaseModel
 
     static function get_installations_to_bill($cote){
         $SQL = new sqlclass;
-        $Req = "SELECT installation.IDInstallation, sum(shift.Facture) as isBilled FROM shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation WHERE `Cote`='".$cote."' GROUP BY installation.IDInstallation HAVING isBilled!=0 ORDER BY Cote ASC ";
+        $Req = "SELECT installation.IDInstallation, sum(shift.Facture) as isBilled FROM shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation WHERE `Cote`='".$cote."' GROUP BY installation.IDInstallation ORDER BY Cote ASC ";
         $SQL->select($Req);
         $Installations = array();
         while($installation_results_set = $SQL->FetchArray()){

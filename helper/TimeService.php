@@ -33,4 +33,47 @@ class TimeService {
 
         return $new_datetime;
     }
+
+    public function get_start_of_month($datetime){
+        $current_month = $datetime->format('m');
+
+        $current_datetime = new DateTime();
+        $current_datetime->setDate($datetime->format('Y'),$current_month, 1);
+        $current_datetime->setTime(0,0, 0);
+
+        return $current_datetime;
+    }
+
+    public function get_weeks_of_month($datetime){
+        $weeks_of_month = array();
+        $current_month = $datetime->format('m');
+        $current_datetime = $this->get_start_of_month($datetime);
+        $current_datetime = $this->get_start_of_week($current_datetime);
+
+        do{
+            $weeks_of_month[] = $current_datetime;
+            $current_datetime = clone $current_datetime;
+            $current_datetime->add(new DateInterval("P7D"));
+
+        }while($current_datetime->format('m')==$current_month);
+
+        return $weeks_of_month;
+    }
+
+    public function get_switch_month_week_day($datetime){
+        $start_of_week = $this->get_start_of_week($datetime);
+        $initial_month = $start_of_week->format('m');
+        $current_day = clone $start_of_week;
+        $switch_day = 0;
+        do{
+            $current_day->add(new DateInterval("P1D"));
+            $switch_day++;
+            if($switch_day>7){
+                throw new UnexpectedValueException(NO_CHANGE_OF_MONTH);
+            }
+        }while($current_day->format('m')==$initial_month);
+
+        return $switch_day;
+    }
 }
+

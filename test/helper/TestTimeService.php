@@ -114,4 +114,38 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
         $expected_time->setTime(0,0,0);
         $this->assertEquals($expected_time, $start_of_week);
     }
+
+    function test_givenTimeStamp_whenGetWeeksOfMonth_thenGetArrayOfDateTimeOfAllStartOfWeek(){
+        $time_to_test = new datetime();
+        $time_to_test->setDate(2018,3,12);
+        $time_to_test->setTime(0,0,0);
+
+        $weeks_of_month = $this->time_service->get_weeks_of_month($time_to_test);
+
+        $weeks_to_add = array();
+        $weeks_to_add[] = '2,25';
+        $weeks_to_add[] = '3,4';
+        $weeks_to_add[] = '3,11';
+        $weeks_to_add[] = '3,18';
+        $weeks_to_add[] = '3,25';
+        $expected_week = array();
+        foreach($weeks_to_add as $week){
+            $splitted_weak = explode(',', $week);
+            $time_to_add = new datetime();
+            $time_to_add->setDate(2018,$splitted_weak[0] ,$splitted_weak[1]);
+            $time_to_add->setTime(0,0,0);
+            $expected_week[] = $time_to_add;
+        }
+        $this->assertEquals($expected_week, $weeks_of_month);
+    }
+
+    function test_givenTimeStamp_whenGetSwitchMonthWeekDay_thenGetIntegerOfWeekDayOfTheNextMonth(){
+        $time_to_test = new datetime();
+        $time_to_test->setDate(2018,2,25);
+        $time_to_test->setTime(0,0,0);
+
+        $switch_day = $this->time_service->get_switch_month_week_day($time_to_test);
+
+        $this->assertEquals(4, $switch_day);
+    }
 }

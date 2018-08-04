@@ -19,7 +19,8 @@ class Factsheet extends baseModel
     function update_using_next_shift($next_shift){
         $this->End = $next_shift->End;
         $this->Notes = substr($this->Notes,0,-1);
-        $this->Notes.= "-".get_employe_initials($next_shift->IDEmploye).")";
+        $employe = new Employee($next_shift->IDEmploye);
+        $this->Notes.= "-".$employe->initials().")";
     }
 
     function update_using_customer_ferie($customer_ferie){

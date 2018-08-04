@@ -90,11 +90,12 @@ class Customer extends BaseModel
                 foreach($shift_to_bill as $shift){
                     $shift->add_to_facture($facture);
                 }
-            }
+
             $facture->save();
             $customer->update_facture($facture);
             $facture->save();
             $factures[] = $facture;
+            }
         }
 
         return $factures;

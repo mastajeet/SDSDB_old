@@ -16,3 +16,4 @@
     const MORE_THAN_ONE_BILL_HAS_BEEN_ADDED = "Plus d'une facture a été ajoutée";
 
     const INEXISTING_FACTURATION_FREQUENCE = "La frequence de facturation n'existe pas";
+    const NO_CHANGE_OF_MONTH = "Aucun changement de mois arrive dans la semaine";

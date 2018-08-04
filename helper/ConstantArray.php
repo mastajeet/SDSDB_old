@@ -19,4 +19,23 @@ class ConstantArray
 
         return $installation_parking_type_kvp;
     }
+
+    static function get_month_kvp(){
+        $month_kvp = array(1=>"Janvier",
+            2=>"Février",
+            3=>"Mars",
+            4=>"Avril",
+            5=>"Mai",
+            6=>"Juin",
+            7=>"Juillet",
+            8=>"Août",
+            9=>"Septembre",
+            10=>"Octobre",
+            11=>"Novembre",
+            12=>"Décembre "
+        );
+
+        return $month_kvp;
+
+    }
 }
