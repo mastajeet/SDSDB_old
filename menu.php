@@ -107,8 +107,6 @@ if(isset($_GET['MenuCat'])){
         $Section = "Generate_Facture";
     if($Categorie=="FacturationMensuelle")
         $Section = "Generate_Facture_Mensuelle";
-    if($Categorie=="FacturationMensuelleCurrentMonth")
-        $Section = "Generate_Facture_Mensuelle_CurrentMonth";
 
     if($Categorie=="Search")
         $Section = "Search";
@@ -630,32 +628,24 @@ $MainOutput->CloseRow();
 
     }
 
-$MainOutput->OpenRow();
-$MainOutput->OpenCol(20);
-$MainOutput->AddPic('f_cat.png');
-$MainOutput->CloseCol();
-$MainOutput->OpenCol('230',3);
-$MainOutput->AddLink('index.php?MenuCat=Facturation&Semaine='.get_last_sunday(1),'Facturation');
-$MainOutput->CloseCol();
-$MainOutput->CloseRow();
+    $MainOutput->OpenRow();
+    $MainOutput->OpenCol(20);
+    $MainOutput->AddPic('f_cat.png');
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol('230',3);
+    $MainOutput->AddLink('index.php?MenuCat=Facturation&Semaine='.get_last_sunday(1),'Facturation');
+    $MainOutput->CloseCol();
+    $MainOutput->CloseRow();
 
-$MainOutput->OpenRow();
-$MainOutput->OpenCol(20);
-$MainOutput->AddPic('f_cat.png');
-$MainOutput->CloseCol();
-$MainOutput->OpenCol('230',3);
-$MainOutput->AddLink('index.php?MenuCat=FacturationMensuelle','Facturation Mensuelle');
-$MainOutput->CloseCol();
-$MainOutput->CloseRow();
+    $MainOutput->OpenRow();
+    $MainOutput->OpenCol(20);
+    $MainOutput->AddPic('f_cat.png');
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol('230',3);
+    $MainOutput->AddLink('index.php?MenuCat=FacturationMensuelle','Facturation Mensuelle');
+    $MainOutput->CloseCol();
+    $MainOutput->CloseRow();
 
-$MainOutput->OpenRow();
-$MainOutput->OpenCol(20);
-$MainOutput->AddPic('f_cat.png');
-$MainOutput->CloseCol();
-$MainOutput->OpenCol('230',3);
-$MainOutput->AddLink('index.php?MenuCat=FacturationMensuelleCurrentMonth','Facturation Mensuelle courant');
-$MainOutput->CloseCol();
-$MainOutput->CloseRow();
 
 
 

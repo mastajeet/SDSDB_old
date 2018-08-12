@@ -27,9 +27,9 @@ class Shift extends BaseModel
         parent::__construct($Arg);
     }
 
-    function is_connected_after($PreviousShift){
-        if($PreviousShift){
-            return ($PreviousShift->End == $this->Start and $PreviousShift->Jour == $this->Jour);
+    function is_connected_after($PreviousFactsheet){
+        if($PreviousFactsheet){
+            return ($PreviousFactsheet->End == $this->Start and $PreviousFactsheet->Jour == $this->Jour);
         }
     }
 
