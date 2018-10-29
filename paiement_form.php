@@ -63,48 +63,41 @@ $MainOutput->CloseRow();
 	$IDFactureStr .= ")";
 	$Req = "SELECT Date, Montant, Notes FROM paiement WHERE Cote = '". $current_cote ."' ".$IDFactureStr." ORDER BY Date DESC";
 	$SQL->SELECT($Req);
-	while($Rep = $SQL->FetchArray()){
+    $payments = $dossier_facturation->get_all_payments();
+	foreach($payments as $id_payment => $payment){
         $MainOutput->OpenRow();
         $MainOutput->OpenCol();
-            $MainOutput->addTexte($time_service->format_timestamp($Rep[0],"d F Y"));
+        $MainOutput->addTexte($time_service->format_timestamp($payment->Date,"d F Y"));
         $MainOutput->CloseCol();
         $MainOutput->OpenCol();
-            $MainOutput->AddTexte(number_format($Rep[1],2)." $");
+        $MainOutput->AddTexte(number_format($payment->Montant,2)." $");
         $MainOutput->CloseCol();
+
+        $factures_paid_with_payment = $payment->get_paid_facture();
+        $payment_unbalance = $payment->get_payment_balance($factures_paid_with_payment);
+
         $MainOutput->OpenCol();
-
-        $facture_paid_with_payment = explode('~',stristr($Rep[2],'Paye'));
-        $sum_of_facture_paid_with_payment = 0;
-
-        foreach($facture_paid_with_payment as $facture){
-            $paid_facture_token = stristr($facture,'-');
-            if($paid_facture_token and $paid_facture_token!="-") {
-                $sum_of_facture_paid_with_payment += $FactureTotal[substr(stristr($facture, '-'), 1)];
-            }
+        if(abs($payment_unbalance)> 0.01){
+            $MainOutput->AddTexte("<span class=Warning>Débalance: ". $payment_unbalance."</span>");
         }
-      
-        if(abs($sum_of_facture_paid_with_payment-$Rep[1])>0.1){
-         
-            $Debalance = round($sum_of_facture_paid_with_payment-$Rep[1],2);
-            $MainOutput->AddTexte("<span class=Warning>Débalance: ". $Debalance."</span>");
+
+        $payment_has_balance = stristr($payment->Notes,'balance');
+
+        if($payment_has_balance){
+            $paye_section = stristr($payment->Notes,'Paye');
+            $paye_section_length = strlen($paye_section);
+            $notes_total_length = strlen($this->Notes);
+            $balance_section_length = $notes_total_length - $paye_section_length;
+
+            $bolded_balance_section =  "<b>".substr($this->Notes,0,$balance_section_length)."</b>";
+            $payments->Notes = $bolded_balance_section." ".$paye_section;
         }
-	    if(stristr($Rep[2],'balance')){
-            $facture_paid_with_payment = stristr($Rep[2],'Paye');
-            $PayePlus = strlen($facture_paid_with_payment);
-            $Total = strlen($Rep[2]);
-            $Balance = $Total-$PayePlus;
-            $Engras = "<b>".substr($Rep[2],0,$Balance )."</b>";
-            $Rep[2] = $Engras." ".$facture_paid_with_payment;
-		
-	    }
-	
-		$MainOutput->AddTexte($Rep[2]);
-	
-	
-	
-	$MainOutput->CloseCol();
-	$MainOutput->CloseRow();
-	}
+
+        $MainOutput->AddTexte($payment->Notes);
+        $MainOutput->CloseCol();
+	    $MainOutput->CloseRow();
+    }
+
 	$MainOutput->CloseTable();
 }
 echo $MainOutput->Send(1);

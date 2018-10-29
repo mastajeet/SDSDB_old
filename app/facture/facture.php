@@ -59,6 +59,21 @@ class Facture extends BaseModel
         parent::save();
     }
 
+    function get_payment($payments){
+        $payment_that_paid_this_facture = null;
+        foreach($payments as $id_payment => $payment){
+            if($payment->paid_facture($this)){
+                $payment_that_paid_this_facture = $payment;
+            }
+        }
+
+        if(is_null($payment_that_paid_this_facture)){
+            throw new RuntimeException("Unpaid facture asking for payment");
+        }
+
+        return $payment_that_paid_this_facture;
+    }
+
     function get_balance(){
         $balance= Array("sub_total"=>0, "tps"=>0, "tvq"=>0, "total"=>0);
 

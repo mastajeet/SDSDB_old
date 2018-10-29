@@ -3,6 +3,7 @@
 class Payment extends BaseModel
 {
 
+    public $IDPaiement;
     public $Cote;
     public $Montant;
     public $Date;
@@ -44,6 +45,18 @@ class Payment extends BaseModel
         }
 
         return $montant_left;
+    }
+
+    function paid_facture(Facture $facture){
+        $paid_factures = $this->get_paid_facture();
+        $paid = false;
+        foreach ($paid_factures as $id_facture => $paid_facture){
+            if($id_facture == $facture->IDFacture){
+                $paid = true;
+            }
+        }
+
+        return $paid;
     }
 
 //    function isFacturePaid(facture $facture){

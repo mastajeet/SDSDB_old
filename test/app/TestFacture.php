@@ -1,6 +1,7 @@
 <?php
 
 include_once ('app/facture/facture.php');
+include_once ('app/payment.php');
 
 class TestFacture extends PHPUnit_Framework_TestCase{
 
@@ -47,5 +48,17 @@ class TestFacture extends PHPUnit_Framework_TestCase{
         $facture = Facture::get_by_cote_and_sequence(self::UNE_COTE, self::UN_NUMERO_SEQUENTIEL);
 
         $this->assertEquals(1349, $facture->IDFacture);
+    }
+
+    function test_givenPaidFactureAndPayments_whenGetPayment_thenGetPayment(){
+        $facture = new Facture(1349);
+        $payments = array(
+            108=> new Payment(108),
+            109=> new Payment(109)
+        );
+
+        $payment = $facture->get_payment($payments);
+
+        $this->assertEquals(108,$payment->IDPaiement);
     }
 }

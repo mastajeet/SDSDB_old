@@ -45,4 +45,13 @@ class TestPayment extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(734.78, $unpaid_balance,'',0.001);
     }
+
+    function test_givenFactureThatWasPaidByPayment_whenPaidFacture_thenReturnTrue(){
+        $payment = new Payment(104);
+        $facture = new facture(1353);
+
+        $has_been_paid = $payment->paid_facture($facture);
+
+        $this->assertTrue($has_been_paid);
+    }
 }

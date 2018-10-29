@@ -34,8 +34,9 @@ INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`
 
   (1349, 'TF', 1, '', 0.05, 0.095, 400, 0, '', 1529812800, 1, 1530627972, 0), # Test Facture - Facture payee
   (1350, 'TF', 2, '', 0.05, 0.095, 400, 0, '', 1529812800, 0, 1530627972, 0), # Test Facture - Facture non payee
-  (1351, 'TF', 3, '', 0.05, 0.095, -400, 1, '', 1529812800, 1, 1530627972, 0), # Test Facture - credit
-  (1352, 'TF', 4, '', 0.05, 0.095, 400, 1, '', 1529812800, 1, 1530627972, 1), # Test Facture - credit
+  (1353, 'TF', 3, '', 0.05, 0.095, 400, 0, '', 1529812800, 1, 1530627972, 0), # Test Facture - Facture payee
+  (1351, 'TF', 1, '', 0.05, 0.095, -400, 1, '', 1529812800, 1, 1530627972, 0), # Test Facture - credit
+  (1352, 'TF', 2, '', 0.05, 0.095, 400, 1, '', 1529812800, 1, 1530627972, 1), # Test Facture - credit
 
   (1353, 'TPM', 1, '', 0.05, 0.095, 100, 0, '', 1529812800, 1, 1530627972, 0), # Test Payment - paye total (1/1)
   (1354, 'TPM', 2, '', 0.05, 0.095, 200, 0, '', 1529812800, 1, 1530627972, 0), # Test Payment - paye total (1/2)
@@ -46,6 +47,8 @@ INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`
 
 INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `Notes`) VALUES
   (99 , 'TDF', 344.92, 1509220851, ''),                 # date de 2017
+
+  (99 , 'TDF', 344.92, 1509220851, ''),                 # date de 2017
   (100, 'TDF', 344.92, 1530629972, ' Paye:~TDF-3~'),    # paiement complet facture normale
   (101, 'TDF', 114.97, 1530629972, ' Paye:~TDF-5~'),    # paiement complet facture materiel
   (102, 'TDF', 200, 1530629972, ' Paye:~TDF-7~'),       # paiement partiel facture normale
@@ -55,6 +58,9 @@ INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `Notes`) VALUES
   (105, 'TPM', 919.8, 1530629972, ' Paye:~TPM-2~TPM-3'), # paiement total pour deux factures
   (106, 'TPM', 200, 1530629972, ' Paye:~TPM-4~'), # paiement partiel pour une factures
   (107, 'TPM', 300, 1530629972, ' Paye:~TPM-5~TPM-6'), # paiement partiel pour deux factures
+
+  (108, 'TF', 100, 1530629972, ' Paye:~TF-1~'),    # paiement complet facture normale
+  (109, 'TF', 200, 1530629972, ' Paye:~TF-3~'),    # paiement complet facture normale
 
   (606, 'PCV', 3692.43, 1530645750, ' Paye:~PCV-13~');
 
