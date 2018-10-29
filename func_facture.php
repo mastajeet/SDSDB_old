@@ -125,9 +125,11 @@ function get_facturation($Cote,$Dossier=FALSE,$Year=NULL){
 		$Req = "SELECT IDFacture FROM facture WHERE !Paye AND Cote='".$Cote ."' ORDER BY IDFacture ASC LIMIT 0,1";
 		$SQL->SELECT($Req);
 		$Rep = $SQL->FetchArray();
-			$Req = "SELECT `STotal`, `STotal`*round(`TPS`,3) as TPSp, `STotal`*round((1+`TPS`),3)*round(`TVQ`,3), `Sequence`, `IDFacture`, `Semaine`, `Credit`,`Paye`,`EnDate`,`IDFacture` FROM facture WHERE Cote='".$Cote."' AND IDFacture >= ".$Rep['IDFacture']." ORDER BY IDFacture DESC";
+        $Req = "SELECT `STotal`, `STotal`*round(`TPS`,3) as TPSp, `STotal`*round((1+`TPS`),3)*round(`TVQ`,3), `Sequence`, `IDFacture`, `Semaine`, `Credit`,`Paye`,`EnDate`,`IDFacture` FROM facture WHERE Cote='".$Cote."' AND IDFacture >= ".$Rep['IDFacture']." ORDER BY IDFacture DESC";
+
 	}else{
 		$Req = "SELECT `STotal`, `STotal`*round(`TPS`,3) as TPSp, `STotal`*round((1+`TPS`),3)*round(`TVQ`,3), `Sequence`, `IDFacture`, `Semaine`, `Credit`,`Paye`,`EnDate`,`IDFacture` FROM facture WHERE Cote='".$Cote."' and Semaine>=".mktime(0,0,0,1,1,$Year)." and Semaine<".mktime(0,0,0,1,1,$Year+1)." ORDER BY IDFacture DESC";
+
 	}
 	$SQL->SELECT($Req);
 	$ret = array();

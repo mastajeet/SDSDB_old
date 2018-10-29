@@ -60,7 +60,7 @@ class TimeService {
         return $weeks_of_month;
     }
 
-    public function get_switch_month_week_day($datetime){
+    public function get_week_day_that_changes_month($datetime){
         $start_of_week = $this->get_start_of_week($datetime);
         $initial_month = $start_of_week->format('m');
         $current_day = clone $start_of_week;
@@ -75,5 +75,13 @@ class TimeService {
 
         return $switch_day;
     }
+
+    public function format_timestamp($timestamp, $format){
+        $datetime =  new DateTime("@".$timestamp);
+        $converted_timestamp = $datetime->format($format);
+
+        return $converted_timestamp;
+    }
+
 }
 

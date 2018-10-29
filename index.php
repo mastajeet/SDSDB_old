@@ -2,6 +2,7 @@
     ini_set("default_charset", "iso-8859-1");
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
+    setlocale(LC_TIME, 'fr_CA');
 
 
 extract($_REQUEST);
@@ -56,6 +57,8 @@ include_once('app/Variable.php');
 include_once('app/employee.php');
 include_once('app/Responsable.php');
 include_once('app/Secteur.php');
+include_once('app/dossier_facturation.php');
+include_once('app/payment.php');
 
 include_once('helper/Authorization.php');
 include_once('helper/PasswordGetter.php');

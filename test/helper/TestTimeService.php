@@ -7,6 +7,9 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
     const A_DAY = "12";
     const A_MONTH = "7";
     const A_YEAR = "2018";
+    const A_TIMESTAMP = "1529812800";
+    const A_DATE_FORMAT = "d-m-Y";
+    const A_EQUIVALENT_TIMESTAMP_FORMAT = "24-06-2018";
 
     /**
      * @before
@@ -134,13 +137,20 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
         $this->assertEquals($expected_week, $weeks_of_month);
     }
 
-    function test_givenTimeStamp_whenGetSwitchMonthWeekDay_thenGetIntegerOfWeekDayOfTheNextMonth(){
+    function test_givenTimeStamp_whenGetWeekDayThatChangesMonth_thenGetIntegerOfWeekDayOfTheNextMonth(){
         $time_to_test = new datetime();
         $time_to_test->setDate(2018,2,25);
         $time_to_test->setTime(0,0,0);
 
-        $switch_day = $this->time_service->get_switch_month_week_day($time_to_test);
+        $switch_day = $this->time_service->get_week_day_that_changes_month($time_to_test);
 
         $this->assertEquals(4, $switch_day);
+    }
+
+    function test_givenTimestamp_whenFormatTimestamp_thenObtainCorrectDateFormat(){
+        $converted_datetime = $this->time_service->format_timestamp(self::A_TIMESTAMP, self::A_DATE_FORMAT);
+
+        $this->assertEquals(self::A_EQUIVALENT_TIMESTAMP_FORMAT, $converted_datetime);
+
     }
 }

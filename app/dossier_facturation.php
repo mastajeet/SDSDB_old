@@ -17,10 +17,10 @@ class DossierFacturation
         $total_billed = $this->get_total_billed();
         $total_credited = $this->get_total_credited();
         $total_to_be_paid = Array(
-            "sub_total"=> $total_billed["sub_total"] -$total_credited["sub_total"],
-            "tps"=> $total_billed["tps"] -$total_credited["tps"],
-            "tvq"=> $total_billed["tvq"] -$total_credited["tvq"],
-            "total"=> $total_billed["total"] -$total_credited["total"]
+            "sub_total"=> $total_billed["sub_total"] +$total_credited["sub_total"],
+            "tps"=> $total_billed["tps"] +$total_credited["tps"],
+            "tvq"=> $total_billed["tvq"] +$total_credited["tvq"],
+            "total"=> $total_billed["total"] +$total_credited["total"]
         );
 
         return $total_to_be_paid;
@@ -28,6 +28,7 @@ class DossierFacturation
 
     function get_total_billed(){
         $factures = $this->get_all_factures();
+        $factures_to_sum = array();
         foreach($factures as $IDFacture => $facture){
             if(!$facture->is_credit()){
                 $factures_to_sum[] = $facture;
@@ -37,8 +38,33 @@ class DossierFacturation
         return $this->sum_all_factures($factures_to_sum);
     }
 
+    function get_balance_details(){
+        $total_to_pay = $this->get_total_to_be_paid();
+        $total_paid = $this->get_total_paid();
+
+        $balance_details = array(
+            "total_to_pay"=>$total_to_pay["total"],
+            "total_paid"=>$total_paid,
+            "balance"=>$total_to_pay["total"] - $total_paid
+        );
+
+        return $balance_details;
+    }
+
+    function get_total_paid(){
+        $payments = $this->get_all_payments();
+        $total_paid = 0;
+        foreach ($payments as $id_payment => $payment){
+            $total_paid += $payment->Montant;
+
+        }
+        return $total_paid;
+    }
+
+
     function get_total_credited(){
         $factures = $this->get_all_factures();
+        $factures_to_sum = array();
         foreach($factures as $IDFacture => $facture){
             if($facture->is_credit()){
                 $factures_to_sum[] = $facture;
@@ -68,7 +94,7 @@ class DossierFacturation
         $factures = [];
         while($facture_id_cursor = $this->sql_connection->FetchArray()){
             $id_facture  = $facture_id_cursor[self::ID_FACTURE];
-            $factures[] = new Facture($id_facture);
+            $factures[$id_facture] = new Facture($id_facture);
         }
 
         return $factures;
@@ -88,8 +114,8 @@ class DossierFacturation
         $this->sql_connection->Select($requete_all_payment_for_year);
         $payments = [];
         while($payment_id_cursor = $this->sql_connection->FetchArray()){
-            $id_facture  = $payment_id_cursor[self::ID_PAYMENT];
-            $payments[] = new Payment($id_facture);
+            $id_payment  = $payment_id_cursor[self::ID_PAYMENT];
+            $payments[$id_payment] = new Payment($id_payment);
         }
 
         return $payments;

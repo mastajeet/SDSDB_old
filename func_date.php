@@ -92,8 +92,9 @@ function get_current_day($Lag=0,$Time=""){
 
 
 function get_date($Time){
+	print("DEPRICATED FUNCTION");
 	$Output=array();
-	
+
 	if($Time>86400){
 				$Hour = bcmod($Time,86400);
 				$Output['d'] = date('d',$Time);

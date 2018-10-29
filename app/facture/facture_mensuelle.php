@@ -35,7 +35,7 @@ class FactureMensuelle extends Facture implements TimeFacture{
 
     private function get_billable_shift_for_first_week($installation, $first_week_datetime){
         try {
-            $switch_day = $this->time_service->get_switch_month_week_day($first_week_datetime);
+            $switch_day = $this->time_service->get_week_day_that_changes_month($first_week_datetime);
         }catch (Exception $exception){
             $switch_day = 0; #Le premier jour etait deja dans le bon mois
         }
@@ -71,7 +71,7 @@ class FactureMensuelle extends Facture implements TimeFacture{
     private function get_billable_shift_for_last_week($installation, $last_week_datetime){
 
         try {
-            $switch_day = $this->time_service->get_switch_month_week_day($last_week_datetime);
+            $switch_day = $this->time_service->get_week_day_that_changes_month($last_week_datetime);
         }catch (Exception $exception){
             $switch_day = 6; #Le dernier jour etait encore dans le bon mois
         }

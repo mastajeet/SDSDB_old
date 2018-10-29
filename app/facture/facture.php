@@ -12,6 +12,9 @@ class Facture extends BaseModel
     public $TPS;
     public $STotal;
     public $Factsheet;
+    public $EnDate;
+    public $Cote;
+    public $BonAchat;
 
     function __construct($Args){
         parent::__construct($Args);
@@ -29,6 +32,17 @@ class Facture extends BaseModel
             $facture_id = intval($facture_response[$database_information['model_table_id']]);
             $facture = new Facture($facture_id);
         }
+        return $facture;
+    }
+
+    static function get_by_cote_and_sequence($cote, $sequence){
+        $database_information = Facture::define_table_info();
+        $facture_query = "SELECT ".$database_information['model_table_id']." FROM ".$database_information['model_table']." WHERE Cote='".$cote."' and Sequence=".$sequence." and Credit=0";
+        $SQL = new SQLClass();
+        $SQL->Select($facture_query);
+        $facture_id_cursor = $SQL->FetchArray();
+        $facture = new Facture($facture_id_cursor["IDFacture"]);
+
         return $facture;
     }
 
@@ -58,6 +72,14 @@ class Facture extends BaseModel
 
     function is_credit(){
         return $this->Credit==1;
+    }
+
+    function is_paid(){
+        return $this->Paye==1;
+    }
+
+    function is_materiel(){
+        return $this->Materiel==1;
     }
 
     function add_factsheet(&$factsheet){

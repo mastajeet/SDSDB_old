@@ -42,10 +42,10 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
     function test_whenGetTotalCredited_thenSumAllCreditWithRespectiveTaxes(){
         $total_billed = $this->dossier_facturation->get_total_credited();
 
-        $this->assertEquals(800, $total_billed["sub_total"],'',0.001);
-        $this->assertEquals(40, $total_billed["tps"],'',0.001);
-        $this->assertEquals(79.8, $total_billed["tvq"],'',0.001);
-        $this->assertEquals(919.8, $total_billed["total"],'',0.001);
+        $this->assertEquals(-800, $total_billed["sub_total"],'',0.001);
+        $this->assertEquals(-40, $total_billed["tps"],'',0.001);
+        $this->assertEquals(-79.8, $total_billed["tvq"],'',0.001);
+        $this->assertEquals(-919.8, $total_billed["total"],'',0.001);
     }
 
     function test_whenGetTotalToBePaid_thenSumFacutureAndCredit(){
@@ -56,7 +56,20 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
         $this->assertEquals(140.68, $total_to_be_paid["tvq"],'',0.001);
         $this->assertEquals(1621.18, $total_to_be_paid["total"],'',0.001);
 
+    }
 
+    function test_whenGetTotalPaid_thenSumAllPayments(){
+        $total_paid = $this->dossier_facturation->get_total_paid();
+
+        $this->assertEquals(859.89, $total_paid,'',0.001);
+    }
+
+    function test_whenGetBalanceDetails_thenTotalToPayTotalPaidAndDifference(){
+        $balance_to_pay = $this->dossier_facturation->get_balance_details();
+
+        $this->assertEquals(1621.18, $balance_to_pay["total_to_pay"],'',0.001);
+        $this->assertEquals(859.89, $balance_to_pay["total_paid"],'',0.001);
+        $this->assertEquals(761.29, $balance_to_pay["balance"],'',0.001);
     }
 
 }

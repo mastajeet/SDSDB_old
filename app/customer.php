@@ -14,6 +14,12 @@ class Customer extends BaseModel
     public $FrequenceFacturation;
     public $time_service;
 
+    public $Nom;
+    public $Adresse;
+    public $Facturation;
+    public $Fax;
+    public $Email;
+
     function __construct($Arg = null)
     {
         parent::__construct($Arg);

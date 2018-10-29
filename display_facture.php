@@ -5,7 +5,7 @@ if(isset($_GET['IDFacture'])){
     if(!isset($Modifie))
         $Modifie=FALSE;
 
-    $Info = get_facture_info($_GET['IDFacture']);
+    $facture = new Facture($_GET['IDFacture']);
     $Req = "SELECT * FROM factsheet WHERE IDFacture = ".$_GET['IDFacture']." ORDER BY Jour ASC, Start ASC";
     $SQL->SELECT($Req);
     $Head = new HTML;
@@ -13,7 +13,7 @@ if(isset($_GET['IDFacture'])){
 
     $MainOutput->OpenTable(660);
 
-    if(!$Info['Materiel']){
+    if(!$facture->is_materiel()){
         $MainOutput->OpenRow();
         $MainOutput->OpenCol(30);
             $MainOutput->AddTexte('Date','Titre');
@@ -44,13 +44,13 @@ if(isset($_GET['IDFacture'])){
 
     while($Rep = $SQL->FetchArray()){
 
-        if(!$Info['Materiel']){
+        if(!$facture->is_materiel()){
             $MainOutput->OpenRow();
             $MainOutput->OpenCol();
             if($Modifie)
                 $MainOutput->addlink('index.php?Section=Factsheet&IDFactsheet='.$Rep['IDFactsheet'],'<img border=0 src=b_edit.png>');
             $CurrentJour=1;
-            $CurrentDate = 	$Info['Semaine'];
+            $CurrentDate = 	$facture->Semaine;
             while($CurrentJour<=$Rep['Jour']){
                 $CurrentDate+=get_day_length($CurrentDate);
                 $CurrentJour++;
@@ -71,7 +71,7 @@ if(isset($_GET['IDFacture'])){
         $MainOutput->CloseCol();
         $MainOutput->OpenCol();
 
-        if($Info['Materiel'])
+        if($facture->is_materiel())
             $DIFF = $Rep['End'];
         else
             $DIFF = round(($Rep['End']-$Rep['Start'])/3600,2);
@@ -96,7 +96,7 @@ if(isset($_GET['IDFacture'])){
     $MainOutput->OpenRow();
 
 
-    if(!$Info['Materiel'])
+    if(!$facture->is_materiel())
         $MainOutput->OpenCol('',7);
     else
         $MainOutput->OpenCol('',4);
@@ -108,7 +108,7 @@ if(isset($_GET['IDFacture'])){
 
     $MainOutput->OpenRow();
 
-    if(!$Info['Materiel'])
+    if(!$facture->is_materiel())
         $MainOutput->OpenCol('',4);
     else
         $MainOutput->OpenCol('',1);
@@ -127,7 +127,7 @@ if(isset($_GET['IDFacture'])){
     $MainOutput->OpenRow();
 
 
-    if(!$Info['Materiel'])
+    if(!$facture->is_materiel())
         $MainOutput->OpenCol('',4);
     else
         $MainOutput->OpenCol('',1);
@@ -135,23 +135,27 @@ if(isset($_GET['IDFacture'])){
     $MainOutput->AddTexte($Bottom[1],'Small');
     $MainOutput->CloseCol();
 
-    $TPS = $Cash * $Info['TPS'];
-    $TVQ = ($Cash+$TPS) * $Info['TVQ'];
-    $TPS = round($TPS,2);
-    $TVQ = round($TVQ,2);
-    $TTPS = 100*$Info['TPS'];
-    //$TTVQ = 100*$Info['TVQ']; //Modification due au changement du calcul de la TVQ. on affiche la variable TVQShown mais utilise TVQ pour le calcul (aucun changement dans le code)
-    $TTVQ = get_vars('TVQShown');
+
+    $facture_balance_detail = $facture->get_balance();
+
+
+    $taux_tps = 100*$facture->TPS;
+
+    //Modification due au changement du calcul de la TVQ. on affiche la variable TVQShown mais utilise TVQ pour le calcul (aucun changement dans le code)
+    $taux_tvq = get_vars('TVQShown');
+
+
+
     $MainOutput->OpenCol('',2);
-        $MainOutput->AddTexte("<div align=right>TPS - ".$TTPS."%: </div>",'Titre');
+        $MainOutput->AddTexte("<div align=right>TPS - ".$taux_tps."%: </div>",'Titre');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol();
-        $MainOutput->AddTexte(number_format($TPS,2)."&nbsp;$",'Titre');
+        $MainOutput->AddTexte(number_format($facture_balance_detail['tps'],2)."&nbsp;$",'Titre');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
     $MainOutput->OpenRow();
-    if(!$Info['Materiel'])
+    if(!$facture->is_materiel())
         $MainOutput->OpenCol('',4);
     else
         $MainOutput->OpenCol('',1);
@@ -161,15 +165,15 @@ if(isset($_GET['IDFacture'])){
 
     $MainOutput->OpenCol('',2);
 
-        $MainOutput->AddTexte('<div align=right>TVQ - '.$TTVQ.': </div>','Titre');
+        $MainOutput->AddTexte('<div align=right>TVQ - '.$taux_tvq.': </div>','Titre');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol();
-        $MainOutput->AddTexte(number_format($TVQ,2)."&nbsp;$",'Titre');
+        $MainOutput->AddTexte(number_format($facture_balance_detail['tvq'],2)."&nbsp;$",'Titre');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
     $MainOutput->OpenRow();
 
-    if(!$Info['Materiel'])
+    if(!$facture->is_materiel())
         $MainOutput->OpenCol('',4);
     else
         $MainOutput->OpenCol('',1);
@@ -184,7 +188,7 @@ if(isset($_GET['IDFacture'])){
 
     $MainOutput->OpenRow();
 
-    if(!$Info['Materiel'])
+    if(!$facture->is_materiel())
         $MainOutput->OpenCol('',4);
     else
         $MainOutput->OpenCol('',1);
@@ -192,12 +196,12 @@ if(isset($_GET['IDFacture'])){
         $MainOutput->AddTexte($Bottom[4],'Small');
     $MainOutput->CloseCol();
 
-    $Cash = $Cash + $TVQ + $TPS;
+
     $MainOutput->OpenCol('',2);
         $MainOutput->AddTexte('<div align=right>Total: </div>','Titre');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol();
-        $MainOutput->AddTexte(number_format($Cash,2)."&nbsp;$",'Titre');
+        $MainOutput->AddTexte(number_format($facture_balance_detail['total'],2)."&nbsp;$",'Titre');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -243,15 +247,15 @@ if(isset($_GET['IDFacture'])){
     $InvType ="";
 
 
-    if($Info['Credit'])
+    if($facture->is_credit())
         $InvType = "NOTE DE CRÉDIT";
     else
         $InvType = "FACTURE";
 
-    if($Info['Materiel'])
+    if($facture->is_materiel())
         $InvType .= " MATÉRIEL";
 
-    if($Info['Materiel'] && $Info['Credit'])
+    if($facture->is_credit() && $facture->is_materiel())
         $InvType = "CRÉDIT MATÉRIEL";
 
 
@@ -260,12 +264,12 @@ if(isset($_GET['IDFacture'])){
     if($Modifie){
         $MainOutput->AddOutput('<div align=Right>',0,0);
 
-        $MainOutput->AddLink('index.php?Section=Factsheet&IDFacture='.$_GET['IDFacture'],'<img src=b_ins.png border=0>');
+        $MainOutput->AddLink('index.php?Section=Factsheet&IDFacture='.$facture->IDFacture,'<img src=b_ins.png border=0>');
             $MainOutput->AddTexte('&nbsp;');
-            $MainOutput->AddLink('index.php?Section=Display_Facture&ToPrint=TRUE&IDFacture='.$_GET['IDFacture'],'<img src=b_print.png border=0>','_BLANK');
-            $MainOutput->AddLink('index.php?Section=Display_Facturation&Cote='.$Info['Cote'],'<img src=b_fact.png border=0>');
+            $MainOutput->AddLink('index.php?Section=Display_Facture&ToPrint=TRUE&IDFacture='.$facture->IDFacture,'<img src=b_print.png border=0>','_BLANK');
+            $MainOutput->AddLink('index.php?Section=Display_Facturation&Cote='.$facture->Cote,'<img src=b_fact.png border=0>');
             $MainOutput->AddTexte('&nbsp;');
-            $MainOutput->AddLink('index.php?Action=Delete_Facture&IDFacture='.$_GET['IDFacture'],'<img src=b_del.png border=0>');
+            $MainOutput->AddLink('index.php?Action=Delete_Facture&IDFacture='.$facture->IDFacture,'<img src=b_del.png border=0>');
             $MainOutput->AddOutput('</div>',0,0);
         }
     $MainOutput->CloseCol();
@@ -275,33 +279,35 @@ if(isset($_GET['IDFacture'])){
     $MainOutput->OpenCol();
     $CREDIT = "";
     $MTL = "";
-        if($Info['Credit'])
+        if($facture->is_credit())
             $CREDIT = "c";
         if($_COOKIE['CIESDS']=="MTL")
             $MTL = "M-";
-    $MainOutput->AddTexte($MTL.$CREDIT.$Info['Cote']."-".$Info['Sequence'],'Titre');
+    $MainOutput->AddTexte($MTL.$CREDIT.$facture->Cote."-".$facture->Sequence,'Titre');
     $MainOutput->br();
     $MainOutput->AddTexte("Heures Chargées: ",'Titre');
     $MainOutput->AddTexte($NBH);
     $MainOutput->br();
     $MainOutput->AddTexte("Total: ",'Titre');
-    $MainOutput->AddTexte(number_format($Cash,2)."&nbsp;$");
+    $MainOutput->AddTexte(number_format($facture_balance_detail['total'],2)."&nbsp;$");
     $MainOutput->br();
     $MainOutput->AddTexte("Facturé: ",'Titre');
     $month = get_month_list('long');
-    $date = get_date($Info['EnDate']);
-    $MainOutput->AddTexte($date['d']."-".$month[intval($date['m'])]."-".$date['Y']);
+
+    $MainOutput->AddTexte($time_service->format_timestamp($facture->EnDate, "d-F-y"));
+
+
     $MainOutput->br();
     $MainOutput->AddTexte("Pour la période: ",'Titre');
 
-    $ENDS = get_end_dates(0,$Info['Semaine']);
+    $ENDS = get_end_dates(0,$facture->Semaine);
 
     if($Rep['FrequenceFacturation']=='H'){
             $MainOutput->AddTexte($ENDS['Start']." au ".$ENDS['End']);
     }
 
     elseif($Rep['FrequenceFacturation']=='M'){
-        $PremiereSemaineFullNewMonth = get_next_sunday(0,$Info['Semaine']);
+        $PremiereSemaineFullNewMonth = get_next_sunday(0,$facture['Semaine']);
         $MoisFacture = date('F',$PremiereSemaineFullNewMonth);
         $MainOutput->AddTexte($MoisFacture);
     }
@@ -345,10 +351,10 @@ if(isset($_GET['IDFacture'])){
                 $MainOutput->AddTexte(" #".substr($Rep[3],10,4));
     }
 
-    if($Info['BonAchat']<>""){
+    if($facture->BonAchat<>""){
         $MainOutput->br();
         $MainOutput->AddTexte('Bon d\'achat: ','Titre');
-        $MainOutput->AddTexte($Info['BonAchat']);
+        $MainOutput->AddTexte($facture['BonAchat']);
     }
 
     $MainOutput->CloseCol();

@@ -1,16 +1,18 @@
 <?PHP
 $SQL = new sqlclass;
 
+$current_cote = $_GET['Cote'];
+
 if(isset($_GET['ADD']) && $_GET['ADD']==TRUE){
-	if(isset($_GET['Cote'])){
+	if(isset($current_cote)){
 		$MainOutput->AddForm('Ajouter un paiement');
 		$MainOutput->inputhidden_env('Action','Paiement');
-		$MainOutput->inputhidden_env('Cote',$_GET['Cote']);
-		$Req = "SELECT IDFacture, Sequence FROM facture WHERE !Paye AND !Credit AND Cote='".$_GET['Cote']."' ORDER BY Sequence ASC";
+		$MainOutput->inputhidden_env('Cote', $current_cote);
+		$Req = "SELECT IDFacture, Sequence FROM facture WHERE !Paye AND !Credit AND Cote='". $current_cote ."' ORDER BY Sequence ASC";
 		$SQL->SELECT($Req);
 		$opt = array();
 		while($Rep = $SQL->FetchArray())
-			$opt[$Rep[0]] = $_GET['Cote']."-".$Rep[1];
+			$opt[$Rep[0]] = $current_cote ."-".$Rep[1];
 		
                 $MainOutput->InputText('Montant',$Rep['TXH'],6);
 		$MainOutput->FlagList('ToPay',$opt,'','Factures');
@@ -21,9 +23,9 @@ if(isset($_GET['ADD']) && $_GET['ADD']==TRUE){
 }else{
 
 if(!isset($_GET['Year']) or $_GET['Year']=="")
-	$Year = intval(Date("Y"));
+	$current_year = intval(Date("Y"));
 else
-	$Year =$_GET['Year'];
+	$current_year =$_GET['Year'];
 	
 	
 $MainOutput->OpenTable();
@@ -31,9 +33,9 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('',3);
 	$MainOutput->AddTexte('Détail des paiements');
 	$MainOutput->br();
-	$MainOutput->AddLink('index.php?Section=Paiement&ADD=TRUE&Cote='.$_GET['Cote'],'Ajouter un paiement');
+	$MainOutput->AddLink('index.php?Section=Paiement&ADD=TRUE&Cote='. $current_cote,'Ajouter un paiement');
 	$MainOutput->br();
-	$MainOutput->AddLink('index.php?Section=Display_Facturation&Cote='.$_GET['Cote'],'Retour au dossier de facturation');
+	$MainOutput->AddLink('index.php?Section=Display_Facturation&Cote='. $current_cote,'Retour au dossier de facturation');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 $MainOutput->OpenRow();
@@ -48,52 +50,53 @@ $MainOutput->OpenCol();
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
-	$Req = "SELECT `Sequence`, round(round(STotal*(1+TPS),2)*(1+TVQ),2) as Total FROM facture WHERE Cote='".$_GET['Cote']."' and !Credit and semaine>=".mktime(0,0,0,1,1,$Year)." and semaine<".mktime(0,0,0,1,1,$Year+1);
+    $dossier_facturation = new DossierFacturation($current_cote, $current_year);
+
+	$Req = "SELECT `Sequence`, round(round(STotal*(1+TPS),2)*(1+TVQ),2) as Total FROM facture WHERE Cote='". $current_cote ."' and !Credit and semaine>=".mktime(0,0,0,1,1,$current_year)." and semaine<".mktime(0,0,0,1,1,$current_year+1);
 	$SQL->SELECT($Req);
 		$IDFactureStr ="AND (0 ";
                 $FactureTotal = array();
 	while($Rep = $SQL->FetchArray()){
-		$IDFactureStr .= "OR Notes LIKE '%~".$_GET['Cote']."-".$Rep[0]."~%'";
+		$IDFactureStr .= "OR Notes LIKE '%~". $current_cote ."-".$Rep[0]."~%'";
                 $FactureTotal[$Rep['Sequence']]=$Rep['Total'];
 	}
 	$IDFactureStr .= ")";
-	$Req = "SELECT Date, Montant, Notes FROM paiement WHERE Cote = '".$_GET['Cote']."' ".$IDFactureStr." ORDER BY Date DESC";
+	$Req = "SELECT Date, Montant, Notes FROM paiement WHERE Cote = '". $current_cote ."' ".$IDFactureStr." ORDER BY Date DESC";
 	$SQL->SELECT($Req);
 	while($Rep = $SQL->FetchArray()){
-	$MainOutput->OpenRow();
-	$MainOutput->OpenCol();
-		$Date = get_date($Rep[0]);
-		$month = get_month_list('long');
-		$MainOutput->addTexte($Date['d']." ".$month[intval($Date['m'])]." ".$Date['Y']);
-	$MainOutput->CloseCol();
-	$MainOutput->OpenCol();
-		$MainOutput->AddTexte(number_format($Rep[1],2)." $");
-	$MainOutput->CloseCol();
-	$MainOutput->OpenCol();
-	
-        $pp = explode('~',stristr($Rep[2],'Paye'));
-        $PaiementShouldbe = 0;
-            foreach($pp as $facture){
-            
-                
-            if(stristr($facture,'-'))
-         $PaiementShouldbe +=$FactureTotal[substr(stristr($facture,'-'),1)];            
+        $MainOutput->OpenRow();
+        $MainOutput->OpenCol();
+            $MainOutput->addTexte($time_service->format_timestamp($Rep[0],"d F Y"));
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol();
+            $MainOutput->AddTexte(number_format($Rep[1],2)." $");
+        $MainOutput->CloseCol();
+        $MainOutput->OpenCol();
+
+        $facture_paid_with_payment = explode('~',stristr($Rep[2],'Paye'));
+        $sum_of_facture_paid_with_payment = 0;
+
+        foreach($facture_paid_with_payment as $facture){
+            $paid_facture_token = stristr($facture,'-');
+            if($paid_facture_token and $paid_facture_token!="-") {
+                $sum_of_facture_paid_with_payment += $FactureTotal[substr(stristr($facture, '-'), 1)];
+            }
         }
       
-        if(abs($PaiementShouldbe-$Rep[1])>0.1){
+        if(abs($sum_of_facture_paid_with_payment-$Rep[1])>0.1){
          
-            $Debalance = round($PaiementShouldbe-$Rep[1],2);
+            $Debalance = round($sum_of_facture_paid_with_payment-$Rep[1],2);
             $MainOutput->AddTexte("<span class=Warning>Débalance: ". $Debalance."</span>");
         }
-	if(stristr($Rep[2],'balance')){
-		$pp = stristr($Rep[2],'Paye');
-		$PayePlus = strlen($pp);
-		$Total = strlen($Rep[2]);
-		$Balance = $Total-$PayePlus;
-		$Engras = "<b>".substr($Rep[2],0,$Balance )."</b>";
-		$Rep[2] = $Engras." ".$pp;
+	    if(stristr($Rep[2],'balance')){
+            $facture_paid_with_payment = stristr($Rep[2],'Paye');
+            $PayePlus = strlen($facture_paid_with_payment);
+            $Total = strlen($Rep[2]);
+            $Balance = $Total-$PayePlus;
+            $Engras = "<b>".substr($Rep[2],0,$Balance )."</b>";
+            $Rep[2] = $Engras." ".$facture_paid_with_payment;
 		
-	}
+	    }
 	
 		$MainOutput->AddTexte($Rep[2]);
 	

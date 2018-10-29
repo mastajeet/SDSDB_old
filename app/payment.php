@@ -18,6 +18,23 @@ class Payment extends BaseModel
         return array("IDPaiement"=>'ID');
     }
 
+    function get_paid_facture(){
+
+        $split_notes = explode("~", $this->Notes);
+        $paid_facture = [];
+
+        foreach($split_notes as $notes_element){
+            $needle = $this->Cote."-";
+            $facture_sequence = str_replace($needle, '', strstr($notes_element,$needle));
+            if($facture_sequence) {
+                $facture = Facture::get_by_cote_and_sequence($this->Cote, intval($facture_sequence), $credit = false);
+                $paid_facture[$facture->IDFacture] = $facture;
+            }
+        }
+
+        return $paid_facture;
+    }
+
 //    function isFacturePaid(facture $facture){
 //
 //    }
