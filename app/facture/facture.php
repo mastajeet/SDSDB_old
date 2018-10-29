@@ -2,11 +2,15 @@
 
 class Facture extends BaseModel
 {
-    public $credit = false;
-    public $materiel = false;
+    public $Credit = false;
+    public $Materiel = false;
+
     public $IDFacture;
     public $Sequence;
     public $Semaine;
+    public $TVQ;
+    public $TPS;
+    public $STotal;
     public $Factsheet;
 
     function __construct($Args){
@@ -41,6 +45,21 @@ class Facture extends BaseModel
         parent::save();
     }
 
+    function get_balance(){
+        $balance= Array("sub_total"=>0, "tps"=>0, "tvq"=>0, "total"=>0);
+
+        $balance["sub_total"] = $this->STotal;
+        $balance["tps"] = round($balance["sub_total"] * $this->TPS, 2);
+        $balance["tvq"] = round(($balance["sub_total"]+$balance["tps"]) * $this->TVQ, 2);
+        $balance["total"] = $balance["sub_total"] + $balance["tps"] + $balance["tvq"];
+
+        return $balance;
+    }
+
+    function is_credit(){
+        return $this->Credit==1;
+    }
+
     function add_factsheet(&$factsheet){
         $this->Factsheet[] = $factsheet;
         $this->add_to_updated_values("Factsheet");
@@ -52,8 +71,8 @@ class Facture extends BaseModel
     }
 
     static function define_data_types(){
-        return array("IDFacture"=>'ID',
-            "Factsheet"=>'has_many');
+        return array("IDFacture" => 'ID',
+            "Factsheet" => 'has_many');
     }
 
 }

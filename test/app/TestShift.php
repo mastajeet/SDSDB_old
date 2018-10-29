@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jtbai
- * Date: 04/07/18
- * Time: 8:24 AM
- */
 
 include_once ('app/customer.php');
 include_once ('app/facture/facture.php');
@@ -45,10 +39,4 @@ class TestShift extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected_jour, $actual_jour);
     }
-
-//
-//    function test_GivenFactureDatingFromCurrentWeek_whenAddingShift_thenAddedShiftHasNotJourShifted(){
-//        $bills_by_cote = $this->customer->calculate_facture_by_cote();
-//
-//    }
 }

@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jtbai
- * Date: 04/07/18
- * Time: 8:51 AM
- */
+
 include_once('helper/TimeService.php');
 
 class TestTimeService extends PHPUnit_Framework_TestCase{
