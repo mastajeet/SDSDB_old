@@ -44,7 +44,9 @@ if(isset($_GET['Cote'])){
 	}
 
 
-		$dossier_facturation = new DossierFacturation($current_cote, $current_year);
+    	$dossier_facturation = new DossierFacturation($current_cote, $current_year);
+		$paiements = $dossier_facturation->get_all_payments();
+
     	$total_to_pay = $dossier_facturation->get_total_to_be_paid();
 		$balance_details = $dossier_facturation->get_balance_details();
 		$total = $total_to_pay['total'];
@@ -190,14 +192,9 @@ if(isset($_GET['Cote'])){
 
 				if($facture->is_credit())
 					$MainOutput->AddTexte('N/A','Titre'); //METTRE LA DATE OU ENCORE LE NUM?RO DE D?POT OU LE NUM?RO DE CHEQUE...
-				elseif($facture->is_paid() && $facture->is_credit()){
-                    $SQL3 = new SqlClass();
-					$Req = "SELECT Date FROM paiement WHERE Notes LIKE '%~".$facture->Cote."-".$facture->Sequence."~%'";
-                    $SQL3->SELECT($Req);
-					$Rep3 = $SQL3->FetchArray();
-
-					$month = get_month_list('long');
-					$MainOutput->AddTexte($time_service->format_timestamp($Rep3[0], "d F Y"));
+				elseif($facture->is_paid() && !$facture->is_credit()){
+                    $payement = $facture->get_payment($paiements);
+					$MainOutput->AddTexte($time_service->format_timestamp($payement->Date, "d F Y"));
 				}
 
 			$MainOutput->CloseCol();
