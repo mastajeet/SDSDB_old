@@ -35,6 +35,17 @@ class Payment extends BaseModel
         return $paid_facture;
     }
 
+    function get_payment_balance($factures){
+
+        $montant_left = -$this->Montant;
+        foreach($factures as $idfacture => $facture){
+            $facture_balance = $facture->get_balance();
+            $montant_left +=  $facture_balance["total"];
+        }
+
+        return $montant_left;
+    }
+
 //    function isFacturePaid(facture $facture){
 //
 //    }
