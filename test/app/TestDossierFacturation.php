@@ -39,4 +39,24 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
         $this->assertEquals(2540.98, $total_billed["total"],'',0.001);
     }
 
+    function test_whenGetTotalCredited_thenSumAllCreditWithRespectiveTaxes(){
+        $total_billed = $this->dossier_facturation->get_total_credited();
+
+        $this->assertEquals(800, $total_billed["sub_total"],'',0.001);
+        $this->assertEquals(40, $total_billed["tps"],'',0.001);
+        $this->assertEquals(79.8, $total_billed["tvq"],'',0.001);
+        $this->assertEquals(919.8, $total_billed["total"],'',0.001);
+    }
+
+    function test_whenGetTotalToBePaid_thenSumFacutureAndCredit(){
+        $total_to_be_paid = $this->dossier_facturation->get_total_to_be_paid();
+
+        $this->assertEquals(1410, $total_to_be_paid["sub_total"],'',0.001);
+        $this->assertEquals(70.5, $total_to_be_paid["tps"],'',0.001);
+        $this->assertEquals(140.68, $total_to_be_paid["tvq"],'',0.001);
+        $this->assertEquals(1621.18, $total_to_be_paid["total"],'',0.001);
+
+
+    }
+
 }

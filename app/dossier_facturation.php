@@ -12,6 +12,56 @@ class DossierFacturation
         $this->sql_connection = new SqlClass();
     }
 
+
+    function get_total_to_be_paid(){
+        $total_billed = $this->get_total_billed();
+        $total_credited = $this->get_total_credited();
+        $total_to_be_paid = Array(
+            "sub_total"=> $total_billed["sub_total"] -$total_credited["sub_total"],
+            "tps"=> $total_billed["tps"] -$total_credited["tps"],
+            "tvq"=> $total_billed["tvq"] -$total_credited["tvq"],
+            "total"=> $total_billed["total"] -$total_credited["total"]
+        );
+
+        return $total_to_be_paid;
+    }
+
+    function get_total_billed(){
+        $factures = $this->get_all_factures();
+        foreach($factures as $IDFacture => $facture){
+            if(!$facture->is_credit()){
+                $factures_to_sum[] = $facture;
+            }
+        }
+
+        return $this->sum_all_factures($factures_to_sum);
+    }
+
+    function get_total_credited(){
+        $factures = $this->get_all_factures();
+        foreach($factures as $IDFacture => $facture){
+            if($facture->is_credit()){
+                $factures_to_sum[] = $facture;
+            }
+        }
+
+        return $this->sum_all_factures($factures_to_sum);
+    }
+
+    private function sum_all_factures($factures){
+        $summed_factures = Array("sub_total"=>0, "tps"=>0, "tvq"=>0, "total"=>0);
+        foreach($factures as $IDFacture => $facture) {
+            $facture_balance = $facture->get_balance();
+
+            $summed_factures["sub_total"] += $facture_balance["sub_total"];
+            $summed_factures["tps"] += $facture_balance["tps"];
+            $summed_factures["tvq"] += $facture_balance["tvq"];
+            $summed_factures["total"] += $facture_balance["total"];
+        }
+
+        return $summed_factures;
+    }
+
     function get_all_factures(){
         $requete_all_facture_for_year = $this->generate_get_all_facture_query();
         $this->sql_connection->Select($requete_all_facture_for_year);
@@ -52,24 +102,5 @@ class DossierFacturation
 
         return $requete_all_payment_for_year;
     }
-
-    function get_total_billed(){
-        $factures = $this->get_all_factures();
-        $total_billed = Array("sub_total"=>0, "tps"=>0, "tvq"=>0, "total"=>0);
-
-        foreach($factures as $IDFacture => $facture){
-            if(!$facture->is_credit()){
-                $facture_balance = $facture->get_balance();
-
-                $total_billed["sub_total"] += $facture_balance["sub_total"];
-                $total_billed["tps"] += $facture_balance["tps"];
-                $total_billed["tvq"] += $facture_balance["tvq"];
-                $total_billed["total"] += $facture_balance["total"];
-            }
-        }
-
-        return $total_billed;
-    }
-
 
 }
