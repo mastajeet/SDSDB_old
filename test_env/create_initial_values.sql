@@ -13,12 +13,60 @@ INSERT INTO `client` (`IDClient`, `Nom`, `Cote`, `Facturation`, `FrequenceFactur
 (17, 'Raamco international properties canadian ltee.', 'RAA', 'F', 'M', 'vigmgr@raamco.ca', '4506468141', '4504686200', '2480 Roland Therrien #210, Longueuil, Qc J4L4G1', 0, 25, '19.05', 1, 19.05, 1.5, 0, '0', 0, 0, 'admin', 3);
 
 INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`, `STotal`, `Credit`, `Notes`, `Semaine`, `Paye`, `EnDate`, `Materiel`) VALUES
-(2256, 'PCV', 13, '', 0.05, 0.095, 3692.43, 0, '1st installment for lifeguard pool service contract', 1527393600, 1, 1527535405, 0),
-(2298, 'PCV', 14, '', 0.05, 0.095, 100.51, 0, '', 1529812800, 0, 1530627972, 0),
-(23, 'ABC', 68, '', 0.05, 0.095, 100.51, 0, '', 1529812800, 0, 1530627972, 0);
+  (2256, 'PCV', 13, '', 0.05, 0.095, 3692.43, 0, '1st installment for lifeguard pool service contract', 1527393600, 1, 1527535405, 0),
+  (2298, 'PCV', 14, '', 0.05, 0.095, 100.51, 0, '', 1529812800, 0, 1530627972, 0),
+  (23, 'ABC', 68, '', 0.05, 0.095, 100.51, 0, '', 1529812800, 0, 1530627972, 0),
+
+  (1337, 'TDF', 1,  '', 0.05, 0.095, 100, 0, '', 1509220851, 0, 1509220851, 0), # date de 2017
+  (1338, 'TDF', 2,  '', 0.05, 0.095, 200, 0, '', 1529812800, 0, 1530627972, 0), # normale
+  (1339, 'TDF', 3,  '', 0.05, 0.095, 300, 0, '', 1529812800, 0, 1530627972, 0), # normale-payee
+  (1340, 'TDF', 4,  '', 0.05, 0.095,  10, 0, '', 1529812800, 0, 1530627972, 0), # materiel
+  (1341, 'TDF', 5,  '', 0.05, 0.095, 100, 0, '', 1529812800, 0, 1530627972, 0), # materiel-payee
+  (1342, 'TDF', 6,  '', 0.05, 0.095, 400, 0, '', 1529812800, 0, 1530627972, 0), # normale-creditee
+  (1343, 'TDF', 7,  '', 0.05, 0.095, 500, 0, '', 1529812800, 1, 1530627972, 0), # normale partiellement-payee
+  (1344, 'TDF', 8,  '', 0.05, 0.095, 500, 0, '', 1529812800, 0, 1530627972, 0), # normale partiellement-creditee
+  (1345, 'TDF', 9,  '', 0.05, 0.095, 100, 0, '', 1529812800, 0, 1530627972, 0), # normale payee dans un pmt a 2 facture avec debalance
+  (1346, 'TDF', 10, '', 0.05, 0.095, 100, 0, '', 1529812800, 0, 1530627972, 0), # normale payee dans un pmt a 2 facture avec debalance
+
+
+  (1347, 'TDF', 1, '', 0.05, 0.095, -400, 1, '', 1529812800, 1, 1530627972, 0), # credit pour TDF-6
+  (1348, 'TDF', 2, '', 0.05, 0.095, -400, 1, '', 1529812800, 1, 1530627972, 0), # credit pour TDF-8
+
+  (1349, 'TF', 1, '', 0.05, 0.095, 400, 0, '', 1529812800, 1, 1530627972, 0), # Test Facture - Facture payee
+  (1350, 'TF', 2, '', 0.05, 0.095, 400, 0, '', 1529812800, 0, 1530627972, 0), # Test Facture - Facture non payee
+  (1353, 'TF', 3, '', 0.05, 0.095, 400, 0, '', 1529812800, 1, 1530627972, 0), # Test Facture - Facture payee
+  (1351, 'TF', 1, '', 0.05, 0.095, -400, 1, '', 1529812800, 1, 1530627972, 0), # Test Facture - credit
+  (1352, 'TF', 2, '', 0.05, 0.095, 400, 1, '', 1529812800, 1, 1530627972, 1), # Test Facture - credit
+
+  (1353, 'TPM', 1, '', 0.05, 0.095, 100, 0, '', 1529812800, 1, 1530627972, 0), # Test Payment - paye total (1/1)
+  (1354, 'TPM', 2, '', 0.05, 0.095, 200, 0, '', 1529812800, 1, 1530627972, 0), # Test Payment - paye total (1/2)
+  (1358, 'TPM', 3, '', 0.05, 0.095, 600, 0, '', 1529812800, 1, 1530627972, 0), # Test Payment - paye total (2/2)
+  (1355, 'TPM', 4, '', 0.05, 0.095, 300, 0, '', 1529812800, 1, 1530627972, 0), # Test Payment - paye partiel (1/1)
+  (1356, 'TPM', 5, '', 0.05, 0.095, 400, 0, '', 1529812800, 1, 1530627972, 0), # Test Payment - paye partiel (1/2)
+  (1357, 'TPM', 6, '', 0.05, 0.095, 500, 0, '', 1529812800, 1, 1530627972, 0); # Test Payment - paye partiel (2/2)
 
 INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `Notes`) VALUES
-(606, 'PCV', 3692.43, 1530645750, ' Paye:~PCV-13~');
+  (99 , 'TDF', 344.92, 1509220851, ''),                 # date de 2017
+
+  (99 , 'TDF', 344.92, 1509220851, ''),                 # date de 2017
+  (100, 'TDF', 344.92, 1530629972, ' Paye:~TDF-3~'),    # paiement complet facture normale
+  (101, 'TDF', 114.97, 1530629972, ' Paye:~TDF-5~'),    # paiement complet facture materiel
+  (102, 'TDF', 200, 1530629972, ' Paye:~TDF-7~'),       # paiement partiel facture normale
+  (103, 'TDF', 200, 1530629972, ' Paye:~TDF-9~TDF-10'), # paiement partiel pour deux factures
+
+  (104, 'TPM', 114.98, 1530629972, ' Paye:~TPM-1~'), # paiement total pour 1 facture
+  (105, 'TPM', 919.8, 1530629972, ' Paye:~TPM-2~TPM-3'), # paiement total pour deux factures
+  (106, 'TPM', 200, 1530629972, ' Paye:~TPM-4~'), # paiement partiel pour une factures
+  (107, 'TPM', 300, 1530629972, ' Paye:~TPM-5~TPM-6'), # paiement partiel pour deux factures
+
+  (108, 'TF', 100, 1530629972, ' Paye:~TF-1~'),    # paiement complet facture normale
+  (109, 'TF', 200, 1530629972, ' Paye:~TF-3~'),    # paiement complet facture normale
+
+  (606, 'PCV', 3692.43, 1530645750, ' Paye:~PCV-13~');
+
+
+
+
 
 INSERT INTO `employe` (`IDEmploye`, `Prenom`, `Nom`, `HName`, `NAS`, `Adresse`, `CodePostal`, `DateNaissance`, `DateEmbauche`, `IDSecteur`, `Ville`, `TelP`, `TelA`, `Cell`, `Paget`, `Email`, `Session`, `Status`, `Engage`, `Cessation`, `Notes`, `Raison`, `SalaireB`, `SalaireS`, `SalaireA`, `Ajustement`, `LastVisited`, `EAssistant`) VALUES
   (2, 'Julie', 'Fortin', 'Ju in the sky', '281302976', '4385, des Sarcelles', 'G1G4W5', 471848400, 993960000, '22', 'Québec', '4189973876', '', '4189973876', '418', 'julie.fortin.16@ulaval.ca', '', 'Bureau', 1, 0, 'SN expire: 12/2011', '', 11.4, 11.4, 10.9, 0, 1530129400, 0),
