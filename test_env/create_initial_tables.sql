@@ -148,6 +148,7 @@ CREATE TABLE `paiement` (
   `Cote` char(3) NOT NULL DEFAULT '',
   `Montant` float NOT NULL DEFAULT '0',
   `Date` bigint(20) NOT NULL DEFAULT '0',
+  `PayableYear` int(11) NOT NULL DEFAULT '0',
   `Notes` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

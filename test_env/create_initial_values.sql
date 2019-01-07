@@ -45,24 +45,24 @@ INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`
   (1356, 'TPM', 5, '', 0.05, 0.095, 400, 0, '', 1529812800, 1, 1530627972, 0), # Test Payment - paye partiel (1/2)
   (1357, 'TPM', 6, '', 0.05, 0.095, 500, 0, '', 1529812800, 1, 1530627972, 0); # Test Payment - paye partiel (2/2)
 
-INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `Notes`) VALUES
-  (99 , 'TDF', 344.92, 1509220851, ''),                 # date de 2017
+INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `PayableYear`,`Notes`) VALUES
+  (99 , 'TDF', 344.92, 1509220851,2017, ''),                 # date de 2017
+  (98 , 'TDF', 114.97, 1530629972,2017, ' Paye:~TDF-1~'),    # paye une facture de 2017 en 2018
+  (100, 'TDF', 344.92, 1530629972,2018, ' Paye:~TDF-3~'),    # paiement complet facture normale
+  (101, 'TDF', 114.97, 1530629972,2018, ' Paye:~TDF-5~'),    # paiement complet facture materiel
+  (102, 'TDF', 200, 1530629972,2018, ' Paye:~TDF-7~'),       # paiement partiel facture normale
+  (103, 'TDF', 200, 1530629972,2018, ' Paye:~TDF-9~TDF-10'), # paiement partiel pour deux factures
+  (97, 'TDF', 200, 1530629972,2019, ''),                    # paiement d'avance pour 2019...
 
-  (99 , 'TDF', 344.92, 1509220851, ''),                 # date de 2017
-  (100, 'TDF', 344.92, 1530629972, ' Paye:~TDF-3~'),    # paiement complet facture normale
-  (101, 'TDF', 114.97, 1530629972, ' Paye:~TDF-5~'),    # paiement complet facture materiel
-  (102, 'TDF', 200, 1530629972, ' Paye:~TDF-7~'),       # paiement partiel facture normale
-  (103, 'TDF', 200, 1530629972, ' Paye:~TDF-9~TDF-10'), # paiement partiel pour deux factures
+  (104, 'TPM', 114.98, 1530629972,2018, ' Paye:~TPM-1~'), # paiement total pour 1 facture
+  (105, 'TPM', 919.8, 1530629972,2018, ' Paye:~TPM-2~TPM-3'), # paiement total pour deux factures
+  (106, 'TPM', 200, 1530629972,2018, ' Paye:~TPM-4~'), # paiement partiel pour une factures
+  (107, 'TPM', 300, 1530629972,2018, ' Paye:~TPM-5~TPM-6'), # paiement partiel pour deux factures
 
-  (104, 'TPM', 114.98, 1530629972, ' Paye:~TPM-1~'), # paiement total pour 1 facture
-  (105, 'TPM', 919.8, 1530629972, ' Paye:~TPM-2~TPM-3'), # paiement total pour deux factures
-  (106, 'TPM', 200, 1530629972, ' Paye:~TPM-4~'), # paiement partiel pour une factures
-  (107, 'TPM', 300, 1530629972, ' Paye:~TPM-5~TPM-6'), # paiement partiel pour deux factures
+  (108, 'TF', 100, 1530629972, 2018,' Paye:~TF-1~'),    # paiement complet facture normale
+  (109, 'TF', 200, 1530629972, 2018,' Paye:~TF-3~'),    # paiement complet facture normale
 
-  (108, 'TF', 100, 1530629972, ' Paye:~TF-1~'),    # paiement complet facture normale
-  (109, 'TF', 200, 1530629972, ' Paye:~TF-3~'),    # paiement complet facture normale
-
-  (606, 'PCV', 3692.43, 1530645750, ' Paye:~PCV-13~');
+  (606, 'PCV', 3692.43, 1530645750, 2018,' Paye:~PCV-13~');
 
 
 

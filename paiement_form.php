@@ -16,8 +16,9 @@ if(isset($_GET['ADD']) && $_GET['ADD']==TRUE){
 		
                 $MainOutput->InputText('Montant',$Rep['TXH'],6);
 		$MainOutput->FlagList('ToPay',$opt,'','Factures');
-		$MainOutput->InputTime('Date','Date',0,array('Date'=>TRUE,'Time'=>FALSE));
-		$MainOutput->InputText('Notes',$Rep['Notes']);
+        $MainOutput->InputTime('Date','Date',0,array('Date'=>TRUE,'Time'=>FALSE));
+        $MainOutput->InputText('PayableYear','Année de facturation',4,get_vars("BoniYear"));
+        $MainOutput->InputText('Notes',$Rep['Notes']);
 		$MainOutput->formsubmit('Effectuer');
 	}
 }else{
@@ -78,7 +79,7 @@ $MainOutput->CloseRow();
 
         $MainOutput->OpenCol();
         if(abs($payment_unbalance)> 0.01){
-            $MainOutput->AddTexte("<span class=Warning>Débalance: ". $payment_unbalance."</span>");
+            $MainOutput->AddTexte("<span class=Warning>Débalance: ". number_format($payment_unbalance,2)."</span>");
         }
 
         $payment_has_balance = stristr($payment->Notes,'balance');

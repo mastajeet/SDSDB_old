@@ -13,8 +13,8 @@ if [ "$current_value" == "$expected_value" ]
         docker stop mysql-sdsdb
         docker stop mysql-test-sdsdb
         docker container prune -f
-        docker run --name=mysql-sdsdb -d --env="MYSQL_ROOT_PASSWORD=lolk1234" mariadb:10.0.33
-	docker run --name=mysql-test-sdsdb -d --env="MYSQL_ROOT_PASSWORD=lolk1234" mariadb:10.0.33	
+        docker run --name=mysql-sdsdb -p 33060:3306 -d --env="MYSQL_ROOT_PASSWORD=lolk1234" mariadb:10.0.33
+	docker run --name=mysql-test-sdsdb -p 33061:3306 -d --env="MYSQL_ROOT_PASSWORD=lolk1234" mariadb:10.0.33
 	sleep 12
         	
 	source ./reset_test_db

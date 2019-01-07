@@ -122,9 +122,7 @@ class DossierFacturation
     }
 
     private function generate_get_all_payment_query(){
-        $first_day_of_year = mktime(0, 0, 0, 1, 1, $this->year);
-        $first_day_of_next_year = mktime(0, 0, 0, 1, 1, $this->year + 1);
-        $requete_all_payment_for_year = "SELECT IDPaiement from paiement WHERE Cote='".$this->cote."' AND Date>=" . $first_day_of_year . " AND Date<" . $first_day_of_next_year." ORDER BY Date DESC";
+        $requete_all_payment_for_year = "SELECT IDPaiement from paiement WHERE Cote='".$this->cote."' AND PayableYear=" . $this->year." ORDER BY Date DESC";
 
         return $requete_all_payment_for_year;
     }

@@ -55,10 +55,9 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
         $this->assertEquals(70.5, $total_to_be_paid["tps"],'',0.001);
         $this->assertEquals(140.68, $total_to_be_paid["tvq"],'',0.001);
         $this->assertEquals(1621.18, $total_to_be_paid["total"],'',0.001);
-
     }
 
-    function test_whenGetTotalPaid_thenSumAllPayments(){
+    function test_whenGetTotalPaid_thenSumAllPaymentsForCurrenyYear(){
         $total_paid = $this->dossier_facturation->get_total_paid();
 
         $this->assertEquals(859.89, $total_paid,'',0.001);

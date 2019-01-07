@@ -15,8 +15,7 @@ class ConstantArray
     }
 
     static function get_installation_parking_type_kvp(){
-        $installation_parking_type_kvp = array('DG'=>'Disponible Gratuit','DP'=>'Disponible Payant','ND'=>'Non-Disponible');
-
+        $installation_parking_type_kvp = array('DPG' => 'Disponible sur place - Gratuit', 'DPP' => 'Disponible sur place - Payant', 'DRG' => 'Disponible dans les rues - Gratuit', 'DRP' => 'Disponible dans les rues - Payant', 'ND' => 'Non-Disponible');
         return $installation_parking_type_kvp;
     }
 

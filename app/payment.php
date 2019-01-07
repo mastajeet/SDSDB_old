@@ -18,6 +18,7 @@ class Payment extends BaseModel
     static function define_data_types(){
         return array("IDPaiement"=>'ID');
     }
+    
 
     function get_paid_facture(){
 

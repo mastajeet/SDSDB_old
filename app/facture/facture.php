@@ -68,7 +68,7 @@ class Facture extends BaseModel
         }
 
         if(is_null($payment_that_paid_this_facture)){
-            throw new RuntimeException("Unpaid facture asking for payment");
+            throw new RuntimeException("Can't find payment for paid facture ".$this->Cote."-".$this->Sequence);
         }
 
         return $payment_that_paid_this_facture;
