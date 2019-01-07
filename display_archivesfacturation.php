@@ -54,28 +54,32 @@ echo "T'es bin pale!";
 	$AnneeCourante = $YearIni;
 	while($AnneeCourante<=$YearFin){
 	$MainOutput->OpenRow();
-	$INFO = get_cote_summary($_GET['Cote'],$AnneeCourante);
+
+	$dosier_courant = new DossierFacturation($_GET['Cote'],$AnneeCourante);
+    $total_to_be_paid = $dosier_courant->get_total_to_be_paid();
+	$detail_solde = $dosier_courant->get_balance_details();
+	$paiements =
 
 	$MainOutput->OpenCol();
 	$MainOutput->AddLink('index.php?Cote='.$_GET['Cote'].'&Year='.$AnneeCourante,$AnneeCourante);
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol();
-	$MainOutput->AddTexte(number_format($INFO['STotal'],2)." $");
+	$MainOutput->AddTexte(number_format($total_to_be_paid['sub_total'],2)." $");
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol();
-	$MainOutput->AddTexte(number_format($INFO['TPS'],2)." $");
+	$MainOutput->AddTexte(number_format($total_to_be_paid['tps'],2)." $");
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol();
-	$MainOutput->AddTexte(number_format($INFO['TVQ'],2)." $");
+	$MainOutput->AddTexte(number_format($total_to_be_paid['tvq'],2)." $");
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol();
-	$MainOutput->AddTexte(number_format($INFO['Total'],2)." $");
+	$MainOutput->AddTexte(number_format($total_to_be_paid['total'],2)." $");
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol();
-	$MainOutput->AddTexte(number_format($INFO['Paiement'],2)." $");
+	$MainOutput->AddTexte(number_format($detail_solde['total_paid'],2)." $");
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol();
-	$MainOutput->AddTexte(number_format($INFO['Solde']-$INFO['SoldeImpaye'],2)." $");
+	$MainOutput->AddTexte(number_format($detail_solde['balance'],2)." $");
 	$MainOutput->CloseCol();
 	
 	

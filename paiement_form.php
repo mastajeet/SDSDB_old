@@ -71,7 +71,7 @@ $MainOutput->CloseRow();
         $MainOutput->addTexte($time_service->format_timestamp($payment->Date,"d F Y"));
         $MainOutput->CloseCol();
         $MainOutput->OpenCol();
-        $MainOutput->AddTexte(number_format($payment->Montant,2)." $");
+        $MainOutput->AddTexte(number_format($payment->Montant,2)."&nbsp;$");
         $MainOutput->CloseCol();
 
         $factures_paid_with_payment = $payment->get_paid_facture();
