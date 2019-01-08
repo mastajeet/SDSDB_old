@@ -2,7 +2,9 @@
 if(!isset($_POST['FORMCredit']))
 	$_POST['FORMCredit']=0;
 if(!isset($_POST['FORMMateriel']))
-	$_POST['FORMMateriel']=0;
+    $_POST['FORMMateriel']=0;
+if(!isset($_POST['FORMAvanceClient']))
+    $_POST['FORMAvanceClient']=0;
 if(!isset($_POST['FORMTaxes']))
 	$_POST['FORMTaxes']=FALSE;
 	

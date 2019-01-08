@@ -30,7 +30,7 @@ class DossierFacturation
         $factures = $this->get_all_factures();
         $factures_to_sum = array();
         foreach($factures as $IDFacture => $facture){
-            if(!$facture->is_credit()){
+            if($facture->is_debit()){
                 $factures_to_sum[] = $facture;
             }
         }
@@ -49,6 +49,17 @@ class DossierFacturation
         );
 
         return $balance_details;
+    }
+
+    function get_avance_client_balance(){
+        $factures = $this->get_all_factures();
+        $factures_to_sum = array();
+        foreach($factures as $IDFacture => $facture){
+            if($facture->is_avance_client() && !$facture->is_utilise()){
+                $factures_to_sum[] = $facture;
+            }
+        }
+        return $this->sum_all_factures($factures_to_sum)["total"];
     }
 
     function get_total_paid(){
@@ -126,5 +137,5 @@ class DossierFacturation
 
         return $requete_all_payment_for_year;
     }
-
 }
+

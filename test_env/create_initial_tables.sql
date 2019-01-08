@@ -135,12 +135,16 @@ CREATE TABLE `facture` (
   `TPS` float NOT NULL DEFAULT '0',
   `TVQ` float NOT NULL DEFAULT '0',
   `STotal` float NOT NULL DEFAULT '0',
+  `Debit` tinyint(4) NOT NULL DEFAULT '0',
   `Credit` tinyint(4) NOT NULL DEFAULT '0',
   `Notes` text NOT NULL,
   `Semaine` bigint(20) NOT NULL DEFAULT '0',
   `Paye` tinyint(4) NOT NULL DEFAULT '0',
+  `Utilise` tinyint(4) NOT NULL DEFAULT '0',
   `EnDate` bigint(20) NOT NULL DEFAULT '0',
-  `Materiel` tinyint(4) NOT NULL DEFAULT '0'
+  `Materiel` tinyint(4) NOT NULL DEFAULT '0',
+  `AvanceClient` tinyint(4) NOT NULL DEFAULT '0'
+
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 CREATE TABLE `paiement` (

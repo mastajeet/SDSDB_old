@@ -53,11 +53,12 @@ include_once('app/factsheet.php');
 include_once('app/logshift.php');
 include_once('app/customer.php');
 include_once('app/facture/facture.php');
+include_once('app/facture/avanceClient.php');
 include_once('app/Variable.php');
 include_once('app/employee.php');
 include_once('app/Responsable.php');
 include_once('app/Secteur.php');
-include_once('app/dossier_facturation.php');
+include_once('app/dossierFacturation.php');
 include_once('app/payment.php');
 
 include_once('helper/Authorization.php');

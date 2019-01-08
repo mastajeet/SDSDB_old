@@ -136,7 +136,7 @@ function get_facturation($Cote,$Dossier=FALSE,$Year=NULL){
 	while($Rep = $SQL->FetchArray()){
 	$TPSp = round($Rep[1],2);
 	$TVQp = round($Rep[2],2);
-		$ret[$Rep[4]] = array('IDFacture'=>$Rep[9],'Sequence'=>$Rep[3],'Semaine'=>$Rep[5],'STotal'=>$Rep[0],'TPS'=>$TPSp,'TVQ'=>$TVQp, 'Total'=>$Rep[0]+$TPSp+$TVQp, 'Credit'=>$Rep[6],'Paye'=>$Rep[7],'Date'=>$Rep[8]);	
+		$ret[$Rep[4]] = array('IDFacture'=>$Rep[9],'Sequence'=>$Rep[3],'Semaine'=>$Rep[5],'STotal'=>$Rep[0],'TPS'=>$TPSp,'TVQ'=>$TVQp, 'Total'=>$Rep[0]+$TPSp+$TVQp, 'Credit' =>$Rep[6],'Paye'=>$Rep[7],'Date'=>$Rep[8]);
 	}
 	return $ret;
 }
