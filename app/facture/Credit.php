@@ -6,6 +6,7 @@ class Credit extends Facture{
     function __construct($Args){
         parent::__construct($Args);
         $this->Credit = true;
+        $this->updated_values[] = "Credit";
     }
 
     static function get_last_facture_query($cote){

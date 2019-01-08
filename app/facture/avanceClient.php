@@ -6,6 +6,7 @@ class AvanceClient extends Facture{
     function __construct($Args){
         parent::__construct($Args);
         $this->AvanceClient = true;
+        $this->updated_values[] = "AvanceClient";
     }
 
     static function get_last_facture_query($cote){

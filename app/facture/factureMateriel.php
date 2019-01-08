@@ -7,6 +7,8 @@ class FactureMateriel extends Facture{
         parent::__construct($Args);
         $this->Debit = true;
         $this->Materiel = true;
+        $this->updated_values[] = "Debit";
+        $this->updated_values[] = "Materiel";
     }
 
     static function get_last_facture_query($cote){

@@ -6,6 +6,7 @@ class FactureShift extends facture{
     function __construct($Args){
         parent::__construct($Args);
         $this->Debit = true;
+        $this->updated_values[] = "Debit";
     }
 
     static function get_last_facture_query($cote){

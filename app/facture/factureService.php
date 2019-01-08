@@ -13,6 +13,7 @@ class FactureService{
     const AVANCE_CLIENT = "avance_client";
     const COTE = "cote";
     const SEQUENCE = "Sequence";
+    const SEQUENCE_FROM_DTO = "sequence";
     const FIRST_SEQUENCE_NUMBER = 0;
 
     private $Notes;
@@ -31,11 +32,43 @@ class FactureService{
         $facture_information = array(
             "Cote"=>$facture_dto["cote"],
             "Semaine"=>$facture_dto["semaine"],
+            "EnDate"=> date_timestamp_get(new DateTime()),
+            "Sequence"=>$facture_dto[self::SEQUENCE_FROM_DTO],
         );
 
         $facture_class = $this->get_facture_class($facture_dto[self::FACTURE_TYPE]);
+        if($facture_dto[self::SEQUENCE_FROM_DTO]==""){
+            $facture_information[self::SEQUENCE] = $this->get_next_facture_sequence_when_missing_from_dto($facture_dto, $facture_dto[self::FACTURE_TYPE]);
+        }
+
 
         return new $facture_class($facture_information);
+    }
+
+    private function get_next_facture_sequence_when_missing_from_dto($facture_dto){
+
+        switch ($facture_dto["facture_type"]){
+            case self::FACTURE_MATERIEL:
+                $next_sequence = $this->get_next_shift_and_materiel_facture_sequence($facture_dto['cote']);
+                break;
+
+            case self::FACTURE_SHIFT:
+                $next_sequence = $this->get_next_shift_and_materiel_facture_sequence($facture_dto['cote']);
+                break;
+
+            case self::CREDIT:
+                $next_sequence = $this->get_next_credit_sequence($facture_dto['cote']);
+                break;
+
+            case self::AVANCE_CLIENT:
+                $next_sequence = $this->get_next_avance_client_sequence($facture_dto['cote']);
+                break;
+
+            default:
+                throw new ErrorException("le type de facture ".$facture_dto["facture_type"]." n'existe pas");
+        }
+
+        return $next_sequence;
     }
 
     private function get_facture_class($facture_type){
@@ -60,15 +93,25 @@ class FactureService{
                 break;
 
             default:
-                throw new ErrorException("le type de facture".$facture_type." n'existe pas");
+                throw new ErrorException("le type de facture ".$facture_type." n'existe pas");
         }
 
         return $facture_class;
     }
 
+    function get_next_credit_sequence($cote){
+        return $this->get_last_sequence_for_cote_and_type($cote, self::CREDIT)+1;
+    }
+
+    function get_next_avance_client_sequence($cote){
+        return $this->get_last_sequence_for_cote_and_type($cote, self::AVANCE_CLIENT)+1;
+    }
+
     function get_next_shift_and_materiel_facture_sequence($cote){
         $last_facture_materiel_sequence = $this->get_last_sequence_for_cote_and_type($cote, self::FACTURE_MATERIEL);
         $last_facture_shift_sequence = $this->get_last_sequence_for_cote_and_type($cote, self::FACTURE_SHIFT);
+        print($last_facture_shift_sequence);
+        print($last_facture_materiel_sequence );
 
         return max($last_facture_materiel_sequence, $last_facture_shift_sequence) + 1;
     }

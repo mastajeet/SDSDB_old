@@ -73,6 +73,12 @@ $password_getter = new PasswordGetter($variable);
 $authorization = new Authorization($password_getter);
 $time_service = new TimeService();
 
+$variable = new Variable();
+$notes = $variable->get_value("NoteFacture");
+$tvq = $variable->get_value("TVQ");
+$tps= $variable->get_value("TPS");
+$facture_service = new FactureService($notes, $tps, $tvq);
+
 $WarningOutput= new html;
 $MainOutput = new html();
 

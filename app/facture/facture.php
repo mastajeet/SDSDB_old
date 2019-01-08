@@ -23,7 +23,11 @@ class Facture extends BaseModel
         $this->Factsheet = array();
     }
 
-    static function get_last_facture_query(){
+    static function get_last_facture_query($cote){
+        throw new NotImplementedException();
+    }
+
+    static function get_by_cote_and_sequence($cote, $sequence){
         throw new NotImplementedException();
     }
 
