@@ -87,10 +87,10 @@ $MainOutput->CloseRow();
         if($payment_has_balance){
             $paye_section = stristr($payment->Notes,'Paye');
             $paye_section_length = strlen($paye_section);
-            $notes_total_length = strlen($this->Notes);
+            $notes_total_length = strlen($payment->Notes);
             $balance_section_length = $notes_total_length - $paye_section_length;
 
-            $bolded_balance_section =  "<b>".substr($this->Notes,0,$balance_section_length)."</b>";
+            $bolded_balance_section =  "<b>".substr($payment->Notes,0,$balance_section_length)."</b>";
             $payments->Notes = $bolded_balance_section." ".$paye_section;
         }
 

@@ -1,10 +1,10 @@
 <?PHP
 if(!isset($_GET['FORMTime4'])){
-$MainOutput->AddForm('Calculer un férié','index.php','GET');
-$MainOutput->inputtime('Time','','Date',array('Time'=>FALSE,'Date'=>TRUE));
-$MainOutput->inputhidden_env('ToPrint','TRUE');
-$MainOutput->inputhidden_env('Section','Calcul_Ferie');
-$MainOutput->formSubmit('Calculer');
+    $MainOutput->AddForm('Calculer un férié','index.php','GET');
+    $MainOutput->inputtime('Time','Date',null,array('Time'=>FALSE,'Date'=>TRUE));
+    $MainOutput->inputhidden_env('ToPrint','TRUE');
+    $MainOutput->inputhidden_env('Section','Calcul_Ferie');
+    $MainOutput->formSubmit('Calculer');
 }else{
 $Date = get_last_sunday(0,mktime(0,0,0,$_GET['FORMTime4'],$_GET['FORMTime5'],$_GET['FORMTime3']));
 $SQL = new sqlclass;
