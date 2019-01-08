@@ -307,7 +307,7 @@ if(isset($_GET['IDFacture'])){
     }
 
     elseif($Rep['FrequenceFacturation']=='M'){
-        $PremiereSemaineFullNewMonth = get_next_sunday(0,$facture['Semaine']);
+        $PremiereSemaineFullNewMonth = get_next_sunday(0,$facture->Semaine);
         $MoisFacture = date('F',$PremiereSemaineFullNewMonth);
         $MainOutput->AddTexte($MoisFacture);
     }
