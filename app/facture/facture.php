@@ -55,6 +55,7 @@ class Facture extends BaseModel
     }
 
     function save(){
+        $this->updated_values[] = "STotal";
         $this->update_balance();
         parent::save();
     }
