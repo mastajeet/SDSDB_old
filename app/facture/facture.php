@@ -40,6 +40,8 @@ class Facture extends BaseModel
     }
 
     function save(){
+        //stu moi ou ca va decalicer quand on va editer qqch dans la facture... au moins on peut rien modifier a part les shifts dedans....
+        $this->updated_values[] = "STotal";
         $this->update_balance();
         parent::save();
     }
