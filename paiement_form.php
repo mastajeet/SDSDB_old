@@ -31,18 +31,26 @@ else
 	
 $MainOutput->OpenTable();
 $MainOutput->OpenRow();
-$MainOutput->OpenCol('',3);
-	$MainOutput->AddTexte('Détail des paiements');
-	$MainOutput->br();
+$MainOutput->OpenCol('',4);
+    $MainOutput->AddTexte(' ');
+    $MainOutput->br();
+    $MainOutput->AddTexte('Détail des paiements');
+    $MainOutput->br();
 	$MainOutput->AddLink('index.php?Section=Paiement&ADD=TRUE&Cote='. $current_cote,'Ajouter un paiement');
 	$MainOutput->br();
 	$MainOutput->AddLink('index.php?Section=Display_Facturation&Cote='. $current_cote,'Retour au dossier de facturation');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 $MainOutput->OpenRow();
+
+$MainOutput->OpenCol();
+    $MainOutput->AddTexte('','Titre');
+$MainOutput->CloseCol();
+
 $MainOutput->OpenCol();
 	$MainOutput->AddTexte('Date','Titre');
 $MainOutput->CloseCol();
+
 $MainOutput->OpenCol();
 	$MainOutput->AddTexte('Montant','Titre');
 $MainOutput->CloseCol();
@@ -68,8 +76,16 @@ $MainOutput->CloseRow();
 	foreach($payments as $id_payment => $payment){
         $MainOutput->OpenRow();
         $MainOutput->OpenCol();
+        $MainOutput->addlink('index.php?Section=index.php?action=delete_payment&IDPaiement='.$id_payment,'<img border=0 src=b_del.png>');
+
+
+        $MainOutput->CloseCol();
+
+        $MainOutput->OpenCol();
         $MainOutput->addTexte($time_service->format_timestamp($payment->Date,"d F Y"));
         $MainOutput->CloseCol();
+
+
         $MainOutput->OpenCol();
         $MainOutput->AddTexte(number_format($payment->Montant,2)."&nbsp;$");
         $MainOutput->CloseCol();

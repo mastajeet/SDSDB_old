@@ -1,26 +1,26 @@
 <?PHP
-const RESPONSABLE_ADDED = 'Reponsable ajouté';
-const RESPONSABLE_MODIFIED = 'Responsable modifié';
-const EMPLOYEE_ADDED = 'Employé ajouté';
-const CUSTOMER_MODIFIED = 'Client modifié';
-const CUSTOMER_ADDED = 'Client ajouté';
-const MODIFIED = '</b> Modifiée';
-const PAYMENT_MODIFIED = 'Paiement modifié';
-const SHIFT_MODIFIED = 'Shifts modifiés';
+const RESPONSABLE_ADDED = 'Reponsable ajoutï¿½';
+const RESPONSABLE_MODIFIED = 'Responsable modifiï¿½';
+const EMPLOYEE_ADDED = 'Employï¿½ ajoutï¿½';
+const CUSTOMER_MODIFIED = 'Client modifiï¿½';
+const CUSTOMER_ADDED = 'Client ajoutï¿½';
+const MODIFIED = '</b> Modifiï¿½e';
+const PAYMENT_MODIFIED = 'Paiement modifiï¿½';
+const SHIFT_MODIFIED = 'Shifts modifiï¿½s';
 const SHIFT_DELETED = 'Shifts supprimes';
-const COMMENT_ADDED = 'Commentaire ajouté';
-const MESSAGE_MODIFIED = 'Message modifié';
-const MESSAGE_ADDED = 'Message ajouté';
-const BILL_MARKED_AS_UNPAID = 'Facture marquée comme inpayée';
-const BILL_MARKED_AS_PAID = 'Facture marquée comme payée';
-const ITEM_MODIFIED = 'Item modifié';
-const ITEM_ADDED = 'Item ajouté';
-const SEASON_ADDED = 'Saison ajoutée';
-const SEASON_CLOSED = 'Saison fermée';
-const SHIFT_CONFIRMED = 'Heures de travail confirmées';
-const INSTALLATION_MODIFIED = 'Installation modifiée';
-const INSTALLATION_ADDED = 'Installation ajoutée';
-const EMPLOYEE_MODIFIED = 'Employé modifié';
+const COMMENT_ADDED = 'Commentaire ajoutï¿½';
+const MESSAGE_MODIFIED = 'Message modifiï¿½';
+const MESSAGE_ADDED = 'Message ajoutï¿½';
+const BILL_MARKED_AS_UNPAID = 'Facture marquï¿½e comme inpayï¿½e';
+const BILL_MARKED_AS_PAID = 'Facture marquï¿½e comme payï¿½e';
+const ITEM_MODIFIED = 'Item modifiï¿½';
+const ITEM_ADDED = 'Item ajoutï¿½';
+const SEASON_ADDED = 'Saison ajoutï¿½e';
+const SEASON_CLOSED = 'Saison fermï¿½e';
+const SHIFT_CONFIRMED = 'Heures de travail confirmï¿½es';
+const INSTALLATION_MODIFIED = 'Installation modifiï¿½e';
+const INSTALLATION_ADDED = 'Installation ajoutï¿½e';
+const EMPLOYEE_MODIFIED = 'Employï¿½ modifiï¿½';
 
 SWITCH($Action){
 	CASE "Client":{
@@ -67,10 +67,10 @@ SWITCH($Action){
 	}
 
 
-        CASE "Delete_Vacances":{
-            include('delete_vacances_script.php');
-            BREAK;
-        }
+    CASE "Delete_Vacances":{
+        include('delete_vacances_script.php');
+        BREAK;
+    }
 
 
 	CASE "Inspection":{
@@ -264,14 +264,25 @@ SWITCH($Action){
 		$_GET['IDFacture']=$_POST['IDFacture'];
 	BREAK;
 	}
-	
-	CASE "Paiement":{
-		include('paiement_script.php');
-			
-		$Section= "Display_Facturation";
-		$_GET['Cote'] = $_POST['Cote'];
-		BREAK;
-	}
+
+    CASE "Paiement":{
+        include('paiement_script.php');
+
+        $Section= "Display_Facturation";
+        $_GET['Cote'] = $_POST['Cote'];
+        BREAK;
+    }
+
+
+//    CASE "delete_payment":{
+//        $payment_service = new PaymentService();
+//        include('paiement_script.php');
+//
+//        $Section= "Display_Facturation";
+//        $_GET['Cote'] = $_POST['Cote'];
+//        BREAK;
+//    }
+
 	
 	CASE "Shift":{
 		include('copy_shift_script.php');
