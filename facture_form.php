@@ -12,9 +12,12 @@ if(!isset($_GET['Cote']))
 	$MainOutput->inputtime('Date','Période','',array('Date'=>TRUE,'Time'=>FALSE));
 	$MainOutput->InputText('Notes',$Rep['Notes']);
 	$MainOutput->InputText('Seq','Séquence',2);
+
+	$MainOutput->Flag('Credit');
+	$MainOutput->Flag('AvanceClient');
 	$MainOutput->Flag('Materiel');
 	$MainOutput->Flag('Taxes',1);
-	$MainOutput->Flag('Credit');
+
 	$MainOutput->formsubmit('Effectuer');
 	echo $MainOutput->send(1);
 ?>

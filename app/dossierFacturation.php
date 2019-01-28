@@ -30,7 +30,7 @@ class DossierFacturation
         $factures = $this->get_all_factures();
         $factures_to_sum = array();
         foreach($factures as $IDFacture => $facture){
-            if(!$facture->is_credit()){
+            if($facture->is_debit()){
                 $factures_to_sum[] = $facture;
             }
         }
@@ -49,6 +49,17 @@ class DossierFacturation
         );
 
         return $balance_details;
+    }
+
+    function get_avance_client_balance(){
+        $factures = $this->get_all_factures();
+        $factures_to_sum = array();
+        foreach($factures as $IDFacture => $facture){
+            if($facture->is_avance_client() && !$facture->is_utilise()){
+                $factures_to_sum[] = $facture;
+            }
+        }
+        return $this->sum_all_factures($factures_to_sum)["total"];
     }
 
     function get_total_paid(){
@@ -104,7 +115,7 @@ class DossierFacturation
     {
         $first_day_of_year = mktime(0, 0, 0, 1, 1, $this->year);
         $first_day_of_next_year = mktime(0, 0, 0, 1, 1, $this->year + 1);
-        $requete_all_facture_for_year = "SELECT IDFacture from facture WHERE Cote='".$this->cote."' AND semaine>=" . $first_day_of_year . " AND semaine<" . $first_day_of_next_year." ORDER BY EnDate DESC";
+        $requete_all_facture_for_year = "SELECT IDFacture from facture WHERE Cote='".$this->cote."' AND semaine>=" . $first_day_of_year . " AND semaine<" . $first_day_of_next_year." ORDER BY Sequence DESC";
 
         return $requete_all_facture_for_year;
     }
@@ -126,5 +137,5 @@ class DossierFacturation
 
         return $requete_all_payment_for_year;
     }
-
 }
+

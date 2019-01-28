@@ -1,4 +1,6 @@
 <?php
+include_once('facture/factureService.php');
+include_once('Variable.php');
 
 include_once('app/facture/factureService.php');
 include_once('app/Variable.php');
@@ -12,6 +14,17 @@ class Payment extends BaseModel
     public $Date;
     public $Notes;
 
+    private $facture_service;
+
+    function __construct($Arg = null){
+        parent::__construct($Arg);
+
+        $variable = New Variable();
+        $notes = $variable->get_value('NoteFacture');
+        $tps = $variable->get_value('TPS');
+        $tvq = $variable->get_value('TVQ');
+        $this->facture_service = new FactureService($notes, $tps, $tvq);
+    }
 
     static function define_table_info(){
         return array("model_table" => "paiement",
@@ -32,7 +45,7 @@ class Payment extends BaseModel
             $needle = $this->Cote."-";
             $facture_sequence = str_replace($needle, '', strstr($notes_element,$needle));
             if($facture_sequence) {
-                $facture = Facture::get_by_cote_and_sequence($this->Cote, intval($facture_sequence), $credit = false);
+                $facture = $this->facture_service->get_shift_and_materiel_facture_by_cote_and_sequence($this->Cote, intval($facture_sequence));
                 $paid_facture[$facture->IDFacture] = $facture;
             }
         }
@@ -62,4 +75,5 @@ class Payment extends BaseModel
 
         return $paid;
     }
+
 }

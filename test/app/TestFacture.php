@@ -26,6 +26,12 @@ class TestFacture extends PHPUnit_Framework_TestCase{
         $this->assertEquals(false, $facture->is_credit());
     }
 
+    function test_givenRegularFacture_whenIsDebit_thenReturnTrue(){
+        $facture = new Facture(1350); #Facture payee
+
+        $this->assertEquals(true, $facture->is_debit());
+    }
+
     function test_givenCredit_whenIsCredit_thenReturnTrue(){
         $facture = new Facture(1351); #Facture payee
 
@@ -42,12 +48,6 @@ class TestFacture extends PHPUnit_Framework_TestCase{
         $facture = new Facture(1351); #Facture payee
 
         $this->assertEquals(false, $facture->is_materiel());
-    }
-
-    function test_givenCorrectCoteAndSequence_whenGetByCoteAndSequence_thenGetCorrectFacture(){
-        $facture = Facture::get_by_cote_and_sequence(self::UNE_COTE, self::UN_NUMERO_SEQUENTIEL);
-
-        $this->assertEquals(1349, $facture->IDFacture);
     }
 
     function test_givenPaidFactureAndPayments_whenGetPayment_thenGetPayment(){

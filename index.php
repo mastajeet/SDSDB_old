@@ -53,11 +53,13 @@ include_once('app/factsheet.php');
 include_once('app/logshift.php');
 include_once('app/customer.php');
 include_once('app/facture/facture.php');
+include_once('app/facture/avanceClient.php');
 include_once('app/Variable.php');
 include_once('app/employee.php');
 include_once('app/Responsable.php');
 include_once('app/Secteur.php');
 include_once('app/dossierFacturation.php');
+
 include_once('app/payment/payment.php');
 
 include_once('helper/Authorization.php');
@@ -71,6 +73,12 @@ $variable = new Variable();
 $password_getter = new PasswordGetter($variable);
 $authorization = new Authorization($password_getter);
 $time_service = new TimeService();
+
+$variable = new Variable();
+$notes = $variable->get_value("NoteFacture");
+$tvq = $variable->get_value("TVQ");
+$tps= $variable->get_value("TPS");
+$facture_service = new FactureService($notes, $tps, $tvq);
 
 $WarningOutput= new html;
 $MainOutput = new html();

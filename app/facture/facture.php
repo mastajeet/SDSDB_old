@@ -2,8 +2,10 @@
 
 class Facture extends BaseModel
 {
-    public $Credit = false;
-    public $Materiel = false;
+    public $Credit;
+    public $Debit;
+    public $Materiel;
+    public $AvanceClient;
 
     public $IDFacture;
     public $Sequence;
@@ -21,29 +23,12 @@ class Facture extends BaseModel
         $this->Factsheet = array();
     }
 
-    static function get_last_for_cote($Cote, $Credit=0){
-        $database_information = Facture::define_table_info();
-        $last_facture_query = "SELECT IDFacture FROM ".$database_information['model_table']." WHERE Cote='".$Cote."' and Credit=".$Credit." ORDER BY Sequence DESC LIMIT 0,1";
-        $SQL = new SQLClass();
-        $SQL->Select($last_facture_query);
-        $facture = new Facture([]);
-        if($SQL->NumRow()>0){
-            $facture_response = $SQL->FetchArray();
-            $facture_id = intval($facture_response[$database_information['model_table_id']]);
-            $facture = new Facture($facture_id);
-        }
-        return $facture;
+    static function get_last_facture_query($cote){
+        throw new NotImplementedException();
     }
 
     static function get_by_cote_and_sequence($cote, $sequence){
-        $database_information = Facture::define_table_info();
-        $facture_query = "SELECT ".$database_information['model_table_id']." FROM ".$database_information['model_table']." WHERE Cote='".$cote."' and Sequence=".$sequence." and Credit=0";
-        $SQL = new SQLClass();
-        $SQL->Select($facture_query);
-        $facture_id_cursor = $SQL->FetchArray();
-        $facture = new Facture($facture_id_cursor["IDFacture"]);
-
-        return $facture;
+        throw new NotImplementedException();
     }
 
     function update_balance(){
@@ -91,6 +76,14 @@ class Facture extends BaseModel
         return $this->Credit==1;
     }
 
+    function is_debit(){
+        return $this->Debit==1;
+    }
+
+    function is_avance_client(){
+        return $this->AvanceClient==1;
+    }
+
     function is_paid(){
         return $this->Paye==1;
     }
@@ -105,6 +98,10 @@ class Facture extends BaseModel
 
     function is_materiel(){
         return $this->Materiel==1;
+    }
+
+    function is_utilise(){
+        return $this->Utilise==1;
     }
 
     function add_factsheet(&$factsheet){

@@ -1,9 +1,9 @@
 <?php
-include_once ('facture.php');
-include_once ('time_facture.php');
+include_once ('factureShift.php');
+include_once('timeFacture.php');
 
 
-class FactureMensuelle extends Facture implements TimeFacture{
+class FactureMensuelle extends FactureShift implements TimeFacture{
 
     public $start_of_billable_time;
     public $time_service;

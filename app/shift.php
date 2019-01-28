@@ -93,5 +93,5 @@ class Shift extends BaseModel
             'timeService'=>'service'
         );
     }
-
 }
+

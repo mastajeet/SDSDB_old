@@ -2,10 +2,10 @@
 include_once('BaseModel.php');
 include_once('func_divers.php');
 
-include_once ('facture/facture_hebdomadaire.php');
-include_once ('facture/facture_mensuelle.php');
+include_once('facture/factureHebdomadaire.php');
+include_once('facture/factureMensuelle.php');
 
-$INEXISTING_FACTURATION_FREQUENCE = "Le mode de facture n<existe pas";
+$INEXISTING_FACTURATION_FREQUENCE = "Le mode de facture n'existe pas";
 
 class Customer extends BaseModel
 {
@@ -13,6 +13,8 @@ class Customer extends BaseModel
     public $Ferie;
     public $FrequenceFacturation;
     public $time_service;
+    public $facture_service;
+
 
     public $Nom;
     public $Adresse;
@@ -23,12 +25,25 @@ class Customer extends BaseModel
     function __construct($Arg = null)
     {
         parent::__construct($Arg);
+        $variable = New Variable();
+        $notes = $variable->get_value('NoteFacture');
+        $tps = $variable->get_value('TPS');
+        $tvq = $variable->get_value('TVQ');
+
         $this->time_service = new TimeService();
+        $this->facture_service = new FactureService($notes, $tps, $tvq);
     }
 
     static function define_table_info(){
         return array("model_table" => 'client',
         "model_table_id" => 'IDClient');
+    }
+
+    static function define_data_types(){
+        return array("IDCustomer"=>'ID',
+            'timeService'=>'service',
+            'facture_service'=>'service'
+        );
     }
 
     static function find_customer_by_cote($cote){
@@ -55,13 +70,6 @@ class Customer extends BaseModel
         return $installations;
     }
 
-    private function get_new_facture_sequence($cote){
-        $last_facture = Facture::get_last_for_cote($cote);
-        $last_sequence = $last_facture->Sequence;
-        $next_sequence = $last_sequence + 1;
-        return $next_sequence;
-    }
-
     public function generate_next_time_facture($cote_to_bill, $start_of_billable_time){
         $facture = null;
         $start_of_week_timestamp =$this->time_service->get_start_of_week($start_of_billable_time)->getTimestamp();
@@ -69,7 +77,7 @@ class Customer extends BaseModel
             "Semaine"=>$start_of_week_timestamp,
             "TPS"=>get_vars('TPS'),
             "TVQ"=>get_vars('TVQ'),
-            "Sequence"=>$this->get_new_facture_sequence($cote_to_bill),
+            "Sequence"=>$this->facture_service->get_next_shift_and_materiel_facture_sequence($cote_to_bill),
             "EnDate"=>time());
 
         if($this->FrequenceFacturation=="M"){
@@ -106,5 +114,4 @@ class Customer extends BaseModel
 
         return $factures;
     }
-
 }

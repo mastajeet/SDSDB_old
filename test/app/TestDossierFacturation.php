@@ -1,6 +1,6 @@
 <?php
 
-include_once('./app/dossier_facturation.php');
+include_once('./app/dossierFacturation.php');
 include_once('./app/facture/facture.php');
 include_once('./app/payment/payment.php');
 
@@ -21,7 +21,7 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
     function test_givenCorrectCoteAndYear_whenGetAllTimeFactures_thenGetAllFactureForCoteAndYear(){
         $factures = $this->dossier_facturation->get_all_factures();
 
-        $this->assertEquals(11, count($factures));
+        $this->assertEquals(13, count($factures));
     }
 
     function test_givenCorrectCoteAndYear_whenGetAllPayments_thenGetAllPayments(){
@@ -69,6 +69,12 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
         $this->assertEquals(1621.18, $balance_to_pay["total_to_pay"],'',0.001);
         $this->assertEquals(859.89, $balance_to_pay["total_paid"],'',0.001);
         $this->assertEquals(761.29, $balance_to_pay["balance"],'',0.001);
+    }
+
+    function test_whenGetAvanceClientBalance_thenGetSumOfUnusedAvanceClient(){
+        $avance_client = $this->dossier_facturation->get_avance_client_balance();
+
+        $this->assertEquals(200, $avance_client, 0.001);
     }
 
 }

@@ -107,10 +107,12 @@ $MainOutput->CloseRow();
             $balance_section_length = $notes_total_length - $paye_section_length;
 
             $bolded_balance_section =  "<b>".substr($payment->Notes,0,$balance_section_length)."</b>";
-            $payments->Notes = $bolded_balance_section." ".$paye_section;
+            $Notes = $bolded_balance_section." ".$paye_section;
+        }else{
+            $Notes = $payment->Notes;
         }
 
-        $MainOutput->AddTexte($payment->Notes);
+        $MainOutput->AddTexte($Notes);
         $MainOutput->CloseCol();
 	    $MainOutput->CloseRow();
     }
