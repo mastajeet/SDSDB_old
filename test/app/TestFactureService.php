@@ -18,7 +18,8 @@ class TestFactureService extends PHPUnit_Framework_TestCase{
         $this->facture_service = new FactureService("",0,0);
         $this->facture_dto = array(
             "cote"=>self::UNE_COTE,
-            "semaine"=>self::UNE_SEMAINE
+            "semaine"=>self::UNE_SEMAINE,
+            "sequence"=>self::UN_NUMERO_SEQUENTIEL
         );
     }
 

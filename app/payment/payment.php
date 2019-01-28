@@ -1,7 +1,4 @@
 <?php
-include_once('facture/factureService.php');
-include_once('Variable.php');
-
 include_once('app/facture/factureService.php');
 include_once('app/Variable.php');
 

@@ -1,6 +1,5 @@
 <?PHP
 
-
 SWITCH($Section){
 
     CASE "Date_Lookup":{

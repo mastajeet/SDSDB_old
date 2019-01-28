@@ -110,8 +110,6 @@ class FactureService{
     function get_next_shift_and_materiel_facture_sequence($cote){
         $last_facture_materiel_sequence = $this->get_last_sequence_for_cote_and_type($cote, self::FACTURE_MATERIEL);
         $last_facture_shift_sequence = $this->get_last_sequence_for_cote_and_type($cote, self::FACTURE_SHIFT);
-        print($last_facture_shift_sequence);
-        print($last_facture_materiel_sequence );
 
         return max($last_facture_materiel_sequence, $last_facture_shift_sequence) + 1;
     }

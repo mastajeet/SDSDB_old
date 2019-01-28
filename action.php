@@ -1,26 +1,26 @@
 <?PHP
-const RESPONSABLE_ADDED = 'Reponsable ajout�';
-const RESPONSABLE_MODIFIED = 'Responsable modifi�';
-const EMPLOYEE_ADDED = 'Employ� ajout�';
-const CUSTOMER_MODIFIED = 'Client modifi�';
-const CUSTOMER_ADDED = 'Client ajout�';
-const MODIFIED = '</b> Modifi�e';
-const PAYMENT_MODIFIED = 'Paiement modifi�';
-const SHIFT_MODIFIED = 'Shifts modifi�s';
+const RESPONSABLE_ADDED = 'Reponsable ajouté';
+const RESPONSABLE_MODIFIED = 'Responsable modifié';
+const EMPLOYEE_ADDED = 'Employé ajouté';
+const CUSTOMER_MODIFIED = 'Client modifié';
+const CUSTOMER_ADDED = 'Client ajouté';
+const MODIFIED = '</b> Modifiée';
+const PAYMENT_MODIFIED = 'Paiement modifié';
+const SHIFT_MODIFIED = 'Shifts modifiés';
 const SHIFT_DELETED = 'Shifts supprimes';
-const COMMENT_ADDED = 'Commentaire ajout�';
-const MESSAGE_MODIFIED = 'Message modifi�';
-const MESSAGE_ADDED = 'Message ajout�';
-const BILL_MARKED_AS_UNPAID = 'Facture marqu�e comme inpay�e';
-const BILL_MARKED_AS_PAID = 'Facture marqu�e comme pay�e';
-const ITEM_MODIFIED = 'Item modifi�';
-const ITEM_ADDED = 'Item ajout�';
-const SEASON_ADDED = 'Saison ajout�e';
-const SEASON_CLOSED = 'Saison ferm�e';
-const SHIFT_CONFIRMED = 'Heures de travail confirm�es';
-const INSTALLATION_MODIFIED = 'Installation modifi�e';
-const INSTALLATION_ADDED = 'Installation ajout�e';
-const EMPLOYEE_MODIFIED = 'Employ� modifi�';
+const COMMENT_ADDED = 'Commentaire ajouté';
+const MESSAGE_MODIFIED = 'Message modifié';
+const MESSAGE_ADDED = 'Message ajouté';
+const BILL_MARKED_AS_UNPAID = 'Facture marquée comme inpayée';
+const BILL_MARKED_AS_PAID = 'Facture marquée comme payée';
+const ITEM_MODIFIED = 'Item modifié';
+const ITEM_ADDED = 'Item ajouté';
+const SEASON_ADDED = 'Saison ajoutée';
+const SEASON_CLOSED = 'Saison fermée';
+const SHIFT_CONFIRMED = 'Heures de travail confirmées';
+const INSTALLATION_MODIFIED = 'Installation modifiée';
+const INSTALLATION_ADDED = 'Installation ajoutée';
+const EMPLOYEE_MODIFIED = 'Employé modifié';
 
 SWITCH($Action){
 	CASE "Client":{
@@ -31,46 +31,46 @@ SWITCH($Action){
 			include('add_client_script.php');
 			$MainOutput->AddTexte(CUSTOMER_ADDED,'Warning');
 		}
-		
+
 	BREAK;
 	}
 
 
-		CASE "Delog":{
-			setcookie('IDEmploye','',0);
-			setcookie('CIE','',0);
-			setcookie('CIESDS','',0);
-            setcookie('MP','',0);
-            setcookie('Bureau','',0);
-            setcookie(Authorization::KEY_AUTHORIZATION_LEVEL,'',0);
-            setcookie(Authorization::KEY_PASSWORD,'',0);
+    CASE "Delog":{
+        setcookie('IDEmploye','',0);
+        setcookie('CIE','',0);
+        setcookie('CIESDS','',0);
+        setcookie('MP','',0);
+        setcookie('Bureau','',0);
+        setcookie(Authorization::KEY_AUTHORIZATION_LEVEL,'',0);
+        setcookie(Authorization::KEY_PASSWORD,'',0);
 
             ?>
-		<script>
-		window.location = 'index.php';
-		</script>
-			<?PHP
-		BREAK;
-		}
+        <script>
+        window.location = 'index.php';
+        </script>
+            <?PHP
+    BREAK;
+    }
 
 	CASE "ModifieVars":{
 		include('modifievars_script.php');
 		$MainOutput->AddTexte('Variable <b>'.$_POST['Vars']. MODIFIED,'Warning');
 	BREAK;
 	}
-	
-	
+
+
 	CASE "Date_Lookup":{
 		include('date_lookup_script.php');
-				
+
 	BREAK;
 	}
 
 
-    CASE "Delete_Vacances":{
-        include('delete_vacances_script.php');
-        BREAK;
-    }
+        CASE "Delete_Vacances":{
+            include('delete_vacances_script.php');
+            BREAK;
+        }
 
 
 	CASE "Inspection":{
@@ -85,21 +85,21 @@ SWITCH($Action){
 		include('generate_facturemateriel.php');
 	BREAK;
 	}
-	
-	
-	
-	
+
+
+
+
 	CASE "SuiviInspection":{
 		include('suivi_inspection_script.php');
 	BREAK;
 	}
-	
-	
+
+
 	CASE "ChangeEmployeNo":{
 		include('change_employeno.php');
 	BREAK;
 	}
-	
+
 	CASE "Modifie_Paiement":{
         if($authorization->verifySuperAdmin($_COOKIE)) {
 
@@ -108,8 +108,21 @@ SWITCH($Action){
             $MainOutput->AddTexte(PAYMENT_MODIFIED, 'Warning');
             $_GET['Section'] = "SuperAdmin";
         }
-	BREAK;
+        BREAK;
 	}
+
+    CASE "delete_payment":{
+        $payment_id = $_GET['IDPaiement'];
+        if(isset($_GET['Confirmation'])){
+        $payment = new Payment($payment_id);
+        $payment_service->delete_payment($payment);
+        }else{
+            $confirmation_link = $_SERVER['REQUEST_URI']."&Confirmation=True";
+            $WarningOutput->addlink($confirmation_link, "confimer suppression", "","Warning");
+        }
+        $Section = "Paiement";
+        BREAK;
+    }
 
 
 	CASE "Modifie_Facture_CoteSeq":{
@@ -120,7 +133,7 @@ SWITCH($Action){
         }
 	BREAK;
 	}
-	
+
 	CASE "PlanifieInspection":{
 		if($_POST['UPDATE']){
 			include('modifie_planifieinspection_script.php');
@@ -154,15 +167,15 @@ SWITCH($Action){
         }
         BREAK;
     }
-	
-	
+
+
 	CASE "Add_ClientComment":{
-		
+
 			include('add_clientcomment_script.php');
 			$MainOutput->AddTexte(COMMENT_ADDED,'Warning');
 			$info = get_installation_info($_POST['FORMIDInstallation']);
 			$_GET['MenuClient']= $info['IDClient'];
-	
+
 	BREAK;
 	}
 	CASE "Message":{
@@ -190,7 +203,7 @@ SWITCH($Action){
         }
 	BREAK;
 	}
-	
+
 	CASE "MarkPayee":{
         if($authorization->verifySuperAdmin($_COOKIE)){
             mark_paid($_POST['IDFacture'],$_POST['FORMIDPaiement']);
@@ -213,36 +226,36 @@ SWITCH($Action){
 
 
 
-	
+
 	CASE "Add_Facture":{
 		include('add_facture_script.php');
 		$_GET['Section'] = "Modifie_Facture";
 	BREAK;
 	}
-	
-	
-		
+
+
+
 	CASE "Add_Remplacement":{
 		include('add_remplacement_script.php');
         $_GET['Section'] = "Remplacement";
 	BREAK;
 	}
-	
-	
-	
+
+
+
 	CASE "BoniCrusher":{
 		include('bonuscrusher_script.php');
 	BREAK;
 	}
-	
-	
-	
+
+
+
 	CASE "Confirm_Remplacement":{
 		include('confirm_remplacement_script.php');
 		$_GET['Section'] = "Remplacement";
 	BREAK;
 	}
-	
+
 	CASE "Activate":{
 		include('activate.php');
 	if(isset($_GET['IDClient']))
@@ -252,7 +265,7 @@ SWITCH($Action){
 	$_GET['MenuCat']= "Client";
 	BREAK;
 	}
-	
+
 	CASE "Factsheet":{
 		if($_POST['Update']){
 			include('modifie_factsheet_script.php');
@@ -265,24 +278,13 @@ SWITCH($Action){
 	BREAK;
 	}
 
-    CASE "Paiement":{
-        include('paiement_script.php');
+	CASE "Paiement":{
+		include('paiement_script.php');
 
-        $Section= "Display_Facturation";
-        $_GET['Cote'] = $_POST['Cote'];
-        BREAK;
-    }
-
-
-//    CASE "delete_payment":{
-//        $payment_service = new PaymentService();
-//        include('paiement_script.php');
-//
-//        $Section= "Display_Facturation";
-//        $_GET['Cote'] = $_POST['Cote'];
-//        BREAK;
-//    }
-
+		$Section= "Display_Facturation";
+		$_GET['Cote'] = $_POST['Cote'];
+		BREAK;
+	}
 	
 	CASE "Shift":{
 		include('copy_shift_script.php');
@@ -429,7 +431,7 @@ SWITCH($Action){
 			$_GET['Section'] = "Display_Horshift";
 		}
 		if(isset($_GET['Reset'])){
-			$Req =  FROM horshift WHERE IDHoraire = ".$_GET['IDHoraire'];
+			$Req = "DELETE FROM horshift WHERE IDHoraire = ".$_GET['IDHoraire'];
 			$_GET['Section'] = "Horshift";
 		}
 		$SQL = new sqlclass;

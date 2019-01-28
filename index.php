@@ -53,6 +53,7 @@ include_once('app/factsheet.php');
 include_once('app/logshift.php');
 include_once('app/customer.php');
 include_once('app/facture/facture.php');
+include_once('app/facture/factureService.php');
 include_once('app/facture/avanceClient.php');
 include_once('app/Variable.php');
 include_once('app/employee.php');
@@ -61,6 +62,8 @@ include_once('app/Secteur.php');
 include_once('app/dossierFacturation.php');
 
 include_once('app/payment/payment.php');
+include_once('app/payment/paymentService.php');
+
 
 include_once('helper/Authorization.php');
 include_once('helper/PasswordGetter.php');
@@ -74,13 +77,13 @@ $password_getter = new PasswordGetter($variable);
 $authorization = new Authorization($password_getter);
 $time_service = new TimeService();
 
-$variable = new Variable();
 $notes = $variable->get_value("NoteFacture");
 $tvq = $variable->get_value("TVQ");
 $tps= $variable->get_value("TPS");
 $facture_service = new FactureService($notes, $tps, $tvq);
+$payment_service  = new PaymentService($facture_service);
 
-$WarningOutput= new html;
+$WarningOutput= new html();
 $MainOutput = new html();
 
 
@@ -125,7 +128,8 @@ if(!isset($_COOKIE['IDEmploye'])){
             }
 
         ?><td valign=top width=800><?PHP
-        if(isset($Section))
+        echo $WarningOutput->send(1);
+                if(isset($Section))
             include('section.php');
 
             ?></td>
