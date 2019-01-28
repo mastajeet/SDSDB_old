@@ -115,7 +115,7 @@ class DossierFacturation
     {
         $first_day_of_year = mktime(0, 0, 0, 1, 1, $this->year);
         $first_day_of_next_year = mktime(0, 0, 0, 1, 1, $this->year + 1);
-        $requete_all_facture_for_year = "SELECT IDFacture from facture WHERE Cote='".$this->cote."' AND semaine>=" . $first_day_of_year . " AND semaine<" . $first_day_of_next_year." ORDER BY EnDate DESC";
+        $requete_all_facture_for_year = "SELECT IDFacture from facture WHERE Cote='".$this->cote."' AND semaine>=" . $first_day_of_year . " AND semaine<" . $first_day_of_next_year." ORDER BY Sequence DESC";
 
         return $requete_all_facture_for_year;
     }
