@@ -1,5 +1,8 @@
 <?php
 
+include_once('app/facture/factureService.php');
+include_once('app/Variable.php');
+
 class Payment extends BaseModel
 {
 
@@ -59,23 +62,4 @@ class Payment extends BaseModel
 
         return $paid;
     }
-
-//    function isFacturePaid(facture $facture){
-//
-//    }
-
-//    static function find_by_cote_and_sequence($cote, $sequence){
-//        $facture_token = Payment::generate_facture_token($cote, $sequence);
-//
-//
-//
-//    }
-//
-//
-//    static function generate_facture_token($cote, $sequence){
-//
-//        return $cote."-".$sequence;
-//
-//    }
-
 }

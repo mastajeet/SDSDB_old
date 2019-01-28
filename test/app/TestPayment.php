@@ -1,6 +1,6 @@
 <?php
 
-include_once ('app/payment.php');
+include_once ('app/payment/payment.php');
 include_once ('app/facture/facture.php');
 
 class TestPayment extends PHPUnit_Framework_TestCase

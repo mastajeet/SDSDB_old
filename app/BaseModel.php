@@ -220,7 +220,6 @@ class BaseModel
             if (count($this->updated_values) > 0) {
                 BaseModel::insert($this->generate_insert_statement());
                 $this->$model_table_id = $object::get_last_id();
-
             }
         } else {
             if (count($this->updated_values) > 0) {
@@ -252,7 +251,8 @@ class BaseModel
 
     static function delete($Req){
         $SQL = new SQLClass();
-        $SQL->Delete($Req);
+        $SQL->Delete_data($Req);
+
     }
 
 

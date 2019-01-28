@@ -429,7 +429,7 @@ SWITCH($Action){
 			$_GET['Section'] = "Display_Horshift";
 		}
 		if(isset($_GET['Reset'])){
-			$Req = "DELETE FROM horshift WHERE IDHoraire = ".$_GET['IDHoraire'];
+			$Req =  FROM horshift WHERE IDHoraire = ".$_GET['IDHoraire'];
 			$_GET['Section'] = "Horshift";
 		}
 		$SQL = new sqlclass;

@@ -95,6 +95,14 @@ class Facture extends BaseModel
         return $this->Paye==1;
     }
 
+    function mark_paid(){
+        $this->Paye=1;
+    }
+
+    function mark_unpaid(){
+        $this->Paye=0;
+    }
+
     function is_materiel(){
         return $this->Materiel==1;
     }

@@ -144,13 +144,21 @@ CREATE TABLE `facture` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 CREATE TABLE `paiement` (
-  `IDPaiement` int(11) NOT NULL,
+  `IDPaiement` int(11) NOT NULL DEFAULT 0,
   `Cote` char(3) NOT NULL DEFAULT '',
   `Montant` float NOT NULL DEFAULT '0',
   `Date` bigint(20) NOT NULL DEFAULT '0',
   `PayableYear` int(11) NOT NULL DEFAULT '0',
   `Notes` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `paiement`
+  ADD PRIMARY KEY (`IDPaiement`);
+
+ALTER TABLE `paiement`
+  MODIFY `IDPaiement` int(11) NOT NULL AUTO_INCREMENT;
+
 
 CREATE TABLE `employe` (
   `IDEmploye` int(11) NOT NULL,
@@ -214,6 +222,7 @@ ALTER TABLE `shift`
 
 ALTER TABLE `shift`
   MODIFY `IDShift` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202808;
+
 
 
 CREATE TABLE `vars` (

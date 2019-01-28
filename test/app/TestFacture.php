@@ -1,7 +1,7 @@
 <?php
 
 include_once ('app/facture/facture.php');
-include_once ('app/payment.php');
+include_once ('app/payment/payment.php');
 
 class TestFacture extends PHPUnit_Framework_TestCase{
 
