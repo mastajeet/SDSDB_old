@@ -246,11 +246,6 @@ SWITCH($Section){
     }
 
 
-    CASE "Generate_Facture_Mensuelle_CurrentMonth":{
-        include('generate_facture_mensuelle_parpiscine_currentmonth.php');
-        BREAK;
-    }
-
     CASE "Employe_Report":{
         include('employe_report.php');
         BREAK;

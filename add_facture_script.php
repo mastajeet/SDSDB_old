@@ -25,7 +25,6 @@ if($_POST['FORMTaxes']==0)
     $facture_dto ['taxable']=false;
 
 $facture = $facture_service->generate_blank_facture($facture_dto);
-print_r($facture);
 $facture->save();
 $_GET['IDFacture']= $facture->IDFacture;
 

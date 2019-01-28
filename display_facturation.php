@@ -44,8 +44,8 @@ if(isset($_GET['Cote'])){
 	}
 
 
-    	$dossier_facturation = new DossierFacturation($current_cote, $current_year);
-		$paiements = $dossier_facturation->get_all_payments();
+	$dossier_facturation = new DossierFacturation($current_cote, $current_year);
+	$paiements = $dossier_facturation->get_all_payments();
 
     	$total_to_pay = $dossier_facturation->get_total_to_be_paid();
 		$balance_details = $dossier_facturation->get_balance_details();
@@ -150,6 +150,7 @@ if(isset($_GET['Cote'])){
 		$MainOutput->CloseRow();
 
 		$factures = $dossier_facturation->get_all_factures();
+
 		foreach($factures as $id_facture =>$facture){
             $facture_date =  new DateTime("@".$facture->EnDate);
 
