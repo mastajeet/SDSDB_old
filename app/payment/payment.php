@@ -15,7 +15,6 @@ class Payment extends BaseModel
 
     function __construct($Arg = null){
         parent::__construct($Arg);
-
         $variable = New Variable();
         $notes = $variable->get_value('NoteFacture');
         $tps = $variable->get_value('TPS');
@@ -38,7 +37,7 @@ class Payment extends BaseModel
         $split_notes = explode("~", $this->Notes);
         $paid_facture = [];
 
-        foreach($split_notes as $notes_element){
+        foreach(array_splice($split_notes, 1) as $notes_element){
             $needle = $this->Cote."-";
             $facture_sequence = str_replace($needle, '', strstr($notes_element,$needle));
             if($facture_sequence) {
