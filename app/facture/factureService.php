@@ -36,6 +36,12 @@ class FactureService{
             "Sequence"=>$facture_dto[self::SEQUENCE_FROM_DTO],
         );
 
+
+        if($facture_dto['taxable']){
+            $facture_information['TVQ']=$this->tvq;
+            $facture_information['TPS']=$this->tps;
+        }
+
         $facture_class = $this->get_facture_class($facture_dto[self::FACTURE_TYPE]);
         if($facture_dto[self::SEQUENCE_FROM_DTO]==""){
             $facture_information[self::SEQUENCE] = $this->get_next_facture_sequence_when_missing_from_dto($facture_dto, $facture_dto[self::FACTURE_TYPE]);
@@ -151,7 +157,6 @@ class FactureService{
     function get_shift_and_materiel_facture_by_cote_and_sequence($cote, $sequence){
         # trouver comment mettre ca clean pcq actuellement c'est moyen
         $facture = null;
-
         try{
             $facture_materiel_class = $this->get_facture_class(self::FACTURE_MATERIEL);
             $facture = $this->get_facture_by_cote_sequence_and_type($cote, $sequence, $facture_materiel_class);
@@ -163,7 +168,7 @@ class FactureService{
         }catch(UnexpectedValueException $e){}
 
         if(is_null($facture)){
-            throw new UnexpectedValueException();
+            throw new UnexpectedValueException("La facture ".$cote."-".$sequence." n'a pas ete trouvee ");
         }
 
         return $facture;
