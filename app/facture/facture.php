@@ -17,6 +17,7 @@ class Facture extends BaseModel
     public $EnDate;
     public $Cote;
     public $BonAchat;
+    public $Notes;
 
     function __construct($Args){
         parent::__construct($Args);
@@ -116,6 +117,9 @@ class Facture extends BaseModel
 
     static function define_data_types(){
         return array("IDFacture" => 'ID',
+            'TPS'=>'float',
+            'TVQ'=>'float',
+            'Notes'=>'string',
             "Factsheet" => 'has_many');
     }
 
