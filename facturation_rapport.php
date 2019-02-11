@@ -1,5 +1,5 @@
 <?PHP
-$TOLERANCE = 0.01;
+$TOLERANCE = 0.10;
 $Req = "SELECT Semaine, round(sum(STotal*(1+TVQ)*(1+TPS)),2) FROM facture Group By Semaine ORDER BY Semaine DESC LIMIT 0,10";
 $SQL = new sqlclass();
 
