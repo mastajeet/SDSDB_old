@@ -38,7 +38,7 @@ function batch_update($SDate,$EDate,$IDInstallation,$UpdateStr,$WhereStr){
     $GenerateLogReq = "SELECT IDShift FROM shift WHERE IDInstallation=".$IDInstallation." AND Semaine+Jour*(24*3600)+Start>=".$SDate." AND Semaine+Jour*(24*3600)+Start<=".$EDate." ".$WhereStr;
     $SQL->Select($GenerateLogReq);
     while($Rep = $SQL->FetchArray()){
-        $LogShift = new logshift(new shift($Rep['IDShift']),"SA BATCH UPDATE");
+        $LogShift = new logshift(new shift($Rep['IDShift'], $time_service),"SA BATCH UPDATE");
     }
     $SQL = new sqlclass();
     $Req = "UPDATE shift SET ".$UpdateStr." WHERE IDInstallation=".$IDInstallation." AND Semaine+Jour*(24*3600)+Start>=".$SDate." AND Semaine+Jour*(24*3600)+Start<=".$EDate." ".$WhereStr;
@@ -53,7 +53,7 @@ function batch_delete($SDate,$EDate,$IDInstallation,$WhereStr){
     $GenerateLogReq = "SELECT IDShift FROM shift WHERE IDInstallation=".$IDInstallation." AND Semaine+Jour*(24*3600)+Start>=".$SDate." AND Semaine+Jour*(24*3600)+Start<=".$EDate." ".$WhereStr;
     $SQL->Select($GenerateLogReq);
     while($Rep = $SQL->FetchArray()){
-        $LogShift = new logshift(new shift($Rep['IDShift']),"SA BATCH UPDATE");
+        $LogShift = new logshift(new shift($Rep['IDShift'], $time_service),"SA BATCH UPDATE");
     }
     $SQL = new sqlclass();
     $Req = "DELETE FROM shift WHERE IDInstallation=".$IDInstallation." AND Semaine+Jour*(24*3600)+Start>=".$SDate." AND Semaine+Jour*(24*3600)+Start<=".$EDate." ".$WhereStr;
