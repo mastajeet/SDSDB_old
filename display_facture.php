@@ -245,15 +245,25 @@ if(isset($_GET['IDFacture'])){
     $MainOutput->OpenCol();
 
     $InvType ="";
+    $facture_sequence_prefixe = "";
+    $MTL = "";
 
+    if($_COOKIE['CIESDS']=="MTL")
+        $MTL = "M-";
 
-    if($facture->is_credit())
+    if($facture->is_credit()){
         $InvType = "NOTE DE CRÉDIT";
-    else
+        $facture_sequence_prefixe = "c";
+    }elseif($facture->is_debit()){
         $InvType = "FACTURE";
 
-    if($facture->is_materiel())
-        $InvType .= " MATÉRIEL";
+        if($facture->is_materiel())
+
+            $InvType .= " MATÉRIEL";
+    }elseif($facture->is_avance_client()){
+        $facture_sequence_prefixe = "a";
+        $InvType = "AVANCE CLIENT";
+    }
 
     if($facture->is_credit() && $facture->is_materiel())
         $InvType = "CRÉDIT MATÉRIEL";
@@ -277,13 +287,8 @@ if(isset($_GET['IDFacture'])){
 
     $MainOutput->OpenRow();
     $MainOutput->OpenCol();
-    $CREDIT = "";
-    $MTL = "";
-        if($facture->is_credit())
-            $CREDIT = "c";
-        if($_COOKIE['CIESDS']=="MTL")
-            $MTL = "M-";
-    $MainOutput->AddTexte($MTL.$CREDIT.$facture->Cote."-".$facture->Sequence,'Titre');
+
+    $MainOutput->AddTexte($MTL.$facture_sequence_prefixe.$facture->Cote."-".$facture->Sequence,'Titre');
     $MainOutput->br();
     $MainOutput->AddTexte("Heures Chargées: ",'Titre');
     $MainOutput->AddTexte($NBH);

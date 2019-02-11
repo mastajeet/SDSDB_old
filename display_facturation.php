@@ -170,12 +170,14 @@ if(isset($_GET['Cote'])){
 			$Class = 'Warning';
 			if($facture->is_paid() || $facture->is_credit())
 				$Class = 'Titre';
-			$Credit='';
-				if($facture->is_credit())
-					$Credit='c';
-
+			$sequence_prefix='';
+				if($facture->is_credit()){
+					$sequence_prefix='c';
+				}elseif($facture->is_avance_client()){
+					$sequence_prefix='a';
+				}
 				$facture_detail = $facture->get_balance();
-				$MainOutput->AddTexte($Credit.$facture->Cote."-".$facture->Sequence,$Class);
+				$MainOutput->AddTexte($sequence_prefix.$facture->Cote."-".$facture->Sequence,$Class);
 			$MainOutput->CloseCol();
 				$MainOutput->OpenCol();
 				$MainOutput->AddTexte(number_format($facture_detail['sub_total'],2)." $");
