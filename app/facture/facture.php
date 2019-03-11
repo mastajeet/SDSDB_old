@@ -65,10 +65,10 @@ class Facture extends BaseModel
     function get_balance(){
         $balance= Array("sub_total"=>0, "tps"=>0, "tvq"=>0, "total"=>0);
 
-        $balance["sub_total"] = intval($this->STotal*100);
-        $balance["tps"] = intval($balance["sub_total"] * $this->TPS);
-        $balance["tvq"] = intval(( $balance["sub_total"]+$balance["tps"]) * $this->TVQ, 2);
-        $balance["total"] = floatval($balance["sub_total"] + $balance["tps"] + $balance["tvq"])/100;
+        $balance["sub_total"] = $this->STotal;
+        $balance["tps"] = round($balance["sub_total"] * $this->TPS, 2);
+        $balance["tvq"] = round(($balance["sub_total"]+$balance["tps"]) * $this->TVQ, 2);
+        $balance["total"] = $balance["sub_total"] + $balance["tps"] + $balance["tvq"];
 
         return $balance;
     }

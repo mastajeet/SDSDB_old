@@ -106,6 +106,8 @@ if(isset($_GET['IDFacture'])){
     $MainOutput->CloseRow();
 
 
+    $facture_balance_detail = $facture->get_balance();
+
     $MainOutput->OpenRow();
 
     if(!$facture->is_materiel())
@@ -120,7 +122,7 @@ if(isset($_GET['IDFacture'])){
         $MainOutput->AddTexte('<div align=right>Sous-Total: </div>','Titre');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol();
-        $MainOutput->AddTexte(number_format($Cash,2)."&nbsp;$",'Titre');
+        $MainOutput->AddTexte(number_format($facture_balance_detail['stotal'],2)."&nbsp;$",'Titre');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -135,8 +137,6 @@ if(isset($_GET['IDFacture'])){
     $MainOutput->AddTexte($Bottom[1],'Small');
     $MainOutput->CloseCol();
 
-
-    $facture_balance_detail = $facture->get_balance();
 
 
     $taux_tps = 100*$facture->TPS;
