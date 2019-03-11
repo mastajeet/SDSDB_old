@@ -122,7 +122,7 @@ if(isset($_GET['IDFacture'])){
         $MainOutput->AddTexte('<div align=right>Sous-Total: </div>','Titre');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol();
-        $MainOutput->AddTexte(number_format($facture_balance_detail['stotal'],2)."&nbsp;$",'Titre');
+        $MainOutput->AddTexte(number_format($facture_balance_detail['sub_total'],2)."&nbsp;$",'Titre');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
