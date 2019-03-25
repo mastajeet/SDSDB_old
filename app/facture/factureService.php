@@ -137,7 +137,6 @@ class FactureService{
         return $last_facture_sequence;
     }
 
-
     private function get_facture_by_cote_sequence_and_type($cote, $sequence, $facture_class){
         $facture_id_query = $facture_class::get_by_cote_and_sequence($cote, $sequence);
         $database_information = Facture::define_table_info();

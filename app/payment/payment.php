@@ -1,8 +1,9 @@
 <?php
 include_once('app/facture/factureService.php');
+include_once('app/dossier_facturation/customerTransaction.php');
 include_once('app/Variable.php');
 
-class Payment extends BaseModel
+class Payment extends BaseModel implements CustomerTransaction
 {
 
     public $IDPaiement;
@@ -72,4 +73,10 @@ class Payment extends BaseModel
         return $paid;
     }
 
+    function get_customer_transaction(){
+        return array("date"=>new DateTime("@".$this->EnDate),
+            "notes"=>$this->Notes,
+            "debit"=>0,
+            "credit"=>$this->Montant);
+    }
 }

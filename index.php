@@ -128,7 +128,7 @@ include_once('app/Variable.php');
 include_once('app/employee.php');
 include_once('app/Responsable.php');
 include_once('app/Secteur.php');
-include_once('app/dossierFacturation.php');
+include_once('app/dossier_facturation/dossierFacturation.php');
 
 include_once('app/payment/payment.php');
 include_once('app/payment/paymentService.php');

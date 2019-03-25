@@ -22,4 +22,16 @@ class Credit extends Facture{
 
         return $query;
     }
+
+    function get_customer_transaction()
+    {
+        $balance = $this->get_balance();
+        $detail = "Crédit ".$this->Cote."-".$this->Sequence;
+        return array("date"=>new DateTime("@".$this->EnDate),
+            "notes"=>$detail,
+            "debit"=>$balance['total'],
+            "credit"=>0);
+    }
+
+
 }

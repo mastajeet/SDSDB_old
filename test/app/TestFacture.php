@@ -39,7 +39,7 @@ class TestFacture extends PHPUnit_Framework_TestCase{
     }
 
     function test_givenFactureMateriel_whenIsMateriel_thenReturnTrue(){
-        $facture = new Facture(1352); #Facture payee
+        $facture = new Facture(1359 ); #Facture payee
 
         $this->assertEquals(true, $facture->is_materiel());
     }
@@ -61,4 +61,24 @@ class TestFacture extends PHPUnit_Framework_TestCase{
 
         $this->assertEquals(108,$payment->IDPaiement);
     }
+
+    function test_givenFactureTemps_whenGetCustomerTransaction_thenGetTransactionDetail(){
+        $facture = new Facture(1349); #Facture payee
+        $transaction_details = $facture->get_customer_transaction();
+        $expected_date = new DateTime("@"."1530627972");
+        $expected_notes = "TF-1";
+        $this->assertEquals(400*(1.095)*(1.05), $transaction_details['debit'], 0.01);
+        $this->assertEquals(0, $transaction_details['credit'], 0.01);
+        $this->assertEquals($expected_date, $transaction_details['date']);
+        $this->assertEquals($expected_notes, $transaction_details['notes']);
+    }
+
+    function test_givenFactureMateriel_whenGetCustomerTransaction_thenGetTransactionDetail(){
+        $facture = new Facture(1359); #Facture matériel
+        $transaction_details = $facture->get_customer_transaction();
+        $expected_notes = "TF-4 (Matériel)";
+        $this->assertEquals($expected_notes, $transaction_details['notes']);
+    }
+
+
 }

@@ -12,8 +12,8 @@ class DossierFacturation
         $this->sql_connection = new SqlClass();
     }
 
-
     function get_total_to_be_paid(){
+    // Billed and Credited are summed together because credit are store with minus sign in DataBase...
         $total_billed = $this->get_total_billed();
         $total_credited = $this->get_total_credited();
         $total_to_be_paid = Array(
@@ -72,7 +72,6 @@ class DossierFacturation
         return $total_paid;
     }
 
-
     function get_total_credited(){
         $factures = $this->get_all_factures();
         $factures_to_sum = array();
@@ -111,8 +110,7 @@ class DossierFacturation
         return $factures;
     }
 
-    private function generate_get_all_facture_query()
-    {
+    private function generate_get_all_facture_query(){
         $first_day_of_year = mktime(0, 0, 0, 1, 1, $this->year);
         $first_day_of_next_year = mktime(0, 0, 0, 1, 1, $this->year + 1);
         $requete_all_facture_for_year = "SELECT IDFacture from facture WHERE Cote='".$this->cote."' AND semaine>=" . $first_day_of_year . " AND semaine<" . $first_day_of_next_year." ORDER BY Sequence DESC";
@@ -136,6 +134,10 @@ class DossierFacturation
         $requete_all_payment_for_year = "SELECT IDPaiement from paiement WHERE Cote='".$this->cote."' AND PayableYear=" . $this->year." ORDER BY Date DESC";
 
         return $requete_all_payment_for_year;
+    }
+
+    function get_transaction(){
+
     }
 }
 

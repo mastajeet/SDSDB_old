@@ -9,6 +9,7 @@ class TestFactureService extends PHPUnit_Framework_TestCase{
     const UNE_COTE = "TFS";
     const UN_NUMERO_SEQUENTIEL = 3;
     const UNE_SEMAINE = 1547355600;
+    const TAXABLE = true;
 
 
     /**
@@ -19,7 +20,8 @@ class TestFactureService extends PHPUnit_Framework_TestCase{
         $this->facture_dto = array(
             "cote"=>self::UNE_COTE,
             "semaine"=>self::UNE_SEMAINE,
-            "sequence"=>self::UN_NUMERO_SEQUENTIEL
+            "sequence"=>self::UN_NUMERO_SEQUENTIEL,
+            "taxable"=>self::TAXABLE
         );
     }
 

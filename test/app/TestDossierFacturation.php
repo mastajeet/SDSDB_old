@@ -1,6 +1,6 @@
 <?php
 
-include_once('./app/dossierFacturation.php');
+include_once('./app/dossier_facturation/dossierFacturation.php');
 include_once('./app/facture/facture.php');
 include_once('./app/payment/payment.php');
 
@@ -76,5 +76,14 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(200, $avance_client, 0.001);
     }
+
+//    function test_whenGetTransactions_thenGetMergedFactureAndPaymentByDate(){
+//        $transaction_list = $this->dossier_facturation->get_transaction();
+//
+//        $this->assertEquals(15, array_count_values($transaction_list));
+//        $this->assertEquals(200, $transaction_list[0], 0,001);  // Première transaction
+//        $this->assertEquals(200, $transaction_list[14]->get_customer_transaction()->amount, 0,001);  // Derniere transaction
+//
+//    }
 
 }

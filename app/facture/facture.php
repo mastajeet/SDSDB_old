@@ -1,6 +1,8 @@
 <?php
+include_once('app/dossier_facturation/customerTransaction.php');
 
-class Facture extends BaseModel
+
+class Facture extends BaseModel implements customerTransaction
 {
     public $Credit;
     public $Debit;
@@ -123,4 +125,16 @@ class Facture extends BaseModel
             "Factsheet" => 'has_many');
     }
 
+    function get_customer_transaction()
+    {
+        $balance = $this->get_balance();
+        $detail = $this->Cote."-".$this->Sequence;
+        if($this->is_materiel()){
+            $detail .= " (Matériel)";
+        }
+        return array("date"=>new DateTime("@".$this->EnDate),
+                "notes"=>$detail,
+                "debit"=>$balance['total']*$this->is_debit(),
+                "credit"=>$balance['total']*$this->is_credit());
+    }
 }
