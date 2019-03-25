@@ -18,7 +18,7 @@ if($Rep['NBTentatives']>3){
 	$MainOutput->addform('Connexion au logiciel de gestion');
 	$MainOutput->inputhidden_env('Action','Login');
 	
-	$MainOutput->inputselect('CIESDS',array('QC'=>'Service de sauveteurs: Québec','MTL'=>'Service de sauveteurs: Montréal'),'QC','Compagnie');
+	$MainOutput->inputselect('CIESDS',array('QC'=>'Service de sauveteurs: Québec','TR'=>'Service de sauveteurs: Trois-Rivières','MTL'=>'Service de sauveteurs: Montréal'),'QC','Compagnie');
 	$MainOutput->inputtext('IDEmploye','Numéro&nbsp;d\'employé','3');
 	$MainOutput->inputtext('NAS','3 dernier&nbsp;NAS','3');
 	

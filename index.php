@@ -1,4 +1,8 @@
 <?PHP
+    const MTL="MTL";
+    const TR="TR";
+    const QC="QC";
+
     ini_set("default_charset", "iso-8859-1");
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
@@ -11,23 +15,88 @@ if(isset($_POST['Section'])){
 }
 date_default_timezone_set ('America/Montreal');
 
+
+function select_company_for_login($post_resquest_value){
+    return select_company($post_resquest_value, "FORMCIESDS");
+}
+
+function select_company_when_logged($cookie){
+    return select_company($cookie, "CIESDS");
+}
+
+function select_company($array, $field){
+	SWITCH($array[$field]) {
+        CASE "QC":{
+                $company = QC;
+                BREAK;
+            }
+        CASE "MTL":{
+                $company = MTL;
+                BREAK;
+            }
+        CASE "TR":{
+                $company = TR;
+                BREAK;
+            }
+        default :{
+                $company = QC;
+                BREAK;
+            }
+    }
+
+    return $company;
+}
+
+function get_sql_class_filename($company){
+    SWITCH($company) {
+        CASE QC:{
+                $filename = "mysql_class_qc.php";
+                BREAK;
+            }
+        CASE MTL:{
+                $filename = "mysql_class_mtl.php";
+                BREAK;
+            }
+        CASE TR:{
+                $filename = "mysql_class_tr.php";
+                BREAK;
+            }
+        default :{
+                $filename = "mysql_class_qc.php";
+                BREAK;
+            }
+    }
+
+    return $filename;
+}
+
+function is_logged($cookie){
+    return isset($cookie['CIESDS']);
+}
+
+function is_login($post){
+    return isset($post['FORMCIESDS']);
+}
+
+if(is_logged($_COOKIE)){
+    $company = select_company_when_logged($_COOKIE);
+}elseif(is_login($_POST)){
+    $company = select_company_for_login($_COOKIE);
+}else{
+    $company = QC;
+}
+
+$class_sql_filename = get_sql_class_filename($company);
+include($class_sql_filename);
+$SQL = new SQLclass();
+
+
+
+
 if(isset($_COOKIE['IDEmploye']) AND !isset($_COOKIE['CIESDS'])){
 		setcookie('IDEmploye','',0);
 	DIE("Veuillez Rafraichir votre page");
 }
-	
-if((isset($_COOKIE['CIESDS']) AND $_COOKIE['CIESDS']=="QC") OR (isset($_POST['FORMCIESDS']) AND $_POST['FORMCIESDS']=="QC")){
-    include('mysql_class_qc.php');
-	$SQL = new SQLclass();
-}elseif((isset($_COOKIE['CIESDS']) AND $_COOKIE['CIESDS']=="MTL") OR (isset($_POST['FORMCIESDS']) AND $_POST['FORMCIESDS']=="MTL") ){
-	include('mysql_class_mtl.php');
-	$SQL = new SQLclass();
-}else{
-	include('mysql_class_qc.php');
-	$SQL = new SQLclass();
-}
-
-
 
 include('class_html.php');
 
