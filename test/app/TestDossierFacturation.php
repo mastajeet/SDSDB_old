@@ -83,7 +83,14 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, count($this->transaction_list));
     }
 
-    function test_whenGetTransactions_thenShiftFactureArePositiveDebit(){
-        $this->assertEquals(200*(1.095)*(1.05), $this->transaction_list[0]['debit'], 0,001);
+    function test_whenGetTransactions_thenGetTransactionInCorrectOrder(){
+        $old_value = new DateTime("@0");
+        foreach($this->transaction_list as $transaction){
+            $this->assertGreaterThanOrEqual($old_value, $transaction['date']);
+            $old_value = $transaction['date'];
+        }
     }
+
+
 }
+

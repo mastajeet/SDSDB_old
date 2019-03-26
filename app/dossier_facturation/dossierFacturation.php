@@ -142,22 +142,16 @@ class DossierFacturation
     function get_transaction(){
         $payments = $this->get_all_payments();
         $factures = $this->get_all_factures();
-
         $transactions = array();
-
-
         foreach($factures as $facture){
             if(!$facture->is_avance_client()){
                 $transactions[] = $facture->get_customer_transaction();
             }
         }
-
         foreach($payments as $payment){
             $transactions[] = $payment->get_customer_transaction();
         }
-
         usort($transactions, 'transaction_comparator');
-
         return $transactions;
     }
 
