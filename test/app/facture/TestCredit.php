@@ -18,5 +18,10 @@ class TestCredit extends PHPUnit_Framework_TestCase{
         $this->assertEquals($expected_notes, $transaction_details['notes']);
     }
 
+    function test_whenGetTransactions_thenCreditAreNegativeDebit(){
+        $credit = new Credit(3012); #Facture matériel
+        $this->assertEquals(-400*(1.095)*(1.05), $credit->get_customer_transaction()['debit'], 0,001);  // Première transaction (crédit)
+    }
+
 
 }

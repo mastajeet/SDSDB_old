@@ -54,4 +54,10 @@ class TestPayment extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($has_been_paid);
     }
+
+
+    function test_whenGetTransactions_thenPaymentArePositiveCredit(){
+        $payment = new Payment(104);
+        $this->assertEquals(114.98, $payment->get_customer_transaction()['credit'], 0,001);  // Derniere transaction (paiement)
+    }
 }

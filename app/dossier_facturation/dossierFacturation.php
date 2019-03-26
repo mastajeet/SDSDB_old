@@ -1,14 +1,17 @@
 <?php
+include_once('./app/facture/factureFactory.php');
 
 class DossierFacturation
 {
 
     const ID_PAYMENT = "IDPaiement";
     const ID_FACTURE = "IDFacture";
+    private $facture_factory;
 
     function __construct($cote, $year){
         $this->cote = $cote;
         $this->year = $year;
+        $this->facture_factory = new FactureFactory();
         $this->sql_connection = new SqlClass();
     }
 
@@ -104,7 +107,7 @@ class DossierFacturation
         $factures = [];
         while($facture_id_cursor = $this->sql_connection->FetchArray()){
             $id_facture  = $facture_id_cursor[self::ID_FACTURE];
-            $factures[$id_facture] = new Facture($id_facture);
+            $factures[$id_facture] = $this->facture_factory->create_typed_facture(new Facture($id_facture));
         }
 
         return $factures;
@@ -137,7 +140,27 @@ class DossierFacturation
     }
 
     function get_transaction(){
+        $payments = $this->get_all_payments();
+        $factures = $this->get_all_factures();
 
+        $transactions = array();
+
+
+        foreach($factures as $facture){
+            if(!$facture->is_avance_client()){
+                $transactions[] = $facture->get_customer_transaction();
+            }
+        }
+
+        foreach($payments as $payment){
+            $transactions[] = $payment->get_customer_transaction();
+        }
+
+        usort($transactions, 'transaction_comparator');
+
+        return $transactions;
     }
+
+
 }
 

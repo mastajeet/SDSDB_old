@@ -9,13 +9,15 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
 
     const UN_DOSSIER_FACTURATION = "TDF";
     const UNE_ANNEE_DE_FACTURATION = "2018";
-    var $dossier_facturation;
-
+    private $dossier_facturation;
+    private $transaction_list;
     /**
      * @before
      */
     function setup(){
-        $this->dossier_facturation = new DossierFacturation($this::UN_DOSSIER_FACTURATION, $this::UNE_ANNEE_DE_FACTURATION );
+        $facture_factory = new FactureFactory();
+        $this->dossier_facturation = new DossierFacturation($this::UN_DOSSIER_FACTURATION, $this::UNE_ANNEE_DE_FACTURATION);
+        $this->transaction_list = $this->dossier_facturation->get_transaction();
     }
 
     function test_givenCorrectCoteAndYear_whenGetAllTimeFactures_thenGetAllFactureForCoteAndYear(){
@@ -77,13 +79,11 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $avance_client, 0.001);
     }
 
-//    function test_whenGetTransactions_thenGetMergedFactureAndPaymentByDate(){
-//        $transaction_list = $this->dossier_facturation->get_transaction();
-//
-//        $this->assertEquals(15, array_count_values($transaction_list));
-//        $this->assertEquals(200, $transaction_list[0], 0,001);  // Première transaction
-//        $this->assertEquals(200, $transaction_list[14]->get_customer_transaction()->amount, 0,001);  // Derniere transaction
-//
-//    }
+    function test_whenGetTransactions_thenGetCorrectAmountOfTransaction(){
+        $this->assertEquals(15, count($this->transaction_list));
+    }
 
+    function test_whenGetTransactions_thenShiftFactureArePositiveDebit(){
+        $this->assertEquals(200*(1.095)*(1.05), $this->transaction_list[0]['debit'], 0,001);
+    }
 }

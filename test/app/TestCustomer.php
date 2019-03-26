@@ -1,6 +1,7 @@
 <?php
 
 include_once('app/customer.php');
+require_once('mysql_class_test.php');
 
 class TestCustomer extends PHPUnit_Framework_TestCase
 {

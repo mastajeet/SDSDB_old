@@ -74,7 +74,7 @@ class Payment extends BaseModel implements CustomerTransaction
     }
 
     function get_customer_transaction(){
-        return array("date"=>new DateTime("@".$this->EnDate),
+        return array("date"=>new DateTime("@".$this->Date),
             "notes"=>$this->Notes,
             "debit"=>0,
             "credit"=>$this->Montant);
