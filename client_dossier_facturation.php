@@ -49,15 +49,15 @@ $MainOutput->AddTexte(BILLED_TO,'Titre');
 		$MainOutput->br();
 		$MainOutput->AddTexte('Tel.: ','Titre');
         $telephone = $customer->Tel;
-		$MainOutput->AddTexte("(".substr($telephone[7],0,3).") ".substr($telephone[7],3,3)."-".substr($telephone[7],6,4));
-					if(strlen(substr($telephone[7],10,4))>1)
-						$MainOutput->AddTexte(" #".substr($telephone[7],10,4));
+		$MainOutput->AddTexte("(".substr($telephone,0,3).") ".substr($telephone,3,3)."-".substr($telephone,6,4));
+					if(strlen(substr($telephone,10,4))>1)
+						$MainOutput->AddTexte(" #".substr($telephone,10,4));
 		$MainOutput->br();
 		$MainOutput->AddTexte($customer->Adresse);
 		$MainOutput->br();
 			if($customer->Facturation=="E"){
 				$MainOutput->AddTexte('Email: ','Titre');
-				$MainOutput->AddTexte($customer->Email[4]);
+				$MainOutput->AddTexte($customer->Email);
 			}
 			if($customer->Facturation=="F"){
                 $fax = $customer->Fax;
