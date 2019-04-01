@@ -1,7 +1,7 @@
 <?php
 include_once('BaseModel.php');
 include_once('func_divers.php');
-
+include_once('app/responsable.php');
 include_once('facture/factureHebdomadaire.php');
 include_once('facture/factureMensuelle.php');
 
@@ -14,8 +14,8 @@ class Customer extends BaseModel
     public $FrequenceFacturation;
     public $time_service;
     public $facture_service;
-
-
+    public $RespF;
+    public $RespP;
     public $Nom;
     public $Cote;
     public $Adresse;
@@ -24,6 +24,8 @@ class Customer extends BaseModel
     public $Fax;
     public $Email;
 
+    public $responsables;
+
     function __construct($Arg = null)
     {
         parent::__construct($Arg);
@@ -31,7 +33,13 @@ class Customer extends BaseModel
         $notes = $variable->get_value('NoteFacture');
         $tps = $variable->get_value('TPS');
         $tvq = $variable->get_value('TVQ');
-
+        $this->responsables = array();
+        if($this->RespP<>""){
+            $this->responsables["responsable_piscine"] =new Responsable($this->RespP);
+        }
+        if($this->RespF<>""){
+            $this->responsables["responsable_facturation"] = new Responsable($this->RespF);
+        }
         $this->time_service = new TimeService();
         $this->facture_service = new FactureService($notes, $tps, $tvq);
     }
@@ -44,7 +52,8 @@ class Customer extends BaseModel
     static function define_data_types(){
         return array("IDCustomer"=>'ID',
             'timeService'=>'service',
-            'facture_service'=>'service'
+            'facture_service'=>'service',
+            'responsables' => 'has_many'
         );
     }
 
@@ -113,7 +122,6 @@ class Customer extends BaseModel
             $factures[] = $facture;
             }
         }
-
         return $factures;
     }
 }

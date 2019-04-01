@@ -2,10 +2,11 @@
 
 class Responsable extends BaseModel {
 
-    public $nom_complet;
+    public $full_name;
 
     public $Nom;
     public $Prenom;
+    public $Titre;
     public $IDResponsable;
 
     static function define_table_info(){
@@ -17,10 +18,9 @@ class Responsable extends BaseModel {
         return array("IDResponsable"=>'ID');
     }
 
-    function __construct($Arg = null)
-    {
+    function __construct($Arg = null){
         parent::__construct($Arg);
-        $this->nom_complet = $this->Nom." ".$this->Prenom;
+        $this->full_name = $this->Titre." ".$this->Prenom." ".$this->Nom;
     }
 
 

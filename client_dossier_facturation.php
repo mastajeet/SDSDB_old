@@ -45,7 +45,7 @@ $MainOutput->AddTexte(BILLED_TO,'Titre');
 		$MainOutput->AddTexte($customer->Nom);
 		$MainOutput->br();
 		$MainOutput->AddTexte('A/S: ','Titre');
-		$MainOutput->AddTexte("REPONSABLE FACTURATION");
+		$MainOutput->AddTexte($customer->responsables['responsable_facturation']->full_name);
 		$MainOutput->br();
 		$MainOutput->AddTexte('Tel.: ','Titre');
         $telephone = $customer->Tel;

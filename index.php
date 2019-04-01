@@ -126,7 +126,7 @@ include_once('app/facture/factureService.php');
 include_once('app/facture/avanceClient.php');
 include_once('app/Variable.php');
 include_once('app/employee.php');
-include_once('app/Responsable.php');
+include_once('app/responsable.php');
 include_once('app/Secteur.php');
 include_once('app/facture/factureFactory.php');
 include_once('app/dossier_facturation/dossierFacturation.php');
