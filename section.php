@@ -53,21 +53,26 @@ SWITCH($Section){
     CASE "Client_DossierFacturation":{
         $year = intval(date("Y"));
         $number_of_shown_transactions = 15;
-
         if(isset($_GET['year'])){
             $year = intval($_GET['year']);
         }
-
         if(isset($_GET['number_of_shown_transactions'])){
             $number_of_shown_transactions = $_GET['number_of_shown_transactions'];
         }
-
-
         if(!isset($_GET['Cote'])){
             $MainOutput->AddTexte(NO_SELECTED_COTE);
         }else{
             $cote = $_GET['Cote'];
-            include('client_dossier_facturation.php');
+
+            $dossier_facturation = new DossierFacturation($cote, $year);
+
+            $customer_balance = $dossier_facturation->get_balance_details();
+            $last_transactions =  $dossier_facturation->get_last_transactions($number_of_shown_transactions);
+            $shown_transactions = $last_transactions['transactions'];
+            $opening_balance = $last_transactions['opening_balance'];
+
+            $customer = Customer::find_customer_by_cote($cote);
+            include('view/dossier_facturation/display_account_statement.php');
         }
 
         BREAK;

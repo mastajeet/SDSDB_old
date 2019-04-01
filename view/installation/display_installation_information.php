@@ -2,7 +2,6 @@
 
     //$installation variable is passed by controller
 
-
     $Info = get_installation_info($installation->IDInstallation);
     $SQL = new sqlclass();
     
@@ -36,9 +35,6 @@
 
     $MainOutput->closecol();
     $MainOutput->closerow();
-
-
-
     $MainOutput->Openrow();
     $MainOutput->OpenCol('50%');
     $MainOutput->addoutput(format_responsable($installation->IDResponsable,'de la piscine',$installation->IDClient),0,0);

@@ -10,19 +10,16 @@ const BALANCE = "<b>Solde</b>";
 const DATE = "<b>Date</b>";
 const ANTERIOR_BALANCE = "<b>Solde Antérieur</b>";
 
-// Require year, cote and number_of_shown_transactions variables from controller
+// year, cote and number_of_shown_transactions variables from controller
+// $customer_balance, shown_transactions, opening_balance, customer are passed by controler
 
-
-
-$dossier_facturation = new DossierFacturation($cote, $year);
-$customer_balance = $dossier_facturation->get_balance_details();
-$customer = Customer::find_customer_by_cote($cote);
-$last_transactions = $dossier_facturation->get_last_transactions($number_of_shown_transactions);
 
 
 //Ramasser le solde annuel
 
-	
+$statement_generation_date = strftime(J_MMMM_YYYY,time());
+
+
 $MainOutput->OpenTable();
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('60%');
@@ -35,7 +32,7 @@ $MainOutput->OpenCol('60%');
 	$MainOutput->br();
 	$MainOutput->AddTexte('Cote: ','Titre');
 	$MainOutput->AddTexte($customer->Cote);
-	$MainOutput->br();	
+	$MainOutput->br();
 
 
 
@@ -63,7 +60,7 @@ $MainOutput->AddTexte(BILLED_TO,'Titre');
                 $fax = $customer->Fax;
 				$MainOutput->AddTexte("<b>Fax.</b>: (".substr($fax ,0,3).") ".substr($fax ,3,3)."-".substr($fax ,6,4));
             }
-	
+
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 $MainOutput->CloseTable();
@@ -71,7 +68,7 @@ $MainOutput->CloseTable();
 $MainOutput->OpenTable();
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%');
-    $MainOutput->AddTexte(EFFECTIVE_DATE .datetostr(time()));
+    $MainOutput->AddTexte(EFFECTIVE_DATE .$statement_generation_date);
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
@@ -79,14 +76,14 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%');
     $MainOutput->AddTexte(BALANCE_TO_RECOVER .number_format($customer_balance['balance'],2)." $");
 $MainOutput->CloseCol();
-$MainOutput->CloseRow();    
+$MainOutput->CloseRow();
 
 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%');
     $MainOutput->AddTexte("");
 $MainOutput->CloseCol();
-$MainOutput->CloseRow();    
+$MainOutput->CloseRow();
 $MainOutput->CloseTable();
 
 
@@ -112,8 +109,8 @@ $MainOutput->OpenCol('10%');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
-if($last_transactions['anterior_balance']>0){
-    
+if($opening_balance>0){
+
 
         $MainOutput->OpenRow();
     $MainOutput->OpenCol('',5);
@@ -133,7 +130,7 @@ if($last_transactions['anterior_balance']>0){
     $MainOutput->CloseCol();
 
     $MainOutput->OpenCol();
-        $MainOutput->AddTexte(number_format($last_transactions['anterior_balance'],2)." $");
+        $MainOutput->AddTexte(number_format($opening_balance,2)." $");
     $MainOutput->CloseCol();
 
     $MainOutput->CloseRow();
@@ -147,15 +144,15 @@ if($last_transactions['anterior_balance']>0){
 
 
     $MainOutput->CloseRow();
-    
+
 }
 
-foreach($last_transactions['transactions'] as $transaction){
-    
+foreach($shown_transactions as $transaction){
+
 
         $MainOutput->OpenRow();
     $MainOutput->OpenCol();
-        $MainOutput->AddTexte($transaction['date']->format("d M Y"));
+        $MainOutput->AddTexte(strftime(J_MMM_YY, $transaction['date']->getTimestamp()));
     $MainOutput->CloseCol();
     $MainOutput->OpenCol();
         $MainOutput->AddTexte($transaction['notes']);

@@ -5,15 +5,18 @@
 
     const AJOUTER_UNE_FACTURE = 'Ajouter une facture';
     const CREER = 'Creer';
-    const ALREADY_BILLED = 'La facture pour cette période est déjà faite ou rien n\'est à facturer';
-    const INCOMPLETE_PERIOD = 'Vous ne pouvez pas faire la facturation pour une période non complétée';
-    const HOLIDAY = " Journée Fériée";
-    const SECOND_LIFEGUARD = "Deuxième Sauveteur";
+    const ALREADY_BILLED = 'La facture pour cette pï¿½riode est dï¿½jï¿½ faite ou rien n\'est ï¿½ facturer';
+    const INCOMPLETE_PERIOD = 'Vous ne pouvez pas faire la facturation pour une pï¿½riode non complï¿½tï¿½e';
+    const HOLIDAY = " Journï¿½e Fï¿½riï¿½e";
+    const SECOND_LIFEGUARD = "Deuxiï¿½me Sauveteur";
     const FIRST_LIFEGUARD = "Sauveteur";
 
 
-    const NO_CLIENT_ASSOCIATED_WITH_COTE = "Aucun client n'est associe à la cote";
-    const MORE_THAN_ONE_BILL_HAS_BEEN_ADDED = "Plus d'une facture a été ajoutée";
+    const NO_CLIENT_ASSOCIATED_WITH_COTE = "Aucun client n'est associe ï¿½ la cote";
+    const MORE_THAN_ONE_BILL_HAS_BEEN_ADDED = "Plus d'une facture a ï¿½tï¿½ ajoutï¿½e";
 
     const INEXISTING_FACTURATION_FREQUENCE = "La frequence de facturation n'existe pas";
     const NO_CHANGE_OF_MONTH = "Aucun changement de mois arrive dans la semaine";
+
+    const J_MMMM_YYYY = "%e %B %Y";
+    const J_MMM_YY = "%e %b %g";

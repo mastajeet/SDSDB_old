@@ -82,6 +82,5 @@ class TimeService {
 
         return $converted_timestamp;
     }
-
 }
 

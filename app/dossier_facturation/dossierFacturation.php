@@ -180,9 +180,7 @@ class DossierFacturation
             }
         }
 
-        return ["anterior_balance"=>$anterior_balance, "transactions"=>$last_transactions];
+        return ["opening_balance"=>$anterior_balance, "transactions"=>$last_transactions];
     }
-
-
 }
 

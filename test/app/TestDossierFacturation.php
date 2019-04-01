@@ -93,7 +93,7 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
     function test_whenGetLastTransactions_thenGetLastNTransactionsAndAnteriorBalance(){
         $last_transactions = $this->dossier_facturation->get_last_transactions(self::A_NUMBER_OF_SHOWN_TRANSACTIONS);
 
-        $this->assertEquals(1766.1,$last_transactions['anterior_balance'],'',0.001);
+        $this->assertEquals(1766.1,$last_transactions['opening_balance'],'',0.001);
         $this->assertEquals(self::A_NUMBER_OF_SHOWN_TRANSACTIONS,count($last_transactions['transactions']));
     }
 
