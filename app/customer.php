@@ -17,7 +17,9 @@ class Customer extends BaseModel
 
 
     public $Nom;
+    public $Cote;
     public $Adresse;
+    public $Tel;
     public $Facturation;
     public $Fax;
     public $Email;

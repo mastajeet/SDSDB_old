@@ -152,7 +152,43 @@ class DossierFacturation
             $transactions[] = $payment->get_customer_transaction();
         }
         usort($transactions, 'transaction_comparator');
+
+        $this->add_balance_after_transaction($transactions);
+
         return $transactions;
+    }
+
+    private function add_balance_after_transaction(&$transaction_list){
+        $current_balance = 0;
+        foreach($transaction_list as &$transaction) {
+            $current_balance = $current_balance + $transaction['debit'] - $transaction['credit'];
+            $transaction['balance'] = $current_balance;
+        }
+    }
+
+    private function convert_timestamp_to_day_month_year(&$transaction_list){
+        foreach($transaction_list as &$transaction) {
+            $transaction['date'] = $transaction['date'];
+        }
+    }
+
+
+    function get_last_transactions($number_transaction_shown=15){
+        $transactions = $this->get_transaction();
+        $total_number_of_transaction = count($transactions);
+        $number_transaction_to_hide = max(0, $total_number_of_transaction-$number_transaction_shown);
+        $last_transactions = array();
+        $anterior_balance = 0;
+        for($transaction_index=0;$transaction_index<$total_number_of_transaction;$transaction_index++){
+            $transaction = $transactions[$transaction_index];
+            if($transaction_index < $number_transaction_to_hide){
+                $anterior_balance += $transaction['debit']-$transaction['credit'];
+            }else{
+                $last_transactions[] = $transaction;
+            }
+        }
+
+        return ["anterior_balance"=>$anterior_balance, "transactions"=>$last_transactions];
     }
 
 

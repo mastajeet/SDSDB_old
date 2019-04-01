@@ -51,7 +51,25 @@ SWITCH($Section){
 
 
     CASE "Client_DossierFacturation":{
-        include('client_dossier_facturation.php');
+        $year = intval(date("Y"));
+        $number_of_shown_transactions = 15;
+
+        if(isset($_GET['year'])){
+            $year = intval($_GET['year']);
+        }
+
+        if(isset($_GET['NB'])){
+            $number_of_shown_transactions = $_GET['NB'];
+        }
+
+
+        if(!isset($_GET['Cote'])){
+            $MainOutput->AddTexte(NO_SELECTED_COTE);
+        }else{
+            $cote = $_GET['Cote'];
+            include('client_dossier_facturation.php');
+        }
+
         BREAK;
     }
 

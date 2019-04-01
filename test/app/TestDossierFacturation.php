@@ -6,16 +6,15 @@ include_once('./app/payment/payment.php');
 
 class TestDossierFacturation extends PHPUnit_Framework_TestCase
 {
-
     const UN_DOSSIER_FACTURATION = "TDF";
     const UNE_ANNEE_DE_FACTURATION = "2018";
+    const A_NUMBER_OF_SHOWN_TRANSACTIONS = "5";
     private $dossier_facturation;
     private $transaction_list;
     /**
      * @before
      */
     function setup(){
-        $facture_factory = new FactureFactory();
         $this->dossier_facturation = new DossierFacturation($this::UN_DOSSIER_FACTURATION, $this::UNE_ANNEE_DE_FACTURATION);
         $this->transaction_list = $this->dossier_facturation->get_transaction();
     }
@@ -91,6 +90,15 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
         }
     }
 
+    function test_whenGetLastTransactions_thenGetLastNTransactionsAndAnteriorBalance(){
+        $last_transactions = $this->dossier_facturation->get_last_transactions(self::A_NUMBER_OF_SHOWN_TRANSACTIONS);
+
+        $this->assertEquals(1766.1,$last_transactions['anterior_balance'],'',0.001);
+        $this->assertEquals(self::A_NUMBER_OF_SHOWN_TRANSACTIONS,count($last_transactions['transactions']));
+    }
+
+    function test_whenGetTransaction_thenTransactionHaveBalance(){
+        $this->assertEquals(761.29, $this->transaction_list[14]['balance'],'',0.001);
+    }
 
 }
-
