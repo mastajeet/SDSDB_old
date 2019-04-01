@@ -81,7 +81,7 @@ function is_login($post){
 if(is_logged($_COOKIE)){
     $company = select_company_when_logged($_COOKIE);
 }elseif(is_login($_POST)){
-    $company = select_company_for_login($_COOKIE);
+    $company = select_company_for_login($_POST);
 }else{
     $company = QC;
 }
