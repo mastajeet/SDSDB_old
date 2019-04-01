@@ -80,7 +80,7 @@ while($Rep = $SQL->FetchArray()){
 
         $MainOutput->OpenRow('',$c);
         $MainOutput->OpenCol('75%',1,'top',$c);
-            $MainOutput->addlink('index.php?Section=Client_DossierFacturation&Cote='.$Rep['Cote'].'&ToPrint=TRUE&NB=15&',$Rep[1],"_BLANK");
+            $MainOutput->addlink('index.php?Section=Client_DossierFacturation&Cote='.$Rep['Cote'].'&ToPrint=TRUE&NB=15&Year='.$current_year,$Rep[1],"_BLANK");
         $MainOutput->CloseCol();
         $MainOutput->OpenCol('25%',1,'top',$c);
             $MainOutput->AddTexte(number_format($Balance,2)." $");
