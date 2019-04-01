@@ -58,8 +58,8 @@ SWITCH($Section){
             $year = intval($_GET['year']);
         }
 
-        if(isset($_GET['NB'])){
-            $number_of_shown_transactions = $_GET['NB'];
+        if(isset($_GET['number_of_shown_transactions'])){
+            $number_of_shown_transactions = $_GET['number_of_shown_transactions'];
         }
 
 
