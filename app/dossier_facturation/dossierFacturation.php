@@ -152,7 +152,6 @@ class DossierFacturation
             $transactions[] = $payment->get_customer_transaction();
         }
         usort($transactions, 'transaction_comparator');
-
         $this->add_balance_after_transaction($transactions);
 
         return $transactions;
@@ -165,13 +164,6 @@ class DossierFacturation
             $transaction['balance'] = $current_balance;
         }
     }
-
-    private function convert_timestamp_to_day_month_year(&$transaction_list){
-        foreach($transaction_list as &$transaction) {
-            $transaction['date'] = $transaction['date'];
-        }
-    }
-
 
     function get_last_transactions($number_transaction_shown=15){
         $transactions = $this->get_transaction();
