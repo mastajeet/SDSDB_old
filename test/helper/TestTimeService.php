@@ -9,6 +9,7 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
     const A_YEAR = "2018";
     const A_TIMESTAMP = "1529812800";
     const A_DATE_FORMAT = "d-m-Y";
+    const A_DATE_FORMAT_USING_LOCALE = "%e %b %g";
     const A_EQUIVALENT_TIMESTAMP_FORMAT = "24-06-2018";
 
     /**
@@ -151,6 +152,20 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
         $converted_datetime = $this->time_service->format_timestamp(self::A_TIMESTAMP, self::A_DATE_FORMAT);
 
         $this->assertEquals(self::A_EQUIVALENT_TIMESTAMP_FORMAT, $converted_datetime);
+    }
 
+    function test_givenTimestamp_whenGetWeekEndPoints_thenObtain2CorrectDate(){
+        $endpoints = $this->time_service->get_week_endpoints_from_timestamp(self::A_TIMESTAMP);
+
+        $this->assertEquals(24, $endpoints["start_of_week"]->format("d"));
+        $this->assertEquals(30, $endpoints["end_of_week"]->format("d"));
+    }
+
+    function test_givenDateTimeObject_whenFormatDateTimeUsingLocale_thenObtainStringUsingLocale(){
+        $datetime = new DateTime();
+        $datetime->setDate(2018,10,5);
+        $datetime_in_string = $this->time_service->convert_datetime_to_string_using_locale($datetime, self::A_DATE_FORMAT_USING_LOCALE);
+
+        $this->assertEquals(" 5 Oct 18", $datetime_in_string );
     }
 }

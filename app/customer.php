@@ -24,7 +24,23 @@ class Customer extends BaseModel
     public $Fax;
     public $Email;
 
+    public $dossier_facturation = null;
     public $responsables;
+
+    static function get_all_customer_with_oustanding_balance($year, $tolerance=0.10){
+        $sql = new SqlClass();
+        $select_customer_query = "SELECT IDClient FROM client ORDER BY Nom ASC";
+        $sql->select($select_customer_query);
+        $customers = Array();
+        while($customer_information = $sql->FetchAssoc()){
+            $current_customer = new Customer($customer_information['IDClient']);
+            if($current_customer->has_outstanding_balance($year, $tolerance)){
+                $customers[] = $current_customer;
+            }
+        }
+
+        return $customers;
+    }
 
     function __construct($Arg = null)
     {
@@ -34,10 +50,10 @@ class Customer extends BaseModel
         $tps = $variable->get_value('TPS');
         $tvq = $variable->get_value('TVQ');
         $this->responsables = array();
-        if($this->RespP<>""){
+        if($this->RespP<>"0"){
             $this->responsables["responsable_piscine"] =new Responsable($this->RespP);
         }
-        if($this->RespF<>""){
+        if($this->RespF<>"0"){
             $this->responsables["responsable_facturation"] = new Responsable($this->RespF);
         }
         $this->time_service = new TimeService();
@@ -53,7 +69,8 @@ class Customer extends BaseModel
         return array("IDCustomer"=>'ID',
             'timeService'=>'service',
             'facture_service'=>'service',
-            'responsables' => 'has_many'
+            'responsables' => 'has_many',
+            'dossier_facturation' => 'has_one'
         );
     }
 
@@ -73,6 +90,13 @@ class Customer extends BaseModel
         foreach ($facture->Factsheet as $factsheet){
             $factsheet->update_using_customer_ferie($this->Ferie);
         }
+    }
+
+    function has_outstanding_balance($year, $tolerance){
+        if(!isset($this->dossier_facturation)){
+            $this->get_dossier_facturation($year);
+        }
+        return $this->dossier_facturation->has_outstanding_balance($tolerance);
     }
 
     function get_installations(){
@@ -100,6 +124,10 @@ class Customer extends BaseModel
         }
 
         return $facture;
+    }
+
+    function get_dossier_facturation($year){
+        $this->dossier_facturation = new DossierFacturation($this->Cote, $year);
     }
 
     function generate_factures($Cote, $start_of_billable_time){

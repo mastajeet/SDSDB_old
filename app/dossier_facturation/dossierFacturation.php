@@ -41,6 +41,11 @@ class DossierFacturation
         return $this->sum_all_factures($factures_to_sum);
     }
 
+    function has_outstanding_balance($tolerance){
+        $balance = $this->get_balance_details();
+        return $balance['balance']>$tolerance;
+    }
+
     function get_balance_details(){
         $total_to_pay = $this->get_total_to_be_paid();
         $total_paid = $this->get_total_paid();

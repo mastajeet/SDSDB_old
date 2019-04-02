@@ -10,7 +10,8 @@ INSERT INTO `installation` (`IDInstallation`, `IDClient`, `IDResponsable`, `IDHo
 
 INSERT INTO `client` (`IDClient`, `Nom`, `Cote`, `Facturation`, `FrequenceFacturation`, `Email`, `Fax`, `Tel`, `Adresse`, `RespP`, `RespF`, `Notes`, `Actif`, `TXH`, `Ferie`, `Piece`, `Balance`, `Depot`, `DepotP`, `Password`, `NBAcces`) VALUES
 (1, 'Hôtels Jaro', '', 'E', 'H', 'payables@hotelsjaro.com;nhewitt@hotelsjaro.com ', '418', '4186585665', '', 33, 33, '', 1, 18.25, 1, 0, '0', 0, 0, 'mireille1', 40),
-(17, 'Raamco international properties canadian ltee.', 'RAA', 'F', 'M', 'vigmgr@raamco.ca', '4506468141', '4504686200', '2480 Roland Therrien #210, Longueuil, Qc J4L4G1', 0, 0, '19.05', 1, 19.05, 1.5, 0, '0', 0, 0, 'admin', 3);
+(17, 'Customer with Mensual Facture with outstanding Balance.', 'RMB', 'F', 'M', 'vigmgr@raamco.ca', '4506468141', '4504686200', '2480 Roland Therrien #210, Longueuil, Qc J4L4G1', 0, 0, '19.05', 1, 19.05, 1.5, 0, '0', 0, 0, 'admin', 3),
+(18, 'Customer with no outstanding balance.', 'RMN', 'F', 'M', 'vigmgr@raamco.ca', '4506468141', '4504686200', '2480 Roland Therrien #210, Longueuil, Qc J4L4G1', 0, 0, '19.05', 1, 19.05, 1.5, 0, '0', 0, 0, 'admin', 3);
 
 INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`, `STotal`, `Debit`, `Credit`, `Notes`, `Semaine`, `Paye`, `Utilise`, `EnDate`, `Materiel`, `AvanceClient`) VALUES
   (2256, 'PCV', 13, '', 0.05, 0.095, 3692.43, 1,0, '1st installment for lifeguard pool service contract', 1527393600, 1,0, 1527535405, 0, 0),
@@ -61,9 +62,9 @@ INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`
   (3010, 'TFF', 1, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 0), # Facture shift
   (3011, 'TFF', 2, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 1, 0), # Facture materiel
   (3012, 'TFF', 3, '', 0.05, 0.095, -400, 1,1, '', 1529812800, 0,0, 1530627972, 0, 0), # credit
-  (3013, 'TFF', 4, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 1); # avance client
+  (3013, 'TFF', 4, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 1), # avance client
 
-
+  (3014, 'RMB', 4, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 1); # Facture pour client avec outstading Balance
 
 INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `PayableYear`,`Notes`) VALUES
   (99 , 'TDF', 344.92, 1509220851,2017, ''),                 # date de 2017
@@ -87,10 +88,6 @@ INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `PayableYear`,`
   (112, 'TPS', 200,1530629972, 2018,'  Paye:~TPS-2~'),            # Placeholder pour le ID 110 (genere dans un test)
 
   (606, 'PCV', 3692.43, 1530645750, 2018,' Paye:~PCV-13~');
-
-
-
-
 
 INSERT INTO `employe` (`IDEmploye`, `Prenom`, `Nom`, `HName`, `NAS`, `Adresse`, `CodePostal`, `DateNaissance`, `DateEmbauche`, `IDSecteur`, `Ville`, `TelP`, `TelA`, `Cell`, `Paget`, `Email`, `Session`, `Status`, `Engage`, `Cessation`, `Notes`, `Raison`, `SalaireB`, `SalaireS`, `SalaireA`, `Ajustement`, `LastVisited`, `EAssistant`) VALUES
   (2, 'Julie', 'Fortin', 'Ju in the sky', '281302976', '4385, des Sarcelles', 'G1G4W5', 471848400, 993960000, '22', 'Québec', '4189973876', '', '4189973876', '418', 'julie.fortin.16@ulaval.ca', '', 'Bureau', 1, 0, 'SN expire: 12/2011', '', 11.4, 11.4, 10.9, 0, 1530129400, 0),

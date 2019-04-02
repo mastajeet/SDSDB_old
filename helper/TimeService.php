@@ -82,5 +82,20 @@ class TimeService {
 
         return $converted_timestamp;
     }
+
+    public function get_week_endpoints_from_timestamp($timestamp){
+        $datetime =  new DateTime("@".$timestamp);
+        $start_of_week = self::get_start_of_week($datetime);
+        $end_of_week = new DateTime("@".$timestamp);
+        $end_of_week->modify('+6 days');
+        $end_of_week->setTime(23,59,59);
+
+        return ["start_of_week"=>$start_of_week, "end_of_week"=>$end_of_week];
+    }
+
+    public function convert_datetime_to_string_using_locale($datetime, $format){
+        return strftime($format, $datetime->getTimestamp());
+
+    }
 }
 

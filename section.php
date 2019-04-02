@@ -50,7 +50,7 @@ SWITCH($Section){
     }
 
 
-    CASE "Client_DossierFacturation":{
+    CASE "DossierFacturation_DisplayAccountStatement":{
         $year = intval(date("Y"));
         $number_of_shown_transactions = 15;
         if(isset($_GET['year'])){
@@ -144,9 +144,29 @@ SWITCH($Section){
         BREAK;
     }
 
-    CASE "Rapport":{
-        include('facturation_rapport.php');
-        BREAK;
+    CASE "Facture_DisplayFacturationReport":{
+        $year_to_display = array();
+        $this_year = get_vars("Boniyear");
+        $last_year = $this_year-1;
+        $two_years_ago = $this_year-2;
+        $year_to_display[] = $this_year;
+        $year_to_display[] = $last_year;
+        $year_to_display[] = $two_years_ago;
+
+        $current_year = (isset($_GET['year']) ? $_GET['year'] : $this_year);
+
+        $customers_with_outstanding_balance = Customer::get_all_customer_with_oustanding_balance($current_year);
+        $customer_dtos = array();
+
+        $total_recevable = 0;
+        foreach($customers_with_outstanding_balance as $customer){
+            $solde = $customer->dossier_facturation->get_balance_details(); // je devrais mettre une mÈthode dans le customer qui pogne la balance detail
+            $customer_dtos[] = ["name"=>$customer->Nom, "cote"=>$customer->Cote, "balance"=>$solde['balance']];
+            $total_recevable += $solde['balance'];
+        }
+
+        include('display_facturation_report.php');
+    BREAK;
     }
 
     CASE "Add_Paye":{
@@ -433,7 +453,7 @@ SWITCH($Section){
     }
 
     DEFAULT:{
-        echo "Aucune Route de trac√©e pour la Requete GET : ".$Section;
+        echo NO_GET_ROUTE_FOUND.$Section;
     }
 
 }

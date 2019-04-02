@@ -9,6 +9,7 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
     const UN_DOSSIER_FACTURATION = "TDF";
     const UNE_ANNEE_DE_FACTURATION = "2018";
     const A_NUMBER_OF_SHOWN_TRANSACTIONS = "5";
+    const A_TOLERANCE = 0.10;
     private $dossier_facturation;
     private $transaction_list;
     /**
@@ -99,6 +100,10 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
 
     function test_whenGetTransaction_thenTransactionHaveBalance(){
         $this->assertEquals(761.29, $this->transaction_list[14]['balance'],'',0.001);
+    }
+
+    function test_givenDossierFacturationWithOutstandingBalance_whenHasOutstandingBalance_thenReturnTrue(){
+        $this->assertTrue($this->dossier_facturation->has_outstanding_balance(self::A_TOLERANCE));
     }
 
 }

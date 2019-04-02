@@ -113,8 +113,8 @@ if(isset($_GET['MenuCat'])){
 
 
 
-    if($Categorie=="Rapport")
-        $Section = "Rapport";
+    if($Categorie=="Facture_DisplayFacturationReport")
+        $Section = "Facture_DisplayFacturationReport";
     if($Categorie=="Vars")
         $Section = "Vars";
     if($Categorie=="SuperAdmin")
@@ -655,7 +655,7 @@ $MainOutput->CloseRow();
     $MainOutput->AddPic('f_cat.png');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',3);
-    $MainOutput->AddLink('index.php?MenuCat=Rapport&ToPrint=TRUE', BILLING_DETAILS,'_BLANK');
+    $MainOutput->AddLink('index.php?MenuCat=Facture_DisplayFacturationReport&ToPrint=TRUE', BILLING_DETAILS,'_BLANK');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
