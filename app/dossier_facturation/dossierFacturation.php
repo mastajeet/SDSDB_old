@@ -43,7 +43,7 @@ class DossierFacturation
 
     function has_outstanding_balance($tolerance){
         $balance = $this->get_balance_details();
-        return $balance['balance']>$tolerance;
+        return abs($balance['balance'])>$tolerance;
     }
 
     function get_balance_details(){

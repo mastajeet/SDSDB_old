@@ -8,6 +8,7 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
 {
     const UN_DOSSIER_FACTURATION = "TDF";
     const UNE_ANNEE_DE_FACTURATION = "2018";
+    const UNE_ANNEE_DE_FACTURATION_AVEC_SOLDE_NEGATIF = "2017";
     const A_NUMBER_OF_SHOWN_TRANSACTIONS = "5";
     const A_TOLERANCE = 0.10;
     private $dossier_facturation;
@@ -104,6 +105,13 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
 
     function test_givenDossierFacturationWithOutstandingBalance_whenHasOutstandingBalance_thenReturnTrue(){
         $this->assertTrue($this->dossier_facturation->has_outstanding_balance(self::A_TOLERANCE));
+    }
+
+
+    function test_givenDossierFacturationWithNegativeOutstandingBalance_whenHasOutstandingBalance_thenReturnTrue(){
+        $dossier_facturation = new DossierFacturation($this::UN_DOSSIER_FACTURATION, $this::UNE_ANNEE_DE_FACTURATION_AVEC_SOLDE_NEGATIF);
+
+        $this->assertTrue($dossier_facturation->has_outstanding_balance(self::A_TOLERANCE));
     }
 
 }
