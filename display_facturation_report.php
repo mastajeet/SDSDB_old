@@ -48,7 +48,7 @@ $MainOutput->CloseRow();
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 foreach(array_reverse($year_to_display) as $year){
-    $MainOutput->addlink('index.php?MenuCat=Facture_DisplayFacturationReport&ToPrint=TRUE&Year='.$year, $year);
+    $MainOutput->addlink('index.php?MenuCat=Facture_DisplayFacturationReport&ToPrint=TRUE&year='.$year, $year);
     $MainOutput->AddTexte(' |');
 }
 $MainOutput->CloseCol();
