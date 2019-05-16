@@ -1,5 +1,5 @@
 <?PHP
-const FROM_TO = "&nbsp;à&nbsp;";
+const FROM_TO = "&nbsp;ï¿½&nbsp;";
 $MainOutput->OpenTable();
 if(!isset($_GET['ToPrint'])){
 	$_GET['ToPrint']=False;
@@ -98,8 +98,7 @@ $MainOutput->CloseRow();
 					
 					$TStart = 60*($Start['i']+60*$Start['G']);
 					$TEnd = 60*($End['i']+60*$End['G']);
-	
-					if($TStart<$OldTEnd){
+					if($v['Assistant']){
 					$MainOutput->opentable();
 					$MainOutput->openrow();
 					$MainOutput->opencol();
