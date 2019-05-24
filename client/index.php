@@ -9,13 +9,17 @@ if(isset($_COOKIE['CIE'])){
 		include('../mysql_class_qc.php');
 	if($_COOKIE['CIE']=="MTL")
 		include('../mysql_class_mtl.php');
-		
-	$SQL =  new sqlclass();
+    if($_COOKIE['CIE']=="TR")
+        include('../mysql_class_tr.php');
+
+    $SQL =  new sqlclass();
 }elseif(isset($_POST['FORMCIE'])){
 	if($_POST['FORMCIE']=="QC")
 		include('../mysql_class_qc.php');
-	if($_POST['FORMCIE']=="MTL")
-		include('../mysql_class_mtl.php');
+    if($_POST['FORMCIE']=="MTL")
+        include('../mysql_class_mtl.php');
+    if($_POST['FORMCIE']=="TR")
+        include('../mysql_class_tr.php');
 		
 	$SQL =  new sqlclass();
 }
@@ -42,7 +46,7 @@ if(isset($_COOKIE['IDClient']))
 
 <html>
 <head>
-	<title>Logiciel de gestion Service de sauveteurs - Accès client</title>
+	<title>Logiciel de gestion Service de sauveteurs - Accï¿½s client</title>
 	<link rel="STYLESHEET" type="text/css" href="../horaire.css">
 	<link rel="STYLESHEET" type="text/css" href="../style.css">
 </head>
