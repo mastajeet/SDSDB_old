@@ -1,4 +1,5 @@
-<?PHP 
+<?PHP
+ini_set("default_charset", "iso-8859-1");
 include('../func_date.php');
 include('functions.php');
 include('../class_html.php');
