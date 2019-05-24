@@ -46,7 +46,7 @@ if(isset($_COOKIE['IDClient']))
 
 <html>
 <head>
-	<title>Logiciel de gestion Service de sauveteurs - Accï¿½s client</title>
+	<title>Logiciel de gestion Service de sauveteurs - Accès client</title>
 	<link rel="STYLESHEET" type="text/css" href="../horaire.css">
 	<link rel="STYLESHEET" type="text/css" href="../style.css">
 </head>
