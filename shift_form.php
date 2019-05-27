@@ -37,7 +37,11 @@ $MainOutput->inputtime('End','Fin',$Info['End']);
 $MainOutput->flag('Assistant',$Info['Assistant']);
 
 
-$Req = "select employe.IDEmploye, employe.Nom, employe.Prenom, qualification.Qualification FROM employe JOIN (select IDEmploye, Max(IDQualification) as max_qualif from link_employe_qualification WHERE UNIX_TIMESTAMP(NOW()) < link_employe_qualification.Expiration and link_employe_qualification.IDQualification IN (2,3) GROUP BY IDEmploye) maximum_effective_qualification on employe.IDEmploye = maximum_effective_qualification.IDEmploye JOIN qualification on qualification.IDQualification = maximum_effective_qualification.max_qualif WHERE !Cessation ".$WhereVacances." ORDER BY Nom ASC, Prenom ASC";
+# qualification id : 2=cbro,3=sn,10=caisser
+# 10 caissier a été ajouté pour TR
+# Il doit avoir un 60h à mettre pour gérer la logique des shift, et des staffs.
+
+$Req = "select employe.IDEmploye, employe.Nom, employe.Prenom, qualification.Qualification FROM employe JOIN (select IDEmploye, Max(IDQualification) as max_qualif from link_employe_qualification WHERE UNIX_TIMESTAMP(NOW()) < link_employe_qualification.Expiration and link_employe_qualification.IDQualification IN (2,3,10) GROUP BY IDEmploye) maximum_effective_qualification on employe.IDEmploye = maximum_effective_qualification.IDEmploye JOIN qualification on qualification.IDQualification = maximum_effective_qualification.max_qualif WHERE !Cessation ".$WhereVacances." ORDER BY Nom ASC, Prenom ASC";
 $MainOutput->inputselect('IDEmploye',$Req,$Info['IDEmploye'],'Sauveteur');
 
 $MainOutput->inputtext('Salaire','Salaire',4,$Info['Salaire']);
