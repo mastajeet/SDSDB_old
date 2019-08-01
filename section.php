@@ -160,8 +160,11 @@ SWITCH($Section){
 
         $total_recevable = 0;
         foreach($customers_with_outstanding_balance as $customer){
-            $solde = $customer->dossier_facturation->get_balance_details(); // je devrais mettre une méthode dans le customer qui pogne la balance detail
-            $customer_dtos[] = ["name"=>$customer->Nom, "cote"=>$customer->Cote, "balance"=>$solde['balance']];
+            $solde = 0;
+            foreach($customer->dossier_facturation as $dossier_facturation){
+                $solde += $dossier_facturation->get_balance_details()["balance"]; // je devrais mettre une méthode dans le customer qui pogne la balance detail
+            }
+            $customer_dtos[] = ["name"=>$customer->Nom, "cote"=>$customer->Cote, "balance"=>$solde];
             $total_recevable += $solde['balance'];
         }
 
@@ -336,6 +339,39 @@ SWITCH($Section){
         BREAK;
     }
 
+
+
+
+    CASE "Generate_FreeEmployeelist":{
+        function get_last_sessions($number_of_session=3, $sql_class){
+            $session_list_query = "SELECT IDSession FROM session ORDER BY IDSession desc limit 0,".$number_of_session;
+            $sql_class->select($session_list_query);
+
+            $output = array();
+            while($row = $sql_class->FetchArray()){
+                $output[$row] = $row['IDSession'];
+            }
+
+            return($output);
+        }
+
+
+        function generate_free_employee_list($datetime, $sql_class){
+            $session_list = get_last_sessions($sql_class);
+            $session_list_for_mysql = join(",", $session_list);
+
+            $employee_query  = "SELECT * FROM employee WHERE IDSession in (".$session_list_for_mysql.") ";
+
+        }
+
+        if(isset($_POST['FORMDate3'])){
+            $request_date = $time_service->get_date_timestamp($_POST['FORMDate5'],$_POST['FORMDate3'],$_POST['FORMDate3']);
+
+        }
+
+        include('generate_free_employee_list.php');
+        BREAK;
+    }
 
     CASE "Responsable_Form":{
         include('responsable_form.php');
