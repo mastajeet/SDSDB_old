@@ -1,5 +1,5 @@
-docker exec -i mysql-test-sdsdb mysql -uroot -plolk1234 < drop_test_db.sql
-docker exec -i mysql-test-sdsdb mysql -uroot -plolk1234 < create_test_db.sql
-docker exec -i mysql-test-sdsdb mysql -uroot -plolk1234 < create_initial_tables.sql
-docker exec -i mysql-test-sdsdb mysql -uroot -plolk1234 < create_initial_values.sql
+docker exec -i test_env_mysql-test-sdsdb_1 mysql -uroot -plolk1234 < init_test/00_drop_test_db.sql
+docker exec -i test_env_mysql-test-sdsdb_1 mysql -uroot -plolk1234 < init_test/01_create_test_db.sql
+docker exec -i test_env_mysql-test-sdsdb_1 mysql -uroot -plolk1234 < init_test/02_create_initial_tables.sql
+docker exec -i test_env_mysql-test-sdsdb_1 mysql -uroot -plolk1234 < init_test/03_create_initial_values.sql
 

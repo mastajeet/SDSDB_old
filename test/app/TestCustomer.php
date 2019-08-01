@@ -10,6 +10,9 @@ class TestCustomer extends PHPUnit_Framework_TestCase
     private $A_YEAR = 2018;
     private $A_TOLERANCE = 0.1;
 
+    private $A_CUSTOMER_ID_WITH_3_INSTALLATION_3_COTES = "60";
+    private $A_CUSTOMER_ID_WITH_3_INSTALLATION_2_COTES = "65";
+
     /**
      * @before
      */
@@ -42,5 +45,19 @@ class TestCustomer extends PHPUnit_Framework_TestCase
         $customer_with_outstanding_balance = new Customer(18);
 
         $this->assertFalse($customer_with_outstanding_balance->has_outstanding_balance($this->A_YEAR, $this->A_TOLERANCE));
+    }
+
+    function test_givenCustomerWith3InstallationWith3DifferentCote_whenGetDossierFacturation_thenGet3Dossier(){
+        $customer_with_3_installations_3_cotes = new Customer($this->A_CUSTOMER_ID_WITH_3_INSTALLATION_3_COTES);
+        $customer_with_3_installations_3_cotes->get_dossiers_facturation($this->A_YEAR);
+
+        $this->assertEquals(3, count($customer_with_3_installations_3_cotes->dossier_facturation));
+    }
+
+    function test_givenCustomerWith3InstallationWith2DifferentCote_whenGetDossierFacturation_thenGet2Dossier(){
+        $customer_with_3_installations_3_cotes = new Customer($this->A_CUSTOMER_ID_WITH_3_INSTALLATION_2_COTES);
+        $customer_with_3_installations_3_cotes->get_dossiers_facturation($this->A_YEAR);
+
+        $this->assertEquals(2, count($customer_with_3_installations_3_cotes->dossier_facturation));
     }
 }

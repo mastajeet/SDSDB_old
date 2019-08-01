@@ -62,6 +62,19 @@ class Installation extends BaseModel
         return $Installations;
     }
 
+    static function get_installation_by_customer_cote($customer_cote){
+        $SQL = new sqlclass;
+        $Req = "SELECT installation.IDInstallation from installation JOIN client on client.IDClient = installation.IDClient WHERE client.Cote='".$customer_cote."' ORDER BY installation.Cote ASC ";
+        $SQL->select($Req);
+        $Installations = array();
+        while($installation_results_set = $SQL->FetchArray()){
+            $Installations[] = new Installation($installation_results_set['IDInstallation']);
+        }
+        $SQL->CloseConnection();
+
+        return $Installations;
+    }
+
 
     static function get_installations_to_bill_for_semaine($cote, $semaine){
         #Sans joke c'est vraiment a chier comme facon de checker si ya des shift 'a biller....

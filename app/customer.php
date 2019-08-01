@@ -94,9 +94,15 @@ class Customer extends BaseModel
 
     function has_outstanding_balance($year, $tolerance){
         if(!isset($this->dossier_facturation)){
-            $this->get_dossier_facturation($year);
+            $this->get_dossiers_facturation($year);
         }
-        return $this->dossier_facturation->has_outstanding_balance($tolerance);
+
+        foreach($this->dossier_facturation as $dossier_facturation){
+            if($dossier_facturation->has_outstanding_balance($tolerance)){
+                return true;
+            }
+        }
+        return false;
     }
 
     function get_installations(){
@@ -126,8 +132,14 @@ class Customer extends BaseModel
         return $facture;
     }
 
-    function get_dossier_facturation($year){
-        $this->dossier_facturation = new DossierFacturation($this->Cote, $year);
+    function get_dossiers_facturation($year){
+        $installations = Installation::get_installation_by_customer_cote($this->Cote);
+        $this->dossier_facturation = array();
+        foreach ($installations as $installation){
+            if(!in_array($installation->Cote, $this->dossier_facturation) ){
+                $this->dossier_facturation[$installation->Cote] = new DossierFacturation($installation->Cote, $year);
+            }
+        }
     }
 
     function generate_factures($Cote, $start_of_billable_time){
