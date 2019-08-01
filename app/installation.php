@@ -44,7 +44,6 @@ class Installation extends BaseModel
       while($Rep = $SQL->FetchArray()){
           $Installation[$Rep[0]] = get_installation_by_cote_in_string($Rep[0]);
       }
-      $SQL->CloseConnection();
 
       return $Installation;
     }
@@ -57,7 +56,6 @@ class Installation extends BaseModel
         while($installation_results_set = $SQL->FetchArray()){
             $Installations[] = new Installation($installation_results_set['IDInstallation']);
         }
-        $SQL->CloseConnection();
 
         return $Installations;
     }
@@ -70,7 +68,6 @@ class Installation extends BaseModel
         while($installation_results_set = $SQL->FetchArray()){
             $Installations[] = new Installation($installation_results_set['IDInstallation']);
         }
-        $SQL->CloseConnection();
 
         return $Installations;
     }
@@ -88,7 +85,6 @@ class Installation extends BaseModel
         while($installation_results_set = $SQL->FetchArray()){
             $Installations[] = new Installation($installation_results_set['IDInstallation']);
         }
-        $SQL->CloseConnection();
 
         return $Installations;
     }
