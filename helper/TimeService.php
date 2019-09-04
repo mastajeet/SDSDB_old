@@ -9,10 +9,16 @@ class TimeService {
         return($truncated_datetime->getTimestamp());
     }
 
-    public function get_date_timestamp($month, $day, $year){
+    public function get_datetime($month, $day, $year){
         $now = new DateTime();
-        $correct_date = $now->setDate($year,$month,$day);
-        $correct_date_and_time = $correct_date->setTime(0,0,0);
+        $correct_date = $now->setDate($year, $month, $day);
+        $correct_date_and_time = $correct_date->setTime(0, 0, 0);
+
+        return ($correct_date_and_time);
+    }
+
+    public function get_date_timestamp($month, $day, $year){
+        $correct_date_and_time= TimeService::get_datetime($month, $day, $year);
 
         return($correct_date_and_time->getTimestamp());
     }

@@ -103,8 +103,8 @@ INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `PayableYear`,`
   (606, 'PCV', 3692.43, 1530645750, 2018,' Paye:~PCV-13~');
 
 INSERT INTO `employe` (`IDEmploye`, `Prenom`, `Nom`, `HName`, `NAS`, `Adresse`, `CodePostal`, `DateNaissance`, `DateEmbauche`, `IDSecteur`, `Ville`, `TelP`, `TelA`, `Cell`, `Paget`, `Email`, `Session`, `Status`, `Engage`, `Cessation`, `Notes`, `Raison`, `SalaireB`, `SalaireS`, `SalaireA`, `Ajustement`, `LastVisited`, `EAssistant`) VALUES
-  (2, 'Julie', 'Fortin', 'Ju in the sky', '281302976', '4385, des Sarcelles', 'G1G4W5', 471848400, 993960000, '22', 'Québec', '4189973876', '', '4189973876', '418', 'julie.fortin.16@ulaval.ca', '', 'Bureau', 1, 0, 'SN expire: 12/2011', '', 11.4, 11.4, 10.9, 0, 1530129400, 0),
-  (90, 'Jean-Thomas', 'Baillargeon', 'JT', '281659714', '3305, boul Hawey', 'G1E1N8', 510987600, 1051761600, '1', 'Québec', '4186601934', '418', '418', '418', 'jtbaillargeon@hotmail.com', '', 'Temps plein', 1, 0, '', '', 12, 14.3, 13.7, 0, 1331060074, 0);
+  (2, 'Julie', 'Fortin', 'Ju in the sky', '281302976', '4385, des Sarcelles', 'G1G4W5', 471848400, 993960000, '22', 'Québec', '4189973876', '', '4189973876', '418', 'julie.fortin.16@ulaval.ca', 'E11', 'Bureau', 1, 0, 'SN expire: 12/2011', '', 11.4, 11.4, 10.9, 0, 1530129400, 0),
+  (90, 'Jean-Thomas', 'Baillargeon', 'JT', '281659714', '3305, boul Hawey', 'G1E1N8', 510987600, 1051761600, '1', 'Québec', '4186601934', '418', '418', '418', 'jtbaillargeon@hotmail.com', 'E11', 'Temps plein', 1, 0, '', '', 12, 14.3, 13.7, 0, 1331060074, 0);
 
 INSERT INTO `shift` (`IDShift`, `IDInstallation`, `IDEmploye`, `TXH`, `Salaire`, `Start`, `End`, `Jour`, `Semaine`, `Assistant`, `Commentaire`, `Warn`, `Confirme`, `Empconf`, `Facture`, `Paye`, `Message`) VALUES
   (1337, 21, 2, 16.75, 0, 34200, 75600, 0, 1497153600, 0, '', '', 1, 1, 1, 0, 'Vers 14h30, il est important de contacter le chef réceptionniste avant de confirmer l\\\'heure de fin.  Si tu termines bien à 15h, tu n\\\'auras techniquement pas à faire de démontage.');

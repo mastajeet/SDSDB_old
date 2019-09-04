@@ -15,6 +15,11 @@ class Employee extends BaseModel
         return array("IDEmploye"=>'ID');
     }
 
+    static function get_employee_list_for_session($session){
+        $employee_list_query = "SELECT IDEmploye from employe where session = '{$session}'";
+        return BaseModel::find($employee_list_query, Employee::class);
+    }
+
     public function initials(){
         $Initiales = "";
 
