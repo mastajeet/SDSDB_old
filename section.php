@@ -165,7 +165,7 @@ SWITCH($Section){
                 $solde += $dossier_facturation->get_balance_details()["balance"]; // je devrais mettre une méthode dans le customer qui pogne la balance detail
             }
             $customer_dtos[] = ["name"=>$customer->Nom, "cote"=>$customer->Cote, "balance"=>$solde];
-            $total_recevable += $solde['balance'];
+            $total_recevable += $solde;
         }
 
         include('display_facturation_report.php');

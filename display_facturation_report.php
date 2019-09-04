@@ -62,7 +62,7 @@ foreach($customer_dtos as $customer_dto){
     $MainOutput->addlink('index.php?Section=DossierFacturation_DisplayAccountStatement&Cote='.$customer_dto['cote'].'&ToPrint=TRUE&number_of_shown_transactions=15&year='.$current_year,$customer_dto['name'],"_BLANK");
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('25%',1,'top',$row_display_class);
-    $MainOutput->AddTexte(number_format($customer_dto['balance'],2)." $");
+    $MainOutput->AddTexte(number_format($customer_dto['balance'],2,"."," ")." $");
     $MainOutput->CloseCol();
 }
 
@@ -75,7 +75,7 @@ $MainOutput->CloseRow();
 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
-$MainOutput->AddTexte('Total: '.round($total_recevable ,2)." $",'Titre');
+$MainOutput->AddTexte('Total: '.number_format(round($total_recevable ,2),2,"."," ")." $",'Titre');
 $MainOutput->Closecol();
 $MainOutput->CloseRow();
 
