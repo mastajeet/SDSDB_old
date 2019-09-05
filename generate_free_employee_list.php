@@ -1,6 +1,6 @@
 <?php
 
-const GET_FREE_EMPLOYEE_LIST = "Liste d'employÃ©s disponibles";
+const GET_FREE_EMPLOYEE_LIST = "Liste d'employés disponibles";
 
 
 $MainOutput->addtexte(GET_FREE_EMPLOYEE_LIST, 'titre');
