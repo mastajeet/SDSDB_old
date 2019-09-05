@@ -344,19 +344,8 @@ SWITCH($Section){
 
     CASE "generate_free_employees":{
         $horaire_factory = new HoraireFactory($time_service, new SqlClass());
-        function get_last_sessions($sql_class){
-            $session_list_query = "SELECT Saison, Annee FROM saison ORDER BY IDSaison desc limit 0,1";
-            $sql_class->select($session_list_query);
 
-            $output = array();
-            while($row = $sql_class->FetchArray()){
-                $session_id = $row['Saison'].$row['Annee'];
-            }
-
-            return $session_id;
-        }
-
-        $last_session = get_last_sessions(new SqlClass());
+        $last_session = $variable->get_value('Saison');
         $employee_list = Employee::get_employee_list_for_session($last_session);
         $semaine = $_GET['Semaine'];
         $day = $_GET['Day'];
