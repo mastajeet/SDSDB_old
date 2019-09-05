@@ -5,6 +5,8 @@ class Employee extends BaseModel
 
     public $Prenom;
     public $Nom;
+    public $TelP;
+    public $Cell;
 
     static function define_table_info(){
         return array("model_table" => "employe",

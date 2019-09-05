@@ -124,6 +124,8 @@ include_once('app/customer.php');
 include_once('app/facture/facture.php');
 include_once('app/facture/factureService.php');
 include_once('app/facture/avanceClient.php');
+include_once('app/horaire/horaire.php');
+include_once('app/horaire/horaireFactory.php');
 include_once('app/Variable.php');
 include_once('app/employee.php');
 include_once('app/responsable.php');

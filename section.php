@@ -342,33 +342,29 @@ SWITCH($Section){
 
 
 
-    CASE "Generate_FreeEmployeelist":{
-        function get_last_sessions($number_of_session=3, $sql_class){
-            $session_list_query = "SELECT IDSession FROM session ORDER BY IDSession desc limit 0,".$number_of_session;
+    CASE "generate_free_employees":{
+        $horaire_factory = new HoraireFactory($time_service, new SqlClass());
+        function get_last_sessions($sql_class){
+            $session_list_query = "SELECT Saison, Annee FROM saison ORDER BY IDSaison desc limit 0,1";
             $sql_class->select($session_list_query);
 
             $output = array();
             while($row = $sql_class->FetchArray()){
-                $output[$row] = $row['IDSession'];
+                $session_id = $row['Saison'].$row['Annee'];
             }
 
-            return($output);
+            return $session_id;
         }
 
+        $last_session = get_last_sessions(new SqlClass());
+        $employee_list = Employee::get_employee_list_for_session($last_session);
+        $semaine = $_GET['Semaine'];
+        $day = $_GET['Day'];
 
-        function generate_free_employee_list($datetime, $sql_class){
-            $session_list = get_last_sessions($sql_class);
-            $session_list_for_mysql = join(",", $session_list);
+        $day_to_generate = $time_service->get_datetime_from_semaine_and_day(new DateTime("@".$semaine), $day);
+        $horaire = $horaire_factory->generate_horaire_for_one_day($day_to_generate);
 
-            $employee_query  = "SELECT * FROM employee WHERE IDSession in (".$session_list_for_mysql.") ";
-
-        }
-
-        if(isset($_POST['FORMDate3'])){
-            $request_date = $time_service->get_date_timestamp($_POST['FORMDate5'],$_POST['FORMDate3'],$_POST['FORMDate3']);
-
-        }
-
+        $free_employees = $horaire->get_free_employees($employee_list);
         include('generate_free_employee_list.php');
         BREAK;
     }
@@ -495,3 +491,4 @@ SWITCH($Section){
 }
 
 ?>
+

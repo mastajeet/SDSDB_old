@@ -11,7 +11,7 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
     const A_DATE_FORMAT = "d-m-Y";
     const A_DATE_FORMAT_USING_LOCALE = "%e %b %g";
     const A_EQUIVALENT_TIMESTAMP_FORMAT = "24-06-2018";
-
+    const A_DAY_OF_WEEK = 2;
     /**
      * @before
      */
@@ -167,5 +167,11 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
         $datetime_in_string = $this->time_service->convert_datetime_to_string_using_locale($datetime, self::A_DATE_FORMAT_USING_LOCALE);
 
         $this->assertEquals(" 5 Oct 18", $datetime_in_string );
+    }
+
+    function test_givenWeekAndDay_whenGetDateTimeFromSemaineAndDay_thenGetCorrectDateTimeObject(){
+        $day_datetime = $this->time_service->get_datetime_from_semaine_and_day(new DateTime("@".self::A_TIMESTAMP),self::A_DAY_OF_WEEK);
+
+        $this->assertEquals(self::A_DAY_OF_WEEK, intval($day_datetime->format("w")));
     }
 }

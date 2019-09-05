@@ -9,6 +9,12 @@ class TimeService {
         return($truncated_datetime->getTimestamp());
     }
 
+    public function get_datetime_from_semaine_and_day($datetime, $day){
+        $day_datetime = $datetime->add(new DateInterval("P{$day}D"));
+
+        return $day_datetime;
+    }
+
     public function get_datetime($month, $day, $year){
         $now = new DateTime();
         $correct_date = $now->setDate($year, $month, $day);

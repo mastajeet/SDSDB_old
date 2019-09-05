@@ -43,7 +43,7 @@ if(!$_GET['ToPrint']){
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('450',3);
 	$MainOutput->addoutput('<div align=left>',0,0);
-	$MainOutput->AddLink('index.php?Section=Display_Shit&Semaine='.get_last_sunday(1,$_GET['Semaine']),'Semaine précédente');
+	$MainOutput->AddLink('index.php?Section=Display_Shit&Semaine='.get_last_sunday(1,$_GET['Semaine']),'Semaine prÃ©cÃ©dente');
 	$MainOutput->addoutput('</div>',0,0);
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('450',3);
@@ -75,13 +75,15 @@ $MainOutput->AddTexte('&nbsp;');
 $MainOutput->CloseCol();
 $MDay = array();
 $CJour = array(0=>'Dimanche',1=>'Lundi',2=>'Mardi',3=>'Mercredi',4=>'Jeudi',5=>'Vendredi',6=>'Samedi');
+
 $CurrentDate = $_GET['Semaine'];
+$current_semaine = $_GET['Semaine'];
 for($d=0;$d<=6;$d++){
 	$MainOutput->opencol(115);
-	$MainOutput->addtexte("<div align=center>".$CJour[$d]."</div>", 'Titre');
+	$MainOutput->addtexte("<a href='index.php?Section=generate_free_employees&Semaine={$current_semaine}&Day={$d}' target='_blank'><div align=center>".$CJour[$d]."</div>", 'Titre');
 	$Date = get_date($CurrentDate);
-	$CurrentDate += get_day_length($CurrentDate); 
-	$MainOutput->addtexte("<div align=center>".$Date['d']."-".$Month[intval($Date['m'])]."</div>", 'Titre');
+	$CurrentDate += get_day_length($CurrentDate);
+	$MainOutput->addtexte("<div align=center>".$Date['d']."-".$Month[intval($Date['m'])]."</div></a>", 'Titre');
 	$MDay[$d] = $Date['d']."-".$Month[intval($Date['m'])];
 	$MainOutput->closecol();
 }
@@ -126,7 +128,7 @@ while($Rep = $SQL->FetchArray()){
 			$End['i']="";
 		$Output[$Rep2['Jour']]->openrow();
 		$Output[$Rep2['Jour']]->opencol();
-		$Output[$Rep2['Jour']]->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'Titre2');
+		$Output[$Rep2['Jour']]->addtexte($Start['G']."h".$Start['i']."&nbsp;Ã &nbsp;".$End['G']."h".$End['i'], 'Titre2');
 		if(!$_GET['ToPrint'])
 			$Output[$Rep2['Jour']]->AddLink('index.php?Section=Shift_Form&IDShift='.$Rep2['IDShift'],'<img src=b_edit.png border=0>');
 		$Output[$Rep2['Jour']]->closecol();

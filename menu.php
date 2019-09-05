@@ -5,7 +5,7 @@ const ADD_EMPLOYEE = 'Ajouter un employé';
 const ADD_QUALIFICATION = 'Ajouter une qualification';
 const BONUS_CRUSHER = 'Bonus Crusher';
 const MESSAGE = 'Message';
-const NEXT_SHIFT = 'Prochain Shift';
+const NEXT_SHIFT = 'Employés libres';
 const CALCULATE_HOLIDAY = 'Calculer un férié';
 const EQUIPMENT = 'Matériel';
 const TODO_LIST = 'Liste à faire';
@@ -368,50 +368,15 @@ if($authorization->verifySuperAdmin($_COOKIE)){
     $MainOutput->AddTexte('&nbsp;');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol(20);
-    if(isset($Section) AND ($Section=="Next_WorkingDay"))
+    if(isset($Section) AND ($Section=="Get_NotWorkingEmployee"))
         $MainOutput->AddPic('f_open.png');
     else
         $MainOutput->AddPic('f_close.png');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Next_WorkingDay&ToPrint=TRUE', NEXT_SHIFT,'_BLANK');
+    $MainOutput->AddLink('index.php?MenuSection=Get_NotWorkingEmployee&ToPrint=TRUE', NEXT_SHIFT,'_BLANK');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
-
-
-
-
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND $Section=="Summer_Sheet")
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Summer_Sheet&ToPrint=TRUE','Liste Session','_BLANK');
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND $Section=="Summer_Report")
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Summer_Report&ToPrint=TRUE','Rapport Individuel','_BLANK');
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
 
 
     $MainOutput->OpenRow();
