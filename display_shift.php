@@ -74,7 +74,7 @@ $CurrentDate = $_GET['Semaine'];
 $current_semaine = $_GET['Semaine'];
 for($d=0;$d<=6;$d++){
 	$MainOutput->opencol(115);
-	$MainOutput->addtexte("<a href='index.php?Section=generate_free_employees&Semaine={$current_semaine}&Day={$d} target='_blank'><div align=center>".$CJour[$d]."</div>", 'Titre');
+	$MainOutput->addtexte("<a href='index.php?Section=generate_free_employees&Semaine={$current_semaine}&Day={$d}' target='_blank'><div align=center>".$CJour[$d]."</div>", 'Titre');
 	$Date = get_date($CurrentDate);
 	$CurrentDate += get_day_length($CurrentDate); 
 	$MainOutput->addtexte("<div align=center>".$Date['d']."-".$Month[intval($Date['m'])]."</div></a>", 'Titre');
