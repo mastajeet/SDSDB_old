@@ -25,13 +25,13 @@ if(isset($_GET['Cote'])){
 	if(!$_GET['ToPrint']){
 		if($InfoClicli['Depot']<>0){
 	
-			$MainOutput->Addlink('http://gestionsds/SDSDB/index.php?Section=Client_Form&IDClient='.$InfoClicli['IDClient'], DEPOSIT,'_BLANK','Titre');
+			$MainOutput->Addlink('index.php?Section=Client_Form&IDClient='.$InfoClicli['IDClient'], DEPOSIT,'_BLANK','Titre');
 			if($InfoClicli['DepotP'])
 				$MainOutput->AddTexte(": ".number_format($InfoClicli['Depot'],2). AMOUNT_PAID);
 			else
 				$MainOutput->AddTexte(": ".number_format($InfoClicli['Depot'],2)." $",'Warning');
 			}else{
-			$MainOutput->Addlink('http://gestionsds/SDSDB/index.php?Section=Client_Form&IDClient='.$InfoClicli['IDClient'], DEPOSIT,'_BLANK','Titre');
+			$MainOutput->Addlink('index.php?Section=Client_Form&IDClient='.$InfoClicli['IDClient'], DEPOSIT,'_BLANK','Titre');
 				$MainOutput->AddTexte(": Aucun");
 			}
 		}
@@ -115,7 +115,7 @@ if(isset($_GET['Cote'])){
 			$MainOutput->AddTexte(DETAIL,'Titre');
 		if(!$_GET['ToPrint']){
 			$MainOutput->addlink('index.php?Section=Add_Facture&Cote='.$_GET['Cote'],'<img border=0 src=b_ins.png>');
-			$MainOutput->addlink('index.php?Section=Client_DossierFacturation&Cote='.$_GET['Cote'].'&ToPrint=TRUE&NB=15','<img border=0 src=b_print.png>','_BLANK');
+			$MainOutput->addlink('index.php?Section=DossierFacturation_DisplayAccountStatement&Cote='.$_GET['Cote'].'&ToPrint=TRUE&NB=15','<img border=0 src=b_print.png>','_BLANK');
 			$MainOutput->addlink('index.php?Section=ArchivesFacturation&Cote='.$_GET['Cote'],'<img border=0 src=f_close.png>');
 		}
 
