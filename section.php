@@ -54,7 +54,13 @@ SWITCH($Section){
 
         if(!isset($_GET['year']) or !isset($_GET['month'])){
             $year = intval(date("Y"));
-            $month = intval(date("m"))-1;
+            $month = intval(date("m"));
+            if($month==1){
+                $year -= 1;
+                $month=12;
+            }else{
+                $month-=1;
+            }
         }else{
             $year = $_GET['year'];
             $month = $_GET['month'];
