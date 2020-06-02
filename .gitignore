@@ -2,3 +2,4 @@
 sdsdb.sql
 sdsdb_mtl.sql
 *.log
+/vendor/*

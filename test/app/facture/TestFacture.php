@@ -54,13 +54,13 @@ class TestFacture extends PHPUnit_Framework_TestCase{
     function test_givenPaidFactureAndPayments_whenGetPayment_thenGetPayment(){
         $facture = new Facture(1349);
         $payments = array(
-            108=> new Payment(108),
-            109=> new Payment(109)
+            108=> new Payment(308),
+            109=> new Payment(309)
         );
 
         $payment = $facture->get_payment($payments);
 
-        $this->assertEquals(108,$payment->IDPaiement);
+        $this->assertEquals(308,$payment->IDPaiement);
     }
 
     function test_givenFactureTemps_whenGetCustomerTransaction_thenGetTransactionDetail(){

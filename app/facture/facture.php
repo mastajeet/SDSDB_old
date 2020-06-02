@@ -8,7 +8,7 @@ class Facture extends BaseModel implements customerTransaction
     public $Debit;
     public $Materiel;
     public $AvanceClient;
-
+    public $Paye;
     public $IDFacture;
     public $Sequence;
     public $Semaine;

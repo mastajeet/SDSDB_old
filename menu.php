@@ -16,7 +16,7 @@ const EMPLOYEE = 'Employé';
 const DISPLAY_CURRENT_SCHEDULE = 'Afficher l\'horaire courant';
 const DISPLAY_PAST_SCHEDULE = 'Afficher l\'horaire passé';
 const LIST_BUREAU_EMPLOYEE = 'Liste employe bureau';
-
+const MONTHLY_TRANSACTIONS = 'Transaction mensuelles';
 $SQL = new sqlclass;
 
 $Categorie = NULL;
@@ -107,6 +107,8 @@ if(isset($_GET['MenuCat'])){
         $Section = "Generate_Facture";
     if($Categorie=="FacturationMensuelle")
         $Section = "Generate_Facture_Mensuelle";
+    if($Categorie=="MonthlyTransaction")
+        $Section = "DossierFacturation_DisplayMonthlyTransactions";
 
     if($Categorie=="Search")
         $Section = "Search";
@@ -624,6 +626,15 @@ $MainOutput->CloseRow();
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
+
+    $MainOutput->OpenRow();
+    $MainOutput->OpenCol(20);
+    $MainOutput->AddPic('f_cat.png');
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol('230',3);
+    $MainOutput->AddLink('index.php?MenuCat=MonthlyTransaction', MONTHLY_TRANSACTIONS);
+    $MainOutput->CloseCol();
+    $MainOutput->CloseRow();
 
 }
 

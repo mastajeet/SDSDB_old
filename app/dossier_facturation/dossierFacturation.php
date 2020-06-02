@@ -6,6 +6,7 @@ class DossierFacturation
 
     const ID_PAYMENT = "IDPaiement";
     const ID_FACTURE = "IDFacture";
+    const COTE = "Cote";
     private $facture_factory;
 
     function __construct($cote, $year){
@@ -27,6 +28,25 @@ class DossierFacturation
         );
 
         return $total_to_be_paid;
+    }
+
+    static function find_all_dossiers_facturation_by_year($year){
+        $first_day_of_year = mktime(0, 0, 0, 1, 1, $year);
+        $first_day_of_next_year = mktime(0, 0, 0, 1, 1, $year + 1);
+        $dossiers_facturation = array();
+
+        $requete_all_dossiers_facturation = "SELECT DISTINCT Cote from facture WHERE EnDate>=" . $first_day_of_year . " AND EnDate<" . $first_day_of_next_year." ORDER BY Cote ASC";
+
+        $sql_connection = new SqlClass();
+        $sql_connection->Select($requete_all_dossiers_facturation);
+
+        while($cote_cursor = $sql_connection->FetchArray()){
+            $cote  = $cote_cursor[self::COTE];
+            $dossiers_facturation[$cote] = new DossierFacturation($cote, $year);
+        }
+        return $dossiers_facturation;
+
+
     }
 
     function get_total_billed(){
@@ -70,13 +90,18 @@ class DossierFacturation
         return $this->sum_all_factures($factures_to_sum)["total"];
     }
 
-    function get_total_paid(){
-        $payments = $this->get_all_payments();
+    function sum_all_payments($payments){
         $total_paid = 0;
         foreach ($payments as $id_payment => $payment){
             $total_paid += $payment->Montant;
 
         }
+        return $total_paid;
+    }
+
+    function get_total_paid(){
+        $payments = $this->get_all_payments();
+        $total_paid = $this->sum_all_payments($payments);
         return $total_paid;
     }
 
@@ -92,7 +117,7 @@ class DossierFacturation
         return $this->sum_all_factures($factures_to_sum);
     }
 
-    private function sum_all_factures($factures){
+    function sum_all_factures($factures){
         $summed_factures = Array("sub_total"=>0, "tps"=>0, "tvq"=>0, "total"=>0);
         foreach($factures as $IDFacture => $facture) {
             $facture_balance = $facture->get_balance();
@@ -105,6 +130,35 @@ class DossierFacturation
 
         return $summed_factures;
     }
+
+    function get_factures_for_month($month){
+        $first_day_of_month = mktime(0, 0, 0, $month, 1, $this->year);
+        $last_day_of_month = mktime(0, 0, 0, $month+1, 1, $this->year);
+
+        $requete_all_facture_for_month = "SELECT IDFacture from facture WHERE Cote='".$this->cote."' AND EnDate>=" . $first_day_of_month . " AND EnDate<" . $last_day_of_month." ORDER BY EnDate ASC";
+
+        $this->sql_connection->Select($requete_all_facture_for_month);
+        $factures = [];
+        while($facture_id_cursor = $this->sql_connection->FetchArray()){
+            $id_facture  = $facture_id_cursor[self::ID_FACTURE];
+            $factures[$id_facture] = $this->facture_factory->create_typed_facture(new Facture($id_facture));
+        }
+        return $factures;
+    }
+
+    function get_payments_for_month($month){
+        $first_day_of_month = mktime(0, 0, 0, $month, 1, $this->year);
+        $last_day_of_month = mktime(0, 0, 0, $month+1, 1, $this->year);
+        $requete_all_facture_for_month = "SELECT IDPaiement from paiement WHERE Cote='".$this->cote."' AND Date>=" . $first_day_of_month . " AND Date<" . $last_day_of_month." ORDER BY Date ASC";
+        $this->sql_connection->Select($requete_all_facture_for_month);
+        $payments = [];
+        while($payment_id_cursor = $this->sql_connection->FetchArray()){
+            $id_payment  = $payment_id_cursor[self::ID_PAYMENT];
+            $payments[$id_payment] = new Payment($id_payment);
+        }
+        return $payments;
+    }
+
 
     function get_all_factures(){
         $requete_all_facture_for_year = $this->generate_get_all_facture_query();

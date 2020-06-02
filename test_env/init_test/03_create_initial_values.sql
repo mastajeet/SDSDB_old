@@ -42,8 +42,18 @@ INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`
   (1345, 'TDF', 9,  '', 0.05, 0.095, 100, 1,0, '', 1529812800, 0,0, 1530627978, 0, 0), # normale payee dans un pmt a 2 facture avec debalance
   (1346, 'TDF', 10, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 0,0, 1530627978, 0, 0), # normale payee dans un pmt a 2 facture avec debalance
 
+
+
   (1347, 'TDF', 1, '', 0.05, 0.095, -400, 0,1, '', 1529812800, 1,0, 1530627977, 0, 0), # credit pour TDF-6
   (1348, 'TDF', 2, '', 0.05, 0.095, -400, 0,1, '', 1529812800, 1,0, 1530627979, 0, 0), # credit pour TDF-8
+
+  (2349, 'TDF', 11, '', 0.05, 0.095, 100, 1,0, '', 1583625600, 0,0, 1584014400, 0, 0), # 12/3/2020
+  (2350, 'TDF', 12, '', 0.05, 0.095, 200, 1,0, '', 1583625600, 0,0, 1584014400, 0, 0), # 12/3/2020
+  (2351, 'TDF', 13, '', 0.05, 0.095, 300, 1,0, '', 1583625600, 0,0, 1584014400, 0, 0), # 12/3/2020
+  (2352, 'TDF', 14, '', 0.05, 0.095, 400, 1,0, '', 1587254400, 0,0, 1587384000, 0, 0), # 20/4/2020
+  (2353, 'TDF', 15, '', 0.05, 0.095, 500, 1,0, '', 1587254400, 0,0, 1587384000, 0, 0), # 20/4/2020
+
+
 
   (2000, 'TDF', 1, '', 0, 0, 200, 0,0, '', 1529812800, 0,0, 1530627972, 0, 1), # AvanceClient non utilisee
   (2001, 'TDF', 2, '', 0, 0, 400, 0,0, '', 1529812800, 0,1, 1530627972, 0, 1), # AvanceClient utilisee
@@ -88,17 +98,22 @@ INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `PayableYear`,`
   (103, 'TDF', 200, 1530627800,2018, ' Paye:~TDF-9~TDF-10'), # paiement partiel pour deux factures
   (97, 'TDF', 200, 1530629972,2019, ''),                    # paiement d'avance pour 2019...
 
-  (104, 'TPM', 114.98, 1530629972,2018, ' Paye:~TPM-1~'), # paiement total pour 1 facture
-  (105, 'TPM', 919.8, 1530629972,2018, ' Paye:~TPM-2~TPM-3'), # paiement total pour deux factures
-  (106, 'TPM', 200, 1530629972,2018, ' Paye:~TPM-4~'), # paiement partiel pour une factures
-  (107, 'TPM', 300, 1530629972,2018, ' Paye:~TPM-5~TPM-6'), # paiement partiel pour deux factures
+  (104, 'TDF', 200, 1584014405,2020, ' Paye:~TDF-12~'), # paiement recu en mars 2020
+  (105, 'TDF', 400, 1587384005,2020, ' Paye:~TDF-15~'), # paiement reçu en avril 2020
 
-  (108, 'TF', 100, 1530629972, 2018,' Paye:~TF-1~'),    # paiement complet facture normale
-  (109, 'TF', 200, 1530629972, 2018,' Paye:~TF-3~'),    # paiement complet facture normale
+
+
+  (204, 'TPM', 114.98, 1530629972,2018, ' Paye:~TPM-1~'), # paiement total pour 1 facture
+  (205, 'TPM', 919.8, 1530629972,2018, ' Paye:~TPM-2~TPM-3'), # paiement total pour deux factures
+  (206, 'TPM', 200, 1530629972,2018, ' Paye:~TPM-4~'), # paiement partiel pour une factures
+  (207, 'TPM', 300, 1530629972,2018, ' Paye:~TPM-5~TPM-6'), # paiement partiel pour deux factures
+
+  (308, 'TF', 100, 1530629972, 2018,' Paye:~TF-1~'),    # paiement complet facture normale
+  (309, 'TF', 200, 1530629972, 2018,' Paye:~TF-3~'),    # paiement complet facture normale
 
   # (110, 'TPS', 100,1529812800, 2018,'  Paye:~TPS-1~')             # Placeholder pour le ID 110 (genere dans un test)
-  (111, 'TPS', 100,1530629972, 2018,'  Paye:~TPS-1~'),             # Placeholder pour le ID 110 (genere dans un test)
-  (112, 'TPS', 200,1530629972, 2018,'  Paye:~TPS-2~'),            # Placeholder pour le ID 110 (genere dans un test)
+  (411, 'TPS', 100,1530629972, 2018,'  Paye:~TPS-1~'),             # Placeholder pour le ID 110 (genere dans un test)
+  (412, 'TPS', 200,1530629972, 2018,'  Paye:~TPS-2~'),            # Placeholder pour le ID 110 (genere dans un test)
 
   (606, 'PCV', 3692.43, 1530645750, 2018,' Paye:~PCV-13~');
 

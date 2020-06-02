@@ -9,6 +9,8 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
     const UN_DOSSIER_FACTURATION = "TDF";
     const UNE_ANNEE_DE_FACTURATION = "2018";
     const UNE_ANNEE_DE_FACTURATION_AVEC_SOLDE_NEGATIF = "2017";
+    const UNE_ANNEE_DE_FACTURATION_AVEC_ACTION_SUR_PLUSIEURS_MOIS = "2020";
+    const UN_MOIS_AVEC_DES_FACTURES = 3;
     const A_NUMBER_OF_SHOWN_TRANSACTIONS = "5";
     const A_TOLERANCE = 0.10;
     private $dossier_facturation;
@@ -107,11 +109,35 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->dossier_facturation->has_outstanding_balance(self::A_TOLERANCE));
     }
 
-
     function test_givenDossierFacturationWithNegativeOutstandingBalance_whenHasOutstandingBalance_thenReturnTrue(){
         $dossier_facturation = new DossierFacturation($this::UN_DOSSIER_FACTURATION, $this::UNE_ANNEE_DE_FACTURATION_AVEC_SOLDE_NEGATIF);
 
         $this->assertTrue($dossier_facturation->has_outstanding_balance(self::A_TOLERANCE));
+    }
+
+    function test_givenDossierFacturationWithFactureWithinAMonth_whenGetMonthlyFacture_thenGetFactureForTheGivenMonth(){
+        $dossier_facturation = new DossierFacturation($this::UN_DOSSIER_FACTURATION, $this::UNE_ANNEE_DE_FACTURATION_AVEC_ACTION_SUR_PLUSIEURS_MOIS);
+        $factures = $dossier_facturation->get_factures_for_month($this::UN_MOIS_AVEC_DES_FACTURES);
+        $sum_factures = $dossier_facturation->sum_all_factures($factures);
+
+        $this->assertEquals(sizeof($factures), 3);
+        $this->assertEquals($sum_factures['sub_total'], 600,'',0.001 );
+    }
+
+    function test_givenDossierFacturationWithFactureWithinAMonth_whenGetMonthlyPayments_thenGetPaymentsForTheGivenMonth(){
+        $dossier_facturation = new DossierFacturation($this::UN_DOSSIER_FACTURATION, $this::UNE_ANNEE_DE_FACTURATION_AVEC_ACTION_SUR_PLUSIEURS_MOIS);
+        $payments = $dossier_facturation->get_payments_for_month($this::UN_MOIS_AVEC_DES_FACTURES);
+        $sum_payments = $dossier_facturation->sum_all_payments($payments);
+
+
+        $this->assertEquals(sizeof($payments), 1);
+        $this->assertEquals($sum_payments, 200,'',0.001 );
+    }
+
+    function test_givenYear_whenFindByYear_thenGetAllDossierForAllCotesThatHaveFactureOrPayments(){
+        $dossiers_facturation = DossierFacturation::find_all_dossiers_facturation_by_year($this::UNE_ANNEE_DE_FACTURATION);
+
+        $this->assertEquals(sizeof($dossiers_facturation), 9);
     }
 
 }
