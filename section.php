@@ -73,19 +73,31 @@ SWITCH($Section){
             $billed_by_cote = array();
             $paid_by_cote = array();
             $total_billed = 0;
+            $total_pretax_billed = 0;
+            $total_TPS_billed = 0;
+            $total_TVQ_billed = 0;
             $total_paid = 0;
+
 
             foreach($dossiers_facturation as $cote=>$dossier){
                 $factures_of_month = $dossier->get_factures_for_month($month);
                 $payments_of_month = $dossier->get_payments_for_month($month);
 
-                $billed = $dossier->sum_all_factures($factures_of_month)['total'];
-                $paid = $dossier->sum_all_payments($payments_of_month);
-                if($billed>0 or $paid>0){
-                    $billed_by_cote[$cote] =$billed;
-                    $paid_by_cote[$cote] =$paid;
+                $billed_BASE = $dossier->sum_all_factures($factures_of_month)['sub_total'];
+                $billed_TPS = $dossier->sum_all_factures($factures_of_month)['tps'];
+                $billed_TVQ = $dossier->sum_all_factures($factures_of_month)['tvq'];
+                $billed_TOTAL = $dossier->sum_all_factures($factures_of_month)['total'];
 
-                    $total_billed += $billed_by_cote[$cote];
+                $paid = $dossier->sum_all_payments($payments_of_month);
+                if($billed_BASE>0 or $paid>0){
+                    $billed_by_cote[$cote] = $billed_BASE;
+
+                    $paid_by_cote[$cote] = $paid;
+
+                    $total_billed += $billed_TOTAL;
+                    $total_pretax_billed += $billed_BASE;
+                    $total_TPS_billed += $billed_TPS;
+                    $total_TVQ_billed += $billed_TVQ;
                     $total_paid += $paid_by_cote[$cote];
                 }
             }
