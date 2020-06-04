@@ -140,4 +140,11 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
         $this->assertEquals(sizeof($dossiers_facturation), 9);
     }
 
+    function test_givenYearWithUnpaidFacture_whenGetUnpaidFacture_thenObtainListofUnpaiddFacture(){
+        $dossiers_facturation = new DossierFacturation($this::UN_DOSSIER_FACTURATION, $this::UNE_ANNEE_DE_FACTURATION);
+        $unpaid_factures = $dossiers_facturation->get_unpaid_factures();
+
+        $this->assertEquals(sizeof($unpaid_factures), 4);
+        $this->assertFalse($unpaid_factures[0]->is_paid());
+    }
 }

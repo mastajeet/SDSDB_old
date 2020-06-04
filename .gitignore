@@ -3,3 +3,8 @@ sdsdb.sql
 sdsdb_mtl.sql
 *.log
 /vendor/*
+/css/*
+css
+mysql_class_qc.php
+/css/
+/mysql_class_qc.php

@@ -7,6 +7,7 @@ class Facture extends BaseModel implements customerTransaction
     public $Credit;
     public $Debit;
     public $Materiel;
+    public $Interest;
     public $AvanceClient;
     public $Paye;
     public $IDFacture;
@@ -91,6 +92,11 @@ class Facture extends BaseModel implements customerTransaction
         return $this->Paye==1;
     }
 
+    # This function is overloaded in the specific class. Different behavior...
+    function is_shift(){
+        return false;
+    }
+
     function mark_paid(){
         $this->Paye=1;
     }
@@ -101,6 +107,10 @@ class Facture extends BaseModel implements customerTransaction
 
     function is_materiel(){
         return $this->Materiel==1;
+    }
+
+    function is_interest(){
+        return $this->Interest==1;
     }
 
     function is_utilise(){

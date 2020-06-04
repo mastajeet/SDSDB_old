@@ -172,6 +172,18 @@ class DossierFacturation
         return $factures;
     }
 
+    function get_unpaid_factures(){
+        $all_factures = $this->get_all_factures();
+        $unpaid_facture = [];
+        foreach($all_factures as $facture){
+            if(!$facture->is_paid() and ($facture->is_shift() or $facture->is_materiel())){
+                $unpaid_facture[] = $facture;
+            }
+        }
+
+        return $unpaid_facture;
+    }
+
     private function generate_get_all_facture_query(){
         $first_day_of_year = mktime(0, 0, 0, 1, 1, $this->year);
         $first_day_of_next_year = mktime(0, 0, 0, 1, 1, $this->year + 1);

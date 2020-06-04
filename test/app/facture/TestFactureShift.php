@@ -11,4 +11,10 @@ class TestFactureShift extends PHPUnit_Framework_TestCase{
 
         $this->assertEquals(1, $facture->Sequence);
     }
+
+    function test_givenIDFactureOfShiftFacture_whenIsShiftFacture_thenReturnTrue(){
+        $facture = new FactureShift(3010); #Facture Shift
+
+        $this->assertTrue($facture->is_shift());
+    }
 }

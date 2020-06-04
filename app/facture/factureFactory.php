@@ -15,6 +15,8 @@ class FactureFactory{
             $sub_type = FactureMateriel::class;
         }elseif($facture->is_avance_client()){
             $sub_type = AvanceClient::class;
+        }elseif($facture->is_interest()){
+            $sub_type = FactureInterest::class;
         }else{
             $sub_type = FactureShift::class;
         }
