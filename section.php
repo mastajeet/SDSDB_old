@@ -52,43 +52,46 @@ SWITCH($Section){
 
     CASE "DossierFacturation_DisplayMonthlyTransactions":{
 
-        if(!isset($_GET['year']) or !isset($_GET['month'])){
+        if(!isset($_GET['FORMyear']) or !isset($_GET['FORMmonth'])) {
+
             $year = intval(date("Y"));
             $month = intval(date("m"));
+
             if($month==1){
-                $year -= 1;
+                $year-=1;
                 $month=12;
             }else{
                 $month-=1;
             }
+
+            include('view/dossier_facturation/form_monthly_transaction.php');
         }else{
-            $year = $_GET['year'];
-            $month = $_GET['month'];
-        }
+            $year = $_GET['FORMyear'];
+            $month = $_GET['FORMmonth'];
 
-        $dossiers_facturation = DossierFacturation::find_all_dossiers_facturation_by_year($year);
-        $billed_by_cote = array();
-        $paid_by_cote = array();
-        $total_billed = 0;
-        $total_paid = 0;
+            $dossiers_facturation = DossierFacturation::find_all_dossiers_facturation_by_year($year);
+            $billed_by_cote = array();
+            $paid_by_cote = array();
+            $total_billed = 0;
+            $total_paid = 0;
 
-        foreach($dossiers_facturation as $cote=>$dossier){
-            $factures_of_month = $dossier->get_factures_for_month($month);
-            $payments_of_month = $dossier->get_payments_for_month($month);
+            foreach($dossiers_facturation as $cote=>$dossier){
+                $factures_of_month = $dossier->get_factures_for_month($month);
+                $payments_of_month = $dossier->get_payments_for_month($month);
 
-            $billed = $dossier->sum_all_factures($factures_of_month)['total'];
-            $paid = $dossier->sum_all_payments($payments_of_month);
-            if($billed>0 or $paid>0){
-                $billed_by_cote[$cote] =$billed;
-                $paid_by_cote[$cote] =$paid;
+                $billed = $dossier->sum_all_factures($factures_of_month)['total'];
+                $paid = $dossier->sum_all_payments($payments_of_month);
+                if($billed>0 or $paid>0){
+                    $billed_by_cote[$cote] =$billed;
+                    $paid_by_cote[$cote] =$paid;
 
-                $total_billed += $billed_by_cote[$cote];
-                $total_paid += $paid_by_cote[$cote];
+                    $total_billed += $billed_by_cote[$cote];
+                    $total_paid += $paid_by_cote[$cote];
+                }
             }
+
+            include('view/dossier_facturation/display_monthly_transactions.php');
         }
-
-        include('view/dossier_facturation/display_monthly_transactions.php');
-
         BREAK;
     }
 

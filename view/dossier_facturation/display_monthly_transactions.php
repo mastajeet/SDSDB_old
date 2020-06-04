@@ -1,8 +1,8 @@
 <?php
 $MainOutput->addtexte(sprintf("État de compte mensuel en date du %01.0d/%2d \n",$month, $year),'titre' );
+$MainOutput->addlink('?Section=DossierFacturation_DisplayMonthlyTransactions','archive');
 
-$MainOutput->br();
-
+$MainOutput->br(2);
 $MainOutput->addtexte("Facturé",'titre' );
 $MainOutput->br();
 foreach($billed_by_cote as $cote=>$amount){
