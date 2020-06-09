@@ -26,7 +26,7 @@ class TimedInvoiceItem extends InvoiceItem
         }
     }
 
-    function add_bill_item_to_balance(&$Balance){
+    function add_to_balance(&$Balance){
         $Balance += round(($this->End - $this->Start)/NB_SECONDS_PER_HOUR*$this->TXH,2);
     }
 
@@ -39,7 +39,7 @@ class TimedInvoiceItem extends InvoiceItem
         $query = self::get_item_by_facture_id_query($facture_id);  // TODO: Implement find_item_by_facture_id() method.
         $sql->Select($query);
         while($invoice_item_cursor = $sql->FetchArray()){
-            $invoice_items[] = new TimedInvoiceItem($invoice_item_cursor[$database_information['model_table_id']]);
+            $invoice_items[] = new self($invoice_item_cursor[$database_information['model_table_id']]);
         }
 
         return $invoice_items;

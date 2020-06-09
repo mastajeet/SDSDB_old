@@ -87,6 +87,8 @@ INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`
 (1353, 'TF', 3, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Facture - Facture payee
 (1359, 'TF', 4, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 0,0, 1530627972, 1, 0, 0), # Test Facture - Materiel non payée
 (1351, 'TF', 1, '', 0.05, 0.095, -400,0,1, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Facture - credit
+(1360, 'TF', 7, '', 0.05, 0.095, 0, 1,0, '', 1529812800, 0,0, 1530627972, 1, 0, 0), # Facture Materiel avec mauvais solde (0 vs 510)
+
 (1353, 'TPM', 1, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Payment - paye total (1/1)
 (1354, 'TPM', 2, '', 0.05, 0.095, 200, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Payment - paye total (1/2)
 (1355, 'TPM', 4, '', 0.05, 0.095, 300, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Payment - paye partiel (1/1)
@@ -122,7 +124,11 @@ INSERT INTO `factsheet` (`IDFactsheet`, `IDFacture`, `Start`, `End`, `TXH`, `Not
 (2, 4001, 54000, 72000, 2, 'Note 2', 0), #5 h 10 $
 (3, 4001, 28800, 79200, 10, 'Note 3', 1), #14 h 140 $
 (4, 4002, 0, 1, 100, '1 items a 100$', 0), #1 x 100$
-(5, 4002, 0, 2, 150, '2 items a 150$', 0); #2 x 150$
+(5, 4002, 0, 2, 150, '2 items a 150$', 0), #2 x 150$
+(6, 1360, 0, 1, 10, '1 items a 15$', 0), #1 x 10$
+(7, 1360, 0, 2, 250, '2 items a 250$', 0); #2 x 250$
+
+
 
 INSERT INTO `shift` (`IDShift`, `IDInstallation`, `IDEmploye`, `TXH`, `Salaire`, `Start`, `End`, `Jour`, `Semaine`, `Assistant`, `Commentaire`, `Warn`, `Confirme`, `Empconf`, `Facture`, `Paye`, `Message`) VALUES
   (1337, 21, 2, 16.75, 0, 34200, 75600, 0, 1497153600, 0, '', '', 1, 1, 1, 0, 'Vers 14h30, il est important de contacter le chef réceptionniste avant de confirmer l\\\'heure de fin.  Si tu termines bien à 15h, tu n\\\'auras techniquement pas à faire de démontage.');

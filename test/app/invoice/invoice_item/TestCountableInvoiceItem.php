@@ -20,7 +20,7 @@ class TestCountableInvoiceItem extends PHPUnit_Framework_TestCase{
     function test_givenCountableInvoiceItemId_whenAddToBalance_ThenValueItemIsCalculted(){
         $invoice_item = new CountableInvoiceItem(self::UN_ID_DE_FACTSHEET_COMPTABLE);
         $balance = 0;
-        $invoice_item->add_bill_item_to_balance($balance);
+        $invoice_item->add_to_balance($balance);
 
         $this->assertEquals(300, $balance);
     }

@@ -19,15 +19,16 @@ class TestShiftInvoice extends PHPUnit_Framework_TestCase{
     }
 
     function test_givenShiftInvoice_whenConstruct_thenInvoiceItemsAreTimedItems(){
-        $facture = new ShiftInvoice(3010); #Facture Shift
-
-        $this->assertEquals('TimedInvoiceItem',$facture->item_type);
+        $facture = new ShiftInvoice(4001); #Facture Shift
+        $items = $facture->get_items();
+        $this->isInstanceOf('TimedInvoiceItem',array_pop($items));
     }
 
-//    function test_givenShiftInvoiceWithInvoiceItems_whenGetItems_thenSetAndReturnInvoiceItems(){
-//        $facture = new ShiftInvoice(3010); #Facture Shift
-//
-//        $this->assertEquals(count($facture->get_items()),3);
-//    }
+    function test_givenShiftInvoiceWithInvoiceItems_whenGetItems_thenSetAndReturnTimeInvoiceItems(){
+        $facture = new ShiftInvoice(4001); #Facture Shift
+        $invoice_items = $facture->get_items();
+        $this->assertEquals(count($invoice_items),3);
+        $this->assertInstanceOf('TimedInvoiceItem',array_pop($invoice_items));
+    }
 
 }

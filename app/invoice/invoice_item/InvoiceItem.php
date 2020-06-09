@@ -10,7 +10,7 @@ Abstract Class InvoiceItem extends baseModel
     public $IDFacture;
     public $IDFactsheet;
 
-    abstract function add_bill_item_to_balance(&$Balance);
+    abstract function add_to_balance(&$Balance);
     abstract static function find_item_by_invoice_id($facture_id);
 
     static function define_table_info(){

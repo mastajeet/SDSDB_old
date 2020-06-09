@@ -21,11 +21,12 @@ class Invoice extends BaseModel implements customerTransaction
     public $Cote;
     public $BonAchat;
     public $Notes;
-    public $item_type;
+    public $invoice_items_updated;
 
     function __construct($Args){
         parent::__construct($Args);
-        $this->Factsheet = array();
+        $this->Factsheet = [];
+        $this->invoice_items_updated = false;
     }
 
     static function get_last_facture_query($cote){
@@ -42,8 +43,11 @@ class Invoice extends BaseModel implements customerTransaction
 
     function update_balance(){
         $balance = 0;
+        if(!$this->invoice_items_updated){
+            $this->Factsheet = $this->get_items();
+        }
         foreach($this->Factsheet as $factsheet){
-            $factsheet->add_factshift_to_balance($balance);
+            $factsheet->add_to_balance($balance);
         }
         $this->STotal = $balance;
     }
@@ -123,6 +127,9 @@ class Invoice extends BaseModel implements customerTransaction
     }
 
     function add_factsheet(&$factsheet){
+        if(is_null($this->Factsheet)){
+            $this->Factsheet = $this->get_items();
+        }
         $this->Factsheet[] = $factsheet;
         $this->add_to_updated_values("Factsheet");
     }

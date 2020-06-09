@@ -22,6 +22,7 @@ class Shift extends BaseModel
     public $Paye;
     public $timeService;
 
+
     function __construct($Arg = null, $timeService){
         $this->timeService = $timeService;
         parent::__construct($Arg);

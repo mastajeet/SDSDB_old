@@ -20,7 +20,7 @@ class TestTimedInvoiceItem extends PHPUnit_Framework_TestCase{
     function test_givenIimedInvoiceItemId_whenAddToBalance_ThenValuePerHourIsCalculted(){
         $invoice_item = new TimedInvoiceItem(self::UN_ID_DE_FACTSHEET_DE_TEMPS);
         $balance = 0;
-        $invoice_item->add_bill_item_to_balance($balance);
+        $invoice_item->add_to_balance($balance);
 
         $this->assertEquals(150, $balance);
     }

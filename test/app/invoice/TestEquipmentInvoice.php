@@ -5,6 +5,9 @@ include_once('app/invoice/invoice.php');
 include_once ('app/payment/payment.php');
 
 class TestEquipmentInvoice extends PHPUnit_Framework_TestCase{
+
+    const INVOICE_ID_WITH_WRONG_BALANCE = 1360;
+
     function test_givenIDFactureOfMaterielFacture_whenContruct_thenGetFactureMateriel(){
         $facture = new EquipmentInvoice(3011); #Facture Shift
 
@@ -27,4 +30,21 @@ class TestEquipmentInvoice extends PHPUnit_Framework_TestCase{
 
         $this->assertTrue($facture->is_materiel());
     }
+
+    function test_givenEquipmentInvoiceIdWithIncorrectBalance_whenUpdate_thenUpdateWithInvoiceItemsValue(){
+        $invoice = new EquipmentInvoice(self::INVOICE_ID_WITH_WRONG_BALANCE);
+        $this->assertEquals(0, $invoice->STotal);
+
+        $invoice->update_balance();
+        $this->assertEquals(510, $invoice->STotal);
+    }
+
+    function test_givenShiftInvoiceWithInvoiceItems_whenGetItems_thenSetAndReturnTimeInvoiceItems(){
+        $facture = new EquipmentInvoice(self::INVOICE_ID_WITH_WRONG_BALANCE); #Facture Shift
+        $invoice_items = $facture->get_items();
+        $this->assertEquals(count($invoice_items),2);
+        $this->assertInstanceOf('CountableInvoiceItem',array_pop($invoice_items));
+    }
+
+
 }
