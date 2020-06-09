@@ -4,8 +4,8 @@
     const QC="QC";
 
     ini_set("default_charset", "iso-8859-1");
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
+//    error_reporting(E_ALL);
+//    ini_set('display_errors', 1);
     setlocale(LC_TIME, 'fr_CA');
 
 
