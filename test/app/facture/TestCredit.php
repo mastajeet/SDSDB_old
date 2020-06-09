@@ -1,7 +1,7 @@
 <?php
 
-include_once ('app/facture/Credit.php');
-include_once ('app/facture/facture.php');
+include_once('app/invoice/Credit.php');
+include_once('app/invoice/invoice.php');
 
 class TestCredit extends PHPUnit_Framework_TestCase{
 

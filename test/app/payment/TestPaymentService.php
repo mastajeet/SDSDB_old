@@ -1,7 +1,7 @@
 <?php
 
 include_once ('app/payment/paymentService.php');
-include_once ('app/facture/factureService.php');
+include_once('app/invoice/InvoiceService.php');
 include_once ('app/payment/payment.php');
 
 class TestPaymentService extends PHPUnit_Framework_TestCase{
@@ -13,7 +13,7 @@ class TestPaymentService extends PHPUnit_Framework_TestCase{
      */
     function setUp(){
 //        $facture_service = getMockBuilder(FactureService::class);
-        $this->facture_service =  new FactureService("Notes","0","0");
+        $this->facture_service =  new InvoiceService("Notes","0","0");
         $this->payment_service = new PaymentService($this->facture_service);
 
     }
@@ -32,8 +32,15 @@ class TestPaymentService extends PHPUnit_Framework_TestCase{
         );
         $payment = new Payment($payment_information);
         $payment->save();
-        $payments = $this->payment_service->get_payments($payment_dto);
-        $this->assertEquals(1, count($payments));
+
+        try {
+            $payments = $this->payment_service->get_payments($payment_dto);
+            $this->assertEquals(1, count($payments));
+        }catch (Exception $exception){
+            $this->payment_service->delete_payment($payment);
+            throw new AssertionError();
+        }
+
 
         $this->payment_service->delete_payment($payment);
 

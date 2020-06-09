@@ -1,10 +1,10 @@
 <?php
-include_once ('factureMateriel.php');
-include_once ('factureShift.php');
+include_once('equipmentInvoice.php');
+include_once('shiftInvoice.php');
 include_once('Credit.php');
 include_once ('avanceClient.php');
 
-class FactureService{
+class InvoiceService{
 
     const FACTURE_TYPE = "facture_type";
     const FACTURE_MATERIEL = "facture_materiel";
@@ -83,11 +83,11 @@ class FactureService{
         switch ($facture_type){
 
             case self::FACTURE_MATERIEL:
-                $facture_class = FactureMateriel::class;
+                $facture_class = EquipmentInvoice::class;
                 break;
 
             case self::FACTURE_SHIFT:
-                $facture_class = FactureShift::class;
+                $facture_class = ShiftInvoice::class;
                 break;
 
             case self::CREDIT:
@@ -123,7 +123,7 @@ class FactureService{
     private function get_last_sequence_for_cote_and_type($cote, $facture_type){
         $facture_class = $this->get_facture_class($facture_type);
         $last_facture_query = $facture_class::get_last_facture_query($cote);;
-        $database_information = Facture::define_table_info();
+        $database_information = Invoice::define_table_info();
         $this->SQL->Select($last_facture_query);
         $last_facture_sequence = self::FIRST_SEQUENCE_NUMBER;
 
@@ -139,7 +139,7 @@ class FactureService{
 
     private function get_facture_by_cote_sequence_and_type($cote, $sequence, $facture_class){
         $facture_id_query = $facture_class::get_by_cote_and_sequence($cote, $sequence);
-        $database_information = Facture::define_table_info();
+        $database_information = Invoice::define_table_info();
         $this->SQL->Select($facture_id_query);
 
         if ($this->SQL->NumRow() > 0) {

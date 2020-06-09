@@ -1,6 +1,6 @@
 <?php
 
-include_once ('app/facture/factureService.php');
+include_once('app/invoice/InvoiceService.php');
 
 class TestFactureService extends PHPUnit_Framework_TestCase{
 
@@ -16,7 +16,7 @@ class TestFactureService extends PHPUnit_Framework_TestCase{
      * @before
      */
     function setUp(){
-        $this->facture_service = new FactureService("",0,0);
+        $this->facture_service = new InvoiceService("",0,0);
         $this->facture_dto = array(
             "cote"=>self::UNE_COTE,
             "semaine"=>self::UNE_SEMAINE,
@@ -30,7 +30,7 @@ class TestFactureService extends PHPUnit_Framework_TestCase{
 
         $facture = $this->facture_service->generate_blank_facture($this->facture_dto);
 
-        $this->assertEquals('FactureMateriel', get_class($facture));
+        $this->assertEquals('EquipmentInvoice', get_class($facture));
     }
 
     function test_givenCreditFlag_whenCreateFacture_thenCreditIsReturned(){
@@ -54,7 +54,7 @@ class TestFactureService extends PHPUnit_Framework_TestCase{
 
         $facture = $this->facture_service->generate_blank_facture($this->facture_dto);
 
-        $this->assertEquals('FactureShift', get_class($facture));
+        $this->assertEquals('ShiftInvoice', get_class($facture));
     }
 
     function test_whenGetNextShiftAndMaterielFactureSequence_thenGetSequenceToUse(){

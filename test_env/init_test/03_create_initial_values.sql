@@ -26,75 +26,12 @@ INSERT INTO `client` (`IDClient`, `Nom`, `Cote`, `Facturation`, `FrequenceFactur
 (65, 'Customer many 2 cote but 3 installation', 'TI1', 'F', 'M', 'lolk@okay.com', '4188888888', '', '', 0, 0, '19.05', 1, 19.05, 1.5, 0, '0', 0, 0, 'admin', 3);
 
 
-INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`, `STotal`, `Debit`, `Credit`, `Notes`, `Semaine`, `Paye`, `Utilise`, `EnDate`, `Materiel`, `AvanceClient`) VALUES
-  (2256, 'PCV', 13, '', 0.05, 0.095, 3692.43, 1,0, '1st installment for lifeguard pool service contract', 1527393600, 1,0, 1527535405, 0, 0),
-  (2298, 'PCV', 14, '', 0.05, 0.095, 100.51, 1,0, '', 1529812800, 0, 0,1530627972, 0, 0),
-  (23  , 'ABC', 68, '', 0.05, 0.095, 100.51, 1,0, '', 1529812800, 0, 0,1530627972, 0, 0),
-
-  (1337, 'TDF', 1,  '', 0.05, 0.095, 100, 1,0, '', 1509220851, 0,0, 1509220851, 0, 0), # date de 2017
-  (1338, 'TDF', 2,  '', 0.05, 0.095, 200, 1,0, '', 1529812800, 0,0, 1530627972, 0, 0), # normale
-  (1339, 'TDF', 3,  '', 0.05, 0.095, 300, 1,0, '', 1529812800, 0,0, 1530627973, 0, 0), # normale-payee
-  (1340, 'TDF', 4,  '', 0.05, 0.095,  10, 1,0, '', 1529812800, 0,0, 1530627974, 0, 0), # materiel
-  (1341, 'TDF', 5,  '', 0.05, 0.095, 100, 1,0, '', 1529812800, 0,0, 1530627975, 0, 0), # materiel-payee
-  (1342, 'TDF', 6,  '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627976, 0, 0), # normale-creditee
-  (1343, 'TDF', 7,  '', 0.05, 0.095, 500, 1,0, '', 1529812800, 1,0, 1530627977, 0, 0), # normale partiellement-payee
-  (1344, 'TDF', 8,  '', 0.05, 0.095, 500, 1,0, '', 1529812800, 0,0, 1530627978, 0, 0), # normale partiellement-creditee
-  (1345, 'TDF', 9,  '', 0.05, 0.095, 100, 1,0, '', 1529812800, 0,0, 1530627978, 0, 0), # normale payee dans un pmt a 2 facture avec debalance
-  (1346, 'TDF', 10, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 0,0, 1530627978, 0, 0), # normale payee dans un pmt a 2 facture avec debalance
-
-
-
-  (1347, 'TDF', 1, '', 0.05, 0.095, -400, 0,1, '', 1529812800, 1,0, 1530627977, 0, 0), # credit pour TDF-6
-  (1348, 'TDF', 2, '', 0.05, 0.095, -400, 0,1, '', 1529812800, 1,0, 1530627979, 0, 0), # credit pour TDF-8
-
-  (2349, 'TDF', 11, '', 0.05, 0.095, 100, 1,0, '', 1583625600, 0,0, 1584014400, 0, 0), # 12/3/2020
-  (2350, 'TDF', 12, '', 0.05, 0.095, 200, 1,0, '', 1583625600, 0,0, 1584014400, 0, 0), # 12/3/2020
-  (2351, 'TDF', 13, '', 0.05, 0.095, 300, 1,0, '', 1583625600, 0,0, 1584014400, 0, 0), # 12/3/2020
-  (2352, 'TDF', 14, '', 0.05, 0.095, 400, 1,0, '', 1587254400, 0,0, 1587384000, 0, 0), # 20/4/2020
-  (2353, 'TDF', 15, '', 0.05, 0.095, 500, 1,0, '', 1587254400, 0,0, 1587384000, 0, 0), # 20/4/2020
-
-
-
-  (2000, 'TDF', 1, '', 0, 0, 200, 0,0, '', 1529812800, 0,0, 1530627972, 0, 1), # AvanceClient non utilisee
-  (2001, 'TDF', 2, '', 0, 0, 400, 0,0, '', 1529812800, 0,1, 1530627972, 0, 1), # AvanceClient utilisee
-
-  (1349, 'TF', 1, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Test Facture - Facture payee
-  (1350, 'TF', 2, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 0), # Test Facture - Facture non payee
-  (1353, 'TF', 3, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Test Facture - Facture payee
-  (1359, 'TF', 4, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 0,0, 1530627972, 1, 0), # Test Facture - Materiel non payée
-  (1351, 'TF', 1, '', 0.05, 0.095, -400,0,1, '', 1529812800, 1,0, 1530627972, 0, 0), # Test Facture - credit
-
-  (1353, 'TPM', 1, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Test Payment - paye total (1/1)
-  (1354, 'TPM', 2, '', 0.05, 0.095, 200, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Test Payment - paye total (1/2)
-  (1355, 'TPM', 4, '', 0.05, 0.095, 300, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Test Payment - paye partiel (1/1)
-  (1356, 'TPM', 5, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Test Payment - paye partiel (1/2)
-  (1357, 'TPM', 6, '', 0.05, 0.095, 500, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Test Payment - paye partiel (2/2)
-  (1358, 'TPM', 3, '', 0.05, 0.095, 600, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Test Payment - paye total (2/2)
-  # (1359, 'TF', 4, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 1,0, 1530627972, 1, 0), # Test Facture - Facture payee
-
-  (3000, 'TFS', 1, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Facture Shift 1
-  (3001, 'TFS', 2, '', 0.05, 0.095, 200, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Facture Materiel 1
-  (3002, 'TFS', 3, '', 0.05, 0.095, 600, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Facture Materiel 2
-  (3003, 'TFS', 4, '', 0.05, 0.095, 300, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Facture Shift 2
-  (3004, 'TFS', 1, '', 0.05, 0.095, -400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Credit 1
-  (3005, 'TFS', 2, '', 0.05, 0.095, -500, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Credit 2
-
-  (3006, 'TFS', 1, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Avance Client 1
-  (3007, 'TPS', 1, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0), # Facture payee par le paiement
-
-  (3010, 'TFF', 1, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 0), # Facture shift
-  (3011, 'TFF', 2, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 1, 0), # Facture materiel
-  (3012, 'TFF', 3, '', 0.05, 0.095, -400, 1,1, '', 1529812800, 0,0, 1530627972, 0, 0), # credit
-  (3013, 'TFF', 4, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 1), # avance client
-
-  (3014, 'RMB', 4, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 1); # Facture pour client avec outstading Balance
-
 INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `PayableYear`,`Notes`) VALUES
   (99 , 'TDF', 344.92, 1509220851,2017, ''),                 # date de 2017
-  (98 , 'TDF', 114.97, 1530629972,2017, ' Paye:~TDF-1~'),    # paye une facture de 2017 en 2018
-  (100, 'TDF', 344.92, 1530629973,2018, ' Paye:~TDF-3~'),    # paiement complet facture normale
-  (101, 'TDF', 114.97, 1530629974,2018, ' Paye:~TDF-5~'),    # paiement complet facture materiel
-  (102, 'TDF', 200, 1530629975,2018, ' Paye:~TDF-7~'),       # paiement partiel facture normale
+  (98 , 'TDF', 114.97, 1530629972,2017, ' Paye:~TDF-1~'),    # paye une invoice de 2017 en 2018
+  (100, 'TDF', 344.92, 1530629973,2018, ' Paye:~TDF-3~'),    # paiement complet invoice normale
+  (101, 'TDF', 114.97, 1530629974,2018, ' Paye:~TDF-5~'),    # paiement complet invoice materiel
+  (102, 'TDF', 200, 1530629975,2018, ' Paye:~TDF-7~'),       # paiement partiel invoice normale
   (103, 'TDF', 200, 1530627800,2018, ' Paye:~TDF-9~TDF-10'), # paiement partiel pour deux factures
   (97, 'TDF', 200, 1530629972,2019, ''),                    # paiement d'avance pour 2019...
 
@@ -103,13 +40,13 @@ INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `PayableYear`,`
 
 
 
-  (204, 'TPM', 114.98, 1530629972,2018, ' Paye:~TPM-1~'), # paiement total pour 1 facture
+  (204, 'TPM', 114.98, 1530629972,2018, ' Paye:~TPM-1~'), # paiement total pour 1 invoice
   (205, 'TPM', 919.8, 1530629972,2018, ' Paye:~TPM-2~TPM-3'), # paiement total pour deux factures
   (206, 'TPM', 200, 1530629972,2018, ' Paye:~TPM-4~'), # paiement partiel pour une factures
   (207, 'TPM', 300, 1530629972,2018, ' Paye:~TPM-5~TPM-6'), # paiement partiel pour deux factures
 
-  (308, 'TF', 100, 1530629972, 2018,' Paye:~TF-1~'),    # paiement complet facture normale
-  (309, 'TF', 200, 1530629972, 2018,' Paye:~TF-3~'),    # paiement complet facture normale
+  (308, 'TF', 100, 1530629972, 2018,' Paye:~TF-1~'),    # paiement complet invoice normale
+  (309, 'TF', 200, 1530629972, 2018,' Paye:~TF-3~'),    # paiement complet invoice normale
 
   # (110, 'TPS', 100,1529812800, 2018,'  Paye:~TPS-1~')             # Placeholder pour le ID 110 (genere dans un test)
   (411, 'TPS', 100,1530629972, 2018,'  Paye:~TPS-1~'),             # Placeholder pour le ID 110 (genere dans un test)
@@ -120,6 +57,63 @@ INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `PayableYear`,`
 INSERT INTO `employe` (`IDEmploye`, `Prenom`, `Nom`, `HName`, `NAS`, `Adresse`, `CodePostal`, `DateNaissance`, `DateEmbauche`, `IDSecteur`, `Ville`, `TelP`, `TelA`, `Cell`, `Paget`, `Email`, `Session`, `Status`, `Engage`, `Cessation`, `Notes`, `Raison`, `SalaireB`, `SalaireS`, `SalaireA`, `Ajustement`, `LastVisited`, `EAssistant`) VALUES
   (2, 'Julie', 'Fortin', 'Ju in the sky', '281302976', '4385, des Sarcelles', 'G1G4W5', 471848400, 993960000, '22', 'Québec', '4189973876', '', '4189973876', '418', 'julie.fortin.16@ulaval.ca', 'E11', 'Bureau', 1, 0, 'SN expire: 12/2011', '', 11.4, 11.4, 10.9, 0, 1530129400, 0),
   (90, 'Jean-Thomas', 'Baillargeon', 'JT', '281659714', '3305, boul Hawey', 'G1E1N8', 510987600, 1051761600, '1', 'Québec', '4186601934', '418', '418', '418', 'jtbaillargeon@hotmail.com', 'E11', 'Temps plein', 1, 0, '', '', 12, 14.3, 13.7, 0, 1331060074, 0);
+
+INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`, `STotal`, `Debit`, `Credit`, `Notes`, `Semaine`, `Paye`, `Utilise`, `EnDate`, `Materiel`, `AvanceClient`,`Interest`) VALUES
+(2256, 'PCV', 13, '', 0.05, 0.095, 3692.43, 1,0, '1st installment for lifeguard pool service contract', 1527393600, 1,0, 1527535405, 0, 0, 0),
+(2298, 'PCV', 14, '', 0.05, 0.095, 100.51, 1,0, '', 1529812800, 0, 0,1530627972, 0, 0, 0),
+(23  , 'ABC', 68, '', 0.05, 0.095, 100.51, 1,0, '', 1529812800, 0, 0,1530627972, 0, 0, 0),
+
+(1337, 'TDF', 1,  '', 0.05, 0.095, 100, 1,0, '', 1509220851, 1,0, 1509220851, 0, 0, 0), # date de 2017
+(1338, 'TDF', 2,  '', 0.05, 0.095, 200, 1,0, '', 1529812800, 0,0, 1530627972, 0, 0, 0), # normale
+(1339, 'TDF', 3,  '', 0.05, 0.095, 300, 1,0, '', 1529812800, 1,0, 1530627973, 0, 0, 0), # normale-payee
+(1340, 'TDF', 4,  '', 0.05, 0.095,  10, 1,0, '', 1529812800, 0,0, 1530627974, 0, 0, 0), # materiel
+(1341, 'TDF', 5,  '', 0.05, 0.095, 100, 1,0, '', 1529812800, 1,0, 1530627975, 0, 0, 0), # materiel-payee
+(1342, 'TDF', 6,  '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627976, 0, 0, 0), # normale-creditee
+(1343, 'TDF', 7,  '', 0.05, 0.095, 500, 1,0, '', 1529812800, 1,0, 1530627977, 0, 0, 0), # normale partiellement-payee
+(1344, 'TDF', 8,  '', 0.05, 0.095, 500, 1,0, '', 1529812800, 0,0, 1530627978, 0, 0, 0), # normale partiellement-creditee
+(1345, 'TDF', 9,  '', 0.05, 0.095, 100, 1,0, '', 1529812800, 1,0, 1530627978, 0, 0, 0), # normale payee dans un pmt a 2 invoice avec debalance
+(1346, 'TDF', 10, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 1,0, 1530627978, 0, 0, 0), # normale payee dans un pmt a 2 invoice avec debalance
+
+(1347, 'TDF', 1, '', 0.05, 0.095, -400, 0,1, '', 1529812800, 1,0, 1530627977, 0, 0, 0), # credit pour TDF-6
+(1348, 'TDF', 2, '', 0.05, 0.095, -400, 0,1, '', 1529812800, 1,0, 1530627979, 0, 0, 0), # credit pour TDF-8
+(2349, 'TDF', 11, '', 0.05, 0.095, 100, 1,0, '', 1583625600, 0,0, 1584014400, 0, 0, 0), # 12/3/2020
+(2350, 'TDF', 12, '', 0.05, 0.095, 200, 1,0, '', 1583625600, 1,0, 1584014400, 0, 0, 0), # 12/3/2020
+(2351, 'TDF', 13, '', 0.05, 0.095, 300, 1,0, '', 1583625600, 0,0, 1584014400, 0, 0, 0), # 12/3/2020
+(2352, 'TDF', 14, '', 0.05, 0.095, 400, 1,0, '', 1587254400, 0,0, 1587384000, 0, 0, 0), # 20/4/2020
+(2353, 'TDF', 15, '', 0.05, 0.095, 500, 1,0, '', 1587254400, 1,0, 1587384000, 0, 0, 0), # 20/4/2020
+
+(2000, 'TDF', 1, '', 0, 0, 200, 0,0, '', 1529812800, 0,0, 1530627972, 0, 1, 0), # AvanceClient non utilisee
+(2001, 'TDF', 2, '', 0, 0, 400, 0,0, '', 1529812800, 0,1, 1530627972, 0, 1, 0), # AvanceClient utilisee
+
+(1349, 'TF', 1, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Facture - Facture payee
+(1350, 'TF', 2, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 0, 0), # Test Facture - Facture non payee
+(1353, 'TF', 3, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Facture - Facture payee
+(1359, 'TF', 4, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 0,0, 1530627972, 1, 0, 0), # Test Facture - Materiel non payée
+(1351, 'TF', 1, '', 0.05, 0.095, -400,0,1, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Facture - credit
+(1353, 'TPM', 1, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Payment - paye total (1/1)
+(1354, 'TPM', 2, '', 0.05, 0.095, 200, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Payment - paye total (1/2)
+(1355, 'TPM', 4, '', 0.05, 0.095, 300, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Payment - paye partiel (1/1)
+(1356, 'TPM', 5, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Payment - paye partiel (1/2)
+(1357, 'TPM', 6, '', 0.05, 0.095, 500, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Payment - paye partiel (2/2)
+(1358, 'TPM', 3, '', 0.05, 0.095, 600, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Test Payment - paye total (2/2)
+
+(3000, 'TFS', 1, '', 0.05, 0.095, 100, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Facture Shift 1
+(3001, 'TFS', 2, '', 0.05, 0.095, 200, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Facture Materiel 1
+(3002, 'TFS', 3, '', 0.05, 0.095, 600, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Facture Materiel 2
+(3003, 'TFS', 4, '', 0.05, 0.095, 300, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Facture Shift 2
+(3004, 'TFS', 1, '', 0.05, 0.095, -400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Credit 1
+(3005, 'TFS', 2, '', 0.05, 0.095, -500, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Credit 2
+
+(3006, 'TFS', 1, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Avance Client 1
+(3007, 'TPS', 1, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 1,0, 1530627972, 0, 0, 0), # Facture payee par le paiement
+
+(3010, 'TFF', 1, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 0, 0), # Facture shift
+(3011, 'TFF', 2, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 1, 0, 0), # Facture materiel
+(3012, 'TFF', 3, '', 0.05, 0.095, -400, 1,1, '', 1529812800, 0,0, 1530627972, 0, 0, 0), # credit
+(3013, 'TFF', 4, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 1, 0), # avance client
+(3015, 'TFF', 5, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 0, 1), # Facture Intérêt
+
+(3014, 'RMB', 4, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 1, 0); # Facture pour client avec outstading Balance
 
 INSERT INTO `shift` (`IDShift`, `IDInstallation`, `IDEmploye`, `TXH`, `Salaire`, `Start`, `End`, `Jour`, `Semaine`, `Assistant`, `Commentaire`, `Warn`, `Confirme`, `Empconf`, `Facture`, `Paye`, `Message`) VALUES
   (1337, 21, 2, 16.75, 0, 34200, 75600, 0, 1497153600, 0, '', '', 1, 1, 1, 0, 'Vers 14h30, il est important de contacter le chef réceptionniste avant de confirmer l\\\'heure de fin.  Si tu termines bien à 15h, tu n\\\'auras techniquement pas à faire de démontage.');
@@ -133,6 +127,7 @@ INSERT INTO `vars` (`Nom`, `Valeur`, `Type`) VALUES
   ('Boniyear', '2018', 'int'),
   ('MP', '07818b79ae41658fa619c47b86731ab6', 'string'),
   ('TVQShown', '9.975', 'String'),
+  ('interest', '0.03', 'float'),
   ('super_admin_password', 'a97a058d8601fd45d561f8ce1262abb6', 'string');
 
 

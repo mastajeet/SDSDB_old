@@ -1,10 +1,10 @@
 <?php
-include_once('app/facture/Credit.php');
-include_once('app/facture/factureShift.php');
-include_once('app/facture/factureMateriel.php');
-include_once('app/facture/avanceClient.php');
+include_once('app/invoice/Credit.php');
+include_once('app/invoice/shiftInvoice.php');
+include_once('app/invoice/equipmentInvoice.php');
+include_once('app/invoice/avanceClient.php');
 
-class FactureFactory{
+class InvoiceFactory{
 
     function create_typed_facture($facture){
         $sub_type = null;
@@ -12,13 +12,13 @@ class FactureFactory{
         if($facture->is_credit()){
             $sub_type = Credit::class;
         }elseif($facture->is_materiel()){
-            $sub_type = FactureMateriel::class;
+            $sub_type = EquipmentInvoice::class;
         }elseif($facture->is_avance_client()){
             $sub_type = AvanceClient::class;
         }elseif($facture->is_interest()){
-            $sub_type = FactureInterest::class;
+            $sub_type = InterestInvoice::class;
         }else{
-            $sub_type = FactureShift::class;
+            $sub_type = ShiftInvoice::class;
         }
 
         return new $sub_type($facture->IDFacture);

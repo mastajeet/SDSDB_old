@@ -1,10 +1,10 @@
 <?php
 
 include_once ('app/customer.php');
-include_once ('app/facture/facture.php');
+include_once('app/invoice/invoice.php');
 include_once ('app/shift.php');
 include_once ('helper/TimeService.php');
-include_once('app/factsheet.php');
+include_once('app/invoice_item/timedInvoiceItem.php');
 include_once('constants.php');
 
 class TestShift extends PHPUnit_Framework_TestCase
@@ -16,7 +16,7 @@ class TestShift extends PHPUnit_Framework_TestCase
      * @before
      */
     function setup_tested_instance(){
-        $this->facture = new Facture(array('Semaine'=>$this->A_WEEK_TIMESTAMP));
+        $this->facture = new Invoice(array('Semaine'=>$this->A_WEEK_TIMESTAMP));
         $this->customer = new Customer(17);
     }
 

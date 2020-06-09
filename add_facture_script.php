@@ -11,16 +11,16 @@ $facture_dto = array(
     "semaine" => $debut_semaine->getTimestamp(),
     "notes" => $_POST['FORMNotes'],
     "sequence"=>$_POST['FORMSeq'],
-    "facture_type"=>FactureService::FACTURE_SHIFT,
+    "facture_type"=>InvoiceService::FACTURE_SHIFT,
     "taxable"=>true);
 
 
 if($_POST['FORMCredit']==1)
-    $facture_dto ['facture_type']=FactureService::CREDIT;
+    $facture_dto ['facture_type']=InvoiceService::CREDIT;
 if($_POST['FORMMateriel']==1)
-    $facture_dto ['facture_type']=FactureService::FACTURE_MATERIEL;
+    $facture_dto ['facture_type']=InvoiceService::FACTURE_MATERIEL;
 if($_POST['FORMAvanceClient']==1)
-    $facture_dto ['facture_type']=FactureService::AVANCE_CLIENT;
+    $facture_dto ['facture_type']=InvoiceService::AVANCE_CLIENT;
 if($_POST['FORMTaxes']==0)
     $facture_dto ['taxable']=false;
 

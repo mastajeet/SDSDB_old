@@ -25,14 +25,14 @@ class TestCustomer extends PHPUnit_Framework_TestCase
         $customer_with_facture_mensuelle = new Customer(17);
         $facture = $customer_with_facture_mensuelle->generate_next_time_facture($this->A_COTE, $this->A_SEMAINE);
 
-        $this->assertInstanceOf('FactureMensuelle', $facture);
+        $this->assertInstanceOf('MonthlyInvoice', $facture);
     }
 
     function test_givenCustomerWithFactureHebdomadaireMensuelle_whenGenerateFacture_thenFactureAreFactureHebdomadaire(){
         $customer_with_facture_hebdomadaire = new Customer(1);
         $facture = $customer_with_facture_hebdomadaire->generate_next_time_facture($this->A_COTE, $this->A_SEMAINE);
 
-        $this->assertInstanceOf('FactureHebdomadaire', $facture);
+        $this->assertInstanceOf('WeeklyInvoice', $facture);
     }
 
     function test_givenCustomerWithOutstandingBalance_whenHasOutstadingBalance_thenReturnTrue(){

@@ -1,7 +1,7 @@
 <?php
 
 include_once ('app/payment/payment.php');
-include_once ('app/facture/facture.php');
+include_once('app/invoice/invoice.php');
 
 class TestPayment extends PHPUnit_Framework_TestCase
 {
@@ -26,7 +26,7 @@ class TestPayment extends PHPUnit_Framework_TestCase
     function test_givenPartialPaymentWithOneFacture_whenGetPaymentBalance_thenGetPositiveAmount(){
         $payment = new Payment(206);
         $factures = array(
-            "1355"=> new Facture(1355)
+            "1355"=> new Invoice(1355)
         );
 
         $unpaid_balance = $payment->get_payment_balance($factures);
@@ -37,8 +37,8 @@ class TestPayment extends PHPUnit_Framework_TestCase
     function test_givenPartialPaymentWithTwoFacture_whenGetPaymentBalance_thenGetPositiveAmount(){
         $payment = new Payment(207);
         $factures = array(
-            "1356"=> new Facture(1356),
-            "1357"=> new Facture(1357)
+            "1356"=> new Invoice(1356),
+            "1357"=> new Invoice(1357)
         );
 
         $unpaid_balance = $payment->get_payment_balance($factures);
@@ -48,7 +48,7 @@ class TestPayment extends PHPUnit_Framework_TestCase
 
     function test_givenFactureThatWasPaidByPayment_whenPaidFacture_thenReturnTrue(){
         $payment = new Payment(204);
-        $facture = new facture(1353);
+        $facture = new Invoice(1353);
 
         $has_been_paid = $payment->paid_facture($facture);
 

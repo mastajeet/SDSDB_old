@@ -118,19 +118,20 @@ include_once('app/shift.php');
 include_once('app/installation.php');
 include_once('app/inspection.php');
 include_once('app/shift.php');
-include_once('app/factsheet.php');
+
+include_once('app/invoice_item/timedInvoiceItem.php');
 include_once('app/logshift.php');
 include_once('app/customer.php');
-include_once('app/facture/facture.php');
-include_once('app/facture/factureService.php');
-include_once('app/facture/avanceClient.php');
+include_once('app/invoice/invoice.php');
+include_once('app/invoice/InvoiceService.php');
+include_once('app/invoice/avanceClient.php');
 include_once('app/horaire/horaire.php');
 include_once('app/horaire/horaireFactory.php');
 include_once('app/Variable.php');
 include_once('app/employee.php');
 include_once('app/responsable.php');
 include_once('app/Secteur.php');
-include_once('app/facture/factureFactory.php');
+include_once('app/invoice/invoiceFactory.php');
 include_once('app/dossier_facturation/dossierFacturation.php');
 
 include_once('app/payment/payment.php');
@@ -152,7 +153,7 @@ $time_service = new TimeService();
 $notes = $variable->get_value("NoteFacture");
 $tvq = $variable->get_value("TVQ");
 $tps= $variable->get_value("TPS");
-$facture_service = new FactureService($notes, $tps, $tvq);
+$facture_service = new InvoiceService($notes, $tps, $tvq);
 $payment_service  = new PaymentService($facture_service);
 
 $WarningOutput= new html();

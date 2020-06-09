@@ -2,8 +2,8 @@
 include_once('BaseModel.php');
 include_once('func_divers.php');
 include_once('app/responsable.php');
-include_once('facture/factureHebdomadaire.php');
-include_once('facture/factureMensuelle.php');
+include_once('invoice/weeklyInvoice.php');
+include_once('invoice/monthlyInvoice.php');
 
 $INEXISTING_FACTURATION_FREQUENCE = "Le mode de facture n'existe pas";
 
@@ -57,7 +57,7 @@ class Customer extends BaseModel
             $this->responsables["responsable_facturation"] = new Responsable($this->RespF);
         }
         $this->time_service = new TimeService();
-        $this->facture_service = new FactureService($notes, $tps, $tvq);
+        $this->facture_service = new InvoiceService($notes, $tps, $tvq);
     }
 
     static function define_table_info(){
@@ -122,9 +122,9 @@ class Customer extends BaseModel
             "EnDate"=>time());
 
         if($this->FrequenceFacturation=="M"){
-            $facture = new FactureMensuelle($facture_information, $start_of_billable_time);
+            $facture = new MonthlyInvoice($facture_information, $start_of_billable_time);
         }elseif($this->FrequenceFacturation=="H"){
-            $facture = new FactureHebdomadaire($facture_information);
+            $facture = new WeeklyInvoice($facture_information);
         }else{
             throw new UnexpectedValueException(INEXISTING_FACTURATION_FREQUENCE);
         }

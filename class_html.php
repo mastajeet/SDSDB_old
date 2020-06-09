@@ -453,6 +453,30 @@ class HTML
         $this->closerow();
     }
 
+    function checklist($name, $chk=0, $description=NULL)
+    {
+        $this->inputhidden($name, 0);
+
+        $checked ="";
+        if($chk==1){
+            $checked = "checked";
+        }
+        if($description==NULL){
+            $description=$name;
+        }
+        $this->openrow();
+
+        $this->opencol(5);
+        $this->addoutput("<input name=\"".$this->formname.$name."\" type=checkbox value=1 $checked>");
+        $this->closecol();
+
+        $this->opencol(1600);
+                $this->addtexte(ucfirst($description),"titre");
+        $this->closecol();
+        $this->closerow();
+    }
+
+
     function flaglist($name, $option, $selected=array(), $description=NULL)
     {
         // FAIRE LES MODIFICATION CAR MONT? EN BROCHE A FOIN

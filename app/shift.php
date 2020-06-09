@@ -60,7 +60,7 @@ class Shift extends BaseModel
             $employee = new Employee($this->IDEmploye);
             $jourFromFactureSemaine = $this->calculate_day_since_semaine($Facture);
             $FactsheetValues = array('IDFacture'=>$Facture->IDFacture,'Start'=>$this->Start,'End'=>$this->End,'Jour'=>$jourFromFactureSemaine,'TXH'=>$this->TXH,'Notes'=>$titre.": ".$relatedInstallation->Nom." (".$employee->initials().")");
-            $Facture->add_factsheet(new Factsheet($FactsheetValues));
+            $Facture->add_factsheet(new TimedInvoiceItem($FactsheetValues));
         }
 
         $this->Facture=True;

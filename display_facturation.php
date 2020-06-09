@@ -114,9 +114,10 @@ if(isset($_GET['Cote'])){
 
 			$MainOutput->AddTexte(DETAIL,'Titre');
 		if(!$_GET['ToPrint']){
-			$MainOutput->addlink('index.php?Section=Add_Facture&Cote='.$_GET['Cote'],'<img border=0 src=b_ins.png>');
-			$MainOutput->addlink('index.php?Section=DossierFacturation_DisplayAccountStatement&Cote='.$_GET['Cote'].'&ToPrint=TRUE&NB=15','<img border=0 src=b_print.png>','_BLANK');
-			$MainOutput->addlink('index.php?Section=ArchivesFacturation&Cote='.$_GET['Cote'],'<img border=0 src=f_close.png>');
+			$MainOutput->addlink('index.php?Section=Add_Facture&Cote='.$_GET['Cote'],'<img border=0 src=b_ins.png title="Créer une facture manuelle">');
+			$MainOutput->addlink('index.php?Section=DossierFacturation_DisplayAccountStatement&Cote='.$_GET['Cote'].'&ToPrint=TRUE&NB=15','<img border=0 src=b_print.png title="Imprimer le dossier de facturation">','_BLANK');
+			$MainOutput->addlink('index.php?Section=ArchivesFacturation&Cote='.$_GET['Cote'],'<img border=0 src=f_close.png title="Archive des dossiers de facturation">');
+			$MainOutput->addlink('index.php?Section=Genrate_Facture_Interest&Cote='.$_GET['Cote'].'&Year='.$current_year,'<img border=0 src=b_monte.png title="this will be displayed as a tooltip">');
 		}
 
 
@@ -223,4 +224,3 @@ if(isset($_GET['Cote'])){
 
 
 echo $MainOutput->Send(1);
-?>

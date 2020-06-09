@@ -1,5 +1,5 @@
 <?php
-include_once('app/facture/factureService.php');
+include_once('app/invoice/InvoiceService.php');
 include_once('app/dossier_facturation/customerTransaction.php');
 include_once('app/Variable.php');
 
@@ -20,7 +20,7 @@ class Payment extends BaseModel implements CustomerTransaction
         $notes = $variable->get_value('NoteFacture');
         $tps = $variable->get_value('TPS');
         $tvq = $variable->get_value('TVQ');
-        $this->facture_service = new FactureService($notes, $tps, $tvq);
+        $this->facture_service = new InvoiceService($notes, $tps, $tvq);
     }
 
     static function define_table_info(){
@@ -61,7 +61,7 @@ class Payment extends BaseModel implements CustomerTransaction
         return $montant_left;
     }
 
-    function paid_facture(Facture $facture){
+    function paid_facture(Invoice $facture){
         $paid_factures = $this->get_paid_facture();
         $paid = false;
         foreach ($paid_factures as $id_facture => $paid_facture){

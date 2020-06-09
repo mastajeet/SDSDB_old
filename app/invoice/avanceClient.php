@@ -1,7 +1,7 @@
 <?php
-include_once ('facture.php');
+include_once('invoice.php');
 
-class AvanceClient extends Facture{
+class AvanceClient extends Invoice{
 
     function __construct($Args){
         parent::__construct($Args);

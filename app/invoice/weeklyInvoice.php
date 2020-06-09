@@ -1,9 +1,9 @@
 <?php
 
-include_once ('factureShift.php');
+include_once('shiftInvoice.php');
 include_once('timeFacture.php');
 
-class FactureHebdomadaire extends FactureShift implements TimeFacture{
+class WeeklyInvoice extends ShiftInvoice implements TimeFacture{
 
     function __construct($Args)
     {

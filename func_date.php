@@ -110,9 +110,9 @@ function get_date($Time){
 
 function get_month_list($Len = "long"){
 	if($Len<>"court"){
-		return array(1=>'Janvier',2=>'Fï¿½vrier',3=>'Mars',4=>'Avril',5=>'Mai',6=>'Juin',7=>'Juillet',8=>'Aoï¿½t',9=>'Septembre',10=>'Octobre',11=>'Novembre',12=>'Dï¿½cembre');
+		return array(1=>'Janvier',2=>'Février',3=>'Mars',4=>'Avril',5=>'Mai',6=>'Juin',7=>'Juillet',8=>'Ao?t',9=>'Septembre',10=>'Octobre',11=>'Novembre',12=>'Décembre');
 	}
-	return array(1=>'Janv',2=>'Fï¿½v',3=>'Mars',4=>'Avr',5=>'Mai',6=>'Juin',7=>'Juil',8=>'Aoï¿½t',9=>'Sept',10=>'Oct',11=>'Nov',12=>'Dï¿½c');
+	return array(1=>'Janv',2=>'Fév',3=>'Mars',4=>'Avr',5=>'Mai',6=>'Juin',7=>'Juil',8=>'Ao?t',9=>'Sept',10=>'Oct',11=>'Nov',12=>'Déc');
 }
 function get_day_list($Len = "Long"){
 	if($Len<>"court"){
@@ -148,7 +148,7 @@ function is_ferie($Date){
 	//Jour De L'an
 	if($Date['mon']==1 && $Date['mday']==1)
 		$Ferie = TRUE;
-	//Pï¿½cques
+	//P?cques
 	
 	$M = $Date['year'];
 	$n = $M-1900;
@@ -164,7 +164,7 @@ function is_ferie($Date){
 		$Ferie = TRUE;
 	
 	
-	//Fï¿½te des patriotes
+	//F?te des patriotes
 		$FetePatriotes = getdate(mktime(0,0,0,5,25,$Date['year']));
 	if($Date['mon']==5){
 		if($FetePatriotes['wday']==0){
@@ -186,10 +186,10 @@ function is_ferie($Date){
 	//St-Jean
 	if($Date['mon']==6 && $Date['mday']==24)
 		$Ferie = TRUE;
-	//Confï¿½dï¿½ration
+	//Conf?d?ration
 	if($Date['mon']==7 && $Date['mday']==1)
 		$Ferie = TRUE;
-	//Fï¿½te du travail
+	//F?te du travail
 	$FeteTravail = getdate(mktime(0,0,0,9,1,$Date['year']));
 	if($Date['mon']==9){
 		if($FeteTravail['wday']==0){
@@ -207,7 +207,7 @@ function is_ferie($Date){
 		}
 	}	
 	
-	//Action de grï¿½ce
+	//Action de gr?ce
 	$ActionGrace = getdate(mktime(0,0,0,10,1,$Date['year']));
 	if($Date['mon']==10){
 		if($ActionGrace['wday']==0){

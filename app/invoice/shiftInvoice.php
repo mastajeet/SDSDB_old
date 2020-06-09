@@ -1,7 +1,7 @@
 <?php
-include_once ('facture.php');
+include_once('invoice.php');
 
-class FactureShift extends facture {
+class ShiftInvoice extends Invoice {
 
     function __construct($Args){
         parent::__construct($Args);

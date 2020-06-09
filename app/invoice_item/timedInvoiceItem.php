@@ -1,21 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jtbai
- * Date: 18/01/18
- * Time: 10:32 PM
- */
+include_once('app/invoice_item/InvoiceItem.php');
 
-class Factsheet extends baseModel
+class TimedInvoiceItem extends InvoiceItem
 {
-
-    public $End;
-    public $Notes;
-    public $Start;
-    public $Jour;
-    public $IDFacture;
-    public $IDFactsheet;
-
     function update_using_next_shift($next_shift){
         $this->End = $next_shift->End;
         $this->Notes = substr($this->Notes,0,-1);
@@ -24,7 +11,7 @@ class Factsheet extends baseModel
     }
 
     function update_using_customer_ferie($customer_ferie){
-        $associated_facture = new Facture($this->IDFacture);
+        $associated_facture = new Invoice($this->IDFacture);
         if(is_ferie($this->Jour*86400+$associated_facture->Semaine)){
             if($customer_ferie<>1){
                 $this->TXH *= $customer_ferie;
@@ -39,18 +26,7 @@ class Factsheet extends baseModel
         }
     }
 
-    function add_factshift_to_balance(&$Balance){
+    function add_bill_item_to_balance(&$Balance){
         $Balance += round(($this->End - $this->Start)/NB_SECONDS_PER_HOUR*$this->TXH,2);
     }
-
-    static function define_table_info(){
-        return array("model_table" => "factsheet",
-            "model_table_id" => "IDFactsheet");
-    }
-
-    static function define_data_types(){
-        return array("IDFactsheet"=>'ID',
-        'TXH'=>'float');
-    }
-
 }

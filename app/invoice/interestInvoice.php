@@ -1,7 +1,9 @@
 <?php
-include_once ('facture.php');
+include_once('invoice.php');
 
-class FactureInterest extends Facture{
+class InterestInvoice extends Invoice{
+
+//    private $date_debut_calcul;
 
     function __construct($Args){
         parent::__construct($Args);
@@ -28,5 +30,7 @@ class FactureInterest extends Facture{
 
         return $query;
     }
+
+//    function add_items($)
 }
 

@@ -143,7 +143,8 @@ CREATE TABLE `facture` (
   `Utilise` tinyint(4) NOT NULL DEFAULT '0',
   `EnDate` bigint(20) NOT NULL DEFAULT '0',
   `Materiel` tinyint(4) NOT NULL DEFAULT '0',
-  `AvanceClient` tinyint(4) NOT NULL DEFAULT '0'
+  `AvanceClient` tinyint(4) NOT NULL DEFAULT '0',
+  `Interest` tinyint(4) NOT NULL DEFAULT '0'
 
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

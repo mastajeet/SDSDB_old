@@ -2,7 +2,7 @@
 include_once('app/dossier_facturation/customerTransaction.php');
 
 
-class Facture extends BaseModel implements customerTransaction
+class Invoice extends BaseModel implements customerTransaction
 {
     public $Credit;
     public $Debit;
@@ -44,7 +44,7 @@ class Facture extends BaseModel implements customerTransaction
     }
 
     function save(){
-        //stu moi ou ca va decalicer quand on va editer qqch dans la facture... au moins on peut rien modifier a part les shifts dedans....
+        //stu moi ou ca va decalicer quand on va editer qqch dans la invoice... au moins on peut rien modifier a part les shifts dedans....
         $this->updated_values[] = "STotal";
         $this->update_balance();
         parent::save();
@@ -59,7 +59,7 @@ class Facture extends BaseModel implements customerTransaction
         }
 
         if(is_null($payment_that_paid_this_facture)){
-            throw new RuntimeException("Can't find payment for paid facture ".$this->Cote."-".$this->Sequence);
+            throw new RuntimeException("Can't find payment for paid invoice ".$this->Cote."-".$this->Sequence);
         }
 
         return $payment_that_paid_this_facture;

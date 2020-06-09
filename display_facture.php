@@ -5,7 +5,7 @@ if(isset($_GET['IDFacture'])){
     if(!isset($Modifie))
         $Modifie=FALSE;
 
-    $facture = new Facture($_GET['IDFacture']);
+    $facture = new Invoice($_GET['IDFacture']);
     $Req = "SELECT * FROM factsheet WHERE IDFacture = ".$_GET['IDFacture']." ORDER BY Jour ASC, Start ASC";
     $SQL->SELECT($Req);
     $Head = new HTML;

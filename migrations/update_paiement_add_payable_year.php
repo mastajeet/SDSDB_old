@@ -2,7 +2,7 @@
 include_once('mysql_class_mtl.php');
 include_once('app/BaseModel.php');
 include_once('app/payment.php');
-include_once('app/facture/facture.php');
+include_once('app/invoice/invoice.php');
 
 $SQL = new SqlClass();
 $payments_query = "SELECT * from paiement";
