@@ -4,7 +4,7 @@ include_once('app/invoice/equipmentInvoice.php');
 include_once('app/invoice/invoice.php');
 include_once ('app/payment/payment.php');
 
-class TestFactureMateriel extends PHPUnit_Framework_TestCase{
+class TestEquipmentInvoice extends PHPUnit_Framework_TestCase{
     function test_givenIDFactureOfMaterielFacture_whenContruct_thenGetFactureMateriel(){
         $facture = new EquipmentInvoice(3011); #Facture Shift
 

@@ -8,7 +8,7 @@ include_once('app/invoice/equipmentInvoice.php');
 include_once('app/invoice/Credit.php');
 include_once('app/invoice/avanceClient.php');
 
-class TestFactureFactory extends PHPUnit_Framework_TestCase{
+class TestInvoiceFactory extends PHPUnit_Framework_TestCase{
 
     private $facture_factory;
 

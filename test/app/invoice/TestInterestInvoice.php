@@ -4,7 +4,7 @@ include_once('app/invoice/interestInvoice.php');
 include_once('app/invoice/invoice.php');
 include_once ('app/payment/payment.php');
 
-class TestFactureInterest extends PHPUnit_Framework_TestCase{
+class TestInterestInvoice extends PHPUnit_Framework_TestCase{
     function test_givenIDFactureOfInterestFacture_whenContruct_thenGetFactureInterest(){
         $facture = new InterestInvoice(3015); #Facture Shift
 

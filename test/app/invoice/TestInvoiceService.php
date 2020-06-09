@@ -2,7 +2,7 @@
 
 include_once('app/invoice/InvoiceService.php');
 
-class TestFactureService extends PHPUnit_Framework_TestCase{
+class TestInvoiceService extends PHPUnit_Framework_TestCase{
 
     private $facture_service;
     private $facture_dto;

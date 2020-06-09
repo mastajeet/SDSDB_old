@@ -119,7 +119,7 @@ include_once('app/installation.php');
 include_once('app/inspection.php');
 include_once('app/shift.php');
 
-include_once('app/invoice_item/timedInvoiceItem.php');
+include_once('app/invoice/invoice_item/timedInvoiceItem.php');
 include_once('app/logshift.php');
 include_once('app/customer.php');
 include_once('app/invoice/invoice.php');

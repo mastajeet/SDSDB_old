@@ -4,7 +4,7 @@ include_once('app/invoice/invoice.php');
 include_once('app/invoice/invoice.php');
 include_once ('app/payment/payment.php');
 
-class TestFacture extends PHPUnit_Framework_TestCase{
+class TestInvoice extends PHPUnit_Framework_TestCase{
 
     const UNE_COTE = "TF";
     const UN_NUMERO_SEQUENTIEL = "1";

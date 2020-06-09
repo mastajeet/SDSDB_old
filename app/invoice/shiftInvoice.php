@@ -1,12 +1,15 @@
 <?php
 include_once('invoice.php');
+include_once('app/invoice/invoice_item/timedInvoiceItem.php');
 
 class ShiftInvoice extends Invoice {
 
     function __construct($Args){
         parent::__construct($Args);
         $this->Debit = true;
+        $this->item_type = TimedInvoiceItem::class;
         $this->updated_values[] = "Debit";
+
     }
 
     function is_shift(){
@@ -26,5 +29,11 @@ class ShiftInvoice extends Invoice {
 
         return $query;
     }
-}
 
+    function get_items(){
+
+        $item_class = $this->item_type;
+
+
+    }
+}

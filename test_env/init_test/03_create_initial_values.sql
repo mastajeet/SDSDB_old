@@ -16,15 +16,12 @@ INSERT INTO `installation` (`IDInstallation`, `IDClient`, `IDResponsable`, `IDHo
 (66, 65, 419, 35, 6, 'TI1', 'installation_2', '418', 'https://www.google.ca/maps/place/4410+Rue+des+Roses,+Ville+de+Qu%C3%A9bec,+QC+G1G+1P2/@46.8824046,-71.2832669,19z/data=!3m1!4b1!4m5!3m4!1s0x4cb8bd2cc5ea0e09:0xd7149c6508e89c86!8m2!3d46.8824046!4d-71.2827197?hl=fr', '4410, des Roses', '<b>Les locataires auront une carte à montrer pour accéder à la piscine  à compter du 6 juillet : pas de carte d\'accès, pas de baignade...soyez strict!! \r\nMaximum 2 invités par locataire </b>\r\n\r\nLe matériel des sauveteurs est dans le cabanon près de la piscine. \r\n Merci de sortir le matériel à votre arrivée, et de le ranger quand vous quittez.\r\n Les sauveteurs sont en charge de l\'entretien (balayeuse, backwash, cerne et ajout de produits). \r\n En cas de besoin, contactez le concierge :  M. Stéphane Despins 418-609-3989.\r\n\r\n Maximum 2 invités par locataire. ', 1, 'E', 0, 'l’appartement des concierges au 4298 des Roses appartement 404.', 0, 1, 0, 1, 0, 0, '', '', '', ''),
 (67, 65, 419, 35, 6, 'TI2', 'installation_3', '418', 'https://www.google.ca/maps/place/4410+Rue+des+Roses,+Ville+de+Qu%C3%A9bec,+QC+G1G+1P2/@46.8824046,-71.2832669,19z/data=!3m1!4b1!4m5!3m4!1s0x4cb8bd2cc5ea0e09:0xd7149c6508e89c86!8m2!3d46.8824046!4d-71.2827197?hl=fr', '4410, des Roses', '<b>Les locataires auront une carte à montrer pour accéder à la piscine  à compter du 6 juillet : pas de carte d\'accès, pas de baignade...soyez strict!! \r\nMaximum 2 invités par locataire </b>\r\n\r\nLe matériel des sauveteurs est dans le cabanon près de la piscine. \r\n Merci de sortir le matériel à votre arrivée, et de le ranger quand vous quittez.\r\n Les sauveteurs sont en charge de l\'entretien (balayeuse, backwash, cerne et ajout de produits). \r\n En cas de besoin, contactez le concierge :  M. Stéphane Despins 418-609-3989.\r\n\r\n Maximum 2 invités par locataire. ', 1, 'E', 0, 'l’appartement des concierges au 4298 des Roses appartement 404.', 0, 1, 0, 1, 0, 0, '', '', '', '');
 
-
-
 INSERT INTO `client` (`IDClient`, `Nom`, `Cote`, `Facturation`, `FrequenceFacturation`, `Email`, `Fax`, `Tel`, `Adresse`, `RespP`, `RespF`, `Notes`, `Actif`, `TXH`, `Ferie`, `Piece`, `Balance`, `Depot`, `DepotP`, `Password`, `NBAcces`) VALUES
 (1, 'Hôtels Jaro', '', 'E', 'H', 'payables@hotelsjaro.com;nhewitt@hotelsjaro.com ', '418', '4186585665', '', 33, 33, '', 1, 18.25, 1, 0, '0', 0, 0, 'mireille1', 40),
 (17, 'Customer with Mensual Facture with outstanding Balance.', 'RMB', 'F', 'M', 'vigmgr@raamco.ca', '4506468141', '4504686200', '2480 Roland Therrien #210, Longueuil, Qc J4L4G1', 0, 0, '19.05', 1, 19.05, 1.5, 0, '0', 0, 0, 'admin', 3),
 (18, 'Customer with no outstanding balance.', 'RMN', 'F', 'M', 'vigmgr@raamco.ca', '4506468141', '4504686200', '2480 Roland Therrien #210, Longueuil, Qc J4L4G1', 0, 0, '19.05', 1, 19.05, 1.5, 0, '0', 0, 0, 'admin', 3),
 (60, 'Customer many installation with different Cote.', 'TI', 'F', 'M', 'lolk@okay.com', '4188888888', '', '', 0, 0, '19.05', 1, 19.05, 1.5, 0, '0', 0, 0, 'admin', 3),
 (65, 'Customer many 2 cote but 3 installation', 'TI1', 'F', 'M', 'lolk@okay.com', '4188888888', '', '', 0, 0, '19.05', 1, 19.05, 1.5, 0, '0', 0, 0, 'admin', 3);
-
 
 INSERT INTO `paiement` (`IDPaiement`, `Cote`, `Montant`, `Date`, `PayableYear`,`Notes`) VALUES
   (99 , 'TDF', 344.92, 1509220851,2017, ''),                 # date de 2017
@@ -113,7 +110,19 @@ INSERT INTO `facture` (`IDFacture`, `Cote`, `Sequence`, `BonAchat`, `TPS`, `TVQ`
 (3013, 'TFF', 4, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 1, 0), # avance client
 (3015, 'TFF', 5, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 0, 1), # Facture Intérêt
 
+(4001, 'TII', 1, '', 0.05, 0.095, 300, 1,0, '', 1583625600, 0,0, 1584014400, 0, 0, 0), # Facture de temps avec 3 invoice items
+(4002, 'TII', 1, '', 0.05, 0.095, 400, 1,0, '', 1583625600, 0,0, 1584014400, 1, 0, 1), # Facture de matériel avec 3 invoice items
+
 (3014, 'RMB', 4, '', 0.05, 0.095, 400, 1,0, '', 1529812800, 0,0, 1530627972, 0, 1, 0); # Facture pour client avec outstading Balance
+
+
+
+INSERT INTO `factsheet` (`IDFactsheet`, `IDFacture`, `Start`, `End`, `TXH`, `Notes`, `Jour`) VALUES
+(1, 4001, 32400, 43200, 50, 'Note 1', 0), #3 h 150 $
+(2, 4001, 54000, 72000, 2, 'Note 2', 0), #5 h 10 $
+(3, 4001, 28800, 79200, 10, 'Note 3', 1), #14 h 140 $
+(4, 4002, 0, 1, 100, '1 items a 100$', 0), #1 x 100$
+(5, 4002, 0, 2, 150, '2 items a 150$', 0); #2 x 150$
 
 INSERT INTO `shift` (`IDShift`, `IDInstallation`, `IDEmploye`, `TXH`, `Salaire`, `Start`, `End`, `Jour`, `Semaine`, `Assistant`, `Commentaire`, `Warn`, `Confirme`, `Empconf`, `Facture`, `Paye`, `Message`) VALUES
   (1337, 21, 2, 16.75, 0, 34200, 75600, 0, 1497153600, 0, '', '', 1, 1, 1, 0, 'Vers 14h30, il est important de contacter le chef réceptionniste avant de confirmer l\\\'heure de fin.  Si tu termines bien à 15h, tu n\\\'auras techniquement pas à faire de démontage.');

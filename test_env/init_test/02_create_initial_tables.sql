@@ -248,4 +248,15 @@ CREATE TABLE `responsable` (
                               `Resp` char(1) NOT NULL DEFAULT ''
  ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+CREATE TABLE `factsheet` (
+                             `IDFactsheet` int(11) NOT NULL,
+                             `IDFacture` int(11) NOT NULL DEFAULT '0',
+                             `Start` float NOT NULL DEFAULT '0',
+                             `End` float NOT NULL DEFAULT '0',
+                             `TXH` float NOT NULL DEFAULT '0',
+                             `Notes` text NOT NULL,
+                             `Jour` tinyint(4) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
 

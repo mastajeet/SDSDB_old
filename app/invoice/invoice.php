@@ -21,6 +21,7 @@ class Invoice extends BaseModel implements customerTransaction
     public $Cote;
     public $BonAchat;
     public $Notes;
+    public $item_type;
 
     function __construct($Args){
         parent::__construct($Args);
@@ -32,6 +33,10 @@ class Invoice extends BaseModel implements customerTransaction
     }
 
     static function get_by_cote_and_sequence($cote, $sequence){
+        throw new NotImplementedException();
+    }
+
+    function get_items(){
         throw new NotImplementedException();
     }
 

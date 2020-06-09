@@ -38,7 +38,7 @@ class TestPaymentService extends PHPUnit_Framework_TestCase{
             $this->assertEquals(1, count($payments));
         }catch (Exception $exception){
             $this->payment_service->delete_payment($payment);
-            throw new AssertionError();
+            $this->assertEquals(1, count($payments));
         }
 
 
