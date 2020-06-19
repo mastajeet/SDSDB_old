@@ -8,7 +8,7 @@ if(isset($_GET['IDFacture'])){
     $facture = new Invoice($_GET['IDFacture']);
     $Req = "SELECT * FROM factsheet WHERE IDFacture = ".$_GET['IDFacture']." ORDER BY Jour ASC, Start ASC";
     $SQL->SELECT($Req);
-    $Head = new HTML;
+    $Head = new HTMLContainer();
     $Req2 = "SELECT client.`Nom`, client.`Adresse`, client.`Facturation`, client.`Fax`, client.`Email`, responsable.`Nom`, responsable.Prenom, installation.Factname, installation.ASFact, installation.AdresseFact, client.FrequenceFacturation, installation.PONo FROM facture join installation join client join responsable on facture.Cote = installation.Cote AND installation.IDClient = client.IDClient AND client.RespF = responsable.IDResponsable WHERE IDFacture = ".$_GET['IDFacture'];
 
     $MainOutput->OpenTable(660);

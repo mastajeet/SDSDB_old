@@ -4,10 +4,9 @@
     const QC="QC";
 
     ini_set("default_charset", "iso-8859-1");
-    error_reporting(E_ALL);
+//    error_reporting(E_ALL);
     ini_set('display_errors', 1);
     setlocale(LC_TIME, 'fr_CA');
-
 
 extract($_REQUEST);
 if(isset($_POST['Section'])){
@@ -98,7 +97,7 @@ if(isset($_COOKIE['IDEmploye']) AND !isset($_COOKIE['CIESDS'])){
 	DIE("Veuillez Rafraichir votre page");
 }
 
-include('class_html.php');
+include('view/HTMLContainer.php');
 
 include('func_divers.php');
 include('func_employe.php');
@@ -144,6 +143,12 @@ include_once('helper/ModelToKVPConverter.php');
 include_once('helper/ConstantArray.php');
 include_once('helper/TimeService.php');
 
+include_once('view/HTMLContainerRenderer.php');
+
+include_once('view/invoice/display_invoice/HeaderRendererFactory.php');
+include_once('view/invoice/display_invoice/BodyRendererFactory.php');
+include_once('view/invoice/display_invoice/FooterRenderer.php');
+include_once('view/invoice/display_invoice/HTMLInvoiceRenderer.php');
 
 $variable = new Variable();
 $password_getter = new PasswordGetter($variable);
@@ -156,8 +161,8 @@ $tps= $variable->get_value("TPS");
 $facture_service = new InvoiceService($notes, $tps, $tvq);
 $payment_service  = new PaymentService($facture_service);
 
-$WarningOutput= new html();
-$MainOutput = new html();
+$WarningOutput= new HTMLContainer();
+$MainOutput = new HTMLContainer();
 
 
 if(isset($_POST['ToPrint'])){
@@ -169,7 +174,7 @@ if(!isset($_COOKIE['IDEmploye'])){
     if($_COOKIE['Bureau']==1 and (isset($_COOKIE['MP']) AND $_COOKIE['MP']==get_vars('MP'))){
         if(isset($Action))
             include('action.php');
-        $MenuOutput = new html();
+        $MenuOutput = new HTMLContainer();
         if(!isset($_GET['Semaine']))
             $_GET['Semaine']=get_last_sunday();
         if(!isset($_GET['ToPrint']))

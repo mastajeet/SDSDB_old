@@ -2,12 +2,12 @@
 function get_employe_horaire($IDEmploye,$Semaine){
 	$SQL = new sqlclass;
 	$SQL2  = new sqlclass;
-	$MainOutput = new HTML;
+	$MainOutput = new HTMLContainer;
 	
 	if(!is_array($Semaine)){
 		$Semaine = array($Semaine);
 	}
-	echo "<!-- généré le ".date("d-m-Y",time())."--!>";
+	echo "<!-- gï¿½nï¿½rï¿½ le ".date("d-m-Y",time())."--!>";
     
 	$MainOutput->OpenTable(700);
 	$Month = get_month_list('court');
@@ -55,20 +55,20 @@ function get_employe_horaire($IDEmploye,$Semaine){
                 $SQL2->SELECT($Req2);
 
                 if($Rep['Message']<>""){
-                    $MainOutput->addtexte("<a title=\"".$Rep['Message']."\">".$Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i']."</a>", 'unconfirmed');
+                    $MainOutput->addtexte("<a title=\"".$Rep['Message']."\">".$Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i']."</a>", 'unconfirmed');
                 }elseif($Rep['Warn']<>""){
-                    $MainOutput->addtexte("<a title=\"Appelles nous svp!\">".$Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'unconfirmed');
+                    $MainOutput->addtexte("<a title=\"Appelles nous svp!\">".$Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i'], 'unconfirmed');
                 }else{
 
                     if($SQL2->NumRow()==0){
-                        $MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'ok');
+                        $MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i'], 'ok');
                     }else{
                         $Rep2 = $SQL2->FetchArray();
                         if($Rep2[0]==0)
-                                $MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'torempl');
+                                $MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i'], 'torempl');
                         else{
                             if($Rep2[0]==$IDEmploye)
-                                $MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'ok');
+                                $MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i'], 'ok');
                             else
                                 $MainOutput->addtexte($Rep2[1]." ".$Rep2[2]);
                         }
@@ -87,7 +87,7 @@ function get_employe_horaire($IDEmploye,$Semaine){
 function get_employe_horaire_email($IDEmploye,$Semaine){
 	$SQL = new sqlclass;
 	$SQL2  = new sqlclass;
-	$MainOutput = new HTML;
+	$MainOutput = new HTMLContainer;
 	
 	if(!is_array($Semaine)){
 		$Semaine = array($Semaine);
@@ -139,19 +139,19 @@ function get_employe_horaire_email($IDEmploye,$Semaine){
 			$SQL2->SELECT($Req2);
 
 			if($Rep['Warn']<>"")
-					$MainOutput->AddOutput("<font face=tahoma size=2 style='background-color: #FFD71C;'>".$Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i']."<font>",0,0);
+					$MainOutput->AddOutput("<font face=tahoma size=2 style='background-color: #FFD71C;'>".$Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i']."<font>",0,0);
 		else{
 			
 			if($SQL2->NumRow()==0)
-					$MainOutput->AddOutput("<font face=tahoma size=2 style='background-color: #0CFF00;'>".$Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i']."<font>",0,0);
+					$MainOutput->AddOutput("<font face=tahoma size=2 style='background-color: #0CFF00;'>".$Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i']."<font>",0,0);
 	
 			else{
 				$Rep2 = $SQL2->FetchArray();
 				if($Rep2[0]==0)
-						$MainOutput->AddOutput("<font face=tahoma size=2 style='background-color: #FF72A4'>".$Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i']."<font>",0,0);
+						$MainOutput->AddOutput("<font face=tahoma size=2 style='background-color: #FF72A4'>".$Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i']."<font>",0,0);
 				else{
 					if($Rep2[0]==$IDEmploye)
-						$MainOutput->AddOutput("<font face=tahoma size=2 style='background-color: #0CFF00;'>".$Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i']."<font>",0,0);
+						$MainOutput->AddOutput("<font face=tahoma size=2 style='background-color: #0CFF00;'>".$Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i']."<font>",0,0);
 					else
 						$MainOutput->AddOutput("<font face=tahoma size=2 style='background-color: #0CFF00;'>".$Rep2[1]." ".$Rep2[2]."<font>",0,0);
 				}
@@ -171,7 +171,7 @@ function get_employe_horaire_email($IDEmploye,$Semaine){
 function get_employe_horshift($IDEmploye,$ALL=FALSE){
 	$SQL = new sqlclass;
 	$SQL2  = new sqlclass;
-	$MainOutput = new HTML;
+	$MainOutput = new HTMLContainer;
 	
 
 	$MainOutput->OpenTable(700);
@@ -214,7 +214,7 @@ function get_employe_horshift($IDEmploye,$ALL=FALSE){
 					if($End['i']==0)
 						$End['i']="";
 
-				$MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'ok');
+				$MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i'], 'ok');
 				$MainOutput->br();
 			}
 				$MainOutput->closecol();

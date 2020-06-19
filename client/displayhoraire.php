@@ -28,7 +28,7 @@ if(!$_GET['ToPrint']){
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('450',3);
 	$MainOutput->addoutput('<div align=left>',0,0);
-	$MainOutput->AddLink('index.php?Section=Display_Shift&Semaine='.get_last_sunday(1,$_GET['Semaine']),'Semaine précédente');
+	$MainOutput->AddLink('index.php?Section=Display_Shift&Semaine='.get_last_sunday(1,$_GET['Semaine']),'Semaine prï¿½cï¿½dente');
 	$MainOutput->addoutput('</div>',0,0);
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('450',3);
@@ -86,7 +86,7 @@ while($Rep = $SQL->FetchArray()){
 	
 	$Req3 = "SELECT IDShift, Jour, Start, End, Warn, Commentaire, Confirme, shift.IDEmploye, Nom, Prenom, HName, Assistant FROM shift LEFT JOIN employe on shift.IDEmploye = employe.IDEmploye WHERE IDInstallation=".$Rep[0]." AND Semaine=".$_GET['Semaine']." ORDER BY Jour ASC, Assistant ASC, Start ASC";
 	$SQL2->SELECT($Req3);
-	$Output = array(0=>new HTML,1=>new HTML,2=>new HTML,3=>new HTML,4=>new HTML,5=>new HTML,6=>new HTML);
+	$Output = array(0=>new HTMLContainer,1=>new HTMLContainer,2=>new HTMLContainer,3=>new HTMLContainer,4=>new HTMLContainer,5=>new HTMLContainer,6=>new HTMLContainer);
 	$Assistant = array(0=>FALSE,1=>FALSE,2=>FALSE,3=>FALSE,4=>FALSE,5=>FALSE,6=>FALSE);
 	while($Rep2 = $SQL2->FetchArray()){
 		if($Rep2['Assistant'] AND !$Assistant[$Rep2['Jour']]){
@@ -109,7 +109,7 @@ while($Rep = $SQL->FetchArray()){
 			$End['i']="";
 		$Output[$Rep2['Jour']]->openrow();
 		$Output[$Rep2['Jour']]->opencol();
-		$Output[$Rep2['Jour']]->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'Titre2');
+		$Output[$Rep2['Jour']]->addtexte($Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i'], 'Titre2');
 		$Output[$Rep2['Jour']]->closecol();
 		$Output[$Rep2['Jour']]->closerow();
 		$Output[$Rep2['Jour']]->openrow();

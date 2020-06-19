@@ -52,7 +52,7 @@ $MainOutput->CloseRow();
 		$MainOutput->closecol();
 		$Req3 = "SELECT IDShift, Jour, Start, End, Warn, Confirme, Assistant, shift.IDEmploye, Nom, Prenom, HName FROM shift LEFT JOIN employe on shift.IDEmploye = employe.IDEmploye WHERE IDInstallation=".$Rep[0]." AND Semaine=".$Semaine."  ORDER BY Jour ASC, Assistant ASC, Start ASC";
 		$SQL2->SELECT($Req3);
-		$Output = array(0=>new HTML,1=>new HTML,2=>new HTML,3=>new HTML,4=>new HTML,5=>new HTML,6=>new HTML);
+		$Output = array(0=>new HTMLContainer,1=>new HTMLContainer,2=>new HTMLContainer,3=>new HTMLContainer,4=>new HTMLContainer,5=>new HTMLContainer,6=>new HTMLContainer);
 		$Assistant = array(0=>FALSE,1=>FALSE,2=>FALSE,3=>FALSE,4=>FALSE,5=>FALSE,6=>FALSE);
 		while($Rep2 = $SQL2->FetchArray()){
 			if($Rep2['Assistant'] AND !$Assistant[$Rep2['Jour']]){
@@ -75,9 +75,9 @@ $MainOutput->CloseRow();
 				$End['i']="";
 			$Output[$Rep2['Jour']]->openrow();
 			$Output[$Rep2['Jour']]->opencol();
-			$Output[$Rep2['Jour']]->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'Titre2');
+			$Output[$Rep2['Jour']]->addtexte($Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i'], 'Titre2');
 			if(!$_GET['ToPrint'])
-				$Output[$Rep2['Jour']]->AddLink('index.php?Section=Shift_Form&IDShift='.$Rep2['IDShift'],'<img src=b_edit.png border=0>');
+				$Output[$Rep2['Jour']]->AddLink('index.php?Section=Shift_Form&IDShift='.$Rep2['IDShift'], '<img src=assets/buttons/b_edit.png border=0>');
 			$Output[$Rep2['Jour']]->closecol();
 			$Output[$Rep2['Jour']]->closerow();
 			$Output[$Rep2['Jour']]->openrow();

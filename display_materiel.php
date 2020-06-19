@@ -8,8 +8,8 @@ $MainOutput->OpenTable('620');
 
 $MainOutput->OpenRow();
 	$MainOutput->OpenCol('',7);
-		$MainOutput->AddTexte('Liste de matériel','Titre');
-		$MainOutput->addlink('index.php?Section=Materiel_Form','<img border=0 src=b_ins.png>');
+		$MainOutput->AddTexte('Liste de matï¿½riel','Titre');
+		$MainOutput->addlink('index.php?Section=Materiel_Form', '<img border=0 src=assets/buttons/b_ins.png>');
 	$MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
@@ -61,7 +61,7 @@ else
 	
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol('10');
-		$MainOutput->addlink('index.php?Section=Materiel_Form&IDItem='.$Rep['IDItem'],'<img border=0 src=b_edit.png>');
+		$MainOutput->addlink('index.php?Section=Materiel_Form&IDItem='.$Rep['IDItem'], '<img border=0 src=assets/buttons/b_edit.png>');
 		
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('10',1,'baseline',$c);

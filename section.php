@@ -57,7 +57,7 @@ SWITCH($Section){
 
                 $dossier_facturation = new DossierFacturation($cote,$year);
                 $unpaid_factures = $dossier_facturation->get_unpaid_factures();
-                include('view/facture/interest/form_generate_by_cote.php');
+                include('view/invoice/interest/form_generate_by_cote.php');
             }
         }else{
             $start_year = $_POST['FORMStartDate3'];
@@ -77,18 +77,21 @@ SWITCH($Section){
 
             foreach($IDfactures as $IDFacture=>$index){
                 $facture = new Invoice($IDFacture);
-                $facture->get_balance()['total'];
-                $factsheet = new TimedInvoiceItem(['Notes']);
+                $balance = $facture->get_balance()['total'];
+                $note =  $facture->Cote."-".$facture->Sequence;
+
+
+                $factsheet = new CountableInvoiceItem(['Balance'=>$balance, 'Notes'=>$note, 'start'=>0, 'end'=>1]);
                 $facture_interet->add_factsheet($factsheet);
             }
 
+            $facture_interet->save();
 
 
 
         }
         break;
     }
-
 
     CASE "DossierFacturation_DisplayMonthlyTransactions":{
 
@@ -174,8 +177,6 @@ SWITCH($Section){
 
         BREAK;
     }
-
-
 
     CASE "Mail_Horaire":{
         include('mail_horaire.php');
@@ -404,7 +405,62 @@ SWITCH($Section){
         BREAK;
     }
 
+
+    CASE "Invoice_Display":{
+
+        $invoice_id = $_GET['id'];
+        $company = $_COOKIE['CIESDS'];
+        $edit = false;
+        if(isset($_GET['edit']))
+        {
+            $edit = true;
+        }
+
+
+        $typed_invoice = InvoiceFactory::create_typed_invoice(new Invoice($invoice_id));
+        $customer = Customer::find_customer_by_cote($typed_invoice->Cote);
+
+        $header_renderer_factory = new HeaderRendererFactory($time_service);
+        $header_renderer = $header_renderer_factory->getHeaderRenderer($typed_invoice, $customer, $company, $edit);
+        $body_renderer_factory = new BodyRendererFactory();
+        $body_renderer = $body_renderer_factory->getBodyRenderer($typed_invoice, $edit);
+        $footer_renderer = new FooterRenderer($header_renderer->invoice_width);
+
+        $invoice_renderer = new HTMLInvoiceRenderer($header_renderer, $body_renderer, $footer_renderer);
+        #BUILT_CONTENT_ARRAY!!!
+        $content_array = array();
+        $content_array['invoice_id'] = $invoice_id;
+        $content_array['cote'] = $typed_invoice->Cote;
+        $content_array['sequence'] = $typed_invoice->Sequence;
+        $content_array['total_money_billed'] = 4;
+        $content_array['total_hour_billed'] = 10;
+        $content_array['billing_datetime'] = new DateTime("@".time());
+        $content_array['billed_to'] = "HotelMotelholidayin";
+        $content_array['billing_contact'] = "misteur roboto \1234 thestreet" ;
+        $content_array['billing_period_datetime'] = new DateTime("@".time());
+        $content_array['fax_number'] = 4189999999;
+        $content_array['email_address'] = "lolk@lol.com";
+
+        $content_array['tps_rate'] = 1.2;
+        $content_array['tvq_rate'] = 2.4;
+
+        $content_array['pretax_total'] =1;
+        $content_array['tps_amount'] = 1;
+        $content_array['tvq_amount'] = 2;
+        $content_array['total'] =4;
+
+        $content_array['invoice_items'] = array();
+
+        #
+        $invoice_renderer->buildContent($content_array);
+
+        print($invoice_renderer->render());
+
+        BREAK;
+    }
+
     CASE "Display_Facture":{
+
         include('display_facture.php');
         BREAK;
     }

@@ -33,7 +33,7 @@ $MainOutput->Addtexte(' - ');
 
 $MainOutput->Addlink('index.php?Section=EmployeList&Session=','Pas rejoinds');
 $MainOutput->Addtexte(' - ');
-$MainOutput->Addlink('index.php?Section=EmployeList&Cessation=1','Cessationnés');
+$MainOutput->Addlink('index.php?Section=EmployeList&Cessation=1','Cessationnï¿½s');
 
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
@@ -53,12 +53,12 @@ $MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'
 $MainOutput->CloseCol();
 
 $MainOutput->OpenCol();
-$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=Prenom&Order='.$Unorder.'&Cessation='.$_GET['Cessation'],'Prénom');
+$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=Prenom&Order='.$Unorder.'&Cessation='.$_GET['Cessation'],'Prï¿½nom');
 $MainOutput->CloseCol();
 
 	
 $MainOutput->OpenCol();
-$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=TelP&Order='.$Unorder.'&Cessation='.$_GET['Cessation'],'Teléphone');
+$MainOutput->addlink('index.php?Section=EmployeList&Session='.$_GET['Session'].'&Field=TelP&Order='.$Unorder.'&Cessation='.$_GET['Cessation'],'Telï¿½phone');
 $MainOutput->CloseCol();
 
 $MainOutput->OpenCol();
@@ -101,7 +101,7 @@ else
 $MainOutput->OpenRow('',$c);
 		
 		$MainOutput->OpenCol('10');
-		$MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$v[0],'<img src=b_edit.png border=0>');
+		$MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$v[0], '<img src=assets/buttons/b_edit.png border=0>');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol('20');
 		$MainOutput->addtexte($v[0]);

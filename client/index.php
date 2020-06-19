@@ -2,7 +2,7 @@
 ini_set("default_charset", "iso-8859-1");
 include('../func_date.php');
 include('functions.php');
-include('../class_html.php');
+include('../HTMLContainer.php');
 
 
 if(isset($_COOKIE['CIE'])){
@@ -29,13 +29,13 @@ if(isset($_COOKIE['CIE'])){
 
 date_default_timezone_set ('America/Montreal');
 
-$WarnOutput = new HTML();
+$WarnOutput = new HTMLContainer();
 include('action.php') ;
 
 
 
-$MainOutput = new HTML();
-$MenuOutput = new HTML();
+$MainOutput = new HTMLContainer();
+$MenuOutput = new HTMLContainer();
 
 
 if(!isset($_GET['Section']))

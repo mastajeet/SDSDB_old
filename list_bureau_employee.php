@@ -29,7 +29,7 @@ if($authorization->verifySuperAdmin($_COOKIE)){
         $MainOutput->openrow();
 
         $MainOutput->opencol();
-        $MainOutput->addlink('index.php?Section=Modifie_Employe&IDEmploye='.$current_employee_bureau->IDEmploye,'<img src=b_edit.png border=0>');
+        $MainOutput->addlink('index.php?Section=Modifie_Employe&IDEmploye='.$current_employee_bureau->IDEmploye, '<img src=assets/buttons/b_edit.png border=0>');
         $MainOutput->closecol();
 
         $MainOutput->opencol();

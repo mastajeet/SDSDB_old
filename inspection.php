@@ -23,7 +23,7 @@ $MainOutput->OpenCol(300);
 		
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol(300,3);
-			$MainOutput->AddTexte('Client à rappeller','Titre');
+			$MainOutput->AddTexte('Client ï¿½ rappeller','Titre');
 	$MainOutput->Closecol();
 	$MainOutput->CloseRow();
 	$OLDJour = 0;
@@ -70,7 +70,7 @@ $MainOutput->OpenCol(300);
 
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol(300,3);
-			$MainOutput->AddTexte('Inspections à planifier','Titre');
+			$MainOutput->AddTexte('Inspections ï¿½ planifier','Titre');
 	$MainOutput->Closecol();
 	$MainOutput->CloseRow();
 	$ARappeller = FALSE;
@@ -102,7 +102,7 @@ $MainOutput->OpenCol(300);
 	$MainOutput->OpenTable(300);
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol(300,3);
-			$MainOutput->AddTexte('Inspections planifiées','Titre');
+			$MainOutput->AddTexte('Inspections planifiï¿½es','Titre');
 	$MainOutput->Closecol();
 	$MainOutput->CloseRow();
 	
@@ -156,7 +156,7 @@ $Req = "SELECT installation.IDInstallation, installation.Nom as nomIns,client.ID
 	$MainOutput->OpenTable(452);
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol(452,10);
-			$MainOutput->AddTexte('Inspections effectuées','Titre');
+			$MainOutput->AddTexte('Inspections effectuï¿½es','Titre');
 	$MainOutput->Closecol();
 	$MainOutput->CloseRow();
 	$NMois = get_month_list();
@@ -169,19 +169,19 @@ $Req = "SELECT installation.IDInstallation, installation.Nom as nomIns,client.ID
 	
 	
 		$MainOutput->Opencol('16');
-			$MainOutput->Addlink("index.php?MenuClient=".$Rep['IDClient'],'<img src=b_help.png border=0>','_BLANK');
+			$MainOutput->Addlink("index.php?MenuClient=".$Rep['IDClient'], '<img src=assets/buttons/b_help.png border=0>','_BLANK');
 		$MainOutput->CloseCol();
 	
 		$MainOutput->Opencol('16');
-			$MainOutput->Addlink('index.php?Section=AddInspection&IDInspection='.$Rep['IDInspection'],'<img src=b_edit.png border=0>');
+			$MainOutput->Addlink('index.php?Section=AddInspection&IDInspection='.$Rep['IDInspection'], '<img src=assets/buttons/b_edit.png border=0>');
 		$MainOutput->CloseCol();
 		
 		$MainOutput->Opencol('16');
-			$MainOutput->Addlink('index.php?Section=Generate_InspectionReport&ToPrint=TRUE&IDInspection='.$Rep['IDInspection'],'<img src=b_print.png border=0>','_BLANK');
+			$MainOutput->Addlink('index.php?Section=Generate_InspectionReport&ToPrint=TRUE&IDInspection='.$Rep['IDInspection'], '<img src=assets/buttons/b_print.png border=0>','_BLANK');
 		$MainOutput->CloseCol();
 		
 		$MainOutput->Opencol('16');
-			$MainOutput->Addlink('index.php?Action=Generate_FactureInspectiont&ToPrint=TRUE&IDInspection='.$Rep['IDInspection'],'<img src=b_fact.png border=0>','_BLANK');
+			$MainOutput->Addlink('index.php?Action=Generate_FactureInspectiont&ToPrint=TRUE&IDInspection='.$Rep['IDInspection'], '<img src=assets/buttons/b_fact.png border=0>','_BLANK');
 		$MainOutput->CloseCol();
 		
 			$MainOutput->OpenCol(308);	

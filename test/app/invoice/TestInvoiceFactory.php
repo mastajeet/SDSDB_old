@@ -21,7 +21,7 @@ class TestInvoiceFactory extends PHPUnit_Framework_TestCase{
 
     function test_givenFactureOfShift_whenGetTypedFacture_thenGetShiftFactureObject(){
         $facture = new Invoice(3010);
-        $shift_facture = $this->facture_factory->create_typed_facture($facture);
+        $shift_facture = $this->facture_factory->create_typed_invoice($facture);
 
         $this->assertEquals(ShiftInvoice::class, get_class($shift_facture));
         $this->assertEquals($shift_facture->Sequence, 1);
@@ -29,21 +29,21 @@ class TestInvoiceFactory extends PHPUnit_Framework_TestCase{
 
     function test_givenFactureOfMateriel_whenGetTypedFacture_thenGetFactureMaterielObject(){
         $facture = new Invoice(3011);
-        $facture_materiel = $this->facture_factory->create_typed_facture($facture);
+        $facture_materiel = $this->facture_factory->create_typed_invoice($facture);
 
         $this->assertEquals(EquipmentInvoice::class, get_class($facture_materiel));
     }
 
     function test_givenFactureCredit_whenGetTypedFacture_thenGetCreditObject(){
         $facture = new Invoice(3012);
-        $credit = $this->facture_factory->create_typed_facture($facture);
+        $credit = $this->facture_factory->create_typed_invoice($facture);
 
         $this->assertEquals(Credit::class, get_class($credit));
     }
 
     function test_givenFactureOfAvanceClient_whenGetTypedFacture_thenGetAvanceClientObject(){
         $facture = new Invoice(3013);
-        $avance_client = $this->facture_factory->create_typed_facture($facture);
+        $avance_client = $this->facture_factory->create_typed_invoice($facture);
 
         $this->assertEquals(AvanceClient::class, get_class($avance_client));
     }

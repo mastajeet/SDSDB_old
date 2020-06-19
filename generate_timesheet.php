@@ -12,7 +12,7 @@ if(!isset($_GET['ENR'])){
 			$Req = "DELETE FROM timesheet WHERE IDPaye = '".$IDPaye."'";
 			$SQL->query($Req);
 	}
-$TestOutput = new HTML;
+$TestOutput = new HTMLContainer;
 $VerifCash = 0;
 $VerifHeures = 0;
 $FERIE1=FALSE;
@@ -42,8 +42,8 @@ IF(!$_GET['ToPrint']){
  	$MainOutput->OpenTable('100%');
 	 $MainOutput->OpenRow();
  	$MainOutput->OpenCol('100%',20);
-		$MainOutput->addlink('index.php?Section=TimeSheet&Semaine='.$_GET['Semaine'].'&ToPrint=TRUE','<img border=0 src=b_print.png>','_BLANK');
-				$MainOutput->addlink('index.php?Section=TimeSheet&Semaine='.$_GET['Semaine'].'&ENR=TRUE','<img border=0 src=b_save.png>','_BLANK');
+		$MainOutput->addlink('index.php?Section=TimeSheet&Semaine='.$_GET['Semaine'].'&ToPrint=TRUE', '<img border=0 src=assets/buttons/b_print.png>','_BLANK');
+				$MainOutput->addlink('index.php?Section=TimeSheet&Semaine='.$_GET['Semaine'].'&ENR=TRUE', '<img border=0 src=assets/buttons/b_save.png>','_BLANK');
 		 $MainOutput->addtexte('<div align=Center>Feuille de temps de la semaine du '.$Time['d']."-".$Month[intval($Time['m'])]."-".$Time['Y']." au ".$Time2['d']."-".$Month[intval($Time2['m'])]."-".$Time2['Y'].'</div>');
 	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();	
@@ -64,7 +64,7 @@ IF(!$_GET['ToPrint']){
 			$MainOutput->Addtexte('Nom','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
-			$MainOutput->Addtexte('Prénom','Titre');
+			$MainOutput->Addtexte('Prï¿½nom','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
 			$MainOutput->Addtexte('TXH','Titre');
@@ -129,7 +129,7 @@ IF(!$_GET['ToPrint']){
 	
 		if($FERIE2 || $FERIE1){
 		$MainOutput->OpenCol();
-			$MainOutput->Addtexte('Ferié','Titre');
+			$MainOutput->Addtexte('Feriï¿½','Titre');
 		$MainOutput->CloseCol();
 		}
 	

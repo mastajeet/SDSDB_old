@@ -9,10 +9,10 @@ $MainOutput->OpenCol('150');
 	$MainOutput->AddTexte('Nom','Titre');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('150');
-	$MainOutput->AddTexte('Prénom','Titre');
+	$MainOutput->AddTexte('Prï¿½nom','Titre');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('150');
-	$MainOutput->AddTexte('Teléphone','Titre');
+	$MainOutput->AddTexte('Telï¿½phone','Titre');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('300');
 	$MainOutput->AddTexte('Client / Piscine','Titre');
@@ -60,7 +60,7 @@ else{
 
 	$MainOutput->OpenRow('',$c);
 	$MainOutput->OpenCol('10');
-		$MainOutput->addlink('index.php?Section=Responsable_Form&IDResponsable='.$v[0],'<img src=b_edit.png border=0>');
+		$MainOutput->addlink('index.php?Section=Responsable_Form&IDResponsable='.$v[0], '<img src=assets/buttons/b_edit.png border=0>');
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('150');
 		$MainOutput->AddTexte($v[1]);

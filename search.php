@@ -2,7 +2,7 @@
 	
 		
 	function generateSearchResult($Titre,$Req,$ModelLink){
-		$HTML = new HTML();
+		$HTML = new HTMLContainer();
 		$SQL = new SQLclass();
 		
 		$SQL->Select($Req);
@@ -21,7 +21,7 @@
 		$HTML->OpenCol(390);
 		
 		if($SQL->NumRow()==0){
-			$HTML->AddTexte('Aucun résultat dans cette catégorie');	
+			$HTML->AddTexte('Aucun rï¿½sultat dans cette catï¿½gorie');	
 		}else{
 			while($Rep = $SQL->FetchArray()){
 				
@@ -40,7 +40,7 @@
 	if(!isset($_POST['FORMSearch'])){
 		$MainOutput->addForm('Recherche');
 		$MainOutput->InputHidden_Env('Section','Search');
-		$MainOutput->InputText('Search','À Trouver');
+		$MainOutput->InputText('Search','ï¿½ Trouver');
 		$MainOutput->FormSubmit('Rechercher');
 	}else{
 	
@@ -97,7 +97,7 @@
 	
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol();
-		$MainOutput->Addoutput(generateSearchResult('Employé',$Rep,$Model),0,0);
+		$MainOutput->Addoutput(generateSearchResult('Employï¿½',$Rep,$Model),0,0);
 	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
 	

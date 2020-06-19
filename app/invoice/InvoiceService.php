@@ -173,4 +173,3 @@ class InvoiceService{
         return $facture;
     }
 }
-

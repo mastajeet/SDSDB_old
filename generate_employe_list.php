@@ -135,7 +135,7 @@ while($v = $SQL->FetchArray()){
     $MainOutput->OpenRow('',$c);
 
     $MainOutput->OpenCol('10');
-    $MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$v[0],'<img src=b_sheet.png border=0>');
+    $MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$v[0], '<img src=assets/buttons/b_sheet.png border=0>');
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('20');
     $MainOutput->addtexte($v[0]);

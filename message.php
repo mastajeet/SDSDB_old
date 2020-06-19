@@ -4,7 +4,7 @@ $MainOutput->OpenTable('550');
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('',4);
 	$MainOutput->AddTexte('Liste des messages','Titre');
-	$MainOutput->addlink('index.php?Section=Message_Form','<img border=0 src=b_ins.png>');
+	$MainOutput->addlink('index.php?Section=Message_Form', '<img border=0 src=assets/buttons/b_ins.png>');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
@@ -33,7 +33,7 @@ while($Rep = $SQL->FetchArray()){
 
 	$MainOutput->OpenRow();
 		$MainOutput->OpenCol('20');
-		$MainOutput->addlink('index.php?Section=Message_Form&IDMessage='.$Rep['IDMessage'],'<img border=0 src=b_edit.png>');
+		$MainOutput->addlink('index.php?Section=Message_Form&IDMessage='.$Rep['IDMessage'], '<img border=0 src=assets/buttons/b_edit.png>');
 		$MainOutput->CloseCol();
 		
 		$MainOutput->OpenCol();

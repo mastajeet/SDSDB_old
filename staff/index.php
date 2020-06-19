@@ -1,6 +1,6 @@
 <?PHP
-$WarningOutput = new HTML;
-$MainOutput = new HTML;
+$WarningOutput = new HTMLContainer;
+$MainOutput = new HTMLContainer;
 include('staff/action.php');
 include('staff/functions.php');
 

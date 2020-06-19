@@ -82,7 +82,7 @@ function get_installations($IDClient){
 }
 
 function format_responsable($IDResponsable,$What = "de la piscine",$IDClient=""){
-    $MainOutput = new HTML();
+    $MainOutput = new HTMLContainer();
     $Repondant = get_responsable_info($IDResponsable);
     $MainOutput->AddTexte('Responsable '.$What,'Titre');
     $MainOutput->br();
@@ -105,14 +105,14 @@ function format_client($IDClient){
 	$Info = get_client_info($IDClient);
 	$RespP = get_responsable_info($Info['RespP']);
 	$RespF = get_responsable_info($Info['RespF']);
-	$Output = new HTML();
+	$Output = new HTMLContainer();
 	$Output->opentable(500);
 	$Output->openrow();
 	$Output->opencol('100%',2);
 	$Output->addtexte("<div align=center>".$Info['Nom'],'Titre');
-	$Output->AddLink('index.php?Section=Client_Form&IDClient='.$IDClient,'<img src=b_edit.png border=0>');
-	$Output->AddLink('index.php?Section=Installation_Form&IDClient='.$IDClient,'<img src=b_ins.png border=0>');
-	$Output->AddLink('index.php?Section=Responsable_Form&IDClient='.$IDClient,'<img src=b_conf.png border=0>');
+	$Output->AddLink('index.php?Section=Client_Form&IDClient='.$IDClient, '<img src=assets/buttons/b_edit.png border=0>');
+	$Output->AddLink('index.php?Section=Installation_Form&IDClient='.$IDClient, '<img src=assets/buttons/b_ins.png border=0>');
+	$Output->AddLink('index.php?Section=Responsable_Form&IDClient='.$IDClient, '<img src=assets/buttons/b_conf.png border=0>');
 		$Output->addtexte("</div>");
 	$Output->closecol();
 	$Output->closerow();

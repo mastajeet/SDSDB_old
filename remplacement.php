@@ -4,10 +4,10 @@ $MainOutput->OpenTable(700);
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',7);
 		if(!$_GET['ToPrint']){
-		$MainOutput->addlink('index.php?Section=Add_Remplacement&Semaine='.$_GET['Semaine'],'<img border=0 src=b_ins.png>');
-		$MainOutput->addlink('index.php?Section=Remplacement&ToPrint=TRUE','<img border=0 src=b_print.png>','_BLANK');
+		$MainOutput->addlink('index.php?Section=Add_Remplacement&Semaine='.$_GET['Semaine'], '<img border=0 src=assets/buttons/b_ins.png>');
+		$MainOutput->addlink('index.php?Section=Remplacement&ToPrint=TRUE', '<img border=0 src=assets/buttons/b_print.png>','_BLANK');
 }
-	$MainOutput->AddTexte('Liste des shifts à combler','Titre');
+	$MainOutput->AddTexte('Liste des shifts ï¿½ combler','Titre');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 	if(isset($Rapport)){
@@ -62,13 +62,13 @@ while($Rep = $SQL->FetchArray()){
 	
 		$MainOutput->OpenCol('10');
 			if($Rep['Confirme']!=NULL)
-				$MainOutput->AddLink('index.php?Action=Confirm_Remplacement&IDRemplacement='.$Rep['IDRemplacement'],'<img src=b_conf.png border=0>');
+				$MainOutput->AddLink('index.php?Action=Confirm_Remplacement&IDRemplacement='.$Rep['IDRemplacement'], '<img src=assets/buttons/b_conf.png border=0>');
 			else
 				$MainOutput->AddTexte('&nbsp;');
 		$MainOutput->CloseCol();
 		
 		$MainOutput->OpenCol('10');
-				$MainOutput->AddLink('index.php?Section=Shift_Form&IDShift='.$Rep['IDShift'],'<img src=b_edit.png border=0>');
+				$MainOutput->AddLink('index.php?Section=Shift_Form&IDShift='.$Rep['IDShift'], '<img src=assets/buttons/b_edit.png border=0>');
 		$MainOutput->CloseCol();
 	
 		$MainOutput->OpenCol('150');
@@ -83,7 +83,7 @@ while($Rep = $SQL->FetchArray()){
 						$End['i']="";
 		
 		$MainOutput->OpenCol('40');
-				$MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i']);
+				$MainOutput->addtexte($Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i']);
 		$MainOutput->CloseCol();
 
 				$MainOutput->OpenCol('80');
@@ -109,7 +109,7 @@ while($Rep = $SQL->FetchArray()){
 		
 		$MainOutput->OpenCol('400');
 		if($Rep['IDEmployeS']<>""){
-			$MainOutput->addtexte('Demandé par ','Small');
+			$MainOutput->addtexte('Demandï¿½ par ','Small');
 		$EInfo = get_employe_info($Rep['IDEmployeS']);
 		
 		if($EInfo['HName']=="")
@@ -118,7 +118,7 @@ while($Rep = $SQL->FetchArray()){
 		$Date = get_date($Rep['Asked']);
 			$MainOutput->AddTexte(' le '.$Date['d'].' '.$Month[intval($Date['m'])],'Small');
 			$EInfo = get_employe_info($Rep['Talkedto']);
-			$MainOutput->AddTexte(' à '.$EInfo['Prenom']." ".$EInfo['Nom'],'Small');
+			$MainOutput->AddTexte(' ï¿½ '.$EInfo['Prenom']." ".$EInfo['Nom'],'Small');
 		}else{
 			$MainOutput->AddTexte('&nbsp;','Small');
 		}

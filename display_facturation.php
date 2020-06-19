@@ -53,11 +53,14 @@ if(isset($_GET['Cote'])){
 			if(!$_GET['ToPrint']){
 				$MainOutput->AddTexte('Sommaire','Titre');
 
-				$MainOutput->br();
+                $MainOutput->br();
+
 				$MainOutput->AddTexte('Sous-Total: ','Titre');
 				$MainOutput->AddTexte(number_format($total_to_pay["sub_total"],2)." $");
+                $MainOutput->br();
 				$MainOutput->AddTexte('TPS: ','Titre');
 				$MainOutput->AddTexte(number_format($total_to_pay["tps"],2)." $");
+                $MainOutput->br();
 				$MainOutput->AddTexte('TVQ: ','Titre');
 				$MainOutput->AddTexte(number_format($total_to_pay["tvq"],2)." $");
 				$MainOutput->br();
@@ -114,10 +117,10 @@ if(isset($_GET['Cote'])){
 
 			$MainOutput->AddTexte(DETAIL,'Titre');
 		if(!$_GET['ToPrint']){
-			$MainOutput->addlink('index.php?Section=Add_Facture&Cote='.$_GET['Cote'],'<img border=0 src=b_ins.png title="Créer une facture manuelle">');
-			$MainOutput->addlink('index.php?Section=DossierFacturation_DisplayAccountStatement&Cote='.$_GET['Cote'].'&ToPrint=TRUE&NB=15','<img border=0 src=b_print.png title="Imprimer le dossier de facturation">','_BLANK');
+			$MainOutput->addlink('index.php?Section=Add_Facture&Cote='.$_GET['Cote'], '<img border=0 src=assets/buttons/b_ins.png title="Créer une facture manuelle">');
+			$MainOutput->addlink('index.php?Section=DossierFacturation_DisplayAccountStatement&Cote='.$_GET['Cote'].'&ToPrint=TRUE&NB=15', '<img border=0 src=assets/buttons/b_print.png title="Imprimer le dossier de facturation">','_BLANK');
 			$MainOutput->addlink('index.php?Section=ArchivesFacturation&Cote='.$_GET['Cote'],'<img border=0 src=f_close.png title="Archive des dossiers de facturation">');
-			$MainOutput->addlink('index.php?Section=Genrate_Facture_Interest&Cote='.$_GET['Cote'].'&Year='.$current_year,'<img border=0 src=b_monte.png title="this will be displayed as a tooltip">');
+			$MainOutput->addlink('index.php?Section=Genrate_Facture_Interest&Cote='.$_GET['Cote'].'&Year='.$current_year, '<img border=0 src=assets/buttons/b_monte.png title="this will be displayed as a tooltip">');
 		}
 
 
@@ -158,8 +161,8 @@ if(isset($_GET['Cote'])){
 			$MainOutput->OpenRow();
 			$MainOutput->OpenCol();
 					if(!$_GET['ToPrint']){
-						$MainOutput->AddLink('index.php?Section=Display_Facture&IDFacture='.$id_facture.'&ToPrint=TRUE','<img src=b_print.png border=0>','_BLANK','Texte');
-						$MainOutput->AddLink('index.php?Section=Modifie_Facture&IDFacture='.$id_facture,'<img src=b_edit.png border=0>','','Texte');
+						$MainOutput->AddLink('index.php?Section=Display_Facture&IDFacture='.$id_facture.'&ToPrint=TRUE', '<img src=assets/buttons/b_print.png border=0>','_BLANK','Texte');
+						$MainOutput->AddLink('index.php?Section=Modifie_Facture&IDFacture='.$id_facture, '<img src=assets/buttons/b_edit.png border=0>','','Texte');
 					}
 			$MainOutput->CloseCol();
 			$MainOutput->OpenCol();

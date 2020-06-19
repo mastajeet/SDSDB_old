@@ -1,21 +1,21 @@
 <?PHP
-const EMPLOYEE_NUMBER = 'Numéro d\'employé';
-const ADD_MODIFY_EMPLOYEE = 'Ajouter / Modifier un employé';
+const EMPLOYEE_NUMBER = 'Numï¿½ro d\'employï¿½';
+const ADD_MODIFY_EMPLOYEE = 'Ajouter / Modifier un employï¿½';
 const NAME = 'Nom';
-const SURNAME = 'Prénom';
+const SURNAME = 'Prï¿½nom';
 const SCHEDULE_NAME = 'Nom Horaire';
 const DATE_OF_BIRTH = 'Date de naissance';
-const SOCIAL_SECURITY_NUMBER = 'Numéro d\assurance sociale';
+const SOCIAL_SECURITY_NUMBER = 'Numï¿½ro d\assurance sociale';
 const NOTES = 'Notes';
-const PHONE_PRINCIPAL = 'Tél. Principal';
-const PHONE_SECONDARY = 'Tél. Autre';
+const PHONE_PRINCIPAL = 'Tï¿½l. Principal';
+const PHONE_SECONDARY = 'Tï¿½l. Autre';
 const CELLPHONE = 'Cellulaire';
 const PAGET = 'Paget';
-const LEAVING_REASON = 'Raison du départ';
+const LEAVING_REASON = 'Raison du dï¿½part';
 const ADD_MODIFY = 'Ajouter / Modifier';
 
-$EMPLOYEE_STATUS = array('Temps plein' => 'Temps plein', 'Secondaire' => 'Secondaire', 'CÉGEP' => 'CÉGEP', 'Université' => 'Université');
-$SA_EMPLOYEE_STATUS = array('Temps plein' => 'Temps plein', 'Secondaire' => 'Secondaire', 'CÉGEP' => 'CÉGEP', 'Université' => 'Université', 'Bureau' => 'Bureau');
+$EMPLOYEE_STATUS = array('Temps plein' => 'Temps plein', 'Secondaire' => 'Secondaire', 'Cï¿½GEP' => 'Cï¿½GEP', 'Universitï¿½' => 'Universitï¿½');
+$SA_EMPLOYEE_STATUS = array('Temps plein' => 'Temps plein', 'Secondaire' => 'Secondaire', 'Cï¿½GEP' => 'Cï¿½GEP', 'Universitï¿½' => 'Universitï¿½', 'Bureau' => 'Bureau');
 
 
 $MainOutput->addform(ADD_MODIFY_EMPLOYEE);
@@ -28,7 +28,7 @@ if(isset($_GET['IDEmploye'])){
     $new_employe = false;
 }else{
     $new_employe = true;
-	$Info = array('IDEmploye'=>'','HName'=>'','Ville'=>'Québec','Status'=>'','NAS'=>'', NAME =>'','Prenom'=>'','Session'=>get_vars('Saison'),'DateNaissance'=>0,'Adresse'=>'','CodePostal'=>'','Email'=>'','TelM'=>'','TelP'=>'','TelA'=>'','Cell'=>'', PAGET =>'','IDSecteur'=>'','Cessation'=>'', NOTES =>'','Raison'=>'','SalaireB'=>'9.50','SalaireS'=>'9.75','SalaireA'=>'9.25','DateEmbauche'=>0,'Engage'=>1,'EAssistant'=>'');
+	$Info = array('IDEmploye'=>'','HName'=>'','Ville'=>'Quï¿½bec','Status'=>'','NAS'=>'', NAME =>'','Prenom'=>'','Session'=>get_vars('Saison'),'DateNaissance'=>0,'Adresse'=>'','CodePostal'=>'','Email'=>'','TelM'=>'','TelP'=>'','TelA'=>'','Cell'=>'', PAGET =>'','IDSecteur'=>'','Cessation'=>'', NOTES =>'','Raison'=>'','SalaireB'=>'9.50','SalaireS'=>'9.75','SalaireA'=>'9.25','DateEmbauche'=>0,'Engage'=>1,'EAssistant'=>'');
 	$MainOutput->inputhidden_env('Update',FALSE);
 }
 
@@ -38,9 +38,9 @@ $can_see_protected_fields = $authorization->verifySuperAdmin($_COOKIE);
 
 
 
-$MainOutput->addlink('index.php?Section=Employe_Report&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE','<img src=b_sheet.png border=0>');
-$MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'],'<img src=b_fact.png border=0>');
-$MainOutput->addlink('index.php?Section=Display_AskedRemplacement&IDEmploye='.$Info['IDEmploye'],'<img src=b_del.png border=0>');
+$MainOutput->addlink('index.php?Section=Employe_Report&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE', '<img src=assets/buttons/b_sheet.png border=0>');
+$MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_fact.png border=0>');
+$MainOutput->addlink('index.php?Section=Display_AskedRemplacement&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_del.png border=0>');
 
 $MainOutput->inputtext('IDEmploye', EMPLOYEE_NUMBER,'3',$Info['IDEmploye']);
 
@@ -83,7 +83,7 @@ if(!$Info['IDEmploye']==''){
             $MainOutput->OpenRow();
             $MainOutput->OpenCol();
                 $MainOutput->AddTexte($Rep['Raison']);
-            $MainOutput->addlink("index.php?Action=Delete_Vacances&Section=Employe&IDVacances=".$Rep['IDVacances']."&IDEmploye=".$Info['IDEmploye'],"<img src=b_del.png border=0>");
+            $MainOutput->addlink("index.php?Action=Delete_Vacances&Section=Employe&IDVacances=".$Rep['IDVacances']."&IDEmploye=".$Info['IDEmploye'], "<img src=assets/buttons/b_del.png border=0>");
             $MainOutput->CloseCol();
             $MainOutput->OpenCol();
                 $MainOutput->addTexte(date("d M Y",$Rep['DebutVacances'])." au ".date("d M Y",$Rep['FinVacances']));

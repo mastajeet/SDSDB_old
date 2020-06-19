@@ -6,7 +6,7 @@
 #  UTILISATION PERMISE POUR L'AEACT      #
 ##########################################
 
-class HTML
+class HTMLContainer
 {
     var $output;
     var $formname;
@@ -34,17 +34,15 @@ class HTML
         $i=1;
         for($i; $i<=$nb; $i++)
         {
-            $this->addtexte("\n",'Texte');
+            $this->addoutput("\n",1);
         }
     }
-
 
     function center($string)	{
         return $output = "<div align=center>".$string."</div>";
     }
 
     function addtexte($string,$class="texte")	{
-
         $this->addoutput("<span class=$class>$string</span>");
     }
 

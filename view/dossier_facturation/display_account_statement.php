@@ -144,6 +144,5 @@ foreach($shown_transactions as $transaction){
 
     $MainOutput->CloseRow();
 }
-
 echo $MainOutput->Send(1);
 ?>

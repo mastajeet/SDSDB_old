@@ -14,7 +14,7 @@ if(isset($_GET['IDInstallation'])){
 	
 	$MainOutput->openrow();
 	$MainOutput->opencol('100%',7);
-	$MainOutput->addlink('index.php?Section=Generate_Day&IDHoraire='.$Info2['IDHoraire'],'Générer l\'horaire d\'une journée');
+	$MainOutput->addlink('index.php?Section=Generate_Day&IDHoraire='.$Info2['IDHoraire'],'Gï¿½nï¿½rer l\'horaire d\'une journï¿½e');
 	$MainOutput->closecol();
 	$MainOutput->closerow();
 	
@@ -61,14 +61,14 @@ if(isset($_GET['IDInstallation'])){
 				
 				}
 
-				$MainOutput->addtexte($Start['G']."h".$Start['i']." à ".$End['G']."h".$End['i'], 'Titre');
+				$MainOutput->addtexte($Start['G']."h".$Start['i']." ï¿½ ".$End['G']."h".$End['i'], 'Titre');
 				
 				$OldTStart = $TStart;
 				$OldTEnd = $TEnd;
 				
 				
 				
-				$MainOutput->AddLink('index.php?Section=Horshift_Form&IDHorshift='.$v['IDHorshift'],'<img src=b_edit.png border=0>');
+				$MainOutput->AddLink('index.php?Section=Horshift_Form&IDHorshift='.$v['IDHorshift'], '<img src=assets/buttons/b_edit.png border=0>');
 				$MainOutput->closecol();
 				$MainOutput->closerow();
 

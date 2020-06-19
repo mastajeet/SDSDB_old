@@ -8,7 +8,7 @@ if(!isset($_GET['ToPrint'])){
 	$MainOutput->OpenRow();
  	$MainOutput->OpenCol(900,8);
 	if(!$_GET['ToPrint']){
-		$MainOutput->addlink('index.php?Section=Display_Horshift&ToPrint=TRUE','<img border=0 src=b_print.png>','_BLANK');
+		$MainOutput->addlink('index.php?Section=Display_Horshift&ToPrint=TRUE', '<img border=0 src=assets/buttons/b_print.png>','_BLANK');
 	}
 		 $MainOutput->addtexte('<div align=Center>Horaire hebdomadaire officiel','Titre');
 	$MainOutput->CloseCol();
@@ -57,8 +57,8 @@ $MainOutput->CloseRow();
 	$MainOutput->opencol('100%',1,'center','HInstall');
 	$MainOutput->addlink('index.php?Section=Horshift&IDInstallation='.$Rep[3],"<div align=center>".$Rep[1]."</div>");
 	$MainOutput->addoutput("<div align=center>",0,0);
-		$MainOutput->addlink('index.php?Action=Modifie_Horshift&Empty=TRUE&IDHoraire='.$Rep[0],'<img border=0 src=b_save.png>');
-		$MainOutput->addlink('index.php?Action=Modifie_Horshift&Reset=TRUE&IDHoraire='.$Rep[0].'&IDInstallation='.$Rep[3],'<img border=0 src=b_del.png>');
+		$MainOutput->addlink('index.php?Action=Modifie_Horshift&Empty=TRUE&IDHoraire='.$Rep[0], '<img border=0 src=assets/buttons/b_save.png>');
+		$MainOutput->addlink('index.php?Action=Modifie_Horshift&Reset=TRUE&IDHoraire='.$Rep[0].'&IDInstallation='.$Rep[3], '<img border=0 src=assets/buttons/b_del.png>');
 	$MainOutput->addoutput("</div>",0,0);
 	$MainOutput->closecol();
 
@@ -116,7 +116,7 @@ $MainOutput->CloseRow();
 					
 					
 					if(!$_GET['ToPrint'])
-						$MainOutput->AddLink('index.php?Section=Horshift_Form&IDHorshift='.$v['IDHorshift'],'<img src=b_edit.png border=0>');
+						$MainOutput->AddLink('index.php?Section=Horshift_Form&IDHorshift='.$v['IDHorshift'], '<img src=assets/buttons/b_edit.png border=0>');
 					$MainOutput->closecol();
 					$MainOutput->closerow();
 					

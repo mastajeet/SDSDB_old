@@ -1,19 +1,19 @@
 <?php
-const EMPLOYEE_INFO = 'Fiche Employé';
+const EMPLOYEE_INFO = 'Fiche Employï¿½';
 const NAME = 'Nom';
 const SURNAME = 'Prenom';
 const SCHEDULE_NAME = 'Nom Horaire';
 const DATE_OF_BIRTH = 'Date Naissance';
-const SOCIAL_SECURITY_NUMBER = 'Numéro d\'assurance sociale';
+const SOCIAL_SECURITY_NUMBER = 'Numï¿½ro d\'assurance sociale';
 const NOTES = 'Notes';
 $Info = get_employe_info($_GET['IDEmploye']);
 
-$MainOutput->addlink('index.php?Section=Modifie_Employe&IDEmploye='.$Info['IDEmploye'],'<img src=b_edit.png border=0>');
-$MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE','<img src=b_print.png border=0>','_blank');
-$MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'],'<img src=b_fact.png border=0>');
-$MainOutput->addlink('index.php?Section=Employe_Report&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE','<img src=b_sheet.png border=0>');
-$MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'],'<img src=b_fact.png border=0>');
-$MainOutput->addlink('index.php?Section=Display_AskedRemplacement&IDEmploye='.$Info['IDEmploye'],'<img src=b_del.png border=0>');
+$MainOutput->addlink('index.php?Section=Modifie_Employe&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_edit.png border=0>');
+$MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE', '<img src=assets/buttons/b_print.png border=0>','_blank');
+$MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_fact.png border=0>');
+$MainOutput->addlink('index.php?Section=Employe_Report&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE', '<img src=assets/buttons/b_sheet.png border=0>');
+$MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_fact.png border=0>');
+$MainOutput->addlink('index.php?Section=Display_AskedRemplacement&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_del.png border=0>');
 
 $can_see_protected_fields = $authorization->verifySuperAdmin($_COOKIE);
 
@@ -52,7 +52,7 @@ $MainOutput->CloseCol();
 $MainOutput->CloseRow(); 
 
 
-//check s'il y a des vacances à venir
+//check s'il y a des vacances ï¿½ venir
 $vacances_threshold = time()-24*3600;
 $Req = "SELECT * FROM vacances WHERE FinVacances > ".$vacances_threshold." and IDEmploye = ".$Info['IDEmploye']." ORDER BY DebutVacances ASC";
 $SQL = new sqlclass();
@@ -70,7 +70,7 @@ if($SQL->NumRow() <> 0){
         $MainOutput->OpenRow();
         $MainOutput->OpenCol();
         $MainOutput->AddTexte($Rep['Raison']);
-        $MainOutput->addlink("index.php?Action=Delete_Vacances&Section=Employe&IDVacances=".$Rep['IDVacances']."&IDEmploye=".$Info['IDEmploye'],"<img src=b_del.png border=0>");
+        $MainOutput->addlink("index.php?Action=Delete_Vacances&Section=Employe&IDVacances=".$Rep['IDVacances']."&IDEmploye=".$Info['IDEmploye'], "<img src=assets/buttons/b_del.png border=0>");
         $MainOutput->CloseCol();
         $MainOutput->OpenCol();
         $MainOutput->addTexte(date("d M Y",$Rep['DebutVacances'])." au ".date("d M Y",$Rep['FinVacances']));
@@ -130,7 +130,7 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 
 $MainOutput->addtitledoutput('Date d\'embauche', datetostr($Info['DateEmbauche']));
-$Status = array('Temps plein'=>'Temps plein','Secondaire'=>'Secondaire','CéGEP'=>'CÉGEP','Université'=>'Université','Bureau'=>'Bureau');
+$Status = array('Temps plein'=>'Temps plein','Secondaire'=>'Secondaire','Cï¿½GEP'=>'Cï¿½GEP','Universitï¿½'=>'Universitï¿½','Bureau'=>'Bureau');
 $Session = get_saison_list();
 $Saison = array();
 

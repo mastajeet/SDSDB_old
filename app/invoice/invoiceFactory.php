@@ -6,7 +6,7 @@ include_once('app/invoice/avanceClient.php');
 
 class InvoiceFactory{
 
-    function create_typed_facture($facture){
+    static function create_typed_invoice($facture){
         $sub_type = null;
 
         if($facture->is_credit()){

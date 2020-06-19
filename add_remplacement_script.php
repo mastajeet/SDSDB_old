@@ -2,7 +2,7 @@
 //Premiï¿½rement Enlever de l'horaire la personne
 $InfoEmpl = get_employe_info($_POST['FORMIDEmployeS']);
 $InfoEmpl2 = get_employe_info($_POST['FORMTalkedto']);
-$Rapport = new HTML;
+$Rapport = new HTMLContainer;
 
 $RapportEmail = "<html><body>";
 $AUCUN = FALSE;
@@ -12,7 +12,7 @@ if(!isset($_POST['FORMEmail']))
 	$Rapport->OpenTable(300);
 	$Rapport->OpenRow();
 	$Rapport->OpenCol(300,3);
-	$Rapport->AddTexte('Remplacements ajoutés à la liste','Titre');
+	$Rapport->AddTexte('Remplacements ajoutï¿½s ï¿½ la liste','Titre');
 	$Rapport->CloseCol();
 	$Rapport->CloseRow();
 	$RapportEmail .= "<table witdth=450 cellspacing=0 cellpadding=0><tr><td colspan=3 width=450><font face=tahoma size=2><b>Bonjour ".$InfoEmpl['Prenom']." (#".$_POST['FORMIDEmployeS']."), voici les remplacements que tu as demandï¿½s</b></font><br>
@@ -135,7 +135,7 @@ $RapportEmail .= "<tr><td width=450 colspan=3><br><font face=tahoma size=2><b>Ra
 $RapportEmail .= "<tr><td width=450 colspan=3><font face=tahoma size=2><b>Demandï¿½:</b> ".$InfoEmpl2['Prenom']." ".$InfoEmpl2['Nom']."</font></td></tr>";
 $RapportEmail .= "<tr><td width=450 colspan=3><font face=tahoma size=2><b>Demandï¿½ le:</b> ".$Time['d']."-".$Month[intval($Time['m'])]."-".$Time['Y']."</font></td></tr>";
 $RapportEmail .= "<tr><td width=450 colspan=3><font face=tahoma size=2><b>Pour tous problï¿½mes, appelle nous au (418) 687-4047</font></b></td></tr></table>";
-//Possibilitïé d'envoyer un email
+//Possibilitï¿½ï¿½ d'envoyer un email
 if(!$AUCUN AND $_POST['FORMEmail'])
-	send_mail($InfoEmpl['Email'],"Demande de remplacement reçue",$RapportEmail,TRUE);
+	send_mail($InfoEmpl['Email'],"Demande de remplacement reï¿½ue",$RapportEmail,TRUE);
 ?>

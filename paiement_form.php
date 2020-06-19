@@ -76,7 +76,7 @@ $MainOutput->CloseRow();
 	foreach($payments as $id_payment => $payment){
         $MainOutput->OpenRow();
         $MainOutput->OpenCol();
-        $MainOutput->addlink('index.php?Section=Paiement&Action=delete_payment&IDPaiement='.$id_payment.'&Cote='.$current_cote.'&Year='.$current_year,'<img border=0 src=b_del.png>');
+        $MainOutput->addlink('index.php?Section=Paiement&Action=delete_payment&IDPaiement='.$id_payment.'&Cote='.$current_cote.'&Year='.$current_year, '<img border=0 src=assets/buttons/b_del.png>');
 
 
         $MainOutput->CloseCol();
