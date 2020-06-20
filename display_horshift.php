@@ -1,5 +1,5 @@
 <?PHP
-const FROM_TO = "&nbsp;ï¿½&nbsp;";
+const FROM_TO = "&nbsp;à&nbsp;";
 $MainOutput->OpenTable();
 if(!isset($_GET['ToPrint'])){
 	$_GET['ToPrint']=False;
