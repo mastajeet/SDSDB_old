@@ -145,7 +145,10 @@ class Invoice extends BaseModel implements customerTransaction
             'TPS'=>'float',
             'TVQ'=>'float',
             'Notes'=>'string',
-            "Factsheet" => 'has_many');
+            "Factsheet" => 'has_many',
+            'item_type' =>'ID',
+            'invoice_items_updated'=>'ID'
+        );
     }
 
     function get_customer_transaction()
