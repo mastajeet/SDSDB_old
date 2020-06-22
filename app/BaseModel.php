@@ -218,13 +218,13 @@ class BaseModel
 
         if ($this->$model_table_id == 0) {
             if (count($this->updated_values) > 0) {
-                print_r($this->generate_insert_statement());
+//                print_r($this->generate_insert_statement());
                 BaseModel::insert($this->generate_insert_statement());
                 $this->$model_table_id = $object::get_last_id();
             }
         } else {
             if (count($this->updated_values) > 0) {
-                print_r($this->generate_update_statement());
+//                print_r($this->generate_update_statement());
                 BaseModel::update($this->generate_update_statement());
             }
         }
