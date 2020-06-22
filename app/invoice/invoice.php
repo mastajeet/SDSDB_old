@@ -22,6 +22,7 @@ class Invoice extends BaseModel implements customerTransaction
     public $BonAchat;
     public $Notes;
     public $invoice_items_updated;
+    public $item_type;
 
     function __construct($Args){
         parent::__construct($Args);
