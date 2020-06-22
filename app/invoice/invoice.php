@@ -43,7 +43,8 @@ class Invoice extends BaseModel implements customerTransaction
 
     function update_balance(){
         $balance = 0;
-        if(!$this->invoice_items_updated){
+
+        if(!$this->invoice_items_updated and isset($this->IDFacture)){
             $this->Factsheet = $this->get_items();
         }
         foreach($this->Factsheet as $factsheet){

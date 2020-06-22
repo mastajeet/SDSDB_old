@@ -226,7 +226,6 @@ class BaseModel
                 BaseModel::update($this->generate_update_statement());
             }
         }
-
         return $this->$model_table_id;
     }
 

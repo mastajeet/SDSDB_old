@@ -48,7 +48,7 @@ if(isset($_GET['IDFacture'])){
             $MainOutput->OpenRow();
             $MainOutput->OpenCol();
             if($Modifie)
-                $MainOutput->addlink('index.php?Section=Factsheet&IDFactsheet='.$Rep['IDFactsheet'],'<img border=0 src=b_edit.png>');
+                $MainOutput->addlink('index.php?Section=Factsheet&IDFactsheet='.$Rep['IDFactsheet'],'<img border=0 src=assets/buttons/b_edit.png>');
             $CurrentJour=1;
             $CurrentDate = 	$facture->Semaine;
             while($CurrentJour<=$Rep['Jour']){
@@ -274,12 +274,12 @@ if(isset($_GET['IDFacture'])){
     if($Modifie){
         $MainOutput->AddOutput('<div align=Right>',0,0);
 
-        $MainOutput->AddLink('index.php?Section=Factsheet&IDFacture='.$facture->IDFacture,'<img src=b_ins.png border=0>');
+        $MainOutput->AddLink('index.php?Section=Factsheet&IDFacture='.$facture->IDFacture,'<img src=assets/buttons/b_ins.png border=0>');
             $MainOutput->AddTexte('&nbsp;');
-            $MainOutput->AddLink('index.php?Section=Display_Facture&ToPrint=TRUE&IDFacture='.$facture->IDFacture,'<img src=b_print.png border=0>','_BLANK');
-            $MainOutput->AddLink('index.php?Section=Display_Facturation&Cote='.$facture->Cote,'<img src=b_fact.png border=0>');
+            $MainOutput->AddLink('index.php?Section=Display_Facture&ToPrint=TRUE&IDFacture='.$facture->IDFacture,'<img src=assets/buttons/b_print.png border=0>','_BLANK');
+            $MainOutput->AddLink('index.php?Section=Display_Facturation&Cote='.$facture->Cote,'<img src=assets/buttons/b_fact.png border=0>');
             $MainOutput->AddTexte('&nbsp;');
-            $MainOutput->AddLink('index.php?Action=Delete_Facture&IDFacture='.$facture->IDFacture,'<img src=b_del.png border=0>');
+            $MainOutput->AddLink('index.php?Action=Delete_Facture&IDFacture='.$facture->IDFacture,'<img src=assets/buttons/b_del.png border=0>');
             $MainOutput->AddOutput('</div>',0,0);
         }
     $MainOutput->CloseCol();

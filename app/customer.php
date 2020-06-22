@@ -146,7 +146,6 @@ class Customer extends BaseModel
         $customer = customer::find_customer_by_cote($Cote);
         $installation_to_bill = Installation::get_installations_to_bill($Cote);
         $factures = array();
-
         foreach($installation_to_bill as $installation) {
             $facture = $this->generate_next_time_facture($Cote, $start_of_billable_time);
             $shift_to_bill = $facture->get_billable_shift($installation);
@@ -155,11 +154,11 @@ class Customer extends BaseModel
                 foreach($shift_to_bill as $shift){
                     $shift->add_to_facture($facture);
                 }
-
-            $facture->save();
-            $customer->update_facture($facture);
-            $facture->save();
-            $factures[] = $facture;
+                $facture->invoice_items_updated = true;
+                $facture->save();
+                $customer->update_facture($facture);
+                $facture->save();
+                $factures[] = $facture;
             }
         }
         return $factures;
