@@ -10,13 +10,13 @@
     $MainOutput->opencol('100%',2);
     $MainOutput->AddLink($installation->Lien,$installation->Nom,"_BLANK",'Titre');
     $MainOutput->AddTexte("&nbsp; (".$installation->Cote.")",'Titre');
-    $MainOutput->AddLink('index.php?Section=Installation_Form&IDInstallation='.$installation->IDInstallation,'<img src=b_edit.png border=0>');
-    $MainOutput->AddLink('index.php?Section=Horshift&IDInstallation='.$installation->IDInstallation,'<img src=b_save.png border=0>');
+    $MainOutput->AddLink('index.php?Section=Installation_Form&IDInstallation='.$installation->IDInstallation,'<img src=assets/buttons/b_edit.png border=0>');
+    $MainOutput->AddLink('index.php?Section=Horshift&IDInstallation='.$installation->IDInstallation,'<img src=assets/buttons/b_save.png border=0>');
 
     if($authorization->verifySuperAdmin($_COOKIE)){
-        $MainOutput->AddLink('index.php?Cote='.$installation->Cote,'<img src=b_fact.png border=0>');
+        $MainOutput->AddLink('index.php?Cote='.$installation->Cote,'<img src=assets/buttons/b_fact.png border=0>');
     }
-    $MainOutput->AddLink('index.php?Section=ClientComment_Form&IDInstallation='.$installation->IDInstallation,'<img src=b_conf.png border=0>');
+    $MainOutput->AddLink('index.php?Section=ClientComment_Form&IDInstallation='.$installation->IDInstallation,'<img src=assets/buttons/b_conf.png border=0>');
     $MainOutput->closecol();
     $MainOutput->closerow();
 
