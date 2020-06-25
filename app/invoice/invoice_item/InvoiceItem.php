@@ -8,11 +8,13 @@ Abstract Class InvoiceItem extends baseModel
     public $Start;
     public $Jour;
     public $IDFacture;
+    public $TXH;
     public $IDFactsheet;
 
     abstract function add_to_balance(&$Balance);
     abstract function getNumberOfBilledItems();
-    abstract static function find_item_by_invoice_id($facture_id);
+    abstract function getDetails();
+    abstract static function find_item_by_invoice_id($invoice_id);
 
     static function define_table_info(){
         return array("model_table" => "factsheet",
@@ -24,9 +26,9 @@ Abstract Class InvoiceItem extends baseModel
             'TXH'=>'float');
     }
 
-    static function get_item_by_facture_id_query($facture_id){
+    static function get_item_by_invoice_id_query($invoice_id){
         $database_information = InvoiceItem::define_table_info();
-        $query = "SELECT ".$database_information['model_table_id']." FROM ".$database_information['model_table']." WHERE IDFacture=".$facture_id;
+        $query = "SELECT ".$database_information['model_table_id']." FROM ".$database_information['model_table']." WHERE IDFacture=".$invoice_id;
 
         return $query;
     }

@@ -30,13 +30,13 @@ class TestControlsRenderer extends PHPUnit_Framework_TestCase
 
     private function getInvoiceControlString()
     {
-        return '<a href="index.php?Section=Factsheet&IDFacture=1" target="" ><span class=link><img src=b_ins.png border=0></span></a> 
+        return '<a href="index.php?Section=Factsheet&id=1" target="" ><span class=link><img src=assets/buttons/b_ins.png border=0></span></a> 
 <span class=texte>&nbsp;</span> 
-<a href="index.php?Section=Display_Facture&ToPrint=TRUE&IDFacture=1" target="_BLANK" ><span class=link><img src=b_print.png border=0></span></a> 
+<a href="index.php?Section=Invoice_Display&ToPrint=TRUE&id=1" target="_BLANK" ><span class=link><img src=assets/buttons/b_print.png border=0></span></a> 
 <span class=texte>&nbsp;</span> 
-<a href="index.php?Section=Display_Facturation&Cote=TCR" target="" ><span class=link><img src=b_fact.png border=0></span></a> 
+<a href="index.php?Section=Display_Facturation&Cote=TCR" target="" ><span class=link><img src=assets/buttons/b_fact.png border=0></span></a> 
 <span class=texte>&nbsp;</span> 
-<a href="index.php?Action=Delete_Facture&IDFacture=1" target="" ><span class=link><img src=b_del.png border=0></span></a> 
+<a href="index.php?Action=Delete_Facture&id=1" target="" ><span class=link><img src=assets/buttons/b_del.png border=0></span></a> 
 ';
     }
 

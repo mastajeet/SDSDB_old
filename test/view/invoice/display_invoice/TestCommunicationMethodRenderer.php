@@ -36,6 +36,7 @@ class TestCommunicationRenderer extends PHPUnit_Framework_TestCase
 
         $html_output = $renderer->render();
 
-        $this->assertEquals("<span class=texte>info@thetest.com</span> \n", $html_output);
+        $this->assertEquals('<span class=texte><b>Email</b> info@thetest.com</span> 
+', $html_output);
     }
 }

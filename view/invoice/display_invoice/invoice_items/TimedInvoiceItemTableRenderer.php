@@ -1,5 +1,6 @@
 <?php
 include_once('view/HTMLContainerRenderer.php');
+include_once('view/invoice/display_invoice/invoice_items/TimedInvoiceItemRenderer.php');
 
 class TimedInvoiceItemTableRenderer extends HTMLContainerRenderer
 {

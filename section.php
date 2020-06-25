@@ -456,10 +456,12 @@ SWITCH($Section){
         $content_array['total'] = $invoice_balance["total"];
 
         $content_array['invoice_items'] = array();
+        foreach($typed_invoice->Factsheet as $invoice_item)
+        {
+            $content_array['invoice_items'][] = $invoice_item->getDetails();
+        }
 
-        #
         $invoice_renderer->buildContent($content_array);
-
         print($invoice_renderer->render());
 
         BREAK;

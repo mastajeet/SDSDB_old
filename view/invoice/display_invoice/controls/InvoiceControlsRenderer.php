@@ -14,13 +14,13 @@ class InvoiceControlsRenderer extends HTMLContainerRenderer
     private function buildInvoiceControlsTemplate($invoice_id, $cote)
     {
 //        $this->html_container->AddOutput('<div align=Right>',0,0);
-        $this->html_container->AddLink('index.php?Section=Factsheet&IDFacture='.$invoice_id,'<img src=b_ins.png border=0>');
+        $this->html_container->AddLink('index.php?Section=Factsheet&id='.$invoice_id,'<img src=assets/buttons/b_ins.png border=0>');
         $this->html_container->AddTexte('&nbsp;');
-        $this->html_container->AddLink('index.php?Section=Display_Facture&ToPrint=TRUE&IDFacture='.$invoice_id,'<img src=b_print.png border=0>','_BLANK');
+        $this->html_container->AddLink('index.php?Section=Invoice_Display&ToPrint=TRUE&id='.$invoice_id,'<img src=assets/buttons/b_print.png border=0>','_BLANK');
         $this->html_container->AddTexte('&nbsp;');
-        $this->html_container->AddLink('index.php?Section=Display_Facturation&Cote='.$cote,'<img src=b_fact.png border=0>');
+        $this->html_container->AddLink('index.php?Section=Display_Facturation&Cote='.$cote,'<img src=assets/buttons/b_fact.png border=0>');
         $this->html_container->AddTexte('&nbsp;');
-        $this->html_container->AddLink('index.php?Action=Delete_Facture&IDFacture='.$invoice_id,'<img src=b_del.png border=0>');
+        $this->html_container->AddLink('index.php?Action=Delete_Facture&id='.$invoice_id,'<img src=assets/buttons/b_del.png border=0>');
 //        $this->html_container->AddOutput('</div>',0,0);
     }
 }

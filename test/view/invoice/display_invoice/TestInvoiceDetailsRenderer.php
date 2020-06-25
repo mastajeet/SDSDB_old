@@ -87,6 +87,9 @@ class TestInvoiceDetailsRenderer extends PHPUnit_Framework_TestCase
 <span class=Titre>A/S: </span> 
 <span class=texte>Michel Michel <br />
  1080 thestreet</span> 
+<br />
+ 
+<span class=texte></span> 
 ';
     }
 }

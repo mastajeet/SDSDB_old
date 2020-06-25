@@ -39,29 +39,31 @@ class TestHeaderRenderer extends PHPUnit_Framework_TestCase
 
     private function getHeaderString()
     {
-return '<table width="1000" cellspacing=2 cellpadding=2 border=0 align=""> 
+return '<table width="600" cellspacing=2 cellpadding=2 border=0 align=""> 
 <tr height="" class=""> 
-<td width="80%" colspan=6 valign=top class=""> 
+<td width="20%" colspan=1 valign=top class=""> 
 <img src="logo.jpg" > 
 </td> 
-<td width="" colspan=1 valign=top class=""> 
+<td width="80%" colspan=6 valign=top class=""> 
+<div align=right> 
 <span class=BigHead></span> 
 <br />
  
  
+</div> 
 </td> 
 </tr> 
 <tr height="" class=""> 
-<td width="50%" colspan=3 valign=top class=""> 
+<td width="20%" colspan=3 valign=top class=""> 
  
 </td> 
-<td width="50%" colspan=4 valign=top class=""> 
+<td width="80%" colspan=4 valign=top class=""> 
  
 </td> 
 </tr> 
 <tr height="" class=""> 
 <td width="" colspan=7 valign=top class=""> 
-<span class=Titre>-----&nbsp;Détail&nbsp;-----------------------------------------------------------------------------------------------------------------------------------------</span> 
+<span class=Titre>-----&nbsp;Détail&nbsp;-----------------------------------------------------------------------------------------------------------------------------------</span> 
 </td> 
 </tr> 
 ';

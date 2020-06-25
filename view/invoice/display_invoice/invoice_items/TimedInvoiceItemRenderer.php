@@ -15,7 +15,6 @@ class TimedInvoiceItemRenderer extends HTMLContainerRenderer
     {
         $this->invoice_item_controls_renderer->buildContent($content_array);
 
-        $id = $content_array['id'];
         $invoice_item_datetime = $content_array['invoice_item_datetime'];
         $item_time_start = $content_array['start'];
         $item_time_end = $content_array['end'];
@@ -27,7 +26,7 @@ class TimedInvoiceItemRenderer extends HTMLContainerRenderer
         $this->html_container->OpenRow();
 
         $this->html_container->OpenCol();
-        $this->html_container->addoutput($this->invoice_item_controls_renderer->render());
+        $this->html_container->addoutput($this->invoice_item_controls_renderer->render(),0,0);
         $this->html_container->AddTexte(date_format($invoice_item_datetime,'j-m-Y'));
         $this->html_container->CloseCol();
 

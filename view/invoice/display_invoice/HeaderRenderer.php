@@ -27,31 +27,34 @@ class HeaderRenderer extends HTMLContainerRenderer
         $this->summary_details_renderer->buildContent($content_array);
         $this->recipient_details_renderer->buildContent($content_array);
 
-        $this->html_container->OpenTable(1000);
+        $this->html_container->OpenTable(600);
         $this->html_container->OpenRow();
-        $this->html_container->OpenCol('80%',$this->invoice_width-1);
+        $this->html_container->OpenCol('20%',1);
+
         $this->html_container->AddPic('logo.jpg');
         $this->html_container->CloseCol();
-        $this->html_container->OpenCol();
+        $this->html_container->OpenCol('80%',$this->invoice_width-1);
+        $this->html_container->addoutput("<div align=right>",0,0);
         $this->html_container->AddTexte($this->title_renderer->render(),'BigHead'); #Titre
         $this->html_container->br();
         $this->html_container->AddOutput($this->invoice_controls_renderer->render(),0,0); #Controle pour modifications
+        $this->html_container->addoutput("</div>",0,0);
         $this->html_container->CloseCol();
         $this->html_container->CloseRow();
 
         $this->html_container->OpenRow();
-        $this->html_container->OpenCol('50%',floor($this->invoice_width/2));
+        $this->html_container->OpenCol('20%',floor($this->invoice_width/2));
         $this->html_container->addoutput($this->summary_details_renderer->render(),0,0); # Summary details
         $this->html_container->CloseCol();
 
-        $this->html_container->OpenCol('50%',ceil($this->invoice_width/2));
+        $this->html_container->OpenCol('80%',ceil($this->invoice_width/2));
         $this->html_container->addoutput($this->recipient_details_renderer->render(),0,0); # Summary details
         $this->html_container->CloseCol();
 
         $this->html_container->CloseRow();
         $this->html_container->OpenRow();
         $this->html_container->OpenCol('', $this->invoice_width );
-        $this->html_container->AddTexte('-----&nbsp;Détail&nbsp;-----------------------------------------------------------------------------------------------------------------------------------------','Titre');
+        $this->html_container->AddTexte('-----&nbsp;Détail&nbsp;-----------------------------------------------------------------------------------------------------------------------------------','Titre');
         $this->html_container->CloseCol();
         $this->html_container->CloseRow();
 
