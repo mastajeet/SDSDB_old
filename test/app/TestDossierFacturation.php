@@ -7,6 +7,8 @@ include_once('./app/payment/payment.php');
 class TestDossierFacturation extends PHPUnit_Framework_TestCase
 {
     const UN_DOSSIER_FACTURATION = "TDF";
+    const UN_DOSSIER_FACTURATION_AVEC_UN_RESPONSABLE_PAR_DEFAULT = "DF2";
+    const UN_DOSSIER_FACTURATION_AVEC_UN_RESPONSABLE_CUSTOM = "DF3";
     const UNE_ANNEE_DE_FACTURATION = "2018";
     const UNE_ANNEE_DE_FACTURATION_AVEC_SOLDE_NEGATIF = "2017";
     const UNE_ANNEE_DE_FACTURATION_AVEC_ACTION_SUR_PLUSIEURS_MOIS = "2020";
@@ -146,5 +148,27 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(sizeof($unpaid_factures), 4);
         $this->assertFalse($unpaid_factures[0]->is_paid());
+    }
+
+    function test_givenDossierFacturationWithDefaultResponsible_whenGetBillingResponsibleDetails_thenObtainInformationFromCustomer()
+    {
+        $dossiers_facturation = new DossierFacturation($this::UN_DOSSIER_FACTURATION_AVEC_UN_RESPONSABLE_PAR_DEFAULT, $this::UNE_ANNEE_DE_FACTURATION);
+
+        $billing_responsable_details = $dossiers_facturation->getBillingResponsibleDetails();
+
+        $this->assertEquals("CustomerWithDefaultResponsible",$billing_responsable_details["customer_name"] );
+        $this->assertEquals("M. prenom nom",$billing_responsable_details["responsible_name"] );
+        $this->assertEquals("2020 du fin fin",$billing_responsable_details["responsible_address"] );
+    }
+
+    function test_givenDossierFacturationWithCustomResponsible_whenGetBillingResponsibleDetails_thenObtainInformationFromInstallation()
+    {
+        $dossiers_facturation = new DossierFacturation($this::UN_DOSSIER_FACTURATION_AVEC_UN_RESPONSABLE_CUSTOM, $this::UNE_ANNEE_DE_FACTURATION);
+
+        $billing_responsable_details = $dossiers_facturation->getBillingResponsibleDetails();
+
+        $this->assertEquals("CustomCustomerName",$billing_responsable_details["customer_name"] );
+        $this->assertEquals("CustomResponsibleName",$billing_responsable_details["responsible_name"] );
+        $this->assertEquals("CustomAddress",$billing_responsable_details["responsible_address"] );
     }
 }

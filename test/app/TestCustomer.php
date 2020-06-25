@@ -55,9 +55,9 @@ class TestCustomer extends PHPUnit_Framework_TestCase
     }
 
     function test_givenCustomerWith3InstallationWith2DifferentCote_whenGetDossierFacturation_thenGet2Dossier(){
-        $customer_with_3_installations_3_cotes = new Customer($this->A_CUSTOMER_ID_WITH_3_INSTALLATION_2_COTES);
-        $customer_with_3_installations_3_cotes->get_dossiers_facturation($this->A_YEAR);
+        $customer_with_3_installations_2_cotes = new Customer($this->A_CUSTOMER_ID_WITH_3_INSTALLATION_2_COTES);
+        $customer_with_3_installations_2_cotes->get_dossiers_facturation($this->A_YEAR);
 
-        $this->assertEquals(2, count($customer_with_3_installations_3_cotes->dossier_facturation));
+        $this->assertEquals(2, count($customer_with_3_installations_2_cotes->dossier_facturation));
     }
 }

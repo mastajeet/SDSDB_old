@@ -24,4 +24,12 @@ class TestTimedInvoiceItem extends PHPUnit_Framework_TestCase{
 
         $this->assertEquals(150, $balance);
     }
+
+    function test_givenTimedInvoiceItem_whenGetNumberOfBilledItems_thenCountAmountOfHours(){
+        $invoice_item = new TimedInvoiceItem(self::UN_ID_DE_FACTSHEET_DE_TEMPS);
+
+        $number_of_billed_hours = $invoice_item->getNumberOfBilledItems();
+
+        $this->assertEquals(3, $number_of_billed_hours);
+    }
 }

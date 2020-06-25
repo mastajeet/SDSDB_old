@@ -419,6 +419,10 @@ SWITCH($Section){
 
         $typed_invoice = InvoiceFactory::create_typed_invoice(new Invoice($invoice_id));
         $customer = Customer::find_customer_by_cote($typed_invoice->Cote);
+        $invoice_balance = $typed_invoice->getBalance();
+        $invoice_items_summary = $typed_invoice->getInvoiceItemsSummary();
+        $dossier_facturation = new DossierFacturation($typed_invoice->Cote, null);
+        $billing_responsible_details = $dossier_facturation->getBillingResponsibleDetails();
 
         $header_renderer_factory = new HeaderRendererFactory($time_service);
         $header_renderer = $header_renderer_factory->getHeaderRenderer($typed_invoice, $customer, $company, $edit);
@@ -432,22 +436,24 @@ SWITCH($Section){
         $content_array['invoice_id'] = $invoice_id;
         $content_array['cote'] = $typed_invoice->Cote;
         $content_array['sequence'] = $typed_invoice->Sequence;
-        $content_array['total_money_billed'] = 4;
-        $content_array['total_hour_billed'] = 10;
-        $content_array['billing_datetime'] = new DateTime("@".time());
-        $content_array['billed_to'] = "HotelMotelholidayin";
-        $content_array['billing_contact'] = "misteur roboto \1234 thestreet" ;
-        $content_array['billing_period_datetime'] = new DateTime("@".time());
-        $content_array['fax_number'] = 4189999999;
-        $content_array['email_address'] = "lolk@lol.com";
+        $content_array['total_money_billed'] = $invoice_balance["total"];
+        $content_array['total_hour_billed'] = $invoice_items_summary["number_of_billed_items"];
 
-        $content_array['tps_rate'] = 1.2;
-        $content_array['tvq_rate'] = 2.4;
+        $content_array['billing_datetime'] = new DateTime("@".$typed_invoice->EnDate);
+        $content_array['billed_to'] = $billing_responsible_details["customer_name"];
 
-        $content_array['pretax_total'] =1;
-        $content_array['tps_amount'] = 1;
-        $content_array['tvq_amount'] = 2;
-        $content_array['total'] =4;
+        $content_array['billing_contact'] = $billing_responsible_details["responsible_name"]."<br>".$billing_responsible_details["responsible_address"] ;
+        $content_array['billing_period_datetime'] = new DateTime("@".$typed_invoice->Semaine);
+        $content_array['fax_number'] = $customer->Fax;
+        $content_array['email_address'] = $customer->Email;
+
+        $content_array['tps_rate'] = number_format($typed_invoice->TPS * 100,2);
+        $content_array['tvq_rate'] = number_format($typed_invoice->TVQ * 100,2);
+
+        $content_array['pretax_total'] = $invoice_balance["sub_total"];
+        $content_array['tps_amount'] = $invoice_balance["tps"];
+        $content_array['tvq_amount'] = $invoice_balance["tvq"];
+        $content_array['total'] = $invoice_balance["total"];
 
         $content_array['invoice_items'] = array();
 

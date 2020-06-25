@@ -31,4 +31,12 @@ class TestShiftInvoice extends PHPUnit_Framework_TestCase{
         $this->assertInstanceOf('TimedInvoiceItem',array_pop($invoice_items));
     }
 
+    function test_givenShiftInvoiceWithMultipleItems_whenGetInvoiceItemSummary_thenReturnNumberOfBilledHours(){
+        $invoice = new ShiftInvoice(4001);
+
+        $invoice_item_summary = $invoice->getInvoiceItemsSummary();
+        $number_of_billed_hours = $invoice_item_summary['number_of_billed_items'];
+
+        $this->assertEquals(22, $number_of_billed_hours);
+    }
 }

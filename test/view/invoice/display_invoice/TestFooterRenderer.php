@@ -72,7 +72,7 @@ class TestFooterRenderer extends PHPUnit_Framework_TestCase
 <span class=Small>ou services de professionnels, faites appel à</span> 
 </td> 
 <td width="" colspan=2 valign=top class=""> 
-<span class=Titre><div align=right>TVQ - 9.50: </div></span> 
+<span class=Titre><div align=right>TVQ - 9.50%: </div></span> 
 </td> 
 <td width="" colspan=1 valign=top class=""> 
 <span class=Titre>7.00&nbsp;$</span> 

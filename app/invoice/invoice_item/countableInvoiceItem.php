@@ -21,4 +21,9 @@ class countableInvoiceItem extends InvoiceItem
 
         return $invoice_items;
     }
+
+    function getNumberOfBilledItems()
+    {
+        return $this->End - $this->Start;
+    }
 }

@@ -44,4 +44,9 @@ class TimedInvoiceItem extends InvoiceItem
 
         return $invoice_items;
     }
+
+    function getNumberOfBilledItems()
+    {
+        return( round(($this->End-$this->Start)/3600,2));
+    }
 }

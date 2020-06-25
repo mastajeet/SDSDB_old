@@ -53,7 +53,7 @@ class FooterRenderer extends HTMLContainerRenderer
         $this->html_container->AddTexte($note_in_footer[2],'Small');
         $this->html_container->CloseCol();
         $this->html_container->OpenCol('',2);
-        $this->html_container->AddTexte('<div align=right>TVQ - '.$tvq_rate.': </div>','Titre');
+        $this->html_container->AddTexte('<div align=right>TVQ - '.$tvq_rate.'%: </div>','Titre');
         $this->html_container->CloseCol();
         $this->html_container->OpenCol();
         $this->html_container->AddTexte(number_format($tvq_amount,2)."&nbsp;$",'Titre');

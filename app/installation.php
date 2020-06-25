@@ -60,6 +60,18 @@ class Installation extends BaseModel
         return $Installations;
     }
 
+    static function get_installations_by_cote($cote){
+        $SQL = new sqlclass;
+        $Req = "SELECT installation.IDInstallation FROM installation WHERE `Cote`='".$cote."' ";
+        $SQL->select($Req);
+        $Installations = array();
+        while($installation_results_set = $SQL->FetchArray()){
+            $Installations[] = new Installation($installation_results_set['IDInstallation']);
+        }
+
+        return $Installations;
+    }
+
     static function get_installation_by_customer_cote($customer_cote){
         $SQL = new sqlclass;
         $Req = "SELECT installation.IDInstallation from installation JOIN client on client.IDClient = installation.IDClient WHERE client.Cote='".$customer_cote."' ORDER BY installation.Cote ASC ";

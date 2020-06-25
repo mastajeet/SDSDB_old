@@ -11,6 +11,7 @@ Abstract Class InvoiceItem extends baseModel
     public $IDFactsheet;
 
     abstract function add_to_balance(&$Balance);
+    abstract function getNumberOfBilledItems();
     abstract static function find_item_by_invoice_id($facture_id);
 
     static function define_table_info(){
@@ -29,4 +30,6 @@ Abstract Class InvoiceItem extends baseModel
 
         return $query;
     }
+
+
 }

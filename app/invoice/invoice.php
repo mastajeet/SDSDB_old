@@ -45,9 +45,7 @@ class Invoice extends BaseModel implements customerTransaction
     function update_balance(){
         $balance = 0;
 
-        if(!$this->invoice_items_updated and isset($this->IDFacture)){
-            $this->Factsheet = $this->get_items();
-        }
+        $this->lazyLoadInvoiceItems();
         foreach($this->Factsheet as $factsheet){
             $factsheet->add_to_balance($balance);
         }
@@ -77,6 +75,7 @@ class Invoice extends BaseModel implements customerTransaction
     }
 
     function get_balance(){
+        #Depricated
         $balance= Array("sub_total"=>0, "tps"=>0, "tvq"=>0, "total"=>0);
 
         $balance["sub_total"] = $this->STotal;
@@ -85,6 +84,22 @@ class Invoice extends BaseModel implements customerTransaction
         $balance["total"] = $balance["sub_total"] + $balance["tps"] + $balance["tvq"];
 
         return $balance;
+    }
+
+    function getBalance(){
+        return $this->get_balance();
+    }
+
+    function getInvoiceItemsSummary()
+    {
+        $invoice_item_summary = array("number_of_billed_items"=>0);
+        $this->lazyLoadInvoiceItems();
+        foreach($this->Factsheet as $invoice_item)
+        {
+            $invoice_item_summary["number_of_billed_items"] += $invoice_item->getNumberOfBilledItems();
+        }
+
+        return $invoice_item_summary;
     }
 
     function is_credit(){
@@ -163,5 +178,12 @@ class Invoice extends BaseModel implements customerTransaction
                 "notes"=>$detail,
                 "debit"=>$balance['total']*$this->is_debit(),
                 "credit"=>$balance['total']*$this->is_credit());
+    }
+
+    private function lazyLoadInvoiceItems()
+    {
+        if (!$this->invoice_items_updated and isset($this->IDFacture)) {
+            $this->Factsheet = $this->get_items();
+        }
     }
 }

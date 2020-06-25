@@ -24,4 +24,13 @@ class TestCountableInvoiceItem extends PHPUnit_Framework_TestCase{
 
         $this->assertEquals(300, $balance);
     }
+
+    function test_givenCountableInvoiceItemId_whenGetNumberBilledItem_thenGetDifferenceOfItems()
+    {
+        $invoice_item = new CountableInvoiceItem(self::UN_ID_DE_FACTSHEET_COMPTABLE);
+
+        $number_of_billed_items = $invoice_item->getNumberOfBilledItems();
+
+        $this->assertEquals(2, $number_of_billed_items);
+    }
 }

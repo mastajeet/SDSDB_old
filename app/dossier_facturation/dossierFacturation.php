@@ -16,6 +16,52 @@ class DossierFacturation
         $this->sql_connection = new SqlClass();
     }
 
+    function getBillingResponsibleDetails()
+    {
+        # This implementation relies too much on the database schema
+        $responsible_from_customer = $this->getBillingResponsibleDetailsFromCustomer();
+        $responsible_from_installation = $this->getBillingResponsibleDetailsFromInstallation();
+        $responsible_details = array();
+
+        foreach($responsible_from_customer as $key=>$value)
+        {
+            if($responsible_from_installation[$key] == "")
+            {
+                $responsible_details[$key] = $value;
+            } else {
+                $responsible_details[$key] = $responsible_from_installation[$key];
+            }
+        }
+
+        return $responsible_details;
+    }
+
+    private function getBillingResponsibleDetailsFromCustomer()
+    {
+        $customer = Customer::find_customer_by_cote($this->cote);
+        $responsible_details = Array("customer_name"=>$customer->Nom, "responsible_name"=>$customer->responsables["responsable_facturation"]->full_name, "responsible_address"=>$customer->Adresse);
+
+        return $responsible_details;
+    }
+
+    private function getBillingResponsibleDetailsFromInstallation()
+    {
+        # This implementation is very sketchy. It only takes the responsible for the installation
+        # Anyway, It would not make sense that many responsible persons would be sent the same invoice.
+        # This was implemented for JARO that each installation (distinct cote) had may have a distinct person in charge of billing
+        # Utimately, this serves as an override for the default value that comes from the "customer" object.
+
+        $installations = Installation::get_installations_by_cote($this->cote);
+        $responsible_details = Array("customer_name"=>"", "responsible_name"=>"", "responsible_address"=>"");
+        foreach($installations as $installation)
+        {
+            $responsible_details = Array("customer_name"=>$installation->Factname, "responsible_name"=>$installation->ASFact, "responsible_address"=>$installation->AdresseFact);
+        }
+
+        return $responsible_details;
+    }
+
+
     function get_total_to_be_paid(){
     // Billed and Credited are summed together because credit are store with minus sign in DataBase...
         $total_billed = $this->get_total_billed();
