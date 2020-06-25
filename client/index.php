@@ -2,7 +2,7 @@
 ini_set("default_charset", "iso-8859-1");
 include('../func_date.php');
 include('functions.php');
-include('../HTMLContainer.php');
+include('../view/HTMLContainer.php');
 
 
 if(isset($_COOKIE['CIE'])){
