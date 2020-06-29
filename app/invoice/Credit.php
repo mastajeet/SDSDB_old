@@ -33,5 +33,9 @@ class Credit extends Invoice{
             "credit"=>0);
     }
 
+    function get_items()
+    {
+        return countableInvoiceItem::find_item_by_invoice_id($this->IDFacture);
+    }
 
 }

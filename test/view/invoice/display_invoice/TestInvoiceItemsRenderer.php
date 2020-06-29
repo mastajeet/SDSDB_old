@@ -94,6 +94,7 @@ class TestInvoiceItemRenderer extends PHPUnit_Framework_TestCase
     {
         return '<tr height="" class=""> 
 <td width="" colspan=1 valign=top class=""> 
+ 
 <span class=texte>3</span> 
 </td> 
 <td width="" colspan=1 valign=top class=""> 

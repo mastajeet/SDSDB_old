@@ -46,10 +46,10 @@ class TestFooterRenderer extends PHPUnit_Framework_TestCase
 </td> 
 </tr> 
 <tr height="" class=""> 
-<td width="" colspan=4 valign=top class=""> 
+<td width="" colspan=5 valign=top class=""> 
 <span class=Small>#TPS : 144013992RT  #TVQ : 1087890909TQ</span> 
 </td> 
-<td width="" colspan=2 valign=top class=""> 
+<td width="" colspan=1 valign=top class=""> 
 <span class=Titre><div align=right>Sous-Total: </div></span> 
 </td> 
 <td width="" colspan=1 valign=top class=""> 
@@ -57,10 +57,10 @@ class TestFooterRenderer extends PHPUnit_Framework_TestCase
 </td> 
 </tr> 
 <tr height="" class=""> 
-<td width="" colspan=4 valign=top class=""> 
+<td width="" colspan=5 valign=top class=""> 
 <span class=Small>Pour tous vos besoins en produits et accessoires de piscine,</span> 
 </td> 
-<td width="" colspan=2 valign=top class=""> 
+<td width="" colspan=1 valign=top class=""> 
 <span class=Titre><div align=right>TPS - 4.95%: </div></span> 
 </td> 
 <td width="" colspan=1 valign=top class=""> 
@@ -68,10 +68,10 @@ class TestFooterRenderer extends PHPUnit_Framework_TestCase
 </td> 
 </tr> 
 <tr height="" class=""> 
-<td width="" colspan=4 valign=top class=""> 
+<td width="" colspan=5 valign=top class=""> 
 <span class=Small>ou services de professionnels, faites appel à</span> 
 </td> 
-<td width="" colspan=2 valign=top class=""> 
+<td width="" colspan=1 valign=top class=""> 
 <span class=Titre><div align=right>TVQ - 9.50%: </div></span> 
 </td> 
 <td width="" colspan=1 valign=top class=""> 
@@ -79,18 +79,18 @@ class TestFooterRenderer extends PHPUnit_Framework_TestCase
 </td> 
 </tr> 
 <tr height="" class=""> 
-<td width="" colspan=4 valign=top class=""> 
+<td width="" colspan=5 valign=top class=""> 
 <span class=Small>ENTRETIEN DE PISCINE SOUCY au (418) 872-4440.</span> 
 </td> 
-<td width="" colspan=3 valign=top class=""> 
+<td width="" colspan=2 valign=top class=""> 
 <span class=Titre>--------------------------</span> 
 </td> 
 </tr> 
 <tr height="" class=""> 
-<td width="" colspan=4 valign=top class=""> 
+<td width="" colspan=5 valign=top class=""> 
 <span class=Small>Veuillez effectuer le paiement dans les 7 jours suivant la réception de cette facture.</span> 
 </td> 
-<td width="" colspan=2 valign=top class=""> 
+<td width="" colspan=1 valign=top class=""> 
 <span class=Titre><div align=right>Total: </div></span> 
 </td> 
 <td width="" colspan=1 valign=top class=""> 
@@ -98,15 +98,7 @@ class TestFooterRenderer extends PHPUnit_Framework_TestCase
 </td> 
 </tr> 
 <tr height="" class=""> 
-<td width="" colspan=4 valign=top class=""> 
-<span class=Small> </span> 
-</td> 
-<td width="" colspan=2 valign=top class=""> 
-<span class=texte> </span> 
-</td> 
-<td width="" colspan=1 valign=top class=""> 
-<span class=texte> </span> 
-</td> 
+<td width="" colspan=7 valign=top class=""> 
 </tr> 
 <tr height="" class=""> 
 <td width="" colspan=7 valign=top class=""> 

@@ -39,7 +39,7 @@ class TestHeaderRenderer extends PHPUnit_Framework_TestCase
 
     private function getHeaderString()
     {
-return '<table width="600" cellspacing=2 cellpadding=2 border=0 align=""> 
+return '<table width="660" cellspacing=2 cellpadding=2 border=0 align=""> 
 <tr height="" class=""> 
 <td width="20%" colspan=1 valign=top class=""> 
 <img src="logo.jpg" > 

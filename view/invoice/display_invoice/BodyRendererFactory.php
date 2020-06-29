@@ -15,11 +15,11 @@ class BodyRendererFactory
             $invoice_item_control_renderer = new EmptyHTMLContainerRenderer();
         }
 
-        if ($invoice instanceof EquipmentInvoice or $invoice instanceof InterestInvoice)
+        if ($invoice instanceof ShiftInvoice)
         {
-            return new CountableInvoiceItemTableRenderer($invoice_item_control_renderer);
-        } else {
             return new TimedInvoiceItemTableRenderer($invoice_item_control_renderer);
+        } else {
+            return new CountableInvoiceItemTableRenderer($invoice_item_control_renderer);
         }
 
         throw new UnexpectedValueException();

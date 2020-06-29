@@ -67,7 +67,7 @@ class TestInvoiceItemTableRenderer extends PHPUnit_Framework_TestCase
     {
         return '<table width="660" cellspacing=2 cellpadding=2 border=0 align=""> 
 <tr height="" class=""> 
-<td width="150" colspan=1 valign=top class=""> 
+<td width="80" colspan=1 valign=top class=""> 
 <span class=Titre>Date</span> 
 </td> 
 <td width="20" colspan=1 valign=top class=""> 
@@ -76,13 +76,13 @@ class TestInvoiceItemTableRenderer extends PHPUnit_Framework_TestCase
 <td width="20" colspan=1 valign=top class=""> 
 <span class=Titre>Fin</span> 
 </td> 
-<td width="400" colspan=1 valign=top class=""> 
+<td width="330" colspan=1 valign=top class=""> 
 <span class=Titre>Description</span> 
 </td> 
 <td width="30" colspan=1 valign=top class=""> 
 <span class=Titre>Qté</span> 
 </td> 
-<td width="50" colspan=1 valign=top class=""> 
+<td width="70" colspan=1 valign=top class=""> 
 <span class=Titre>Taux</span> 
 </td> 
 <td width="50" colspan=1 valign=top class=""> 
@@ -125,10 +125,10 @@ class TestInvoiceItemTableRenderer extends PHPUnit_Framework_TestCase
 <span class=Titre>Qté</span> 
 </td> 
 </td> 
-<td width="400" colspan=1 valign=top class=""> 
+<td width="480" colspan=1 valign=top class=""> 
 <span class=Titre>Description</span> 
 </td> 
-<td width="50" colspan=1 valign=top class=""> 
+<td width="70" colspan=1 valign=top class=""> 
 <span class=Titre>Taux</span> 
 </td> 
 <td width="50" colspan=1 valign=top class=""> 
@@ -137,6 +137,7 @@ class TestInvoiceItemTableRenderer extends PHPUnit_Framework_TestCase
 </tr> 
 <tr height="" class=""> 
 <td width="" colspan=1 valign=top class=""> 
+ 
 <span class=texte>3</span> 
 </td> 
 <td width="" colspan=1 valign=top class=""> 

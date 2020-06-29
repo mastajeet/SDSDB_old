@@ -95,11 +95,11 @@ class HeaderRendererFactory
 
     private function getInvoiceWidth(Invoice $invoice)
     {
-        if($invoice instanceof EquipmentInvoice or $invoice instanceof InterestInvoice)
+        if($invoice instanceof ShiftInvoice)
         {
-            return 4;
-        }else{
             return 7;
+        }else{
+            return 4;
         }
     }
 }
