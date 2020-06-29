@@ -1,5 +1,6 @@
 <?php
 require_once('view/invoice/display_invoice/invoice_items/TimedInvoiceItemRenderer.php');
+require_once('view/invoice/display_invoice/invoice_items/CountableInvoiceItemRenderer.php');
 
 class TestInvoiceItemRenderer extends PHPUnit_Framework_TestCase
 {
@@ -12,14 +13,14 @@ class TestInvoiceItemRenderer extends PHPUnit_Framework_TestCase
     const UNE_DUREE = 3;
     const UNE_VALEUR_TOTALE = 31.50;
 
-
-    private $content_array;
+    private $countable_content_array;
+    private $timed_content_array;
 
     /**
      * @before
      */
     function buildContentArray(){
-        $this->content_array = array(
+        $this->timed_content_array = array(
             'id'=>self::UN_ID_ITEM_DE_FACTURE,
             'invoice_item_datetime'=> new Datetime("@".self::UN_TIMESTAMP),
             'start'=> self::UNE_HEURE_DE_DEBUT,
@@ -29,19 +30,38 @@ class TestInvoiceItemRenderer extends PHPUnit_Framework_TestCase
             'item_duration' =>self::UNE_DUREE,
             'total' => self::UNE_VALEUR_TOTALE,
         );
+
+        $this->countable_content_array = array(
+            'id'=>self::UN_ID_ITEM_DE_FACTURE,
+            'notes' => self::UNE_NOTES,
+            'unit_cost'=> self::UN_TAUX_HORAIRE,
+            'item_quantity' =>self::UNE_DUREE,
+            'total' => self::UNE_VALEUR_TOTALE,
+        );
+
     }
 
-    function test_GivenBuiltNotPrintableTimeInvoiceItem_WhenRender_ObtainStringTableRowOfItem()
+    function test_givenBuiltTimedInvoiceItem_whenRender_obtainStringTableRowOfItem()
     {
         $renderer = new TimedInvoiceItemRenderer(new MockHTMLContainerRenderer());
-        $renderer->buildContent($this->content_array);
+        $renderer->buildContent($this->timed_content_array);
 
         $html_output = $renderer->render();
 
-        $this->assertEquals($this->getNotPrintableTimeInvoiceItemOutput(),$html_output);
+        $this->assertEquals($this->getTimedInvoiceItemOutput(),$html_output);
     }
 
-    private function getNotPrintableTimeInvoiceItemOutput()
+    function test_givenBuiltCountableInvoiceItem_whenRender_obtainStringTableRowOfItem()
+    {
+        $renderer = new CountableInvoiceItemRenderer(new MockHTMLContainerRenderer());
+        $renderer->buildContent($this->countable_content_array);
+
+        $html_output = $renderer->render();
+
+        $this->assertEquals($this->getCountableInvoiceItemOutput(),$html_output);
+    }
+
+    private function getTimedInvoiceItemOutput()
     {
         return "<tr height=\"\" class=\"\"> 
 <td width=\"\" colspan=1 valign=top class=\"\"> 
@@ -68,6 +88,25 @@ class TestInvoiceItemRenderer extends PHPUnit_Framework_TestCase
 </td> 
 </tr> 
 ";
+    }
+
+    private function getCountableInvoiceItemOutput()
+    {
+        return '<tr height="" class=""> 
+<td width="" colspan=1 valign=top class=""> 
+<span class=texte>3</span> 
+</td> 
+<td width="" colspan=1 valign=top class=""> 
+<span class=texte>une_note</span> 
+</td> 
+<td width="" colspan=1 valign=top class=""> 
+<span class=texte>10.50&nbsp;$</span> 
+</td> 
+<td width="" colspan=1 valign=top class=""> 
+<span class=texte>31.50&nbsp;$</span> 
+</td> 
+</tr> 
+';
     }
 }
 

@@ -1,5 +1,6 @@
 <?php
 require_once('view/invoice/display_invoice/invoice_items/TimedInvoiceItemTableRenderer.php');
+require_once('view/invoice/display_invoice/invoice_items/CountableInvoiceItemTableRenderer.php');
 
 class TestInvoiceItemTableRenderer extends PHPUnit_Framework_TestCase
 {
@@ -13,14 +14,22 @@ class TestInvoiceItemTableRenderer extends PHPUnit_Framework_TestCase
     const UNE_VALEUR_TOTALE = 31.50;
 
 
-    private $content_array;
+    private $timed_invoice_items;
+    private $countable_invoice_items;
 
     /**
      * @before
      */
     function buildContentArray(){
-        $invoice_item_array = array();
-        $invoice_timed_item_array[] = array(
+        $countable_invoice_item[] = array(
+            'id'=>self::UN_ID_ITEM_DE_FACTURE,
+            'notes' => self::UNE_NOTES,
+            'unit_cost'=> self::UN_TAUX_HORAIRE,
+            'item_quantity' =>self::UNE_DUREE,
+            'total' => self::UNE_VALEUR_TOTALE,
+        );
+
+        $timed_invoice_item[] = array(
             'id'=>self::UN_ID_ITEM_DE_FACTURE,
             'invoice_item_datetime'=> new Datetime("@".self::UN_TIMESTAMP),
             'start'=> self::UNE_HEURE_DE_DEBUT,
@@ -30,20 +39,31 @@ class TestInvoiceItemTableRenderer extends PHPUnit_Framework_TestCase
             'item_duration' =>self::UNE_DUREE,
             'total' => self::UNE_VALEUR_TOTALE,
         );
-        $this->content_array = ["invoice_items"=>$invoice_timed_item_array];
+        $this->timed_invoice_items = ["invoice_items"=>$timed_invoice_item];
+        $this->countable_invoice_items = ["invoice_items"=>$countable_invoice_item];
     }
 
-    function test_GivenBuiltNotPrintableTimeInvoiceItem_WhenRender_ObtainStringTableRowOfItem()
+    function test_givenBuiltTimedInvoiceItem_whenRender_obtainStringTableRowOfItem()
     {
         $renderer = new TimedInvoiceItemTableRenderer(new MockHTMLContainerRenderer());
-        $renderer->buildContent($this->content_array);
+        $renderer->buildContent($this->timed_invoice_items);
 
         $html_output = $renderer->render();
 
-        $this->assertEquals($this->getNotPrintableTimeInvoiceItemTableOutput(),$html_output);
+        $this->assertEquals($this->getTimedInvoiceItemTableOutput(),$html_output);
     }
 
-    private function getNotPrintableTimeInvoiceItemTableOutput()
+    function test_givenBuiltCountableInvoiceItem_whenRender_obtainStringTableRowOfItem()
+    {
+        $renderer = new CountableInvoiceItemTableRenderer(new MockHTMLContainerRenderer());
+        $renderer->buildContent($this->countable_invoice_items);
+
+        $html_output = $renderer->render();
+
+        $this->assertEquals($this->getCountableInvoiceItemTableOutput(),$html_output);
+    }
+
+    private function getTimedInvoiceItemTableOutput()
     {
         return '<table width="660" cellspacing=2 cellpadding=2 border=0 align=""> 
 <tr height="" class=""> 
@@ -85,6 +105,42 @@ class TestInvoiceItemTableRenderer extends PHPUnit_Framework_TestCase
 </td> 
 <td width="" colspan=1 valign=top class=""> 
 <span class=texte>3</span> 
+</td> 
+<td width="" colspan=1 valign=top class=""> 
+<span class=texte>10.50&nbsp;$</span> 
+</td> 
+<td width="" colspan=1 valign=top class=""> 
+<span class=texte>31.50&nbsp;$</span> 
+</td> 
+</tr> 
+ 
+';
+    }
+
+    private function getCountableInvoiceItemTableOutput()
+    {
+        return '<table width="660" cellspacing=2 cellpadding=2 border=0 align=""> 
+<tr height="" class=""> 
+<td width="30" colspan=1 valign=top class=""> 
+<span class=Titre>Qté</span> 
+</td> 
+</td> 
+<td width="400" colspan=1 valign=top class=""> 
+<span class=Titre>Description</span> 
+</td> 
+<td width="50" colspan=1 valign=top class=""> 
+<span class=Titre>Taux</span> 
+</td> 
+<td width="50" colspan=1 valign=top class=""> 
+<span class=Titre>Total</span> 
+</td> 
+</tr> 
+<tr height="" class=""> 
+<td width="" colspan=1 valign=top class=""> 
+<span class=texte>3</span> 
+</td> 
+<td width="" colspan=1 valign=top class=""> 
+<span class=texte>une_note</span> 
 </td> 
 <td width="" colspan=1 valign=top class=""> 
 <span class=texte>10.50&nbsp;$</span> 

@@ -27,7 +27,7 @@ class HeaderRenderer extends HTMLContainerRenderer
         $this->summary_details_renderer->buildContent($content_array);
         $this->recipient_details_renderer->buildContent($content_array);
 
-        $this->html_container->OpenTable(600);
+        $this->html_container->OpenTable(660);
         $this->html_container->OpenRow();
         $this->html_container->OpenCol('20%',1);
 

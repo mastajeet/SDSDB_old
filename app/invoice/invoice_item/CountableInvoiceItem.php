@@ -4,7 +4,7 @@ include_once('app/invoice/invoice_item/InvoiceItem.php');
 class countableInvoiceItem extends InvoiceItem
 {
     function add_to_balance(&$Balance){
-        $Balance += round(($this->End - $this->Start)*$this->TXH,2);
+        $Balance += $this->getBilledAmount();
     }
 
     static function find_item_by_invoice_id($invoice_id)
@@ -28,6 +28,17 @@ class countableInvoiceItem extends InvoiceItem
 
     function getDetails()
     {
-        // TODO: Implement getDetails() method.
+        return array(
+            "invoice_item_id"=>$this->IDFactsheet,
+            "item_quantity"=>$this->getNumberOfBilledItems(),
+            "notes" => $this->Notes,
+            "unit_cost" =>$this->TXH,
+            "total" => $this->getBilledAmount()
+        );
+    }
+
+    private function getBilledAmount()
+    {
+        return round($this->getNumberOfBilledItems()*$this->TXH,2);
     }
 }

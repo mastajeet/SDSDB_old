@@ -1,8 +1,8 @@
 <?php
 include_once('view/HTMLContainerRenderer.php');
-include_once('view/invoice/display_invoice/invoice_items/TimedInvoiceItemRenderer.php');
+include_once('view/invoice/display_invoice/invoice_items/CountableInvoiceItemRenderer.php');
 
-class TimedInvoiceItemTableRenderer extends HTMLContainerRenderer
+class CountableInvoiceItemTableRenderer extends HTMLContainerRenderer
 {
 
     private $invoice_item_controls_renderer;
@@ -23,34 +23,31 @@ class TimedInvoiceItemTableRenderer extends HTMLContainerRenderer
     {
         $this->html_container->OpenTable(660);
         $this->html_container->OpenRow();
-        $this->html_container->OpenCol(80);
-        $this->html_container->AddTexte('Date','Titre');
-        $this->html_container->CloseCol();
-        $this->html_container->OpenCol(20);
-        $this->html_container->AddTexte('<div align=center>Début</div>','Titre');
-        $this->html_container->CloseCol();
-        $this->html_container->OpenCol(20);
-        $this->html_container->AddTexte('Fin','Titre');
-        $this->html_container->CloseCol();
-        $this->html_container->OpenCol(330);
-        $this->html_container->AddTexte('Description','Titre');
-        $this->html_container->CloseCol();
+
         $this->html_container->OpenCol(30);
         $this->html_container->AddTexte('Qté','Titre');
+        $this->html_container->CloseCol();
+
+        $this->html_container->CloseCol();
+        $this->html_container->OpenCol(480);
+        $this->html_container->AddTexte('Description','Titre');
+
         $this->html_container->CloseCol();
         $this->html_container->OpenCol(70);
         $this->html_container->AddTexte('Taux','Titre');
         $this->html_container->CloseCol();
+
         $this->html_container->OpenCol(50);
         $this->html_container->AddTexte('Total','Titre');
         $this->html_container->CloseCol();
+
         $this->html_container->CloseRow();
     }
 
     private function buildInvoiceItemTableRows($invoice_item_array)
     {
         foreach($invoice_item_array as $invoice_item){
-            $invoice_item_renderer = new TimedInvoiceItemRenderer($this->invoice_item_controls_renderer);
+            $invoice_item_renderer = new CountableInvoiceItemRenderer($this->invoice_item_controls_renderer);
             $invoice_item_renderer->buildContent($invoice_item);
             $this->html_container->addoutput($invoice_item_renderer->render(),0,0);
         }

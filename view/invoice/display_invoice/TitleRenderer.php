@@ -17,19 +17,19 @@ class TitleRenderer implements Renderer
     {
         if($invoice instanceof EquipmentInvoice) # Materiel
         {
-            return "FACTURE MATÃ‰RIEL";
+            return "FACTURE MATÉRIEL";
         }
         else if($invoice instanceof AvanceClient)
         { # Avance
             return "AVANCE";
         }
         else if($invoice instanceof InterestInvoice)
-        { # IntÃ©ret
-            return "CHARGE D'INTÃ‰RÃŠT";
+        { # Intéret
+            return "CHARGE D'INTÉRÊT";
         }
         else if($invoice instanceof Credit)
         { # Credit
-            return "CRÃ‰DIT";
+            return "CRÉDIT";
         }else{
             return "FACTURE";
         }

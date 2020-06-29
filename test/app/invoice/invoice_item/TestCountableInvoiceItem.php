@@ -1,6 +1,6 @@
 <?php
 
-include_once('app/invoice/invoice_item/countableInvoiceItem.php');
+include_once('app/invoice/invoice_item/CountableInvoiceItem.php');
 include_once ('app/payment/payment.php');
 
 class TestCountableInvoiceItem extends PHPUnit_Framework_TestCase{

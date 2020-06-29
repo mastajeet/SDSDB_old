@@ -11,7 +11,7 @@ class TestTitleRenderer extends PHPUnit_Framework_TestCase
 
         $html_output = $renderer->render();
 
-        $this->assertEquals("FACTURE MATÃ‰RIEL", $html_output);
+        $this->assertEquals("FACTURE MATÉRIEL", $html_output);
     }
 
     function test_givenBuiltCoteRendererWithShiftInvoiceQC_whenRender_ObtainStringofFacture()
@@ -31,7 +31,7 @@ class TestTitleRenderer extends PHPUnit_Framework_TestCase
 
         $html_output = $renderer->render();
 
-        $this->assertEquals("CHARGE D'INTÃ‰RÃŠT", $html_output);
+        $this->assertEquals("CHARGE D'INTÉRÊT", $html_output);
     }
 
     function test_givenBuiltCoteRendererWithAvanceClientQC_whenRender_ObtainStringOfAvanceClient()
@@ -51,7 +51,7 @@ class TestTitleRenderer extends PHPUnit_Framework_TestCase
 
         $html_output = $renderer->render();
 
-        $this->assertEquals("CRÃ‰DIT", $html_output);
+        $this->assertEquals("CRÉDIT", $html_output);
     }
 }
 

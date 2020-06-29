@@ -1,6 +1,9 @@
 <?php
 include_once('view/invoice/display_invoice/controls/InvoiceItemControlsRenderer.php');
 include_once('view/invoice/display_invoice/invoice_items/TimedInvoiceItemTableRenderer.php');
+include_once('view/invoice/display_invoice/invoice_items/CountableInvoiceItemTableRenderer.php');
+
+
 
 class BodyRendererFactory
 {
