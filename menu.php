@@ -17,6 +17,7 @@ const DISPLAY_CURRENT_SCHEDULE = 'Afficher l\'horaire courant';
 const DISPLAY_PAST_SCHEDULE = 'Afficher l\'horaire passé';
 const LIST_BUREAU_EMPLOYEE = 'Liste employe bureau';
 const MONTHLY_TRANSACTIONS = 'Transaction mensuelles';
+const GENERATE_KIMOBY_CSV = 'Kimoby CSV';
 $SQL = new sqlclass;
 
 $Categorie = NULL;
@@ -453,6 +454,22 @@ if($Categorie=="Horaire"){
     $MainOutput->CloseCol();
     $MainOutput->OpenCol('230',2);
     $MainOutput->AddLink('index.php?MenuSection=Display_Shift&Semaine='.get_last_sunday(1), DISPLAY_PAST_SCHEDULE);
+    $MainOutput->CloseCol();
+    $MainOutput->CloseRow();
+
+    $MainOutput->OpenRow();
+    $MainOutput->OpenCol(20);
+    $MainOutput->AddTexte('&nbsp;');
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol(20);
+    if(isset($Section) AND $Section=="Display_Shift" AND isset($_GET['Semaine']) && $_GET['Semaine'] <> get_last_sunday() )
+        $MainOutput->AddPic('f_open.png');
+    else
+        $MainOutput->AddPic('f_close.png');
+
+    $MainOutput->CloseCol();
+    $MainOutput->OpenCol('230',2);
+    $MainOutput->AddLink('index.php?TOPRINT=1&Action=KimobyCSV_Generate',GENERATE_KIMOBY_CSV,'_BLANK');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 

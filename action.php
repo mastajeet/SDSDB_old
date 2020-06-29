@@ -225,6 +225,30 @@ SWITCH($Action){
 	}
 
 
+    CASE "KimobyCSV_Generate":{
+        $now = time();
+        $date_time = new DateTime("@".$now);
+        $shifts = shift::getAllShiftsRunningAtAnInstant($date_time, $time_service);
+        $employee_dto_list = array();
+
+        foreach($shifts as $shift)
+        {
+            $employe = $shift->getWorkingEmployee();
+            $employe_dto = array(
+                "nom"=>$employe->Nom,
+                "prenom"=>$employe->Prenom,
+                "cellphone_number"=>$employe->Cell,
+                );
+            if(!$employe->isNullEmploye()){
+                $employee_dto_list[] = $employe_dto; # Ca serait pas pire d'avoir un dto_manager...
+            }
+        }
+
+        sort($employee_dto_list);
+
+        print(nl2br(renderCSVListEmployeeSummary($employee_dto_list)));
+        exit();
+    }
 
 
 	CASE "Add_Facture":{

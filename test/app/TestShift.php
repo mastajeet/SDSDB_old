@@ -47,7 +47,7 @@ class TestShift extends PHPUnit_Framework_TestCase
     {
         $shift = new Shift($this->A_SHIFTID_WITH_WORKING_EMPLOYEE, new TimeService());
 
-        $employe = $shift->getEmployeeWorkingOnThisShift();
+        $employe = $shift->getWorkingEmployee();
 
         $this->assertEquals("Julie",$employe->Prenom);
     }
@@ -56,7 +56,7 @@ class TestShift extends PHPUnit_Framework_TestCase
     {
         $shift = new Shift($this->A_SHIFTID_WITHOUT_WORKING_EMPLOYEE, new TimeService());
 
-        $employe = $shift->getEmployeeWorkingOnThisShift();
+        $employe = $shift->getWorkingEmployee();
 
         $this->assertEquals("",$employe->Prenom);
     }

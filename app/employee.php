@@ -47,8 +47,12 @@ class Employee extends BaseModel
         }
     }
 
-    private function isNullEmploye($Arg)
+    function isNullEmploye($Arg=null)
     {
+        if(is_null($Arg) and $this->IDEmploye==0)
+        {
+            return true;
+        }
         if(is_numeric($Arg) and $Arg==0)
         {
             return true;

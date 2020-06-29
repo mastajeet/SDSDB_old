@@ -150,6 +150,8 @@ include_once('view/invoice/display_invoice/BodyRendererFactory.php');
 include_once('view/invoice/display_invoice/FooterRenderer.php');
 include_once('view/invoice/display_invoice/HTMLInvoiceRenderer.php');
 
+include_once('view/employee/CSVEmployeeSummaryListRenderer.php');
+
 $variable = new Variable();
 $password_getter = new PasswordGetter($variable);
 $authorization = new Authorization($password_getter);

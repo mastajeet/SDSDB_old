@@ -115,7 +115,7 @@ class Shift extends BaseModel
         return $shifts;
     }
 
-    function getEmployeeWorkingOnThisShift()
+    function getWorkingEmployee()
     {
         return new Employee($this->IDEmploye);
     }
