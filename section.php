@@ -473,8 +473,6 @@ SWITCH($Section){
         BREAK;
     }
 
-
-
     CASE "Close_Saison":{
         include('close_saison_form.php');
         BREAK;

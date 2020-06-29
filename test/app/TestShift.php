@@ -11,6 +11,9 @@ class TestShift extends PHPUnit_Framework_TestCase
 {
 
     private $A_WEEK_TIMESTAMP = 1541912400;
+    private $A_TIMESTAMP_WITH_TWO_SHIFT_RUNNING = 1497207800;
+    private $A_SHIFTID_WITH_WORKING_EMPLOYEE = 1337;
+    private $A_SHIFTID_WITHOUT_WORKING_EMPLOYEE = 247735;
 
     /**
      * @before
@@ -38,5 +41,31 @@ class TestShift extends PHPUnit_Framework_TestCase
         $actual_jour = $this->facture->Factsheet[0]->Jour;
 
         $this->assertEquals($expected_jour, $actual_jour);
+    }
+
+    function test_GivenShiftWithWorkingEmploye_whenGetEmployee_thenObtainEmployee()
+    {
+        $shift = new Shift($this->A_SHIFTID_WITH_WORKING_EMPLOYEE, new TimeService());
+
+        $employe = $shift->getEmployeeWorkingOnThisShift();
+
+        $this->assertEquals("Julie",$employe->Prenom);
+    }
+
+    function test_GivenShiftWithoutWorkingEmploye_whenGetEmployee_thenObtainNullEmployee()
+    {
+        $shift = new Shift($this->A_SHIFTID_WITHOUT_WORKING_EMPLOYEE, new TimeService());
+
+        $employe = $shift->getEmployeeWorkingOnThisShift();
+
+        $this->assertEquals("",$employe->Prenom);
+    }
+
+    function test_givenATimeStampWithShiftRunning_whenGetAllCurrentShift_thenObtainAllRunningShift()
+    {
+        $date_time = new DateTime("@".$this->A_TIMESTAMP_WITH_TWO_SHIFT_RUNNING);
+        $shifts = shift::getAllShiftsRunningAtAnInstant($date_time, new TimeService());
+
+        $this->assertEquals(2, count($shifts));
     }
 }

@@ -2,9 +2,10 @@
 
 class Employee extends BaseModel
 {
-
+    public $IDEmploye;
     public $Prenom;
     public $Nom;
+    public $NAS;
     public $TelP;
     public $Cell;
 
@@ -36,4 +37,32 @@ class Employee extends BaseModel
         return $Initiales;
     }
 
+    function __construct($Arg = null)
+    {
+        if($this->isNullEmploye($Arg))
+        {
+            parent::__construct($this->getNullEmployeeValues());
+        } else {
+            parent::__construct($Arg);
+        }
+    }
+
+    private function isNullEmploye($Arg)
+    {
+        if(is_numeric($Arg) and $Arg==0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private function getNullEmployeeValues()
+    {
+        return Array(
+            'IDEmploye'=>0,
+            'Nom'=>"",
+            'Prenom'=>"",
+            'NAS'=>"123321090"
+        );
+    }
 }

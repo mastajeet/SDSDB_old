@@ -109,5 +109,15 @@ class TimeService {
         return strftime($format, $datetime->getTimestamp());
 
     }
+
+    public function getTimeInstant($datetime_object)
+    {
+        $semaine = $this->get_start_of_week($datetime_object)->getTimestamp();
+        $day = date_format($datetime_object, "N") % 7;
+        $hour = date_format($datetime_object, "H");
+        $minute = date_format($datetime_object, "i");
+        $time_instant = ($hour * 60 + $minute) * 60;
+        return array($semaine, $day, $time_instant);
+    }
 }
 

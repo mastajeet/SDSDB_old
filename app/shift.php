@@ -28,6 +28,7 @@ class Shift extends BaseModel
         parent::__construct($Arg);
     }
 
+
     function is_connected_after($PreviousFactsheet){
         if($PreviousFactsheet){
             return ($PreviousFactsheet->End == $this->Start and $PreviousFactsheet->Jour == $this->Jour);
@@ -94,5 +95,29 @@ class Shift extends BaseModel
             'timeService'=>'service'
         );
     }
-}
 
+    static function getAllShiftsRunningAtAnInstant($datetime, TimeService $time_service)
+    {
+        $sql_class = new SqlClass();
+
+        list($semaine, $day, $time_instant) = $time_service->getTimeInstant($datetime);
+        $table_info = self::define_table_info();
+        $query = "SELECT ".$table_info["model_table_id"]." from ".$table_info["model_table"]." WHERE Semaine=".$semaine." and Jour=".$day." and Start <= ".$time_instant." and End >= ".$time_instant;
+
+        $sql_class->Select($query);
+        $shifts = array();
+        while($shift_record = $sql_class->FetchAssoc())
+        {
+            $shift_id = $shift_record["IDShift"];
+            $shifts[$shift_id] = new Shift($shift_id, $time_service);
+        }
+
+        return $shifts;
+    }
+
+    function getEmployeeWorkingOnThisShift()
+    {
+        return new Employee($this->IDEmploye);
+    }
+
+}

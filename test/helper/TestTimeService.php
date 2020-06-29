@@ -8,6 +8,7 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
     const A_MONTH = "7";
     const A_YEAR = "2018";
     const A_TIMESTAMP = "1529812800";
+    const A_TIMESTAMP_IN_THE_WEEK = "1593023400"; #24 juin 2020 18h30 (Mercredi)
     const A_DATE_FORMAT = "d-m-Y";
     const A_DATE_FORMAT_USING_LOCALE = "%e %b %g";
     const A_EQUIVALENT_TIMESTAMP_FORMAT = "24-06-2018";
@@ -173,5 +174,13 @@ class TestTimeService extends PHPUnit_Framework_TestCase{
         $day_datetime = $this->time_service->get_datetime_from_semaine_and_day(new DateTime("@".self::A_TIMESTAMP),self::A_DAY_OF_WEEK);
 
         $this->assertEquals(self::A_DAY_OF_WEEK, intval($day_datetime->format("w")));
+    }
+
+    function test_givingATimeStamp_whenGetTimeInstant_thenGetListofSemaineJourDayTimeInSecond(){
+        list($semaine, $day, $timeOfDayInSecond) = $this->time_service->getTimeInstant(new DateTime("@".self::A_TIMESTAMP_IN_THE_WEEK));
+
+        $this->assertEquals(1592712000, $semaine);
+        $this->assertEquals(3, $day);
+        $this->assertEquals(66600, $timeOfDayInSecond);
     }
 }

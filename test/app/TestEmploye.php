@@ -31,6 +31,18 @@ class TestEmploye extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, sizeof($employee_list));
     }
 
+    function test_GivenNullEmployeNumber_whenConstruct_thenReturnNullEmploye(){
+        $employee_id = 0;
+
+        $employee = new Employee($employee_id);
+
+        $this->assertEquals("",$employee->Nom);
+        $this->assertEquals("",$employee->Prenom);
+        $this->assertEquals("123321090",$employee->NAS);
+        $this->assertEquals(0,$employee->IDEmploye);
+
+    }
+
     //
 //    function test_GivenFactureDatingFromCurrentWeek_whenAddingShift_thenAddedShiftHasNotJourShifted(){
 //        $bills_by_cote = $this->customer->calculate_facture_by_cote();
