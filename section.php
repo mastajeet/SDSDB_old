@@ -1,5 +1,7 @@
 <?PHP
 
+const INSERT_INVOICE_ITEM_FORM_TITLE = "Ajouter un item à la facture {cote_seq}";
+const UPDATE_INVOICE_ITEM_FORM_TITLE = "Modifier l'item #{invoice_item_id} de la facture {cote_seq}";
 SWITCH($Section){
 
     CASE "Date_Lookup":{
@@ -369,7 +371,66 @@ SWITCH($Section){
         BREAK;
     }
 
+    CASE "InvoiceItem_Create":
+    {
+        $invoice_id = $_GET['invoice_id'];
+
+        $invoice = new Invoice($invoice_id);
+        $customer = Customer::find_customer_by_cote($invoice->Cote);
+        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($time_service);
+
+        $default_hourly_rate = $customer->TXH;
+        $form_target = array(
+            "route"=>"index.php",
+            "action"=>'InvoiceItem_Create'
+        );
+
+        $form_title_renderer = new FormatableString(INSERT_INVOICE_ITEM_FORM_TITLE);
+        $fields_renderer = $invoice_item_form_field_renderer_factory->getInsertInvoiceItemFormFieldRenderer($invoice_id);
+        $invoice_item_form_renderer = new HTMLPrefillableFormRenderer($form_target,false,"POST",$form_title_renderer,$fields_renderer);
+
+        $content_array = array(
+            "cote_seq"=>$invoice->Cote."-".$invoice->Sequence,
+            "hourly_rate"=>$default_hourly_rate
+        );
+
+        $invoice_item_form_renderer->buildContent($content_array);
+        print($invoice_item_form_renderer->render());
+
+        break;
+    }
+
+    CASE "InvoiceItem_Edit":
+    {
+        $invoice_item_id = $_GET['invoice_item_id'];
+        $invoice_id = $_GET['invoice_id'];
+        $invoice = new Invoice($invoice_id);
+
+        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($time_service);
+
+        $form_target = array(
+            "route"=>"index.php",
+            "action"=>'InvoiceItem_Update'
+        );
+
+        $form_title_renderer = new FormatableString(UPDATE_INVOICE_ITEM_FORM_TITLE);
+        $fields_renderer = $invoice_item_form_field_renderer_factory->getUpdateInvoiceItemFormFieldRenderer($invoice_id);
+        $invoice_item_form_renderer = new HTMLPrefillableFormRenderer($form_target,true,"POST",$form_title_renderer,$fields_renderer);
+
+        $content_array = array(
+            "cote_seq"=>$invoice->Cote."-".$invoice->Sequence,
+            "invoice_item_id"=>$invoice_item_id
+        );
+
+        $invoice_item_form_renderer->buildContent($content_array);
+        print($invoice_item_form_renderer->render());
+
+        break;
+    }
+
     CASE "Factsheet":{
+
+
         include('factsheet_form.php');
         BREAK;
     }

@@ -118,7 +118,7 @@ include_once('app/installation.php');
 include_once('app/inspection.php');
 include_once('app/shift.php');
 
-include_once('app/invoice/invoice_item/timedInvoiceItem.php');
+include_once('app/invoice/invoice_item/TimedInvoiceItem.php');
 include_once('app/invoice/invoice_item/CountableInvoiceItem.php');
 include_once('app/logshift.php');
 include_once('app/customer.php');
@@ -143,9 +143,13 @@ include_once('helper/PasswordGetter.php');
 include_once('helper/ModelToKVPConverter.php');
 include_once('helper/ConstantArray.php');
 include_once('helper/TimeService.php');
+include_once('helper/getOrDefault.php');
 
 include_once('view/HTMLContainerRenderer.php');
+include_once('view/FormatableString.php');
+include_once('view/HTMLPrefillableFormRenderer.php');
 
+include_once('view/invoice/invoice_item/InvoiceItemFormFieldsRendererFactory.php');
 include_once('view/invoice/display_invoice/HeaderRendererFactory.php');
 include_once('view/invoice/display_invoice/BodyRendererFactory.php');
 include_once('view/invoice/display_invoice/FooterRenderer.php');

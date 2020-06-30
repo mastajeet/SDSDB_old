@@ -119,5 +119,17 @@ class TimeService {
         $time_instant = ($hour * 60 + $minute) * 60;
         return array($semaine, $day, $time_instant);
     }
+
+    public function getNumberedDayOfWeekArray(){
+        return array(
+            "0"=>"Dimanche",
+            "1"=>"Lundi",
+            "2"=>"Mardi",
+            "3"=>"Mercredi",
+            "4"=>"Jeudi",
+            "5"=>"Vendredi",
+            "6"=>"Samedi",
+        );
+    }
 }
 

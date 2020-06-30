@@ -4,7 +4,7 @@ include_once ('app/customer.php');
 include_once('app/invoice/invoice.php');
 include_once ('app/shift.php');
 include_once ('helper/TimeService.php');
-include_once('app/invoice/invoice_item/timedInvoiceItem.php');
+include_once('app/invoice/invoice_item/TimedInvoiceItem.php');
 include_once('constants.php');
 
 class TestShift extends PHPUnit_Framework_TestCase

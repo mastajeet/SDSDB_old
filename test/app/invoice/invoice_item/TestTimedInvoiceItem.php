@@ -1,6 +1,6 @@
 <?php
 
-include_once('app/invoice/invoice_item/timedInvoiceItem.php');
+include_once('app/invoice/invoice_item/TimedInvoiceItem.php');
 include_once ('app/payment/payment.php');
 
 class TestTimedInvoiceItem extends PHPUnit_Framework_TestCase{

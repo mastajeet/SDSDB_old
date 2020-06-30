@@ -23,6 +23,7 @@ class Customer extends BaseModel
     public $Facturation;
     public $Fax;
     public $Email;
+    public $TXH;
 
     public $dossier_facturation = null;
     public $responsables;

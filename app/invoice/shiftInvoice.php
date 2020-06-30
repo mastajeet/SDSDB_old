@@ -1,6 +1,6 @@
 <?php
 include_once('invoice.php');
-include_once('app/invoice/invoice_item/timedInvoiceItem.php');
+include_once('app/invoice/invoice_item/TimedInvoiceItem.php');
 
 
 class ShiftInvoice extends Invoice {

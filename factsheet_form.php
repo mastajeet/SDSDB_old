@@ -23,7 +23,7 @@ if($Info['Materiel'])
 $Credit = "";
 if($Credit)	
 	$Credit = "c";
-$MainOutput->AddForm('Ajouter / Modifier une entrée dans la facture '.$Credit.$Info['Cote'].'-'.$Info['Sequence']);
+$MainOutput->AddForm('Ajouter / Modifier une entr?e dans la facture '.$Credit.$Info['Cote'].'-'.$Info['Sequence']);
 
 $MainOutput->inputhidden_env('IDFacture',$_GET['IDFacture']);
 if(isset($_GET['IDFactsheet'])){
@@ -36,12 +36,12 @@ if(isset($_GET['IDFactsheet'])){
 }
 	$MainOutput->inputhidden_env('Materiel',$Info['Materiel']);
 if(!$Info['Materiel']){
-$MainOutput->InputText('Start','Début','1',round($Rep['Start']/3600,2));
-$MainOutput->InputText('End','Fin','1',Round($Rep['End']/3600,2));
-$MainOutput->InputText('Notes','Notes','32',$Rep['Notes']);
-$MainOutput->InputText('TXH','Taux horaire','3',abs($Rep['TXH']));
-$CJour = array(0=>'Dimanche',1=>'Lundi',2=>'Mardi',3=>'Mercredi',4=>'Jeudi',5=>'Vendredi',6=>'Samedi');	
-$MainOutput->InputSelect('Jour',$CJour,$Rep['Jour']);
+    $MainOutput->InputText('Start','Début','1',round($Rep['Start']/3600,2));
+    $MainOutput->InputText('End','Fin','1',Round($Rep['End']/3600,2));
+    $MainOutput->InputText('Notes','Notes','32',$Rep['Notes']);
+    $MainOutput->InputText('TXH','Taux horaire','3',abs($Rep['TXH']));
+    $CJour = array(0=>'Dimanche',1=>'Lundi',2=>'Mardi',3=>'Mercredi',4=>'Jeudi',5=>'Vendredi',6=>'Samedi');
+    $MainOutput->InputSelect('Jour',$CJour,$Rep['Jour']);
 }else{
 	$MainOutput->inputhidden_env('FORMStart',0);
 	$Req = "SELECT Description,Description FROM item ORDER BY Description ASC";
