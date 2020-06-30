@@ -12,12 +12,14 @@ class TimedInvoiceItemFormFieldsRenderer extends HTMLContainerRenderer
 
     function buildContent($content_array)
     {
+        $invoice_id = $content_array["invoice_id"];
         $start = getOrDefault($content_array["start"],"");
         $end = getOrDefault($content_array["end"],"");
         $notes = getOrDefault($content_array["notes"],"");
         $hourly_rate = getOrDefault($content_array["hourly_rate"],null);
         $day = getOrDefault($content_array["day"],-1);
 
+        $this->html_container->inputhidden_env('invoice_id',$invoice_id);
         $this->html_container->inputtext("start","Début",2, $start);
         $this->html_container->inputtext("end", "Fin",2, $end);
         $this->html_container->inputtext("notes", "Notes",28, $notes);

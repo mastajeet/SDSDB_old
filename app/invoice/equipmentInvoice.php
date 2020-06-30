@@ -27,7 +27,7 @@ class EquipmentInvoice extends Invoice{
 
     function get_items()
     {
-        return countableInvoiceItem::find_item_by_invoice_id($this->IDFacture);
+        return CountableInvoiceItem::findItemByInvoiceId($this->IDFacture);
     }
 }
 

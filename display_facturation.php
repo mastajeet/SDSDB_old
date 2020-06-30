@@ -161,8 +161,8 @@ if(isset($_GET['Cote'])){
 			$MainOutput->OpenRow();
 			$MainOutput->OpenCol();
 					if(!$_GET['ToPrint']){
-						$MainOutput->AddLink('index.php?Section=Display_Facture&IDFacture='.$id_facture.'&ToPrint=TRUE', '<img src=assets/buttons/b_print.png border=0>','_BLANK','Texte');
-						$MainOutput->AddLink('index.php?Section=Modifie_Facture&IDFacture='.$id_facture, '<img src=assets/buttons/b_edit.png border=0>','','Texte');
+						$MainOutput->AddLink('index.php?Section=Invoice_Show&invoice_id='.$id_facture.'&ToPrint=TRUE', '<img src=assets/buttons/b_print.png border=0 title="Imprimer la facture">','_BLANK','Texte');
+						$MainOutput->AddLink('index.php?Section=Invoice_Show&edit=1&invoice_id='.$id_facture, '<img src=assets/buttons/b_edit.png border=0 title="Modifier la facture">','','Texte');
 					}
 			$MainOutput->CloseCol();
 			$MainOutput->OpenCol();

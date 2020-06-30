@@ -14,7 +14,9 @@ Abstract Class InvoiceItem extends baseModel
     abstract function add_to_balance(&$Balance);
     abstract function getNumberOfBilledItems();
     abstract function getDetails();
-    abstract static function find_item_by_invoice_id($invoice_id);
+    abstract function isEmpty();
+    abstract static function fromDetails($invoice_item_dto);
+    abstract static function findItemByInvoiceId($invoice_id);
 
     static function define_table_info(){
         return array("model_table" => "factsheet",

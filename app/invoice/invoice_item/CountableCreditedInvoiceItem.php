@@ -1,7 +1,7 @@
 <?php
 include_once('app/invoice/invoice_item/InvoiceItem.php');
 
-class CountableInvoiceItem extends InvoiceItem
+class CountableCreditedInvoiceItem extends InvoiceItem
 {
     function add_to_balance(&$Balance){
         $Balance += $this->getBilledAmount();
@@ -23,7 +23,7 @@ class CountableInvoiceItem extends InvoiceItem
 
     function getNumberOfBilledItems()
     {
-        return $this->End - $this->Start;
+        return round(($this->End - $this->Start) / NB_SECONDS_PER_HOUR,2); #This is to support the whole legacy in the database
     }
 
     function getDetails()
@@ -33,7 +33,7 @@ class CountableInvoiceItem extends InvoiceItem
             'invoice_id'=>$this->IDFacture,
             "quantity"=>$this->getNumberOfBilledItems(),
             "description" => $this->Notes,
-            "unit_cost" =>$this->TXH,
+            "unit_cost" => -$this->TXH,
             "total" => $this->getBilledAmount()
         );
     }
@@ -53,8 +53,8 @@ class CountableInvoiceItem extends InvoiceItem
 
         $base_model_args = array(
             "Start"=>0,
-            "End"=>$quantity,
-            "TXH"=>$unit_cost,
+            "End"=>$quantity * NB_SECONDS_PER_HOUR,
+            "TXH"=>-$unit_cost,
             "Notes"=>$description,
             "Jour"=>0,
             "IDFacture"=>$invoice_id,

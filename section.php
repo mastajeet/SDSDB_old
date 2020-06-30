@@ -84,7 +84,7 @@ SWITCH($Section){
 
 
                 $factsheet = new CountableInvoiceItem(['Balance'=>$balance, 'Notes'=>$note, 'start'=>0, 'end'=>1]);
-                $facture_interet->add_factsheet($factsheet);
+                $facture_interet->addInvoiceItem($factsheet);
             }
 
             $facture_interet->save();
@@ -377,12 +377,13 @@ SWITCH($Section){
 
         $invoice = new Invoice($invoice_id);
         $customer = Customer::find_customer_by_cote($invoice->Cote);
-        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($time_service);
+        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($time_service, $item_service);
 
         $default_hourly_rate = $customer->TXH;
         $form_target = array(
             "route"=>"index.php",
-            "action"=>'InvoiceItem_Create'
+            "action"=>'InvoiceItem_Create',
+            "section"=>'Invoice_Show'
         );
 
         $form_title_renderer = new FormatableString(INSERT_INVOICE_ITEM_FORM_TITLE);
@@ -391,7 +392,9 @@ SWITCH($Section){
 
         $content_array = array(
             "cote_seq"=>$invoice->Cote."-".$invoice->Sequence,
-            "hourly_rate"=>$default_hourly_rate
+            "hourly_rate"=>$default_hourly_rate,
+            "post_action_id"=>$invoice_id,
+            "invoice_id"=>$invoice_id,
         );
 
         $invoice_item_form_renderer->buildContent($content_array);
@@ -402,7 +405,7 @@ SWITCH($Section){
 
     CASE "InvoiceItem_Edit":
     {
-        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($time_service);
+        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($time_service, $item_service);
         $invoice_item_id = $_GET['invoice_item_id'];
         $invoice_id = $_GET['invoice_id'];
         $invoice = InvoiceFactory::getTypedInvoice(new Invoice($invoice_id));
@@ -410,7 +413,8 @@ SWITCH($Section){
 
         $form_target = array(
             "route"=>"index.php",
-            "action"=>'InvoiceItem_Update'
+            "action"=>'InvoiceItem_Update',
+            "section"=>'Invoice_Show'
         );
 
         $form_title_renderer = new FormatableString(UPDATE_INVOICE_ITEM_FORM_TITLE);
@@ -420,7 +424,8 @@ SWITCH($Section){
         $content_array = array(
             "cote_seq"=>$invoice->Cote."-".$invoice->Sequence,
             "invoice_item_id"=>$invoice_item_id,
-            "id"=>$invoice_item_id
+            "id_to_update"=>$invoice_item_id,
+            "post_action_id"=>$invoice_id,
         );
 
         $content_array = array_merge($content_array, $invoice_item->getDetails());
@@ -443,10 +448,6 @@ SWITCH($Section){
         BREAK;
     }
 
-    CASE "Generate_Facture":{
-        include('generate_facture.php');
-        BREAK;
-    }
 
     CASE "Generate_Facture_Mensuelle":{
         include('generate_facture_mensuelle_parpiscine.php');
@@ -464,15 +465,20 @@ SWITCH($Section){
         BREAK;
     }
 
+    CASE "DossierFacturation_Show":
     CASE "Display_Facturation":{
         include('display_facturation.php');
         BREAK;
     }
 
+    CASE "Invoice_GenerateForWeek":{
+        include('Invoice_GenerateForWeek.php');
+        break;
+    }
 
-    CASE "Invoice_Display":{
+    CASE "Invoice_Show":{
 
-        $invoice_id = $_GET['id'];
+        $invoice_id = $_GET['invoice_id'];
         $company = $_COOKIE['CIESDS'];
         $edit = false;
         if(isset($_GET['edit']))

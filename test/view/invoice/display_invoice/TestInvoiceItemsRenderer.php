@@ -33,9 +33,9 @@ class TestInvoiceItemRenderer extends PHPUnit_Framework_TestCase
 
         $this->countable_content_array = array(
             'id'=>self::UN_ID_ITEM_DE_FACTURE,
-            'notes' => self::UNE_NOTES,
+            'description' => self::UNE_NOTES,
             'unit_cost'=> self::UN_TAUX_HORAIRE,
-            'item_quantity' =>self::UNE_DUREE,
+            'quantity' =>self::UNE_DUREE,
             'total' => self::UNE_VALEUR_TOTALE,
         );
 

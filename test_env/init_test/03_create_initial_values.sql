@@ -129,8 +129,8 @@ INSERT INTO `factsheet` (`IDFactsheet`, `IDFacture`, `Start`, `End`, `TXH`, `Not
 (4, 4002, 0, 1, 100, '1 items a 100$', 0), #1 x 100$
 (5, 4002, 0, 2, 150, '2 items a 150$', 0), #2 x 150$
 (6, 1360, 0, 1, 10, '1 items a 15$', 0), #1 x 10$
-(7, 1360, 0, 2, 250, '2 items a 250$', 0); #2 x 250$
-
+(7, 1360, 0, 2, 250, '2 items a 250$', 0), #2 x 250$
+(8, 1347, 0, 3600, -400  ,'credit d\'une heure', 0); #1 x 400
 
 
 INSERT INTO `shift` (`IDShift`, `IDInstallation`, `IDEmploye`, `TXH`, `Salaire`, `Start`, `End`, `Jour`, `Semaine`, `Assistant`, `Commentaire`, `Warn`, `Confirme`, `Empconf`, `Facture`, `Paye`, `Message`) VALUES
@@ -157,3 +157,10 @@ INSERT INTO `responsable` (`IDResponsable`, `Titre`, `Prenom`, `Nom`, `Tel`, `Ce
 (0, 'M.', 'prenom', 'nom', '4186536672', '418', '', ''),
 (1, 'M.', 'prenom', 'nom', '4186536672', '418', '', ''),
 (33, 'Mme', 'lolk', 'Roboto', '41865856654234', '418', '', '');
+
+INSERT INTO `item` (`IDItem`, `Description`, `Fournisseur`, `Prix1`, `NBForfait`, `PrixForfait`, `Actif`) VALUES
+(1, 'Manuel de secourisme', 'Secourisme PME', 7.3, 1, 7.3, 1),
+(2, 'Tampons Antiseptiques', 'Secourisme PME', 0.15, 12, 1.3, 1),
+(3, 'Épingles de sureté', 'Secourisme PME', 0.1, 12, 1.1, 1),
+(4, 'Pansements adhésifs', 'Secourisme PME', 0.15, 25, 4.2, 1),
+(5, 'Bandages Triangulaires', 'Secourisme PME', 1.8, 6, 9.3, 0);

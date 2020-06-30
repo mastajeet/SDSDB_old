@@ -253,7 +253,8 @@ SWITCH($Action){
 
 	CASE "Add_Facture":{
 		include('add_facture_script.php');
-		$_GET['Section'] = "Modifie_Facture";
+		$_GET['Section'] = "Invoice_Show";
+        $_GET['edit'] = 1;
 	BREAK;
 	}
 
@@ -290,6 +291,68 @@ SWITCH($Action){
 	BREAK;
 	}
 
+
+    CASE "Invoice_GenerateForWeek":{
+        include('Invoice_GenerateForWeek.php');
+        break;
+    }
+
+    CASE "InvoiceItem_Create":
+    {
+        $invoice_item_dto = InvoiceItemConverter::fromRequestDataToDTO($_POST);
+
+        $invoice_id = $invoice_item_dto["invoice_id"];
+        $invoice = InvoiceFactory::getTypedInvoice(new Invoice($invoice_id));
+        $invoice_item = InvoiceItemFactory::getTypedInvoiceItemFromDTO($invoice_item_dto, $invoice);
+
+        $invoice_item->save();
+        $invoice->addInvoiceItem($invoice_item);
+        $invoice->save();
+
+        $_GET['invoice_id'] = $_POST['post_action_id'];
+        $_GET['edit'] = 1;
+        break;
+    }
+
+    CASE "InvoiceItem_Update":
+    {
+        $invoice_item_dto = InvoiceItemConverter::fromRequestDataToDTO($_POST);
+
+        $invoice_id = $invoice_item_dto["invoice_id"];
+
+        $invoice = InvoiceFactory::getTypedInvoice(new Invoice($invoice_id));
+        $invoice_item = InvoiceItemFactory::getTypedInvoiceItemFromDTO($invoice_item_dto, $invoice);
+//        print_r($invoice_item);
+//        exit();
+        if($invoice_item->isEmpty())
+        {
+            $invoice_item->destroy();
+            $invoice->save();
+        } else {
+            $invoice_item->save();
+            $invoice->save();
+        }
+
+
+        $_GET['invoice_id'] = $_POST['post_action_id'];
+        $_GET['edit'] = 1;
+        break;
+    }
+
+    CASE "Invoice_Delete":
+    {
+        $invoice_id = $_GET['invoice_id'];
+        $invoice = InvoiceFactory::getTypedInvoice(new Invoice($invoice_id));
+        $cote = $invoice->Cote;
+
+        $invoice->destroy();
+
+        $_GET['Section'] = "DossierFacturation_Show";
+        $_GET['Cote'] = $cote;
+        break;
+    }
+
+
 	CASE "Factsheet":{
 		if($_POST['Update']){
 			include('modifie_factsheet_script.php');
@@ -298,7 +361,7 @@ SWITCH($Action){
 		}
 		update_facture_balance($_POST['IDFacture']);
 		$_GET['Section'] = "Modifie_Facture";
-		$_GET['IDFacture']=$_POST['IDFacture'];
+		$_GET['IDFacture'] = $_POST['IDFacture'];
 	BREAK;
 	}
 

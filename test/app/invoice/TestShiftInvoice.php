@@ -39,4 +39,12 @@ class TestShiftInvoice extends PHPUnit_Framework_TestCase{
 
         $this->assertEquals(22, $number_of_billed_hours);
     }
+
+    function test_givenEquipmentInvoiceWithInvoiceItems_thenInvoiceItemsAreCountableCreditInvoiceItems()
+    {
+        $invoice = new ShiftInvoice(4001); #Facture matériel avec invoice items
+        $invoice_items = $invoice->get_items();
+
+        $this->assertInstanceOf(TimedInvoiceItem::class, array_pop($invoice_items));
+    }
 }

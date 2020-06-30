@@ -14,10 +14,10 @@ class CountableInvoiceItemRenderer extends HTMLContainerRenderer
     function buildContent($content_array)
     {
         $this->invoice_item_controls_renderer->buildContent($content_array);
-        ;
+
         $unit_cost = $content_array['unit_cost'];
-        $notes = $content_array['notes'];
-        $item_quantity = $content_array['item_quantity'];
+        $notes = $content_array['description'];
+        $item_quantity = $content_array['quantity'];
         $item_total = $content_array['total'];
 
         $this->html_container->OpenRow();

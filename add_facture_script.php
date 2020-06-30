@@ -26,6 +26,6 @@ if($_POST['FORMTaxes']==0)
 
 $facture = $facture_service->generate_blank_facture($facture_dto);
 $facture->save();
-$_GET['IDFacture']= $facture->IDFacture;
+$_GET['invoice_id']= $facture->IDFacture;
 
 ?>

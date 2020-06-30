@@ -23,4 +23,11 @@ class TestInterestInvoice extends PHPUnit_Framework_TestCase{
         $this->assertEquals(400, $facture->get_customer_transaction()['debit'], 0,.001);
     }
 
+    function test_givenEquipmentInvoiceWithInvoiceItems_thenInvoiceItemsAreCountableCreditInvoiceItems()
+    {
+        $invoice = new InterestInvoice(4001); #Facture matériel avec invoice items
+        $invoice_items = $invoice->get_items();
+
+        $this->assertInstanceOf(CountableInvoiceItem::class, array_pop($invoice_items));
+    }
 }

@@ -31,6 +31,11 @@ class InterestInvoice extends Invoice{
         return $query;
     }
 
+    function get_items()
+    {
+        return CountableInvoiceItem::findItemByInvoiceId($this->IDFacture);
+    }
+
 //    function add_items($)
 }
 

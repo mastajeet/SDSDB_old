@@ -24,12 +24,12 @@ class CountableInvoiceItemTableRenderer extends HTMLContainerRenderer
         $this->html_container->OpenTable(660);
         $this->html_container->OpenRow();
 
-        $this->html_container->OpenCol(30);
+        $this->html_container->OpenCol(50);
         $this->html_container->AddTexte('Qté','Titre');
         $this->html_container->CloseCol();
 
         $this->html_container->CloseCol();
-        $this->html_container->OpenCol(480);
+        $this->html_container->OpenCol(460);
         $this->html_container->AddTexte('Description','Titre');
 
         $this->html_container->CloseCol();

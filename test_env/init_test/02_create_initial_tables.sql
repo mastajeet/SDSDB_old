@@ -258,5 +258,16 @@ CREATE TABLE `factsheet` (
                              `Jour` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+CREATE TABLE `item` (
+                        `IDItem` int(11) NOT NULL,
+                        `Description` varchar(255) NOT NULL DEFAULT '',
+                        `Fournisseur` varchar(255) NOT NULL DEFAULT '',
+                        `Prix1` float DEFAULT NULL,
+                        `NBForfait` int(11) DEFAULT NULL,
+                        `PrixForfait` float DEFAULT NULL,
+                        `Actif` tinyint(4) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
+ALTER TABLE `item`
+    ADD PRIMARY KEY (`IDItem`);

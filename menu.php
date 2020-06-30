@@ -105,7 +105,7 @@ if(isset($_GET['MenuCat'])){
         $Section = "Display_Materiel";
 
     if($Categorie=="Facturation")
-        $Section = "Generate_Facture";
+        $Section = "Invoice_GenerateForWeek";
     if($Categorie=="FacturationMensuelle")
         $Section = "Generate_Facture_Mensuelle";
     if($Categorie=="MonthlyTransaction")
@@ -180,7 +180,7 @@ if(isset($_GET['MenuSection'])){
         $_GET['MenuCat'] = "Client";
     if($_GET['MenuSection']=="Add_Facture")
         $_GET['MenuCat'] = "Client";
-    if($_GET['MenuSection']=="Generate_Facture")
+    if($_GET['MenuSection']=="Invoice_GenerateForWeek")
         $_GET['MenuCat'] = "Horaire";
     if($_GET['MenuSection']=="Conf_Shift")
         $_GET['MenuCat'] = "Horaire";

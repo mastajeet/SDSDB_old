@@ -23,9 +23,9 @@ class TestInvoiceItemTableRenderer extends PHPUnit_Framework_TestCase
     function buildContentArray(){
         $countable_invoice_item[] = array(
             'id'=>self::UN_ID_ITEM_DE_FACTURE,
-            'notes' => self::UNE_NOTES,
+            'description' => self::UNE_NOTES,
             'unit_cost'=> self::UN_TAUX_HORAIRE,
-            'item_quantity' =>self::UNE_DUREE,
+            'quantity' =>self::UNE_DUREE,
             'total' => self::UNE_VALEUR_TOTALE,
         );
 
@@ -121,11 +121,11 @@ class TestInvoiceItemTableRenderer extends PHPUnit_Framework_TestCase
     {
         return '<table width="660" cellspacing=2 cellpadding=2 border=0 align=""> 
 <tr height="" class=""> 
-<td width="30" colspan=1 valign=top class=""> 
+<td width="50" colspan=1 valign=top class=""> 
 <span class=Titre>Qté</span> 
 </td> 
 </td> 
-<td width="480" colspan=1 valign=top class=""> 
+<td width="460" colspan=1 valign=top class=""> 
 <span class=Titre>Description</span> 
 </td> 
 <td width="70" colspan=1 valign=top class=""> 

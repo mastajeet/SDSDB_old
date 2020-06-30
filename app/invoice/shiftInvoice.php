@@ -31,6 +31,6 @@ class ShiftInvoice extends Invoice {
     }
 
     function get_items(){
-        return TimedInvoiceItem::find_item_by_invoice_id($this->IDFacture);
+        return TimedInvoiceItem::findItemByInvoiceId($this->IDFacture);
     }
 }

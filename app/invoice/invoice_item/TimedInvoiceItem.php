@@ -34,7 +34,7 @@ class TimedInvoiceItem extends InvoiceItem
         $Balance += $this->getBilledAmount();
     }
 
-    static function find_item_by_invoice_id($invoice_id)
+    static function findItemByInvoiceId($invoice_id)
     {
         $invoice = new Invoice($invoice_id);
         $invoice_items = array();
@@ -64,6 +64,7 @@ class TimedInvoiceItem extends InvoiceItem
             $invoice_item_datetime->add(new DateInterval("P".$this->Jour."D"));
         }
         return array(
+            'invoice_id'=>$this->IDFacture,
             'invoice_item_id'=>$this->IDFactsheet,
             "start" =>round(($this->Start)/NB_SECONDS_PER_HOUR,2),
             "end" =>round(($this->End)/NB_SECONDS_PER_HOUR,2),
@@ -82,5 +83,33 @@ class TimedInvoiceItem extends InvoiceItem
     private function getBilledAmount()
     {
         return round(($this->End - $this->Start) / NB_SECONDS_PER_HOUR * $this->TXH, 2);
+    }
+
+    static function fromDetails($invoice_item_dto)
+    {
+        $day = getOrDefault($invoice_item_dto["day"],0);
+        $start = getOrDefault($invoice_item_dto["start"],null);
+        $end = getOrDefault($invoice_item_dto["end"],0);
+        $hourly_rate = getOrDefault($invoice_item_dto["hourly_rate"],0);
+        $notes = getOrDefault($invoice_item_dto["notes"],0);
+        $invoice_id = getOrDefault($invoice_item_dto["invoice_id"],0);
+        $invoice_item_id = getOrDefault($invoice_item_dto["invoice_item_id"],null);
+
+        $base_model_args = array(
+            "Start"=>$start*NB_SECONDS_PER_HOUR,
+            "End"=>$end*NB_SECONDS_PER_HOUR ,
+            "TXH"=>$hourly_rate,
+            "Notes"=>$notes,
+            "Jour"=>$day,
+            "IDFacture"=>$invoice_id,
+            "IDFactsheet"=>$invoice_item_id
+        );
+
+        return new self($base_model_args);
+    }
+
+    function isEmpty()
+    {
+        return $this->getBilledAmount()==0;
     }
 }

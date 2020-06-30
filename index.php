@@ -130,6 +130,7 @@ include_once('app/horaire/horaire.php');
 include_once('app/horaire/horaireFactory.php');
 include_once('app/Variable.php');
 include_once('app/employee.php');
+include_once('app/Item.php');
 include_once('app/responsable.php');
 include_once('app/Secteur.php');
 include_once('app/invoice/invoiceFactory.php');
@@ -144,6 +145,8 @@ include_once('helper/PasswordGetter.php');
 include_once('helper/ModelToKVPConverter.php');
 include_once('helper/ConstantArray.php');
 include_once('helper/TimeService.php');
+include_once('helper/ItemService.php');
+include_once('helper/InvoiceItemConverter.php');
 include_once('helper/getOrDefault.php');
 
 include_once('view/HTMLContainerRenderer.php');
@@ -162,6 +165,7 @@ $variable = new Variable();
 $password_getter = new PasswordGetter($variable);
 $authorization = new Authorization($password_getter);
 $time_service = new TimeService();
+$item_service = new ItemService();
 
 $notes = $variable->get_value("NoteFacture");
 $tvq = $variable->get_value("TVQ");

@@ -6,7 +6,7 @@ include_once('helper/getOrDefault.php');
 class HTMLPrefillableFormRenderer extends HTMLContainerRenderer
 {
     private $title_renderer;
-    private $action_renderer;
+    private $post_action_id_renderer;
     private $method;
     private $fields_renderer;
     private $update_renderer;
@@ -20,12 +20,14 @@ class HTMLPrefillableFormRenderer extends HTMLContainerRenderer
     {
         $this->method = $method;
         $this->update_renderer = $this->getUpdateRenderer($update);
+        $this->post_action_id_renderer = new HTMLHiddenEnvironmentFieldRenderer('post_action_id','post_action_id');
         $this->submit_text = $this->getSubmitText($update);
         $this->title_renderer = $title;
 
         $this->route = $form_target["route"];
         $this->section = getOrDefault($form_target["section"],null);
         $this->action = getOrDefault($form_target["action"],null);
+
 
         $this->fields_renderer = $fields;
 
@@ -43,6 +45,7 @@ class HTMLPrefillableFormRenderer extends HTMLContainerRenderer
     {
         $this->buildSubParts($content_array);
         $update = $this->update_renderer->render();
+        $post_action = $this->post_action_id_renderer->render();
         $title = $this->title_renderer->render();
         $route = $this->route;
         $fields = $this->fields_renderer->render();
@@ -51,6 +54,7 @@ class HTMLPrefillableFormRenderer extends HTMLContainerRenderer
         $this->addTargetIfNotNull('Section',$this->section);
         $this->addTargetIfNotNull('Action',$this->action);
         $this->html_container->addoutput($update,0);
+        $this->html_container->addoutput($post_action,0);
         $this->html_container->addoutput($fields, 0);
         $this->html_container->formsubmit($this->submit_text);
     }
@@ -59,7 +63,7 @@ class HTMLPrefillableFormRenderer extends HTMLContainerRenderer
     {
         if ($update)
         {
-            $update_renderer = new HTMLHiddenEnvironmentFieldRenderer('id','id');
+            $update_renderer = new HTMLHiddenEnvironmentFieldRenderer('id_to_update','id_to_update');
         } else {
             $update_renderer = new EmptyHTMLContainerRenderer();
         }
@@ -85,5 +89,6 @@ class HTMLPrefillableFormRenderer extends HTMLContainerRenderer
         $this->update_renderer->buildContent($content_array);
         $this->title_renderer->buildContent($content_array);
         $this->fields_renderer->buildContent($content_array);
+        $this->post_action_id_renderer->buildContent($content_array);
     }
 }

@@ -46,5 +46,12 @@ class TestEquipmentInvoice extends PHPUnit_Framework_TestCase{
         $this->assertInstanceOf('CountableInvoiceItem',array_pop($invoice_items));
     }
 
+    function test_givenEquipmentInvoiceWithInvoiceItems_thenInvoiceItemsAreCountableCreditInvoiceItems()
+    {
+        $invoice = new EquipmentInvoice(4002); #Facture matériel avec invoice items
+        $invoice_items = $invoice->get_items();
+
+        $this->assertInstanceOf(CountableInvoiceItem::class, array_pop($invoice_items));
+    }
 
 }

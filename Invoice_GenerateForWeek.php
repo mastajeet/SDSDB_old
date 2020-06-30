@@ -12,14 +12,15 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
 	$MainOutput->OpenRow();
 	$MainOutput->Opencol();
 		$MainOutput->addform(AJOUTER_UNE_FACTURE);
-		$MainOutput->inputhidden_env('Section','Generate_Facture');
-		$MainOutput->inputhidden_env('Semaine',$_GET['Semaine']);
+		$MainOutput->inputhidden_env('Action','Invoice_GenerateForWeek');
+        $MainOutput->inputhidden_env('Semaine',$_GET['Semaine']);
 		$MainOutput->InputRadio('GenerateCote',$installation_to_bill,'','Piscine','VER');
 		$MainOutput->formsubmit(CREER);
 	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
 	$MainOutput->CloseTable();
 }elseif(isset($_POST['Semaine']) AND isset($_POST['FORMGenerateCote'])){
+
     $_POST['FORMCote'] = $_POST['FORMGenerateCote'];
     $semaine = DateTime::createFromFormat('U', $_POST['Semaine']);
     $installation_to_bill = Installation::get_installations_to_bill_for_semaine($_POST['FORMCote'], $semaine);
@@ -39,9 +40,9 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
         }
         if($nombre_facture_generated >= 1){
             $facture = $factures[0];
-            $Modifie=TRUE;
-            $_GET['IDFacture'] = $facture->IDFacture;
-            include_once('display_facture.php');
+            $_GET['edit']=1;
+            $_GET['invoice_id'] = $facture->IDFacture;
+            $_GET['Section'] = "Invoice_Show";
         }
     }
 }
