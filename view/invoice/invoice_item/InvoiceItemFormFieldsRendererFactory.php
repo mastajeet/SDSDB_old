@@ -12,7 +12,21 @@ class InvoiceItemFormFieldsRendererFactory
 
     function getInsertInvoiceItemFormFieldRenderer($invoice_id)
     {
-        $invoice = InvoiceFactory::create_typed_invoice(new Invoice($invoice_id));
+        $invoice = InvoiceFactory::getTypedInvoice(new Invoice($invoice_id));
+        if ($invoice instanceof ShiftInvoice)
+        {
+            // Need to handle monthly invoice, however current app does not. No regression here
+            $day_array = $this->time_service->getNumberedDayOfWeekArray();
+            $renderer = new TimedInvoiceItemFormFieldsRenderer($day_array);
+        } else {
+            // à faire
+        }
+        return $renderer;
+    }
+
+    function getUpdateInvoiceItemFormFieldRenderer($invoice_id) #Les formulaire d'édition seront différents des formulaire d'insertion pour les factures de matériel
+    {
+        $invoice = InvoiceFactory::getTypedInvoice(new Invoice($invoice_id));
         if ($invoice instanceof ShiftInvoice)
         {
             // Need to handle monthly invoice, however current app does not. No regression here

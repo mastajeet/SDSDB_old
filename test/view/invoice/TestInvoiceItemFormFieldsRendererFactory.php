@@ -23,6 +23,9 @@ class TestInvoiceItemFormFieldRendererFactory extends PHPUnit_Framework_TestCase
 
     function test_givenShiftInvoice_whenGetUpdateInvoiceItemFormFieldRenderer_thenObtainTimedInvoiceFormFieldRenderer()
     {
+        $invoice = new MonthlyInvoice(array(), null);
+        $renderer = $this->invoice_item_form_field_renderer_factory->getUpdateInvoiceItemFormFieldRenderer($invoice);
 
+        $this->assertInstanceOf(TimedInvoiceItemFormFieldsRenderer::class, $renderer);
     }
 }

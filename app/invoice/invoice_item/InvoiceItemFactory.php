@@ -5,7 +5,7 @@ include_once('app/invoice/invoice_item/TimedInvoiceItem.php');
 class InvoiceItemFactory
 {
 
-    function getTypedInvoiceItem($Arg, Invoice $invoice)
+    static function getTypedInvoiceItem($Arg, Invoice $invoice)
     {
         if ($invoice instanceof ShiftInvoice)
         {

@@ -402,11 +402,11 @@ SWITCH($Section){
 
     CASE "InvoiceItem_Edit":
     {
+        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($time_service);
         $invoice_item_id = $_GET['invoice_item_id'];
         $invoice_id = $_GET['invoice_id'];
-        $invoice = new Invoice($invoice_id);
-
-        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($time_service);
+        $invoice = InvoiceFactory::getTypedInvoice(new Invoice($invoice_id));
+        $invoice_item = InvoiceItemFactory::getTypedInvoiceItem($invoice_item_id, $invoice);
 
         $form_target = array(
             "route"=>"index.php",
@@ -419,8 +419,11 @@ SWITCH($Section){
 
         $content_array = array(
             "cote_seq"=>$invoice->Cote."-".$invoice->Sequence,
-            "invoice_item_id"=>$invoice_item_id
+            "invoice_item_id"=>$invoice_item_id,
+            "id"=>$invoice_item_id
         );
+
+        $content_array = array_merge($content_array, $invoice_item->getDetails());
 
         $invoice_item_form_renderer->buildContent($content_array);
         print($invoice_item_form_renderer->render());
@@ -478,7 +481,7 @@ SWITCH($Section){
         }
 
 
-        $typed_invoice = InvoiceFactory::create_typed_invoice(new Invoice($invoice_id));
+        $typed_invoice = InvoiceFactory::getTypedInvoice(new Invoice($invoice_id));
         $customer = Customer::find_customer_by_cote($typed_invoice->Cote);
         $invoice_balance = $typed_invoice->getBalance();
         $invoice_items_summary = $typed_invoice->getInvoiceItemsSummary();

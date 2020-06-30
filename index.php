@@ -120,6 +120,7 @@ include_once('app/shift.php');
 
 include_once('app/invoice/invoice_item/TimedInvoiceItem.php');
 include_once('app/invoice/invoice_item/CountableInvoiceItem.php');
+include_once('app/invoice/invoice_item/InvoiceItemFactory.php');
 include_once('app/logshift.php');
 include_once('app/customer.php');
 include_once('app/invoice/invoice.php');

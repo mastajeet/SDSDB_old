@@ -187,7 +187,7 @@ class DossierFacturation
         $factures = [];
         while($facture_id_cursor = $this->sql_connection->FetchArray()){
             $id_facture  = $facture_id_cursor[self::ID_FACTURE];
-            $factures[$id_facture] = $this->facture_factory->create_typed_invoice(new Invoice($id_facture));
+            $factures[$id_facture] = $this->facture_factory->getTypedInvoice(new Invoice($id_facture));
         }
         return $factures;
     }
@@ -212,7 +212,7 @@ class DossierFacturation
         $factures = [];
         while($facture_id_cursor = $this->sql_connection->FetchArray()){
             $id_facture  = $facture_id_cursor[self::ID_FACTURE];
-            $factures[$id_facture] = $this->facture_factory->create_typed_invoice(new Invoice($id_facture));
+            $factures[$id_facture] = $this->facture_factory->getTypedInvoice(new Invoice($id_facture));
         }
 
         return $factures;

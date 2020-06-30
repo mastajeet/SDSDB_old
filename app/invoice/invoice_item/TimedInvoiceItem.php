@@ -67,6 +67,7 @@ class TimedInvoiceItem extends InvoiceItem
             'invoice_item_id'=>$this->IDFactsheet,
             "start" =>round(($this->Start)/NB_SECONDS_PER_HOUR,2),
             "end" =>round(($this->End)/NB_SECONDS_PER_HOUR,2),
+            "day"=>$this->Jour,
             "item_duration"=>$this->getNumberOfBilledItems(),
             "invoice_item_datetime" => $invoice_item_datetime,
             "notes" => $this->Notes,
