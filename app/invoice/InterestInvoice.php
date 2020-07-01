@@ -8,7 +8,7 @@ class InterestInvoice extends Invoice{
     function __construct($Args){
         parent::__construct($Args);
         $this->Debit = true;
-        $this->Materiel = true;
+        $this->Interest = true;
         $this->TVQ = 0;
         $this->TPS = 0;
         $this->updated_values[] = "Debit";

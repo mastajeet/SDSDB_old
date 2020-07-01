@@ -13,7 +13,7 @@ class Customer extends BaseModel
     public $Ferie;
     public $FrequenceFacturation;
     public $time_service;
-    public $facture_service;
+    public $invoice_service;
     public $RespF;
     public $RespP;
     public $Nom;
@@ -58,7 +58,7 @@ class Customer extends BaseModel
             $this->responsables["responsable_facturation"] = new Responsable($this->RespF);
         }
         $this->time_service = new TimeService();
-        $this->facture_service = new InvoiceService($notes, $tps, $tvq);
+        $this->invoice_service = new InvoiceService($notes, $tps, $tvq);
     }
 
     static function define_table_info(){
@@ -119,7 +119,7 @@ class Customer extends BaseModel
             "Semaine"=>$start_of_week_timestamp,
             "TPS"=>get_vars('TPS'),
             "TVQ"=>get_vars('TVQ'),
-            "Sequence"=>$this->facture_service->get_next_shift_and_materiel_facture_sequence($cote_to_bill),
+            "Sequence"=>$this->invoice_service->get_next_shift_and_materiel_facture_sequence($cote_to_bill),
             "EnDate"=>time());
 
         if($this->FrequenceFacturation=="M"){

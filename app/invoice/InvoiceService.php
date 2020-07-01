@@ -9,6 +9,7 @@ class InvoiceService{
     const FACTURE_TYPE = "facture_type";
     const FACTURE_MATERIEL = "facture_materiel";
     const FACTURE_SHIFT = "facture_shift";
+    const INTEREST_INVOICE = "interest_invoice";
     const CREDIT = "credit";
     const AVANCE_CLIENT = "avance_client";
     const COTE = "cote";
@@ -62,6 +63,11 @@ class InvoiceService{
                 $next_sequence = $this->get_next_shift_and_materiel_facture_sequence($facture_dto['cote']);
                 break;
 
+            case self::INTEREST_INVOICE:
+                $next_sequence = $this->get_next_shift_and_materiel_facture_sequence($facture_dto['cote']);
+                break;
+
+
             case self::CREDIT:
                 $next_sequence = $this->get_next_credit_sequence($facture_dto['cote']);
                 break;
@@ -88,6 +94,10 @@ class InvoiceService{
 
             case self::FACTURE_SHIFT:
                 $facture_class = ShiftInvoice::class;
+                break;
+
+            case self::INTEREST_INVOICE:
+                $facture_class = InterestInvoice::class;
                 break;
 
             case self::CREDIT:

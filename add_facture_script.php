@@ -24,7 +24,7 @@ if($_POST['FORMAvanceClient']==1)
 if($_POST['FORMTaxes']==0)
     $facture_dto ['taxable']=false;
 
-$facture = $facture_service->generate_blank_facture($facture_dto);
+$facture = $invoice_service->generate_blank_facture($facture_dto);
 $facture->save();
 $_GET['invoice_id']= $facture->IDFacture;
 

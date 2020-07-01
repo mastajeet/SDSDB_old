@@ -1,9 +1,10 @@
 <?php
-const GENERATE_INTEREST_FACTURE = "Générer une invoice d'intérêt";
+const GENERATE_INTEREST_FACTURE = "Générer une facture d'intérêt";
 const GENERATE = "Générer";
 
 $MainOutput->addform(GENERATE_INTEREST_FACTURE);
-$MainOutput->inputhidden_env('Section','Genrate_Facture_Interest');
+$MainOutput->inputhidden_env('Section','Invoice_Show');
+$MainOutput->inputhidden_env('Action','Invoice_GenerateInterestInvoice');
 foreach($unpaid_factures as $facture){
 
     $formated_date = date("d-m-Y", $facture->EnDate);
@@ -12,10 +13,9 @@ foreach($unpaid_factures as $facture){
     $choice_string = "<b>".$facture->Cote."-".$facture->Sequence."</b> ".$formated_facture_total." \n (".$formated_date.")";
 
     $MainOutput->flag('IDFacture['.$facture->IDFacture.']', '1',$choice_string);
-    $MainOutput->br();
 
 }
-$MainOutput->inputtext('InterestRate','taux intérêt (%)',2);
+$MainOutput->inputtext('InterestRate','taux intérét (%)',2);
 $MainOutput->inputtime('StartDate','Date début',Null,array('Time'=>false, 'Date'=>true) );
 //$MainOutput->flag
 $MainOutput->formsubmit(GENERATE);

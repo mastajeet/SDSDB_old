@@ -372,7 +372,60 @@ SWITCH($Action){
 		$_GET['Cote'] = $_POST['Cote'];
 		BREAK;
 	}
-	
+
+    CASE "Invoice_GenerateInterestInvoice":{
+
+            $start_year = $_POST['FORMStartDate3'];
+            $start_month = $_POST['FORMStartDate4'];
+            $start_day = $_POST['FORMStartDate5'];
+            $interest_rate = $_POST['FORMInterestRate'];
+            $IDfactures = $_POST['FORMIDFacture'];
+
+            $start_date = new Datetime();
+            $start_date = $start_date->setDate($start_year,$start_month,$start_day);
+            $end_date = new Datetime();
+            $nb_days = $end_date->diff($start_date);
+
+            #This InterestRate calculation is hardcoded but should change (?!)
+            $effective_interest_rate = pow(1. + $interest_rate/100, $nb_days->days/30)-1;
+
+            $today = $time_service->get_today_timestamp();
+
+            $first_invoice = new Invoice(array_keys($IDfactures)[0]);
+            $interest_invoice = $invoice_service->generate_blank_facture(array(
+                "semaine" => $time_service->get_start_of_week(new DateTime("@".time()))->getTimestamp(),
+                "cote" => $first_invoice->Cote,
+                "facture_type" => InvoiceService::INTEREST_INVOICE,
+                InvoiceService::SEQUENCE_FROM_DTO=>"",
+                "taxable" => false
+            ));
+            $interest_invoice->save();
+            foreach($IDfactures as $IDFacture=>$index)
+            {
+                if($index)
+                {
+                    $facture = new Invoice($IDFacture);
+                    $balance = $facture->get_balance()['total'];
+                    $note =  $facture->Cote."-".$facture->Sequence." (".$interest_rate."% pendant ".$nb_days->days." jours)";
+                    $amount_charged = $effective_interest_rate * $balance;
+
+                    $invoice_item = CountableInvoiceItem::fromDetails(array(
+                        "invoice_id"=>$interest_invoice->IDFacture,
+                        "quantity"=>1,
+                        "description"=>$note,
+                        'unit_cost'=>$amount_charged));
+
+                    $interest_invoice->addInvoiceItem($invoice_item);
+                    $invoice_item->save();
+                }
+            }
+            $interest_invoice->save();
+
+            $_GET['invoice_id'] = $interest_invoice->IDFacture;
+            $_GET['edit'] = 1;
+        break;
+    }
+
 	CASE "Shift":{
 		include('copy_shift_script.php');
 		

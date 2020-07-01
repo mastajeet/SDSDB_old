@@ -1,6 +1,6 @@
 <?php
 
-include_once('app/invoice/interestInvoice.php');
+include_once('app/invoice/InterestInvoice.php');
 include_once('app/invoice/invoice.php');
 include_once ('app/payment/payment.php');
 

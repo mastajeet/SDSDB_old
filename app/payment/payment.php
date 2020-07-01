@@ -12,7 +12,7 @@ class Payment extends BaseModel implements CustomerTransaction
     public $Date;
     public $Notes;
 
-    private $facture_service;
+    private $invoice_service;
 
     function __construct($Arg = null){
         parent::__construct($Arg);
@@ -20,7 +20,7 @@ class Payment extends BaseModel implements CustomerTransaction
         $notes = $variable->get_value('NoteFacture');
         $tps = $variable->get_value('TPS');
         $tvq = $variable->get_value('TVQ');
-        $this->facture_service = new InvoiceService($notes, $tps, $tvq);
+        $this->invoice_service = new InvoiceService($notes, $tps, $tvq);
     }
 
     static function define_table_info(){
@@ -42,7 +42,7 @@ class Payment extends BaseModel implements CustomerTransaction
             $needle = $this->Cote."-";
             $facture_sequence = str_replace($needle, '', strstr($notes_element,$needle));
             if($facture_sequence) {
-                $facture = $this->facture_service->get_shift_and_materiel_facture_by_cote_and_sequence($this->Cote, intval($facture_sequence));
+                $facture = $this->invoice_service->get_shift_and_materiel_facture_by_cote_and_sequence($this->Cote, intval($facture_sequence));
                 $paid_facture[$facture->IDFacture] = $facture;
             }
         }

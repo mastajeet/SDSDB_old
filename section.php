@@ -51,47 +51,14 @@ SWITCH($Section){
         BREAK;
     }
 
-    CASE "Genrate_Facture_Interest":{
-        if(!isset($_POST['FORMIDFacture']) or !isset($_POST['FORMInterestRate']) or !isset($_POST['FORMStartDate4'])) {
-            if(isset($_GET['Cote']) and isset($_GET['Year'])){
-                $cote = $_GET['Cote'];
-                $year = $_GET['Year'];
+    CASE "Invoice_GenerateInterestInvoice":{
+        $cote = $_GET['Cote'];
+        $year = $_GET['Year'];
 
-                $dossier_facturation = new DossierFacturation($cote,$year);
-                $unpaid_factures = $dossier_facturation->get_unpaid_factures();
-                include('view/invoice/interest/form_generate_by_cote.php');
-            }
-        }else{
-            $start_year = $_POST['FORMStartDate3'];
-            $start_month = $_POST['FORMStartDate4'];
-            $start_day = $_POST['FORMStartDate5'];
-            $interest_rate = $_POST['FORMInterestRate'];
-            $IDfactures = $_POST['FORMIDFacture'];
+        $dossier_facturation = new DossierFacturation($cote,$year);
+        $unpaid_factures = $dossier_facturation->get_unpaid_factures();
+        include('view/invoice/interest/form_generate_by_cote.php');
 
-            $start_date = new Datetime();
-            $start_date = $start_date->setDate($start_year,$start_month,$start_day);
-            $end_date = new Datetime();
-            $nb_days = $end_date->diff($start_date);
-
-            $effective_interest_rate = pow(1. + $interest_rate/100, $nb_days->days/365)-1;
-
-            $facture_interet = new InterestInvoice();
-
-            foreach($IDfactures as $IDFacture=>$index){
-                $facture = new Invoice($IDFacture);
-                $balance = $facture->get_balance()['total'];
-                $note =  $facture->Cote."-".$facture->Sequence;
-
-
-                $factsheet = new CountableInvoiceItem(['Balance'=>$balance, 'Notes'=>$note, 'start'=>0, 'end'=>1]);
-                $facture_interet->addInvoiceItem($factsheet);
-            }
-
-            $facture_interet->save();
-
-
-
-        }
         break;
     }
 

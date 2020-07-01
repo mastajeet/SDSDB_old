@@ -126,6 +126,8 @@ include_once('app/customer.php');
 include_once('app/invoice/invoice.php');
 include_once('app/invoice/InvoiceService.php');
 include_once('app/invoice/avanceClient.php');
+include_once('app/invoice/InterestInvoice.php');
+
 include_once('app/horaire/horaire.php');
 include_once('app/horaire/horaireFactory.php');
 include_once('app/Variable.php');
@@ -170,8 +172,8 @@ $item_service = new ItemService();
 $notes = $variable->get_value("NoteFacture");
 $tvq = $variable->get_value("TVQ");
 $tps= $variable->get_value("TPS");
-$facture_service = new InvoiceService($notes, $tps, $tvq);
-$payment_service  = new PaymentService($facture_service);
+$invoice_service = new InvoiceService($notes, $tps, $tvq);
+$payment_service  = new PaymentService($invoice_service);
 
 $WarningOutput= new HTMLContainer();
 $MainOutput = new HTMLContainer();

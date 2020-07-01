@@ -219,11 +219,11 @@ class DossierFacturation
     }
 
     function get_unpaid_factures(){
-        $all_factures = $this->get_all_factures();
+        $all_invoices = $this->get_all_factures();
         $unpaid_facture = [];
-        foreach($all_factures as $facture){
-            if(!$facture->is_paid() and ($facture->is_shift() or $facture->is_materiel())){
-                $unpaid_facture[] = $facture;
+        foreach($all_invoices as $invoice){
+            if(!$invoice->is_paid() and ($invoice->is_shift() or $invoice->is_materiel() or $invoice->is_interest())){
+                $unpaid_facture[] = $invoice;
             }
         }
 

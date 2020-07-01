@@ -120,7 +120,7 @@ if(isset($_GET['Cote'])){
 			$MainOutput->addlink('index.php?Section=Add_Facture&Cote='.$_GET['Cote'], '<img border=0 src=assets/buttons/b_ins.png title="Créer une facture manuelle">');
 			$MainOutput->addlink('index.php?Section=DossierFacturation_DisplayAccountStatement&Cote='.$_GET['Cote'].'&ToPrint=TRUE&NB=15', '<img border=0 src=assets/buttons/b_print.png title="Imprimer le dossier de facturation">','_BLANK');
 			$MainOutput->addlink('index.php?Section=ArchivesFacturation&Cote='.$_GET['Cote'],'<img border=0 src=f_close.png title="Archive des dossiers de facturation">');
-			$MainOutput->addlink('index.php?Section=Genrate_Facture_Interest&Cote='.$_GET['Cote'].'&Year='.$current_year, '<img border=0 src=assets/buttons/b_monte.png title="this will be displayed as a tooltip">');
+			$MainOutput->addlink('index.php?Section=Invoice_GenerateInterestInvoice&Cote='.$_GET['Cote'].'&Year='.$current_year, '<img border=0 src=assets/buttons/b_monte.png title="Create Interest Invoice Charge">');
 		}
 
 

@@ -2,10 +2,10 @@
 
 class paymentService{
 
-    private $facture_service;
+    private $invoice_service;
 
-    function __construct($facture_service){
-        $this->facture_service = $facture_service;
+    function __construct($invoice_service){
+        $this->invoice_service = $invoice_service;
     }
 
     function delete_payment($payment){
