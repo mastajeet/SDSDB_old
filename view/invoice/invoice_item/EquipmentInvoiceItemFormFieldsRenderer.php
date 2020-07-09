@@ -39,6 +39,6 @@ class EquipmentInvoiceItemFormFieldsRenderer extends HTMLContainerRenderer
         $this->html_container->closecol();
         $this->html_container->closerow();
 
-        $this->html_container->InputText('quantity','Quantité','1',null);
+        $this->html_container->InputText('quantity','Quantité','1',1);
     }
 }
