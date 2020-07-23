@@ -2,7 +2,7 @@
 $SQL = new sqlclass;
 if(!isset($_GET['FORMIDPaye'])){
 
-	$MainOutput->AddForm('Vï¿½rifier une paye','index.php','GET');
+	$MainOutput->AddForm('Vérifier une paye','index.php','GET');
 	$MainOutput->inputhidden_env('Section','Display_Timesheet');
 	$Opt = array();
 	$Req = "SELECT IDPaye, Semaine1, No FROM paye ORDER BY Semaine1 DESC LIMIT 0,26";
@@ -30,7 +30,7 @@ if(!isset($_GET['FORMIDPaye'])){
 	$Rep = $SQL2->FetchArray();
 	$Semaine1 = $Rep[0];
 	$EndDate = get_end_dates(1,$Semaine1);
-	// ON SE CLANCHE LE GROS HEADER SALE AVEC OU SANS LES Fï¿½RIï¿½S BLABALBLA
+	// ON SE CLANCHE LE GROS HEADER SALE AVEC OU SANS LES F?RI?S BLABALBLA
 	
 	
 	IF(!$_GET['ToPrint']){
@@ -60,7 +60,7 @@ if(!isset($_GET['FORMIDPaye'])){
 			$MainOutput->Addtexte('Nom','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
-			$MainOutput->Addtexte('Prï¿½nom','Titre');
+			$MainOutput->Addtexte('Pr?nom','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
 			$MainOutput->Addtexte('TXH','Titre');
@@ -124,7 +124,7 @@ IF(!$_GET['ToPrint']){
 
 		if($FERIE2 || $FERIE1){
 		$MainOutput->OpenCol();
-			$MainOutput->Addtexte('Feriï¿½','Titre');
+			$MainOutput->Addtexte('Ferié','Titre');
 		$MainOutput->CloseCol();
 		}
 		$MainOutput->OpenCol();
@@ -145,7 +145,7 @@ IF(!$_GET['ToPrint']){
 		
 	$MainOutput->CloseRow();
 
-	// OK LE HEADER EST BIN BEAU ON CLANCHE LE DATA POUR CHAQUE EMPLOYï¿½ ET SALAIRE
+	// OK LE HEADER EST BIN BEAU ON CLANCHE LE DATA POUR CHAQUE EMPLOY? ET SALAIRE
 	
 	
 $c = "two";

@@ -81,7 +81,7 @@ if($SQL->NumRow()<>0){
 						$MainOutput->CloseCol();
 						
 						$MainOutput->OpenCol();
-							$MainOutput->addtexte('?');
+							$MainOutput->addtexte('à');
 						$MainOutput->CloseCol();					
 						
 						$MainOutput->OpenCol();

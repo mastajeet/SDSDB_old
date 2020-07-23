@@ -87,7 +87,7 @@ class Customer extends BaseModel
         return new Customer($customer_id);
     }
 
-    function update_facture(&$facture){
+    function update_facture(Invoice &$facture){
         foreach ($facture->Factsheet as $factsheet){
             $factsheet->update_using_customer_ferie($this->Ferie);
         }
