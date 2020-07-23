@@ -5,9 +5,9 @@
  * Date: 14-08-24
  * Time: 13:26
  */
-const SHIFT_NON_FACTURES = 'Shift n\'ayant pas Ã©tÃ© facturÃ©';
-const MARK_SHIFT_AS_BILLED = 'Marquer shift comme facturÃ©s';
-const GENERATE_FULL_BILL = 'GÃ©nÃ©rer la facture totale';
+const SHIFT_NON_FACTURES = 'Shift n\'ayant pas été facturé';
+const MARK_SHIFT_AS_BILLED = 'Marquer shift comme facturés';
+const GENERATE_FULL_BILL = 'Générer la facture totale';
 
 $SQL = new sqlclass();
 $SQL2 = new sqlclass();
@@ -42,7 +42,7 @@ if(isset($_POST['FORMInstallation']) and isset($_POST['FORMActionRadio'])){
                 while($Rep = $SQL->FetchArray()){
                     $Titre = "Sauveteur";
                     if($Rep[5])
-                        $Titre = "Deuxiï¿½me Sauveteur";
+                        $Titre = "Deuxième Sauveteur";
                     if($i>0 && $Shift[$i-1]['End'] == $Rep[0]){
                         $Shift[$i-1]['End'] = $Rep[1];
                         $Shift[$i-1]['Notes'] = substr($Shift[$i-1]['Notes'],0,-1);
@@ -70,7 +70,7 @@ if(isset($_POST['FORMInstallation']) and isset($_POST['FORMActionRadio'])){
                     if(is_ferie($v['Jour']*86400+$Info[1])){
                         if($v['Ferie']<>1){
                             $v['TXH'] = $v['TXH']*$v['Ferie'];
-                            $v['Notes'] = $v['Notes']." (x".$v['Ferie']." Journï¿½e Fï¿½riï¿½e)";
+                            $v['Notes'] = $v['Notes']." (x".$v['Ferie']." Journée Fériée)";
                         }
                     }
                     $Req = "INSERT INTO factsheet(`IDFacture`,`Start`,`End`,`Jour`,`TXH`,`Notes`) VALUES(".$IDFacture.",'".$v['Start']."','".$v['End']."','".$v['Jour']."','".$v['TXH']."','".addslashes($v['Notes'])."')";
@@ -112,7 +112,7 @@ if(isset($_POST['FORMActionRadio']) and $_POST['FORMActionRadio']=="GenerateFull
         $Desc = "<a href=index.php?Cote=".$Rep['Cote']." target=_BLANK>".get_installation_by_cote_in_string($Rep['Cote'])."</a>";
         $EndDate = get_end_dates(0,$Rep['Semaine']);
         $SQL2->Select($Req2);
-        $Desc .= " - <a href=index.php?Section=Display_Shift&Semaine=".$Rep['Semaine']." target=_BLANK1>".$EndDate['Start']."</a> (".$Rep['nb']." Shifts non facturï¿½s)";
+        $Desc .= " - <a href=index.php?Section=Display_Shift&Semaine=".$Rep['Semaine']." target=_BLANK1>".$EndDate['Start']."</a> (".$Rep['nb']." Shifts non factur?s)";
 
         if($SQL2->NumRow()>0){
             $Rep2 = $SQL2->FetchArray();
