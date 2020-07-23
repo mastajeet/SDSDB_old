@@ -1,10 +1,10 @@
 <?php
-const EMPLOYEE_INFO = 'Fiche Employï¿½';
+const EMPLOYEE_INFO = 'Fiche Employé';
 const NAME = 'Nom';
 const SURNAME = 'Prenom';
 const SCHEDULE_NAME = 'Nom Horaire';
 const DATE_OF_BIRTH = 'Date Naissance';
-const SOCIAL_SECURITY_NUMBER = 'Numï¿½ro d\'assurance sociale';
+const SOCIAL_SECURITY_NUMBER = 'Numéro d\'assurance sociale';
 const NOTES = 'Notes';
 $Info = get_employe_info($_GET['IDEmploye']);
 
@@ -52,7 +52,7 @@ $MainOutput->CloseCol();
 $MainOutput->CloseRow(); 
 
 
-//check s'il y a des vacances ï¿½ venir
+//check s'il y a des vacances à venir
 $vacances_threshold = time()-24*3600;
 $Req = "SELECT * FROM vacances WHERE FinVacances > ".$vacances_threshold." and IDEmploye = ".$Info['IDEmploye']." ORDER BY DebutVacances ASC";
 $SQL = new sqlclass();
@@ -130,7 +130,7 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 
 $MainOutput->addtitledoutput('Date d\'embauche', datetostr($Info['DateEmbauche']));
-$Status = array('Temps plein'=>'Temps plein','Secondaire'=>'Secondaire','Cï¿½GEP'=>'Cï¿½GEP','Universitï¿½'=>'Universitï¿½','Bureau'=>'Bureau');
+$Status = array('Temps plein'=>'Temps plein','Secondaire'=>'Secondaire','CÉGEP'=>'CÉGEP','Université'=>'Université','Bureau'=>'Bureau');
 $Session = get_saison_list();
 $Saison = array();
 
