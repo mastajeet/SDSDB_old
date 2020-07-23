@@ -27,7 +27,7 @@ $S2 = get_next_sunday(0,$S1);
 SELECT DISTINCT employe.IDEmploye, Nom, Prenom, Salaire, SalaireA, SalaireS, shift.Assistant, Semaine
 FROM shift
 JOIN employe ON shift.IDEmploye = employe.IDEmploye
-WHERE semaine = '".$S1."' OR semaine = '".$S2."'
+WHERE (semaine = '".$S1."' OR semaine = '".$S2."') and employe.IDEmploye<>0
 GROUP BY shift.IDEmploye, Assistant, Salaire
 ORDER BY shift.IDEmploye ASC
 ";
@@ -64,7 +64,7 @@ IF(!$_GET['ToPrint']){
 			$MainOutput->Addtexte('Nom','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
-			$MainOutput->Addtexte('Prï¿½nom','Titre');
+			$MainOutput->Addtexte('Prénom','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
 			$MainOutput->Addtexte('TXH','Titre');
@@ -129,7 +129,7 @@ IF(!$_GET['ToPrint']){
 	
 		if($FERIE2 || $FERIE1){
 		$MainOutput->OpenCol();
-			$MainOutput->Addtexte('Feriï¿½','Titre');
+			$MainOutput->Addtexte('Ferié','Titre');
 		$MainOutput->CloseCol();
 		}
 	
