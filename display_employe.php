@@ -8,12 +8,11 @@ const SOCIAL_SECURITY_NUMBER = 'Numéro d\'assurance sociale';
 const NOTES = 'Notes';
 $Info = get_employe_info($_GET['IDEmploye']);
 
-$MainOutput->addlink('index.php?Section=Modifie_Employe&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_edit.png border=0>');
-$MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE', '<img src=assets/buttons/b_print.png border=0>','_blank');
-$MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_fact.png border=0>');
-$MainOutput->addlink('index.php?Section=Employe_Report&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE', '<img src=assets/buttons/b_sheet.png border=0>');
-$MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_fact.png border=0>');
-$MainOutput->addlink('index.php?Section=Display_AskedRemplacement&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_del.png border=0>');
+$MainOutput->addlink('index.php?Section=Modifie_Employe&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_edit.png border=0 title="Modifier">');
+$MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE', '<img src=assets/buttons/b_print.png border=0 title="Imprimer">','_blank');
+$MainOutput->addlink('index.php?Section=Employe_Horshift&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_fact.png border=0 title="Horaire officiel">');
+$MainOutput->addlink('index.php?Section=Employe_Report&IDEmploye='.$Info['IDEmploye'].'&ToPrint=TRUE', '<img src=assets/buttons/b_sheet.png border=0 title="Rapport">');
+$MainOutput->addlink('index.php?Section=Display_AskedRemplacement&IDEmploye='.$Info['IDEmploye'], '<img src=assets/buttons/b_del.png border=0 title="Remplacements">');
 
 $can_see_protected_fields = $authorization->verifySuperAdmin($_COOKIE);
 
