@@ -98,7 +98,7 @@ function add_facture($Cote,$Semaine,$Credit=FALSE,$Notes="",$Seq="",$Materiel=FA
         }
 		$Seq++;
 	}
-	$Req = "INSERT INTO facture(`Sequence`,`Cote`,`TVQ`,`TPS`,`Semaine`,`EnDate`,`Notes`,`Credit`,`Paye`,`Materiel`) VALUES(".$Seq.",'".$Cote."','".$TVQ."','".$TPS."',".$Semaine.",".time().",'".addslashes($Notes)."',".$Credit.",".$Paye.",".$Materiel.")";
+	$Req = "INSERT INTO facture(`Sequence`,`Cote`,`TVQ`,`TPS`,`Semaine`,`EnDate`,`Notes`,`Credit`,`Paye`,`Materiel`,`Debit`) VALUES(".$Seq.",'".$Cote."','".$TVQ."','".$TPS."',".$Semaine.",".time().",'".addslashes($Notes)."',".$Credit.",".$Paye.",".$Materiel.",1)";
 	$SQL->INSERT($Req);
 	return get_last_id('facture');
 }
