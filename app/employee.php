@@ -5,9 +5,11 @@ class Employee extends BaseModel
     public $IDEmploye;
     public $Prenom;
     public $Nom;
+    public $HName;
     public $NAS;
     public $TelP;
     public $Cell;
+    private $vacations;
 
     static function define_table_info(){
         return array("model_table" => "employe",
@@ -22,6 +24,29 @@ class Employee extends BaseModel
         $employee_list_query = "SELECT IDEmploye from employe where session = '{$session}'";
         return BaseModel::find($employee_list_query, Employee::class);
     }
+
+    public function isInVacation($datetime_object)
+    {
+        $date_timestamp = $datetime_object->getTimestamp();
+        $vacation_request = "SELECT vacances.IDEmploye FROM vacances WHERE DebutVacances<=".$date_timestamp." and FinVacances>= ".$date_timestamp;
+        $sql = new SqlClass();
+        $sql->select($vacation_request);
+        if($sql->NumRow()>0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public function getHoraireName(){
+        if($this->HName=="")
+            $horaire_name = substr($this->Prenom."&nbsp;".$this->Nom,0,20);
+		else
+            $horaire_name = $this->HName;
+
+		return($horaire_name);
+    }
+
 
     public function initials(){
         $Initiales = "";

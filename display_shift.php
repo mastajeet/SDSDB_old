@@ -98,7 +98,13 @@ while($Rep = $SQL->FetchArray()){
 	$MainOutput->addoutput('</div>',0,0);
 	$MainOutput->closecol();
 	
-	$Req3 = "SELECT IDShift, Jour, Start, End, Warn, Commentaire, Confirme, shift.IDEmploye, Nom, Prenom, HName, Assistant FROM shift LEFT JOIN employe on shift.IDEmploye = employe.IDEmploye WHERE IDInstallation=".$Rep[0]." AND Semaine=".$_GET['Semaine']." ORDER BY Jour ASC, Assistant ASC, Start ASC";
+//	$Req3 = "SELECT IDShift, Jour, Start, End, Warn, Commentaire, Confirme, shift.IDEmploye, Nom, Prenom, HName, Assistant FROM shift LEFT JOIN employe on shift.IDEmploye = employe.IDEmploye WHERE IDInstallation=".$Rep[0]." AND Semaine=".$_GET['Semaine']." ORDER BY Jour ASC, Assistant ASC, Start ASC";
+	$Req3 = "SELECT IDShift, Jour, Start, End, Warn, Commentaire, Confirme, shift.IDEmploye, Assistant 
+	FROM shift 
+	WHERE IDInstallation=".$Rep[0]." 
+	AND Semaine=".$_GET['Semaine']." 
+	ORDER BY Jour ASC, Assistant ASC, Start ASC";
+
 	$SQL2->SELECT($Req3);
 	$Output = array(0=>new HTMLContainer,1=>new HTMLContainer,2=>new HTMLContainer,3=>new HTMLContainer,4=>new HTMLContainer,5=>new HTMLContainer,6=>new HTMLContainer);
 	$Assistant = array(0=>FALSE,1=>FALSE,2=>FALSE,3=>FALSE,4=>FALSE,5=>FALSE,6=>FALSE);
@@ -143,15 +149,17 @@ while($Rep = $SQL->FetchArray()){
 		
 		$Output[$Rep2['Jour']]->opencol('','1','top',$Class);
 		$Diplay="";
-		if($Rep2['HName']=="")
-			$Display = substr($Rep2['Prenom']."&nbsp;".$Rep2['Nom'],0,20);
-		else
-			$Display = $Rep2['HName'];
+
+		#Addition pour bridger vers le nouvel API
+			$employe = New Employee($Rep2['IDEmploye']);
+			$Display = $employe->getHoraireName();
+
+
 
 		if($Rep2['IDEmploye']=="0")
 			$Output[$Rep2['Jour']]->addtexte('&nbsp;');
 		else
-			$Output[$Rep2['Jour']]->addlink('index.php?Section=Employe&IDEmploye='.$Rep2['IDEmploye'],$Display);
+			$Output[$Rep2['Jour']]->addlink($employee_service->getViewEmployeeURI($Rep2['IDEmploye']),$Display);
 		$Output[$Rep2['Jour']]->closecol();
 		$Output[$Rep2['Jour']]->closerow();
 		$Output[$Rep2['Jour']]->openrow();

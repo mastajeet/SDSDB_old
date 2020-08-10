@@ -141,6 +141,7 @@ include_once('app/dossier_facturation/dossierFacturation.php');
 include_once('app/payment/payment.php');
 include_once('app/payment/paymentService.php');
 
+include_once('app/employee/EmployeeService.php');
 
 include_once('helper/Authorization.php');
 include_once('helper/PasswordGetter.php');
@@ -172,6 +173,9 @@ $item_service = new ItemService();
 $notes = $variable->get_value("NoteFacture");
 $tvq = $variable->get_value("TVQ");
 $tps= $variable->get_value("TPS");
+$session= $variable->get_value("Saison");
+$employee_service = new EmployeeService($session);
+
 $invoice_service = new InvoiceService($notes, $tps, $tvq);
 $payment_service  = new PaymentService($invoice_service);
 

@@ -271,3 +271,12 @@ CREATE TABLE `item` (
 
 ALTER TABLE `item`
     ADD PRIMARY KEY (`IDItem`);
+
+
+CREATE TABLE `vacances` (
+                            `IDVacances` int(11) NOT NULL,
+                            `IDEmploye` int(11) NOT NULL,
+                            `DebutVacances` bigint(20) NOT NULL,
+                            `FinVacances` bigint(20) NOT NULL,
+                            `Raison` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

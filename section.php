@@ -487,6 +487,7 @@ SWITCH($Section){
         $content_array['tps_rate'] = number_format($typed_invoice->TPS * 100,2);
         $content_array['tvq_rate'] = number_format($typed_invoice->TVQ * 100,2);
 
+
         $content_array['pretax_total'] = $invoice_balance["sub_total"];
         $content_array['tps_amount'] = $invoice_balance["tps"];
         $content_array['tvq_amount'] = $invoice_balance["tvq"];

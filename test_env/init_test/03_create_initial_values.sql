@@ -164,3 +164,7 @@ INSERT INTO `item` (`IDItem`, `Description`, `Fournisseur`, `Prix1`, `NBForfait`
 (3, 'Épingles de sureté', 'Secourisme PME', 0.1, 12, 1.1, 1),
 (4, 'Pansements adhésifs', 'Secourisme PME', 0.15, 25, 4.2, 1),
 (5, 'Bandages Triangulaires', 'Secourisme PME', 1.8, 6, 9.3, 0);
+
+
+INSERT INTO `vacances` (`IDVacances`, `IDEmploye`, `DebutVacances`, `FinVacances`, `Raison`) VALUES
+(1, 90, 1596240000, 1598918400, 'raison de vacances'); #1er juillet 2020 au 1 aout 2020 (minuit GMT)
