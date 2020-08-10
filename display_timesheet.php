@@ -24,8 +24,9 @@ if(!isset($_GET['FORMIDPaye'])){
 	$FERIE2=FALSE;
 	$SQL = new sqlclass;
 	$SQL2 = new sqlclass;
-	$Req = "SELECT employe.IDEmploye, Nom, Prenom, timesheet.Salaire, S10,S11,S12,S13,S14,S15,S16,S20,S21,S22,S23,S24,S25,S26, timesheet.Ajustement,Heures FROM timesheet JOIN employe ON timesheet.IDEmploye = employe.IDEmploye WHERE IDPaye = '".$_GET['FORMIDPaye']."' AND S10+S11+S12+S13+S14+S15+S16+S20+S21+S22+S23+S24+S25+S26+timesheet.Ajustement<>0 && Salaire<>0 ORDER BY timesheet.IDEmploye ASC";
-	$SQL->SELECT($Req);
+//	$Req = "SELECT employe.IDEmploye, Nom, Prenom, timesheet.Salaire, S10,S11,S12,S13,S14,S15,S16,S20,S21,S22,S23,S24,S25,S26, timesheet.Ajustement,Heures FROM timesheet JOIN employe ON timesheet.IDEmploye = employe.IDEmploye WHERE IDPaye = '".$_GET['FORMIDPaye']."' AND S10+S11+S12+S13+S14+S15+S16+S20+S21+S22+S23+S24+S25+S26+timesheet.Ajustement<>0 && Salaire<>0 ORDER BY timesheet.IDEmploye ASC";
+    $Req = "SELECT IDEmploye, timesheet.Salaire, S10,S11,S12,S13,S14,S15,S16,S20,S21,S22,S23,S24,S25,S26, timesheet.Ajustement, Heures FROM timesheet WHERE IDPaye = '".$_GET['FORMIDPaye']."' AND S10+S11+S12+S13+S14+S15+S16+S20+S21+S22+S23+S24+S25+S26+timesheet.Ajustement<>0 && Salaire<>0 ORDER BY timesheet.IDEmploye ASC";
+    $SQL->SELECT($Req);
 	$SQL2->SELECT("SELECT Semaine1, No FROM paye WHERE IDPaye = '".$_GET['FORMIDPaye']."'");
 	$Rep = $SQL2->FetchArray();
 	$Semaine1 = $Rep[0];
@@ -60,7 +61,7 @@ if(!isset($_GET['FORMIDPaye'])){
 			$MainOutput->Addtexte('Nom','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
-			$MainOutput->Addtexte('Pr?nom','Titre');
+			$MainOutput->Addtexte('Prénom','Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->OpenCol();
 			$MainOutput->Addtexte('TXH','Titre');
@@ -163,23 +164,21 @@ if($c=="two")
 else
 	$c="two";
 	
-		$MainOutput->OpenRow('',$c);
+		$employe = new Employee($Rep['IDEmploye']) ;
 
-		$MainOutput->OpenCol('',1,'top',$c);
-			$MainOutput->addtexte($Rep['IDEmploye'],'Titre');
-		$MainOutput->CloseCol();
-		
-		$MainOutput->OpenCol('',1,'top',$c);
-			$MainOutput->addtexte($Rep['Nom']);
-		$MainOutput->CloseCol();
-		
-		$MainOutput->OpenCol('',1,'top',$c);
-			$MainOutput->addtexte($Rep['Prenom']);
-		$MainOutput->CloseCol();
-		
-		$MainOutput->OpenCol('',1,'top',$c);
-			$MainOutput->Addtexte($Rep['Salaire'],'Texte');
-		$MainOutput->CloseCol();
+        $MainOutput->OpenRow('',$c);
+
+        $MainOutput->OpenCol('',1,'top',$c);
+        $MainOutput->addtexte($employe->IDEmploye,'Titre');
+        $MainOutput->CloseCol();
+
+        $MainOutput->OpenCol('',1,'top',$c);
+        $MainOutput->addtexte($employe->Nom);
+        $MainOutput->CloseCol();
+
+        $MainOutput->OpenCol('',1,'top',$c);
+        $MainOutput->addtexte($employe->Prenom);
+        $MainOutput->CloseCol();
 		
 		$Ferie1=0;
 		$Sum1=0;

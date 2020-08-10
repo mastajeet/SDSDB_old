@@ -6,6 +6,8 @@ class Employee extends BaseModel
     public $Prenom;
     public $Nom;
     public $HName;
+    public $SalaireA;
+    public $SalaireS;
     public $NAS;
     public $TelP;
     public $Cell;
