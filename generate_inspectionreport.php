@@ -68,7 +68,8 @@ $NMois = get_month_list();
 	}
 	$Item = get_itemlist();
 	$current_installation = new Installation($current_inspection->IDInstallation);
-	$INFOE = get_info('employe',$current_inspection->IDEmploye);
+	$employe = new Employee($current_inspection->IDEmploye);
+
 	$INFOR = get_info('responsable',$current_inspection->IDResponsable);
 	$Date = getdate($current_inspection->DateI);
 	
@@ -86,7 +87,7 @@ $NMois = get_month_list();
 
 	
 	$Date = getdate($current_inspection->DateI);
-	$MainOutput->AddTexte("Suite à l'inspection de votre ".strtolower($current_inspection->InspectionType)." (".$current_installation->Nom.") effectuée le ".$Date['mday']." ".$NMois[$Date['mon']]." ".$Date['year']." par ".$INFOE['Prenom']." ".$INFOE['Nom'].",  nous désirons vous informer qu'en vertu du règlement sur les bains publics LRQ S-3, r-3, vous devrez apporter certains correctifs afin d'avoir des installations conformes. Voici un descriptif des correctifs que nous vous suggérons.");
+	$MainOutput->AddTexte("Suite à l'inspection de votre ".strtolower($current_inspection->InspectionType)." (".$current_installation->Nom.") effectuée le ".$Date['mday']." ".$NMois[$Date['mon']]." ".$Date['year']." par ".$employe->Prenom." ".$employe->Nom.",  nous désirons vous informer qu'en vertu du règlement sur les bains publics LRQ S-3, r-3, vous devrez apporter certains correctifs afin d'avoir des installations conformes. Voici un descriptif des correctifs que nous vous suggérons.");
 	$MainOutput->br(2);
 	$MainOutput->AddTexte('Matériel','Titre');
 	$MainOutput->br(2);

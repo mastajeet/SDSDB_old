@@ -34,7 +34,8 @@ $MainOutput->OpenCol('100%',2);
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
-$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ORDER BY Nom ASC";
+$employe_list = $employee_service->getEmployeSelectList(0);
+//$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ORDER BY Nom ASC";
 
 
 
@@ -42,7 +43,7 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 $MainOutput->OpenTable();
 
-$MainOutput->inputselect('IDEmploye',$Req,$current_inspection->IDEmploye,'Inspecteur');
+$MainOutput->inputselect('IDEmploye',$employe_list,$current_inspection->IDEmploye,'Inspecteur');
 $MainOutput->inputselect('IDResponsable',get_responsable_client($current_inspection->IDInstallation),$current_inspection->IDResponsable,'Contact');
 $MainOutput->InputTime('DateI','Date de l\'inspection',$current_inspection->DateI,array('Date'=>TRUE,'Time'=>False));
 

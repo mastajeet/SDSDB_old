@@ -2,7 +2,7 @@
 if(isset($_GET['TODO'])){
 $NMois = get_month_list();
 $NDay= get_day_list();
-	//On enleve ceux qui ont dï¿½jï¿½ ï¿½tï¿½ inspectï¿½es ou planifiï¿½es
+	//On enleve ceux qui ont d?j? ?t? inspect?es ou planifi?es
 	$Req = "SELECT IDInstallation FROM inspection WHERE (!isnull(DateI) OR !isnull(DateP)) AND Annee=".get_vars("Boniyear");
 	$SQL->Select($Req);
 	
@@ -23,7 +23,7 @@ $MainOutput->OpenCol(300);
 		
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol(300,3);
-			$MainOutput->AddTexte('Client ï¿½ rappeller','Titre');
+			$MainOutput->AddTexte('Client à rappeller','Titre');
 	$MainOutput->Closecol();
 	$MainOutput->CloseRow();
 	$OLDJour = 0;
@@ -47,11 +47,11 @@ $MainOutput->OpenCol(300);
 		$MainOutput->OpenRow();
 	
 		$MainOutput->Opencol('16');
-			$MainOutput->Addpic('b_help.png','border=0',"index.php?MenuClient=".$Rep['IDClient'],'_BLANK');
+			$MainOutput->Addpic('assets/buttons/b_help.png','border=0',"index.php?MenuClient=".$Rep['IDClient'],'_BLANK');
 		$MainOutput->CloseCol();
 
 		$MainOutput->Opencol('16');
-			$MainOutput->Addpic('b_conf.png','border=0','index.php?Section=PlanifieInspection&IDInspection='.$Rep['IDInspection']);
+			$MainOutput->Addpic('assets/buttons/b_conf.png','border=0','index.php?Section=PlanifieInspection&IDInspection='.$Rep['IDInspection']);
 		$MainOutput->CloseCol();
 		
 		
@@ -70,7 +70,7 @@ $MainOutput->OpenCol(300);
 
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol(300,3);
-			$MainOutput->AddTexte('Inspections ï¿½ planifier','Titre');
+			$MainOutput->AddTexte('Inspections à planifier','Titre');
 	$MainOutput->Closecol();
 	$MainOutput->CloseRow();
 	$ARappeller = FALSE;
@@ -78,11 +78,11 @@ $MainOutput->OpenCol(300);
 		$MainOutput->OpenRow();
 	
 		$MainOutput->Opencol('16');
-			$MainOutput->Addpic('b_help.png','border=0',"index.php?MenuClient=".$Rep['IDClient'],"_BLANK");
+			$MainOutput->Addpic('assets/buttons/b_help.png','border=0',"index.php?MenuClient=".$Rep['IDClient'],"_BLANK");
 		$MainOutput->CloseCol();
 		
 		$MainOutput->Opencol('16');
-			$MainOutput->Addpic('b_conf.png','border=0','index.php?Section=PlanifieInspection&IDInstallation='.$Rep['IDInstallation']);
+			$MainOutput->Addpic('assets/buttons/b_conf.png','border=0','index.php?Section=PlanifieInspection&IDInstallation='.$Rep['IDInstallation']);
 		$MainOutput->CloseCol();
 		
 	
@@ -97,12 +97,12 @@ $MainOutput->CloseCol();
 
 $MainOutput->OpenCol(300);
 	
-	$Req = "SELECT installation.IDInstallation, installation.Nom as nomIns, client.IDClient, IDInspection, DateP, employe.Nom, employe.Prenom FROM installation JOIN client JOIN inspection JOIN employe on client.IDClient= installation.IDClient AND inspection.IDInstallation = installation.IDInstallation AND employe.IDEmploye = inspection.IDEmploye WHERE isnull(inspection.DateI) AND !isnull(inspection.DateP) AND Annee= ".get_vars('Boniyear')." ORDER BY DateP ASC";
+	$Req = "SELECT installation.IDInstallation, installation.Nom as nomIns, client.IDClient, IDInspection, DateP, IDEmploye  FROM installation JOIN client JOIN inspection on client.IDClient= installation.IDClient AND inspection.IDInstallation = installation.IDInstallation WHERE isnull(inspection.DateI) AND !isnull(inspection.DateP) AND Annee= ".get_vars('Boniyear')." ORDER BY DateP ASC";
 	$SQL->Select($Req);
 	$MainOutput->OpenTable(300);
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol(300,3);
-			$MainOutput->AddTexte('Inspections planifiï¿½es','Titre');
+			$MainOutput->AddTexte('Inspections planifiées','Titre');
 	$MainOutput->Closecol();
 	$MainOutput->CloseRow();
 	
@@ -136,9 +136,12 @@ $MainOutput->OpenCol(300);
 			$Date['minutes']="00";
 			$MainOutput->AddTexte($Date['hours']."h".$Date['minutes']." :",'Titre');
 			$MainOutput->AddLink('index.php?Section=AddInspection&IDInspection='.$Rep['IDInspection'],$Rep['nomIns']);
-		if($Rep['Nom']<>""){
+
+			if($Rep['IDEmploye']<>""){
+                $employe = new Employee($Rep['IDEmploye']);
+
 			$MainOutput->AddTexte("par ",'Titre');
-			$MainOutput->AddTexte($Rep['Prenom']." ".$Rep['Nom']);
+			$MainOutput->AddTexte($employe->Prenom." ".$employe->Nom);
 		}
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
@@ -151,12 +154,12 @@ $MainOutput->CloseCol();
 }else{
 
 
-$Req = "SELECT installation.IDInstallation, installation.Nom as nomIns,client.IDClient, IDInspection, DateI, employe.Nom, employe.Prenom, Envoye, Confirme, Materiel, MaterielPret, MaterielLivre FROM installation JOIN client JOIN inspection JOIN employe on client.IDClient= installation.IDClient AND inspection.IDInstallation = installation.IDInstallation AND employe.IDEmploye = inspection.IDEmploye WHERE !isnull(inspection.DateI) AND Annee= ".get_vars('Boniyear')." ORDER BY nomIns ASC";
+$Req = "SELECT installation.IDInstallation, installation.Nom as nomIns,client.IDClient, IDInspection, DateI, IDEmploye, Envoye, Confirme, Materiel, MaterielPret, MaterielLivre FROM installation JOIN client JOIN inspection on client.IDClient= installation.IDClient AND inspection.IDInstallation = installation.IDInstallation WHERE !isnull(inspection.DateI) AND Annee= ".get_vars('Boniyear')." ORDER BY nomIns ASC";
 	$SQL->Select($Req);
 	$MainOutput->OpenTable(452);
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol(452,10);
-			$MainOutput->AddTexte('Inspections effectuï¿½es','Titre');
+			$MainOutput->AddTexte('Inspections effectuées','Titre');
 	$MainOutput->Closecol();
 	$MainOutput->CloseRow();
 	$NMois = get_month_list();
@@ -186,33 +189,59 @@ $Req = "SELECT installation.IDInstallation, installation.Nom as nomIns,client.ID
 		
 			$MainOutput->OpenCol(308);	
 			$MainOutput->AddLink('index.php?Section=SuiviInspection&IDInspection='.$Rep['IDInspection'],$Rep['nomIns']);
-		if($Rep['Nom']<>""){
-			$MainOutput->AddTexte("par ",'Titre');
-			$MainOutput->AddTexte($Rep['Prenom']." ".$Rep['Nom']);
-		}
+        if($Rep['IDEmploye']<>""){
+            $employe = new Employee($Rep['IDEmploye']);
+
+            $MainOutput->AddTexte("par ",'Titre');
+            $MainOutput->AddTexte($employe->Prenom." ".$employe->Nom);
+        }
 		$MainOutput->CloseCol();
 		
 
-		$IMGEnvoye = "b_linkBW.png";
-		$IMGConfirme = "b_confBW.png";
-		$IMGMateriel = "b_matBW.png";
-		$IMGMaterielPret = "b_monteBW.png";
-		$IMGMaterielLivre = "b_okBW.png";
-		
-		if($Rep['Envoye'])
-			$IMGEnvoye = "b_link.png";
+		$IMGEnvoye = "assets/buttons/b_linkBW.png";
+		$IMGConfirme = "assets/buttons/b_confBW.png";
+		$IMGMateriel = "assets/buttons/b_matBW.png";
+		$IMGMaterielPret = "assets/buttons/b_monteBW.png";
+		$IMGMaterielLivre = "assets/buttons/b_okBW.png";
+
+
+        $TITLEEnvoye  = "Inspection non envoyée";
+        $TITLEConfirme = "Réception non confirmée";
+        $TITLEMateriel = "Attente de la réponse du client";
+        $TITLEMaterielPret = "Commande non prête";
+        $TITLEMaterielLivre = "Commande non livrée";
+
+		if($Rep['Envoye']){
+			$IMGEnvoye = "assets/buttons/b_link.png";
+            $TITLEEnvoye  = "Inspection envoyée";
+        }
 		if($Rep['Confirme'])
-			$IMGConfirme = "b_conf.png";
+		{
+			$IMGConfirme = "assets/buttons/b_conf.png";
+            $TITLEConfirme = "Réception confirmée";
+        }
 		if($Rep['Materiel'])
-			$IMGMateriel = "b_mat.png";
+		{
+			$IMGMateriel = "assets/buttons/b_mat.png";
+            $TITLEMateriel = "Désire le matériel";
+        }
 		if($Rep['MaterielPret'])
-			$IMGMaterielPret = "b_monte.png";
+        {
+            $IMGMaterielPret = "assets/buttons/b_monte.png";
+            $TITLEMaterielPret = "Commande prête";
+        }
 		if($Rep['MaterielLivre'])
-			$IMGMaterielLivre = "b_ok.png";
+        {
+            $IMGMaterielLivre = "assets/buttons/b_ok.png";
+            $TITLEMaterielLivre = "Commande non livrée";
+        }
 		if($Rep['Materiel']==-1){
 			$IMGMateriel = "carlos.gif";
+            $TITLEMateriel = "Ne veut pas le matériel";
 			$IMGMaterielPret = "carlos.gif";
-			$IMGMaterielLivre = "b_ok.png";
+            $TITLEMaterielPret = "";
+			$IMGMaterielLivre = "assets/buttons/b_ok.png";
+            $TITLEMaterielLivre = "";
 		}
 		
 		
@@ -221,25 +250,25 @@ $Req = "SELECT installation.IDInstallation, installation.Nom as nomIns,client.ID
 		
 		
 		$MainOutput->Opencol('16');
-			$MainOutput->Addpic($IMGEnvoye,'border=0, width=16');
+			$MainOutput->Addpic($IMGEnvoye,'border=0, width=16, title="'.$TITLEEnvoye.'"');
 		$MainOutput->CloseCol();
 		
 		
 		$MainOutput->Opencol('16');
-			$MainOutput->Addpic($IMGConfirme,'border=0, width=16');
+			$MainOutput->Addpic($IMGConfirme,'border=0, width=16, title="'.$TITLEConfirme.'"');
 		$MainOutput->CloseCol();
 		
 		$MainOutput->Opencol('16');
-			$MainOutput->Addpic($IMGMateriel,'border=0, width=16');
+			$MainOutput->Addpic($IMGMateriel,'border=0, width=16, title="'.$TITLEMateriel.'"');
 		$MainOutput->CloseCol();
 		
 		
 		$MainOutput->Opencol('16');
-			$MainOutput->Addpic($IMGMaterielPret,'border=0, width=16');
+			$MainOutput->Addpic($IMGMaterielPret,'border=0, width=16, title="'.$TITLEMaterielPret.'"');
 		$MainOutput->CloseCol();
 		
 		$MainOutput->Opencol('16');
-			$MainOutput->Addpic($IMGMaterielLivre,'border=0, width=16');
+			$MainOutput->Addpic($IMGMaterielLivre,'border=0, width=16, title="'.$TITLEMaterielLivre.'"');
 		$MainOutput->CloseCol();
 		
 		
