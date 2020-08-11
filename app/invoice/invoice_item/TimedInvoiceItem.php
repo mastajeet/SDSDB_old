@@ -108,6 +108,15 @@ class TimedInvoiceItem extends InvoiceItem
         return new self($base_model_args);
     }
 
+
+    static function get_item_by_invoice_id_query($invoice_id){
+        $database_information = InvoiceItem::define_table_info();
+        $query = "SELECT ".$database_information['model_table_id']." FROM ".$database_information['model_table']." WHERE IDFacture=".$invoice_id." ORDER BY Jour ASC";
+
+        return $query;
+    }
+
+
     function isEmpty()
     {
         return $this->getBilledAmount()==0;
