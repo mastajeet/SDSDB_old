@@ -179,7 +179,13 @@ else
         $MainOutput->OpenCol('',1,'top',$c);
         $MainOutput->addtexte($employe->Prenom);
         $MainOutput->CloseCol();
-		
+
+
+
+        $MainOutput->OpenCol('',1,'top',$c);
+        $MainOutput->Addtexte($Rep['Salaire'],'Texte');
+        $MainOutput->CloseCol();
+
 		$Ferie1=0;
 		$Sum1=0;
 		
