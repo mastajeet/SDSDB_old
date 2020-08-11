@@ -1,0 +1,24 @@
+<?php
+
+include_once('app/invoice/monthlyInvoice.php');
+include_once('app/invoice/invoice.php');
+include_once ('app/payment/payment.php');
+
+class TestMonthlyInvoice extends PHPUnit_Framework_TestCase
+{
+    function test_givenMonthlyInvoiceForMonthStartingOnSunday_whenGetBegginingOfBillingPeriod_thenSameDay()
+    {
+        $facture = new MonthlyInvoice(array("Semaine"=>"1583020800")); #1 mars 2020
+        $first_day_of_month = new DateTime("@"."1583020800"); #1 mars 2020
+
+        $this->assertEquals($first_day_of_month, $facture->getBeginningOfBillablePeriod());
+    }
+
+    function test_givenMonthlyInvoiceForMonthNotStartingOnSunday_whenGetBegginingOfBillingPeriod_thenGetTheDayThatSwitchMonth()
+    {
+        $facture = new MonthlyInvoice(array("Semaine"=>"1595721600")); #26 juillet 2020
+        $first_day_of_month = new DateTime("@"."1596240000"); #1 août 2020
+
+        $this->assertEquals($first_day_of_month, $facture->getBeginningOfBillablePeriod());
+    }
+}

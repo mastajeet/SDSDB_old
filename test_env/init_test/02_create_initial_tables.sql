@@ -145,7 +145,8 @@ CREATE TABLE `facture` (
   `Materiel` tinyint(4) NOT NULL DEFAULT '0',
   `AvanceClient` tinyint(4) NOT NULL DEFAULT '0',
   `Interest` tinyint(4) NOT NULL DEFAULT '0',
-    `Monthly` tinyint(4) NOT NULL DEFAULT '0'
+  `Monthly` tinyint(4) NOT NULL DEFAULT '0',
+  `Weekly` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 CREATE TABLE `paiement` (

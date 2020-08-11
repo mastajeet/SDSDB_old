@@ -25,6 +25,11 @@ class EmployeeService
     public function getViewEmployeeURI($IDEmploye){
         return 'index.php?Section=Employe&IDEmploye='.$IDEmploye;
     }
+    //    public function getViewEmployeeURI($IDEmploye){
+//        return 'api_de_yann.com/employe/<IDEmploye>
+//    }
+
+
 
     private function getWorkableEmployeWithHighestQualificationDataFromDBQuery($shift_datetime)
     {

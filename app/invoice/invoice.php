@@ -10,6 +10,7 @@ class Invoice extends BaseModel implements customerTransaction
     public $Interest;
     public $AvanceClient;
     public $Monthly;
+    public $Weekly;
     public $Paye;
     public $IDFacture;
     public $Sequence;
@@ -123,6 +124,10 @@ class Invoice extends BaseModel implements customerTransaction
         return $this->Monthly==1;
     }
 
+    function isWeekly(){
+        return $this->Weekly==1;
+    }
+
     # This function is overloaded in the specific class. Different behavior...
     function is_shift(){
         return false;
@@ -192,6 +197,14 @@ class Invoice extends BaseModel implements customerTransaction
                 "notes"=>$detail,
                 "debit"=>$balance['total']*$this->is_debit(),
                 "credit"=>$balance['total']*$this->is_credit());
+    }
+
+
+    function getBeginningOfBillablePeriod()
+    {
+        $beggining_datetime = new DateTime("@".$this->Semaine);
+
+        return $beggining_datetime;
     }
 
     private function lazyLoadInvoiceItems()

@@ -5,7 +5,8 @@ require_once('helper/ItemService.php');
 
 class TestInvoiceItemFormFieldRendererFactory extends PHPUnit_Framework_TestCase
 {
-    const A_SHIFT_INVOICE_ID = 1337;
+    const A_WEEKLY_SHIFT_INVOICE_ID = 1337;
+    const A_MONTHLY_SHIFT_INVOICE_ID = 1336;
     const AN_EQUIPMENT_INVOICE_ID = 1359;
     const A_CREDIT_ID = 1347;
     private $invoice_item_form_field_renderer_factory;
@@ -17,17 +18,17 @@ class TestInvoiceItemFormFieldRendererFactory extends PHPUnit_Framework_TestCase
         $this->invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory(new TimeService(), new ItemService());
     }
 
-    function test_givenShiftInvoiceId_whenGetInsertInvoiceItemFormFieldRenderer_thenObtainTimedInvoiceFormFieldRenderer()
+    function test_givenMonthlyInvoiceId_whenGetInsertInvoiceItemFormFieldRenderer_thenObtainTimedInvoiceFormFieldRenderer()
     {
-        $renderer = $this->invoice_item_form_field_renderer_factory->getInsertInvoiceItemFormFieldRenderer(self::A_SHIFT_INVOICE_ID);
+        $renderer = $this->invoice_item_form_field_renderer_factory->getInsertInvoiceItemFormFieldRenderer(self::A_MONTHLY_SHIFT_INVOICE_ID);
 
         $this->assertInstanceOf(TimedInvoiceItemFormFieldsRenderer::class, $renderer);
     }
 
-    function test_givenShiftInvoiceId_whenGetUpdateInvoiceItemFormFieldRenderer_thenObtainTimedInvoiceFormFieldRenderer()
+    function test_givenWeeklyInvoiceId_whenGetUpdateInvoiceItemFormFieldRenderer_thenObtainTimedInvoiceFormFieldRenderer()
     {
 
-        $renderer = $this->invoice_item_form_field_renderer_factory->getUpdateInvoiceItemFormFieldRenderer(self::A_SHIFT_INVOICE_ID);
+        $renderer = $this->invoice_item_form_field_renderer_factory->getUpdateInvoiceItemFormFieldRenderer(self::A_WEEKLY_SHIFT_INVOICE_ID);
 
         $this->assertInstanceOf(TimedInvoiceItemFormFieldsRenderer::class, $renderer);
     }

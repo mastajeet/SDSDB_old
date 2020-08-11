@@ -77,13 +77,18 @@ class TimeService {
         $initial_month = $start_of_week->format('m');
         $current_day = clone $start_of_week;
         $switch_day = 0;
-        do{
-            $current_day->add(new DateInterval("P1D"));
-            $switch_day++;
-            if($switch_day>7){
-                throw new UnexpectedValueException(NO_CHANGE_OF_MONTH);
-            }
-        }while($current_day->format('m')==$initial_month);
+
+        if($start_of_week->format('d')==1){
+            return 0;
+        }else{
+            do{
+                $current_day->add(new DateInterval("P1D"));
+                $switch_day++;
+                if($switch_day>7){
+                    throw new UnexpectedValueException(NO_CHANGE_OF_MONTH);
+                }
+            }while($current_day->format('m')==$initial_month);
+        }
 
         return $switch_day;
     }
@@ -130,6 +135,20 @@ class TimeService {
             "5"=>"Vendredi",
             "6"=>"Samedi",
         );
+    }
+
+    public function getNumberedDayOfMonthArray($beginning_of_month_datetime){
+        $initial_month = $beginning_of_month_datetime->format('n');
+        $current_day = $beginning_of_month_datetime->format('w');
+        $current_datetime = clone $beginning_of_month_datetime;
+        $day_of_month_array = array();
+        do{
+            $day_of_month_array[$current_day] = $current_datetime->format('j');
+            $current_day++;
+        }while($current_datetime->add(new DateInterval("P1D"))->format('n')==$initial_month);
+
+        return $day_of_month_array;
+
     }
 }
 

@@ -8,6 +8,8 @@ class WeeklyInvoice extends ShiftInvoice implements TimeFacture{
     function __construct($Args)
     {
         parent::__construct($Args);
+        $this->Weekly = 1;
+        $this->updated_values[] = "Weekly";
     }
 
     function get_billable_shift($installation){

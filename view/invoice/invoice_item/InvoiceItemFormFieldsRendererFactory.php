@@ -36,8 +36,13 @@ class InvoiceItemFormFieldsRendererFactory
         $invoice = InvoiceFactory::getTypedInvoice(new Invoice($invoice_id));
         if ($invoice instanceof ShiftInvoice)
         {
-            // Need to handle monthly invoice, however current app does not. No regression here
-            $day_array = $this->time_service->getNumberedDayOfWeekArray();
+            if($invoice instanceof WeeklyInvoice)
+            {
+                $day_array = $this->time_service->getNumberedDayOfWeekArray();
+            }elseif($invoice instanceof MonthlyInvoice){
+                $day_array = $this->time_service->getNumberedDayOfMonthArray($invoice->getBeginningOfBillablePeriod());
+            }
+
             $renderer = new TimedInvoiceItemFormFieldsRenderer($day_array);
         } else {
             $renderer = new CountableInvoiceItemFormFieldsRenderer();

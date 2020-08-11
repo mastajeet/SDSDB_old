@@ -13,6 +13,7 @@ class Employee extends BaseModel
     public $Cell;
     private $vacations;
 
+
     static function define_table_info(){
         return array("model_table" => "employe",
             "model_table_id" => "IDEmploye");

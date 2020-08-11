@@ -480,7 +480,7 @@ SWITCH($Section){
         $content_array['billed_to'] = $billing_responsible_details["customer_name"];
 
         $content_array['billing_contact'] = $billing_responsible_details["responsible_name"]."<br>".$billing_responsible_details["responsible_address"] ;
-        $content_array['billing_period_datetime'] = new DateTime("@".$typed_invoice->Semaine);
+        $content_array['billing_period_datetime'] = $typed_invoice->getBeginningOfBillablePeriod();
         $content_array['fax_number'] = $customer->Fax;
         $content_array['email_address'] = $customer->Email;
 

@@ -8,11 +8,12 @@ class MonthlyInvoice extends ShiftInvoice implements TimeFacture{
     public $start_of_billable_time;
     public $time_service;
 
-    function __construct($Args, $start_of_billable_time)
+    function __construct($Args)
     {
         parent::__construct($Args);
         $this->Monthly = 1;
-        $this->start_of_billable_time = $start_of_billable_time;
+        $this->updated_values[] = "Monthly";
+
         $this->time_service = new TimeService();
     }
 
@@ -25,7 +26,7 @@ class MonthlyInvoice extends ShiftInvoice implements TimeFacture{
     }
 
     function get_billable_shift($installation){
-        $weeks_of_month = $this->time_service->get_weeks_of_month($this->start_of_billable_time);
+        $weeks_of_month = $this->time_service->get_weeks_of_month($this->getBeginningOfBillablePeriod());
 
         $shift_for_first_week = $this->get_billable_shift_for_first_week($installation, array_slice($weeks_of_month, 0, 1 )[0]);
         $shift_for_middle_weeks = $this->get_billable_shift_for_middle_week($installation, array_slice($weeks_of_month, 1, -1 ));
@@ -85,5 +86,14 @@ class MonthlyInvoice extends ShiftInvoice implements TimeFacture{
         }
 
         return $shift_to_bill;
+    }
+
+    function getBeginningOfBillablePeriod()
+    {
+        $beggining_datetime = new DateTime("@".$this->Semaine);
+        $swich_day = $this->time_service->get_week_day_that_changes_month($beggining_datetime);
+        $beggining_datetime->add(new DateInterval("P".$swich_day."D"));
+
+        return $beggining_datetime;
     }
 }
