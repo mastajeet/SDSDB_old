@@ -9,6 +9,7 @@ class Invoice extends BaseModel implements customerTransaction
     public $Materiel;
     public $Interest;
     public $AvanceClient;
+    public $Monthly;
     public $Paye;
     public $IDFacture;
     public $Sequence;
@@ -116,6 +117,10 @@ class Invoice extends BaseModel implements customerTransaction
 
     function is_paid(){
         return $this->Paye==1;
+    }
+
+    function isMonthly(){
+        return $this->Monthly==1;
     }
 
     # This function is overloaded in the specific class. Different behavior...

@@ -139,7 +139,7 @@ class TestDossierFacturation extends PHPUnit_Framework_TestCase
     function test_givenYear_whenFindByYear_thenGetAllDossierForAllCotesThatHaveFactureOrPayments(){
         $dossiers_facturation = DossierFacturation::find_all_dossiers_facturation_by_year($this::UNE_ANNEE_DE_FACTURATION);
 
-        $this->assertEquals(sizeof($dossiers_facturation), 9);
+        $this->assertEquals(sizeof($dossiers_facturation), 10);
     }
 
     function test_givenYearWithUnpaidFacture_whenGetUnpaidFacture_thenObtainListofUnpaiddFacture(){

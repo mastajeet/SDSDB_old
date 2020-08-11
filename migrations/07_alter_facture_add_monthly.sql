@@ -1,0 +1,1 @@
+ALTER TABLE `facture` ADD `Monthly` TINYINT NOT NULL DEFAULT '0' AFTER `Interest`

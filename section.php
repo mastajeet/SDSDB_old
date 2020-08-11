@@ -505,12 +505,6 @@ SWITCH($Section){
         BREAK;
     }
 
-    CASE "Display_Facture":{
-
-        include('display_facture.php');
-        BREAK;
-    }
-
     CASE "Close_Saison":{
         include('close_saison_form.php');
         BREAK;

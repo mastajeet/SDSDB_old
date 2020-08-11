@@ -11,7 +11,8 @@ class MonthlyInvoice extends ShiftInvoice implements TimeFacture{
     function __construct($Args, $start_of_billable_time)
     {
         parent::__construct($Args);
-        $this->start_of_billable_time = $start_of_billable_time;
+        $this->Monthly = 1;
+//        $this->start_of_billable_time = $start_of_billable_time;
         $this->time_service = new TimeService();
     }
 

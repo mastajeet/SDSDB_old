@@ -41,6 +41,7 @@ class TestCustomer extends PHPUnit_Framework_TestCase
         $this->assertTrue($customer_with_outstanding_balance->has_outstanding_balance($this->A_YEAR, $this->A_TOLERANCE));
     }
 
+
     function test_givenCustomerWithoutOutstandingBalance_whenHasOutstadingBalance_thenReturnFalse(){
         $customer_with_outstanding_balance = new Customer(18);
 
