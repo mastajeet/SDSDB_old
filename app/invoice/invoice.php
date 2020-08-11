@@ -202,7 +202,7 @@ class Invoice extends BaseModel implements customerTransaction
 
     function getBeginningOfBillablePeriod()
     {
-        $beggining_datetime = new DateTime("@".$this->Semaine);
+        $beggining_datetime = new DateTime("@".$this->EnDate);
 
         return $beggining_datetime;
     }

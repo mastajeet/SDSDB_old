@@ -47,10 +47,10 @@ class HeaderRendererFactory
         return new TitleRenderer($invoice);
     }
 
-    private function getSummaryDetailsRenderer(Invoice $invoice, Customer $customer, $company)
+    private function getSummaryDetailsRenderer(Invoice $invoice, $company)
     {
         $cote_renderer = $this->getCoteRenderer($invoice, $company);
-        $billing_period_renderer = $this->getBillingPeriodRenderer($customer);
+        $billing_period_renderer = $this->getBillingPeriodRenderer($invoice);
 
         return new InvoiceSummaryDetailsRenderer($cote_renderer, $billing_period_renderer);
     }
@@ -67,16 +67,19 @@ class HeaderRendererFactory
         return new CoteRenderer($invoice, $company);
     }
 
-    private function getBillingPeriodRenderer(Customer $customer)
+    private function getBillingPeriodRenderer(Invoice $invoice)
     {
-        if($customer->FrequenceFacturation == "M")
+        if($invoice->isMonthly())
         {
             return new MonthlyBillingPeriodRenderer();
         }
-        elseif($customer->FrequenceFacturation == "H")
+        elseif($invoice->isWeekly())
         {
             return new WeeklyBillingPeriodRenderer($this->time_service);
+        }else{
+            return new EmptyHTMLContainerRenderer();
         }
+
 
         throw new UnexpectedValueException();
     }

@@ -31,9 +31,8 @@ class InvoiceSummaryDetailsRenderer extends HTMLContainerRenderer
         $this->html_container->AddTexte("Facturé le: ",'Titre');
 
         $this->html_container->AddTexte(date_format($billing_datetime,'j-m-Y'));
-        $this->html_container->br();
-        $this->html_container->AddTexte("Pour la période: ",'Titre');
-        $this->html_container->AddTexte($this->billing_period_renderer->render());
+
+        $this->html_container->AddOutput($this->billing_period_renderer->render(),0);
 
     }
 }

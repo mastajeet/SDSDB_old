@@ -17,6 +17,10 @@ class WeeklyBillingPeriodRenderer extends HTMLContainerRenderer
         $end_points = $this->time_service->get_week_endpoints_from_timestamp($datetime->getTimestamp());
         $start_of_week = date_Format($end_points['start_of_week'], "d-M-y");
         $end_of_week = date_Format($end_points['end_of_week'], "d-M-y");
+
+
+        $this->html_container->br();
+        $this->html_container->AddTexte("Pour la période: ",'Titre');
         $this->html_container->addtexte($start_of_week." au ".$end_of_week);
     }
 }

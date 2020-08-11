@@ -25,4 +25,11 @@ class WeeklyInvoice extends ShiftInvoice implements TimeFacture{
 
         return $billable_shift;
     }
+
+    function getBeginningOfBillablePeriod()
+    {
+        $beggining_datetime = new DateTime("@".$this->Semaine);
+
+        return $beggining_datetime;
+    }
 }

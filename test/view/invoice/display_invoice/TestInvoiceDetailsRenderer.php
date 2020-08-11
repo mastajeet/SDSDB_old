@@ -71,10 +71,7 @@ class TestInvoiceDetailsRenderer extends PHPUnit_Framework_TestCase
  
 <span class=Titre>Facturé le: </span> 
 <span class=texte>12-03-2020</span> 
-<br />
  
-<span class=Titre>Pour la période: </span> 
-<span class=texte></span> 
 ';
     }
 

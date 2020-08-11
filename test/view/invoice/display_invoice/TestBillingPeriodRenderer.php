@@ -23,7 +23,11 @@ class TestBillingPeriodRenderer extends PHPUnit_Framework_TestCase
 
         $html_output = $renderer->render();
 
-        $this->assertEquals("<span class=texte>April</span> \n", $html_output);
+        $this->assertEquals("<br />
+ 
+<span class=Titre>Pour la période: </span> 
+<span class=texte>April</span> 
+", $html_output);
     }
 
     function test_GivenBuiltWeeklyBillingPeriodRenderer_WhenRender_ObtainStringOfEndPointsOfWeek()
@@ -33,6 +37,10 @@ class TestBillingPeriodRenderer extends PHPUnit_Framework_TestCase
 
         $html_output = $renderer->render();
 
-        $this->assertEquals("<span class=texte>08-Apr-07 au 14-Apr-07</span> \n", $html_output);
+        $this->assertEquals("<br />
+ 
+<span class=Titre>Pour la période: </span> 
+<span class=texte>08-Apr-07 au 14-Apr-07</span> \n", $html_output);
     }
+
 }
