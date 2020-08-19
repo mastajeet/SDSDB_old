@@ -2,6 +2,7 @@
 sdsdb.sql
 sdsdb_mtl.sql
 *.log
+/forceutf8/*
 /vendor/*
 /css/*
 css

@@ -1,0 +1,50 @@
+<?php
+
+CONST QUEBEC_CITY = 1;
+CONST MONTREAL_CITY = 2;
+CONST TROIS_RIVIERE_CITY = 3;
+CONST QUEBEC_PROVINCE = 1;
+
+
+CONST UNIVERSITY_REGEX = "@Uni@";
+CONST CEGEP_REGEX = "@GEP@";
+CONST SECONDAIRE_REGEX = "@Sec@";
+CONST BUREAU_REGEX = "@Bur@";
+CONST FULL_TIME_REGEX = "@Tem@";
+
+CONST POSTAL_CODE_REGEX = "@[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]@";
+
+CONST QUEBEC_CITY_REGEX = "@[qQ](?:u[\W]?[\w]+)?[Cc]@";
+CONST MONTREAL_CITY_REGEX = "@[Mm](?:on)?[Tt]r?[\W]?(?:[\w]+)?[Ll]@";
+CONST TR_CITY_REGEX = "@[Tt][Rr](?:ois-)?@";
+
+$secteurIdConversion = array(
+15=> 1,
+1=> 2,
+29=> 3,
+2=> 4,
+9=> 5,
+6=> 6,
+28=> 7,
+4=> 8,
+23=> 9,
+25=>10,
+5=>11,
+19=>12,
+11=>13,
+8=>14,
+31=>15,
+32=>16,
+30=>17,
+14=>18,
+10=>19,
+3=>20,
+27=>21,
+21=>22,
+12=>23,
+13=>24,
+22=>25,
+17=>26,
+7=>27,
+26=>28,
+18=>29);

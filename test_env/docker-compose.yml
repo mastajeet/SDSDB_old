@@ -31,7 +31,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=lolk1234
     ports:
-      - 3306:3306
+      - 7306:3306
     volumes:
       - ./init_test/:/docker-entrypoint-initdb.d:ro
 

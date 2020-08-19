@@ -38,7 +38,7 @@ if(isset($_POST['FORMGenerateCote']) and isset($_POST['FORMMois'])){
 		$MainOutput->inputhidden_env('Section','Generate_Facture_Mensuelle');
         $MainOutput->inputselect('Mois',ConstantArray::get_month_kvp(),$now->format('m')-1, "Facturer le mois de:");
         $MainOutput->InputRadio('GenerateCote',$Installation,'','Piscine','VER');
-		$MainOutput->formsubmit('Créer');
+		$MainOutput->formsubmit('Crï¿½er');
 	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
 	$MainOutput->CloseTable();
