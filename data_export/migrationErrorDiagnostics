@@ -1,0 +1,8 @@
+select first_name, last_name, number from person left join employee on employee.person_id = person.id;
+
+
+select v.number, v.first_name, v.last_name, v.email,  user.email
+
+from (select person.id as id, first_name, last_name, email, number from person left join employee on employee.person_id = person.id) v
+        left join user
+    on v.id = user.person_id;

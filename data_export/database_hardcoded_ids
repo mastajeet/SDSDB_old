@@ -14,7 +14,7 @@ CONST FULL_TIME_REGEX = "@Tem@";
 
 CONST POSTAL_CODE_REGEX = "@[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]@";
 
-CONST QUEBEC_CITY_REGEX = "@[qQ](?:u[\W]?[\w]+)?[Cc]@";
+CONST QUEBEC_CITY_REGEX = "@[qQ]@";
 CONST MONTREAL_CITY_REGEX = "@[Mm](?:on)?[Tt]r?[\W]?(?:[\w]+)?[Ll]@";
 CONST TR_CITY_REGEX = "@[Tt][Rr](?:ois-)?@";
 

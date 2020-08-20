@@ -5,6 +5,7 @@ include_once('data_export/database_hardcoded_ids');
 include_once('data_export/DTOGenerators.php');
 include_once('data_export/postRequest.php');
 include_once('data_export/getAuthenticationToken.php');
+include_once('data_export/handleApiViolations.php');
 include_once('mysql_class_qc.php');
 
 
@@ -41,19 +42,31 @@ $classSql->Select($get_employees_query);
 $authorization_header = getAuthenticationToken();
 
 $errors = array();
+$violations = array();
+$nbUserDoneSinceLastTokenRetrieval = 0;
 while($cursorEmployee =  $classSql->FetchAssoc())
 {
+    if($nbUserDoneSinceLastTokenRetrieval>500)
+    {
+        $nbUserDoneSinceLastTokenRetrieval = 0;
+        $authorization_header = getAuthenticationToken();
+    }else{
+        $nbUserDoneSinceLastTokenRetrieval++;
+    }
 
+    $employeeIdFromSDSDB = $cursorEmployee['IDEmploye'];
 
     #Address
     $adresseDTO = getAddressDTO($cursorEmployee, $secteurIdConversion, $errors);
     $response = postRequest(ADRESS_END_POINT, $authorization_header, $adresseDTO);
     $addressEntity = json_decode($response,True);
+    extractViolationFromResponse($violations,ADRESS_END_POINT, $employeeIdFromSDSDB, $addressEntity);
 
     #Person
     $personDTO = getPersonDTO($cursorEmployee, $errors);
     $response = postRequest(PERSON_END_POINT, $authorization_header, $personDTO);
     $personEntity = json_decode($response,True);
+    extractViolationFromResponse($violations,PERSON_END_POINT, $employeeIdFromSDSDB, $personEntity);
 
     #User
 
@@ -70,6 +83,7 @@ while($cursorEmployee =  $classSql->FetchAssoc())
         'company'=>[SDS_QC_IRI]);
     $response = postRequest(USERS_ENDPOINT, $authorization_header, $userDTO);
 
+    extractViolationFromResponse($violations,USERS_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
 
 
 
@@ -92,6 +106,7 @@ while($cursorEmployee =  $classSql->FetchAssoc())
         $homephoneNumberEntity = json_decode($response, true);
 
         $response = postRequest(PERSON_PHONE_NUMBER_ENDPOINT, $authorization_header,array('person'=>$personEntity['@id'], 'phoneNumber'=>$homephoneNumberEntity['@id'],'personPhoneNumberType'=>TELEPHONE_MAISON_IRI) );
+        extractViolationFromResponse($violations,PERSON_PHONE_NUMBER_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
     }
 
     if($cursorEmployee['Cell']<>""){
@@ -99,26 +114,30 @@ while($cursorEmployee =  $classSql->FetchAssoc())
         $cellphoneNumberEntity = json_decode($response, true);
 
         $response = postRequest(PERSON_PHONE_NUMBER_ENDPOINT, $authorization_header,array('person'=>$personEntity['@id'], 'phoneNumber'=>$cellphoneNumberEntity['@id'],'personPhoneNumberType'=>TELEPHONE_CELLULAIRE_IRI) );
+        extractViolationFromResponse($violations,PERSON_PHONE_NUMBER_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
     }
 
-    #EmployeeStatus
-    $employeeStatusId = getEmployeeStatusId($cursorEmployee, $errors);
-    $employeeStatusIRI = STATUS_IRI_BASE.$employeeStatusId;
 
     #Employee
-    $employeeDTO = getEmployeDTO($cursorEmployee,$personEntity['@id'], $employeeStatusIRI,  SDS_QC_IRI, $errors);
+    $employeeDTO = getEmployeDTO($cursorEmployee,$personEntity['@id'], SDS_QC_IRI, $errors);
     $response = postRequest(EMPLOYEE_END_POINT, $authorization_header,$employeeDTO );
     $employeeEntity = json_decode($response, True);
+    extractViolationFromResponse($violations,EMPLOYEE_END_POINT, $employeeIdFromSDSDB, $employeeEntity);
 
     #Salaires
     $response = postRequest(EMPLOYEE_TASK_CATEGORY_SALARY_ENDPOINT, $authorization_header,array('employee'=>$employeeEntity["@id"], 'taskCategory'=>BUREAU_TASK_CATEGORY_NAME_IRI, 'salary'=>$cursorEmployee['SalaireB']) );
+    extractViolationFromResponse($violations,EMPLOYEE_TASK_CATEGORY_SALARY_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
     $response = postRequest(EMPLOYEE_TASK_CATEGORY_SALARY_ENDPOINT, $authorization_header,array('employee'=>$employeeEntity["@id"], 'taskCategory'=>SAUVETEUR_TASK_CATEGORY_NAME_IRI, 'salary'=>$cursorEmployee['SalaireS']) );
+    extractViolationFromResponse($violations,EMPLOYEE_TASK_CATEGORY_SALARY_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
     $response = postRequest(EMPLOYEE_TASK_CATEGORY_SALARY_ENDPOINT, $authorization_header,array('employee'=>$employeeEntity["@id"], 'taskCategory'=>ASSISTANT_TASK_CATEGORY_NAME_IRI, 'salary'=>$cursorEmployee['SalaireA']) );
+    extractViolationFromResponse($violations,EMPLOYEE_TASK_CATEGORY_SALARY_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
 
     #Notes
     if($cursorEmployee['Notes']<>"")
     {
+        $safeNote =
         $response = postRequest(NOTES_ENDPOINT,  $authorization_header,array('employee'=>$employeeEntity["@id"], 'note'=>$cursorEmployee['Notes']));
+        extractViolationFromResponse($violations,NOTES_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
     }
 
     #Qualifications
@@ -130,8 +149,9 @@ while($cursorEmployee =  $classSql->FetchAssoc())
         $qualificationDTO = getQualificationDTO($cursorQualification, $personEntity["@id"], $qualificationIRI);
 
         $response = postRequest(PERSON_QUALIFICATION_ENDPOINT, $authorization_header, $qualificationDTO);
+        extractViolationFromResponse($violations,NOTES_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
     }
 
 }
-
+print_r($violations);
 print_r($errors);

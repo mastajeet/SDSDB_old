@@ -84,15 +84,19 @@ function getPersonDTO(array $cursor, &$errors)
     return $employeeDTO;
 }
 
-function getEmployeDTO(array $cursor, $PersonIRI, $statusIRI, $companyIRI,  &$errors)
+function getEmployeDTO(array $cursor, $PersonIRI, $companyIRI,  &$errors)
 {
     $employeeDTO = array();
     $employeeDTO['number'] = $cursor["IDEmploye"];
-    $employeeDTO['status'] = $statusIRI;
+
+    $employeeStatus = getEmployeeStatusId($cursor, $errors);
+    if(!is_null($employeeStatus)){
+        $employeeDTO['status'] =  STATUS_IRI_BASE.$employeeStatus;
+    }
     $employeeDTO['person'] = $PersonIRI;
     $employeeDTO['company'] = $companyIRI;
     $employeeDTO['isTerminated'] = $cursor["Cessation"]==1 ? True : False;
-    $employeeDTO['motiveOfTermination'] = $cursor["Raison"];
+    $employeeDTO['motiveOfTermination'] = Encoding::toUTF8($cursor["Raison"]);
     $employeeDTO['hiringDate'] = date("c", $cursor['DateEmbauche']);
     $employeeDTA['status'] = "";
     return $employeeDTO;
@@ -113,7 +117,7 @@ function getEmployeeStatusId($cursor, &$errors)
     $isCEGEP =  preg_match_all(CEGEP_REGEX, $cursor['Status']);
     $isUniversite =  preg_match_all(UNIVERSITY_REGEX, $cursor['Status']);
     $isBureau =  preg_match_all(BUREAU_REGEX, $cursor['Status']);
-
+    $statusId= null;
     if($isFullTime)
     {
         $statusId = "1";
