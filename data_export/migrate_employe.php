@@ -1,5 +1,8 @@
 <?php
 
+    error_reporting(E_STRICT);
+//ini_set('display_errors', );
+
 include_once("forceutf8/Encoding.php");
 include_once('data_export/database_hardcoded_ids');
 include_once('data_export/DTOGenerators.php');
@@ -50,6 +53,7 @@ while($cursorEmployee =  $classSql->FetchAssoc())
     {
         $nbUserDoneSinceLastTokenRetrieval = 0;
         $authorization_header = getAuthenticationToken();
+        print("renewing token");
     }else{
         $nbUserDoneSinceLastTokenRetrieval++;
     }
@@ -80,7 +84,7 @@ while($cursorEmployee =  $classSql->FetchAssoc())
         'roles'=>[$role],
         'plainPassword'=> substr($personDTO['nas'],-3),
         'person'=>$personEntity["@id"],
-        'company'=>[SDS_QC_IRI]);
+        'companies'=>[SDS_QC_IRI]);
     $response = postRequest(USERS_ENDPOINT, $authorization_header, $userDTO);
 
     extractViolationFromResponse($violations,USERS_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
@@ -135,8 +139,8 @@ while($cursorEmployee =  $classSql->FetchAssoc())
     #Notes
     if($cursorEmployee['Notes']<>"")
     {
-        $safeNote =
-        $response = postRequest(NOTES_ENDPOINT,  $authorization_header,array('employee'=>$employeeEntity["@id"], 'note'=>$cursorEmployee['Notes']));
+        $safeNote =  ForceUTF8\Encoding::toUTF8($cursorEmployee['Notes']);
+        $response = postRequest(NOTES_ENDPOINT,  $authorization_header,array('employee'=>$employeeEntity["@id"], 'note'=>$safeNote));
         extractViolationFromResponse($violations,NOTES_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
     }
 
@@ -151,6 +155,8 @@ while($cursorEmployee =  $classSql->FetchAssoc())
         $response = postRequest(PERSON_QUALIFICATION_ENDPOINT, $authorization_header, $qualificationDTO);
         extractViolationFromResponse($violations,NOTES_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
     }
+
+    print($employeeIdFromSDSDB." : Done \n");
 
 }
 print_r($violations);

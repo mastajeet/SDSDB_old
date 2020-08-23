@@ -6,7 +6,7 @@ include_once('view/invoice/invoice_item/CountableInvoiceItemFormFieldsRenderer.p
 class InvoiceItemFormFieldsRendererFactory
 {
     private $time_service;
-    private $item_service;
+
 
     function __construct(TimeService $time_service, ItemService $item_service)
     {

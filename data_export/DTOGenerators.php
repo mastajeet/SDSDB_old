@@ -75,9 +75,10 @@ function getPersonDTO(array $cursor, &$errors)
     $employeeDTO['dateOfBirth'] = date("c", $dateOfBirthTimeStamp);
     if ($cursor['Email'] <> "")
     {
-        $employeeDTO['email'] = $cursor['Email'];
+        $employeeDTO['email'] = strtolower($cursor['Email']);
     }else{
-        $employeeDTO['email'] =  $cursor['Nom']."@".$cursor['Prenom'].".".$cursor['IDEmploye'];
+        $replacementEmail = $cursor['Nom']."@".$cursor['Prenom'].".".$cursor['IDEmploye'];
+        $employeeDTO['email'] =  strtolower($replacementEmail);
         $errors[] = "PERSON - Employe " . $cursor['IDEmploye'] . " doesn't have a valid email";
     }
 
