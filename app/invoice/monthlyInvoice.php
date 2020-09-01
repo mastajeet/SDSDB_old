@@ -75,7 +75,7 @@ class MonthlyInvoice extends ShiftInvoice implements TimeFacture{
         try {
             $switch_day = $this->time_service->get_week_day_that_changes_month($last_week_datetime);
         }catch (Exception $exception){
-            $switch_day = 6; #Le dernier jour etait encore dans le bon mois
+            $switch_day = 7; #Le dernier jour etait encore dans le bon mois
         }
 
         $shift_query = "SELECT IDShift from shift WHERE IDInstallation=".$installation->IDInstallation." and Facture=0 and Semaine=".$last_week_datetime->getTimestamp()." and Jour < ".$switch_day;
