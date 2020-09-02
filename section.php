@@ -1,6 +1,6 @@
 <?PHP
 
-const INSERT_INVOICE_ITEM_FORM_TITLE = "Ajouter un item à la facture {cote_seq}";
+const INSERT_INVOICE_ITEM_FORM_TITLE = "Ajouter un item ï¿½ la facture {cote_seq}";
 const UPDATE_INVOICE_ITEM_FORM_TITLE = "Modifier l'item #{invoice_item_id} de la facture {cote_seq}";
 SWITCH($Section){
 
@@ -121,7 +121,11 @@ SWITCH($Section){
 
     CASE "DossierFacturation_DisplayAccountStatement":{
         $year = intval(date("Y"));
-        $number_of_shown_transactions = 15;
+        if(!isset($_GET['nb'])){
+            $number_of_shown_transactions = 15;
+        }else{
+            $number_of_shown_transactions = $_GET['nb'];
+        }
         if(isset($_GET['year'])){
             $year = intval($_GET['year']);
         }
@@ -229,7 +233,7 @@ SWITCH($Section){
         foreach($customers_with_outstanding_balance as $customer){
             $solde = 0;
             foreach($customer->dossier_facturation as $dossier_facturation){
-                $solde += $dossier_facturation->get_balance_details()["balance"]; // je devrais mettre une méthode dans le customer qui pogne la balance detail
+                $solde += $dossier_facturation->get_balance_details()["balance"]; // je devrais mettre une mï¿½thode dans le customer qui pogne la balance detail
             }
             $customer_dtos[] = ["name"=>$customer->Nom, "cote"=>$customer->Cote, "balance"=>$solde];
             $total_recevable += $solde;
