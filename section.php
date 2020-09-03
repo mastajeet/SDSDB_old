@@ -121,11 +121,7 @@ SWITCH($Section){
 
     CASE "DossierFacturation_DisplayAccountStatement":{
         $year = intval(date("Y"));
-        if(!isset($_GET['NB'])){
-            $number_of_shown_transactions = 15;
-        }else{
-            $number_of_shown_transactions = $_GET['nb'];
-        }
+        
         if(isset($_GET['year'])){
             $year = intval($_GET['year']);
         }
