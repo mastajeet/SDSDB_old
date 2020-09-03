@@ -24,7 +24,7 @@ const NOTES_ENDPOINT = "http://sdsdb_nginx_1/api/employee_notes";
 const STATUS_IRI_BASE = "/api/employee_statuses/";
 const QUALIFICATION_IRI_BASE = "/api/qualifications/";
 const USERS_ENDPOINT=  "http://sdsdb_nginx_1/api/users";
-const COMPANY_USERS__ENDPOINT=  "http://sdsdb_nginx_1/api/users";
+const COMPANY_USERS_ENDPOINT=  "http://sdsdb_nginx_1/api/users";
 
 
 const BUREAU_TASK_CATEGORY_NAME_IRI = "api/task_categories/1";
@@ -73,7 +73,6 @@ while($cursorEmployee =  $classSql->FetchAssoc())
     extractViolationFromResponse($violations,PERSON_END_POINT, $employeeIdFromSDSDB, $personEntity);
 
     #User
-
     if($cursorEmployee["Status"]=="Bureau"){
         $role = 'ROLE_ADMIN';
     }else{
