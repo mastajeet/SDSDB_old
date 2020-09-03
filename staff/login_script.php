@@ -35,9 +35,22 @@ if(isset($_POST['FORMIDEmploye']) && isset($_POST['FORMNAS'])){
 		}
 
 
-        if( strlen($_POST['FORMNAS'])>0 and (substr($Rep[0],6,3)==$_POST['FORMNAS'] or $encrypted_password==get_vars('MP') or $encrypted_password == $password_getter->get_super_admin_password())){
+        if( strlen($_POST['FORMNAS'])>0 and (substr($Rep[0],6,3)==$_POT['FORMNAS'] or $encrypted_password==get_vars('MP') or $encrypted_password == $password_getter->get_super_admin_password())){
 		setcookie("IDEmploye", $_POST['FORMIDEmploye'], IN_HALF_A_YEAR);
 		setcookie("CIESDS", $_POST['FORMCIESDS'], IN_HALF_A_YEAR);
+		if($_POST['FORMCIESDS']=="QC")
+        {
+            $companyId =1 ;
+        }
+		elseif($_POST['FORMCIESDS']=="MTL")
+        {
+            $companyId =2 ;
+        }
+        elseif($_POST['FORMCIESDS']=="TR")
+        {
+            $companyId =3 ;
+        }
+		setcookie("companyId",$companyId, IN_HALF_A_YEAR);
 
 			?>
 			<script>
