@@ -2,8 +2,16 @@
 namespace employee;
 
 include_once('app/employee/connector/EmployeeDataSourceInterface.php');
+include_once('app/employee/connector/EmployeeDataSourceInterface.php');
 class localDBConnector implements EmployeeDataSourceInterface
 {
+    private $connectorClass;
+
+    function __construct($connectorClass)
+    {
+        $this->connectorClass = $connectorClass;
+    }
+
     function getEmployeeSelectList($company, $datetime=null)
     {
         if(is_null($datetime)){
@@ -57,7 +65,7 @@ class localDBConnector implements EmployeeDataSourceInterface
     }
 
     private function buildEmployeeList($query){
-        $sql_class = new SqlClass();
+        $sql_class =  new $this->connectorClass();
         $sql_class->Select($query);
         $employee_list = [];
 

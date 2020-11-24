@@ -98,6 +98,7 @@ if(isset($_COOKIE['IDEmploye']) AND !isset($_COOKIE['CIESDS'])){
 }
 
 include('view/HTMLContainer.php');
+include_once('apiCredentials.php');
 
 include('func_divers.php');
 include('func_employe.php');
@@ -131,7 +132,10 @@ include_once('app/invoice/InterestInvoice.php');
 include_once('app/horaire/horaire.php');
 include_once('app/horaire/horaireFactory.php');
 include_once('app/Variable.php');
-include_once('app/employee.php');
+
+include_once('app/employeeFromApi.php');
+// include_once('app/employee.php');
+
 include_once('app/Item.php');
 include_once('app/responsable.php');
 include_once('app/Secteur.php');
@@ -142,6 +146,8 @@ include_once('app/payment/payment.php');
 include_once('app/payment/paymentService.php');
 
 include_once('app/employee/EmployeeService.php');
+include_once('app/employee/connector/localDBConnector.php');
+include_once('app/employee/connector/remoteApiConnector.php');
 
 include_once('helper/Authorization.php');
 include_once('helper/PasswordGetter.php');
@@ -174,7 +180,9 @@ $notes = $variable->get_value("NoteFacture");
 $tvq = $variable->get_value("TVQ");
 $tps= $variable->get_value("TPS");
 $session= $variable->get_value("Saison");
-$employee_service = new EmployeeService($session);
+//$employeeSource = new employee\localDBConnector(SqlClass::class);
+$employeeSource = new employee\remoteApiConnector();
+$employee_service = new employee\EmployeeService($_COOKIE['companyId'], $session, $employeeSource);
 
 $invoice_service = new InvoiceService($notes, $tps, $tvq);
 $payment_service  = new PaymentService($invoice_service);

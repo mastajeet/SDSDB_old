@@ -73,11 +73,12 @@ function getPersonDTO(array $cursor, &$errors)
     $employeeDTO['nas'] =  $cursor['NAS'];
     $dateOfBirthTimeStamp =$cursor['DateNaissance'];
     $employeeDTO['dateOfBirth'] = date("c", $dateOfBirthTimeStamp);
-    if ($cursor['Email'] <> "")
+    if ($cursor['Email'] <> "" and filter_var($cursor['Email'], FILTER_VALIDATE_EMAIL))
     {
         $employeeDTO['email'] = strtolower($cursor['Email']);
     }else{
         $replacementEmail = $cursor['Nom']."@".$cursor['Prenom'].".".$cursor['IDEmploye'];
+        $replacementEmail = preg_replace('/[^a-zA-Z0-9_\-@.]/','x', $replacementEmail);
         $employeeDTO['email'] =  strtolower($replacementEmail);
         $errors[] = "PERSON - Employe " . $cursor['IDEmploye'] . " doesn't have a valid email";
     }
@@ -88,7 +89,7 @@ function getPersonDTO(array $cursor, &$errors)
 function getEmployeDTO(array $cursor, $PersonIRI, $companyIRI,  &$errors)
 {
     $employeeDTO = array();
-    $employeeDTO['number'] = $cursor["IDEmploye"];
+    $employeeDTO['number'] = intval($cursor["IDEmploye"]);
 
     $employeeStatus = getEmployeeStatusId($cursor, $errors);
     if(!is_null($employeeStatus)){
@@ -136,7 +137,6 @@ function getEmployeeStatusId($cursor, &$errors)
 
     return $statusId;
 }
-
 
 /**
  * @param array $cursorQualification

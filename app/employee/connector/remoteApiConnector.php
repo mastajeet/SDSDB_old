@@ -3,7 +3,11 @@ namespace employee;
 include_once('app/employee/connector/EmployeeDataSourceInterface.php');
 class remoteApiConnector implements EmployeeDataSourceInterface
 {
-    private $baseApiURL = "http://sdsdb_nginx_1/api";
+
+    private $baseURL = "http://prod.qcnat.o2web.ws";
+    private $baseApiURL = "http://prod.qcnat.o2web.ws/api";
+//    private $baseURL = "http://sdsdb_nginx_1/";
+//    private $baseApiURL = "http://sdsdb_nginx_1/api";
 
     public function __construct()
     {
@@ -13,6 +17,7 @@ class remoteApiConnector implements EmployeeDataSourceInterface
     public function getEmployeeSelectList($company, $datetime = null)
     {
         $employees = $this->getEmployees($company, $datetime);
+
         $employee_list = $this->buildEmployeeList($employees);
 
         return ($employee_list);
@@ -20,15 +25,23 @@ class remoteApiConnector implements EmployeeDataSourceInterface
 
     public function getEmployees($company, $datetime = null)
     {
-        $uri = $this->baseApiURL."/employees?pagination=false&isTerminated=false&company=".$company;
+        $uri = $this->baseURL."/employes/getEmployeeShortView?companyId=".$company;
         $employees = $this->getObjectsFromApi($uri,  $this->authenticationHeader);
 
         return $employees;
     }
 
+    public function getEmployeesSalaries($company)
+    {
+        $uri = $this->baseURL."/employes/getEmployeesSalaries?companyId=".$company;
+        $salaries = $this->getObjectsFromApi($uri,  $this->authenticationHeader);
+
+        return $salaries;
+    }
+
     public function getViewEmployeeURI($IDEmploye)
     {
-        return "http://127.0.0.1/employes";
+        return "http://prod.qcnat.o2web.ws/employes";
     }
 
     private function buildEmployeeList(Array $objectList)
@@ -37,12 +50,14 @@ class remoteApiConnector implements EmployeeDataSourceInterface
 
         foreach($objectList as $employee)
         {
-            $qualifications = "";
-            foreach($employee['qualifications'] as $qualification)
-            {
-                $qualifications. " ".$qualification['qualification']['abbreviation'];
-            }
-            $employee_list[$employee['number']] = $employee['lastName'] . " " . $employee['firstName'] . " [" . $qualifications . "]";
+
+//            $qualifications = "";
+//            foreach($employee['person']['qualifications'] as $qualification)
+//            {
+//                $qualifications .=" ".$qualification['qualification']['abbreviation'];
+//            }
+//            $qualifications = substr($qualifications,1);
+            $employee_list[$employee['number']] = $employee['last_name'] . " " . $employee['first_name']." [".$employee['qualifications']."]";
         }
 
 
@@ -52,11 +67,12 @@ class remoteApiConnector implements EmployeeDataSourceInterface
     static public function getAuthenticationHeader()
     {
         print("AuthCalled");
-        $url = 'http://sdsdb_nginx_1/authentication_token';
+        $url = 'http://prod.qcnat.o2web.ws/authentication_token';
+//        $url = 'http://sdsdb_nginx_1/authentication_token';
         $ch = curl_init($url);
         $data = array(
-            'email' => 'jtbai@admin.com',
-            'password' => 'lolk1234'
+            'email' => API_USER,
+            'password' => API_PASSWORD
         );
         $payload = json_encode($data);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
@@ -68,7 +84,6 @@ class remoteApiConnector implements EmployeeDataSourceInterface
 
         $token = $response_body['token'];
         $authentication_header = "Authorization:Bearer " . $token;
-
         return $authentication_header;
     }
 
@@ -79,7 +94,7 @@ class remoteApiConnector implements EmployeeDataSourceInterface
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
         curl_close($ch);
-        $objects = json_decode($result, true)['hydra:member'];
+        $objects = json_decode($result, true);
         return($objects);
     }
 }

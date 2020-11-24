@@ -31,12 +31,11 @@ $SQL2 = new sqlclass;
 
 
 $Req = "
-SELECT DISTINCT employe.IDEmploye, shift.Assistant, Semaine, Salaire
+SELECT DISTINCT IDEmploye, shift.Assistant, Semaine, Salaire
 FROM shift
-JOIN employe ON shift.IDEmploye = employe.IDEmploye
-WHERE (semaine = '".$S1."' OR semaine = '".$S2."') and employe.IDEmploye<>0
-GROUP BY shift.IDEmploye, Assistant, Salaire
-ORDER BY shift.IDEmploye ASC
+WHERE (semaine = '".$S1."' OR semaine = '".$S2."') and IDEmploye<>0
+GROUP BY IDEmploye, Assistant, Salaire
+ORDER BY IDEmploye ASC
 ";
 
 $SQL->SELECT($Req);

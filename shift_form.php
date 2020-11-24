@@ -1,5 +1,5 @@
 <?PHP
-$MainOutput->addform('Ajouter / Modifier un quart de travail à un horaire officiel');
+$MainOutput->addform('Ajouter / Modifier un quart de travail Ã  un horaire officiel');
 	if(isset($_GET['IDHoraire'])){
 		$MainOutput->inputhidden_env('IDHoraire',$_GET['IDHoraire']);
 	}
@@ -26,20 +26,20 @@ if(isset($_GET['IDHorshift'])){
     $MainOutput->inputhidden_env('IDInstallation',$Info['IDInstallation']);
 	$MainOutput->inputhidden_env('Update',TRUE);
 	$MainOutput->inputhidden_env('IDShift',$_GET['IDShift']);
-    $employe_list = $employee_service->getEmployeSelectList(0,new DateTime("@".$ShiftDay));
+    $employe_list = $employee_service->getEmployeSelectList(1,new DateTime("@".$ShiftDay));
 }else{
     $MainOutput->inputhidden_env('Update',FALSE);
     $Info = array('Salaire'=>'','IDEmploye'=>'','TXH'=>'','Jour'=>'','Start'=>'','End'=>'','Commentaire'=>'','Warn'=>'','Message'=>'','Assistant'=>'0','Confirme'=>0);
-    $employe_list = $employee_service->getEmployeSelectList(0);
+    $employe_list = $employee_service->getEmployeSelectList();
 }
 $CJour = array(0=>'Dimanche',1=>'Lundi',2=>'Mardi',3=>'Mercredi',4=>'Jeudi',5=>'Vendredi',6=>'Samedi');
 $MainOutput->inputselect('Jour',$CJour,$Info['Jour'],'Jour');
-$MainOutput->inputtime('Start','Début',$Info['Start']);
+$MainOutput->inputtime('Start','DÃ©but',$Info['Start']);
 $MainOutput->inputtime('End','Fin',$Info['End']);
 $MainOutput->flag('Assistant',$Info['Assistant']);
 
 
-# Il doit avoir un 60h à mettre pour gérer la logique des shift, et des staffs.
+# Il doit avoir un 60h ï¿½ mettre pour gï¿½rer la logique des shift, et des staffs.
 
 
 
@@ -55,11 +55,11 @@ if($authorization->verifySuperAdmin($_COOKIE)){
 }
 
 $MainOutput->textarea('Commentaire','Commentaire','25','2',$Info['Commentaire']);
-$MainOutput->inputtext('Rec','Nb de récurrences','2');
+$MainOutput->inputtext('Rec','Nb de rÃ©currences','2');
 if($Section=="Shift_Form"){
     $MainOutput->textarea('Message','Message','25','2',$Info['Message']);
-	$MainOutput->textarea('Warn','Pré-shit','25','2',$Info['Warn']);
-	$MainOutput->flag('Confirme',$Info['Confirme'],'Heures Confirmées');
+	$MainOutput->textarea('Warn','PrÃ©-shit','25','2',$Info['Warn']);
+	$MainOutput->flag('Confirme',$Info['Confirme'],'Heures ConfirmÃ©es');
 	}
 $MainOutput->flag('Attach',1,'Attacher les shifts');
 

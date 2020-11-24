@@ -1,12 +1,14 @@
 <?php
-
+#
+#
 function getAuthenticationToken()
 {
-    $url = 'http://sdsdb_nginx_1/authentication_token';
+    $url = 'http://prod.qcnat.o2web.ws/authentication_token';
+//    $url = 'http://sdsdb_nginx_1/authentication_token';
     $ch = curl_init($url);
     $data = array(
-        'email' => 'jtbai@admin.com',
-        'password' => 'lolk1234'
+        'email' => API_USER,
+        'password' => API_PASSWORD
     );
     $payload = json_encode($data);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
