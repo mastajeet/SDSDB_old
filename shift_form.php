@@ -26,7 +26,7 @@ if(isset($_GET['IDHorshift'])){
     $MainOutput->inputhidden_env('IDInstallation',$Info['IDInstallation']);
 	$MainOutput->inputhidden_env('Update',TRUE);
 	$MainOutput->inputhidden_env('IDShift',$_GET['IDShift']);
-    $employe_list = $employee_service->getEmployeSelectList(1,new DateTime("@".$ShiftDay));
+    $employe_list = $employee_service->getEmployeSelectList(new DateTime("@".$ShiftDay));
 }else{
     $MainOutput->inputhidden_env('Update',FALSE);
     $Info = array('Salaire'=>'','IDEmploye'=>'','TXH'=>'','Jour'=>'','Start'=>'','End'=>'','Commentaire'=>'','Warn'=>'','Message'=>'','Assistant'=>'0','Confirme'=>0);
