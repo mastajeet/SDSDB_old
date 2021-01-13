@@ -159,7 +159,7 @@ while($Rep = $SQL->FetchArray()){
 		if($Rep2['IDEmploye']=="0")
 			$Output[$Rep2['Jour']]->addtexte('&nbsp;');
 		else
-			$Output[$Rep2['Jour']]->addlink($employee_service->getViewEmployeeURI($Rep2['IDEmploye']),$Display);
+			$Output[$Rep2['Jour']]->addlink($employee_service->getViewEmployeeURI($Rep2['IDEmploye']),$Display,"employee_card");
 		$Output[$Rep2['Jour']]->closecol();
 		$Output[$Rep2['Jour']]->closerow();
 		$Output[$Rep2['Jour']]->openrow();

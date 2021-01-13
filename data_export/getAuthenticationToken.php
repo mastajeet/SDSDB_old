@@ -1,5 +1,5 @@
 <?php
-#
+include_once("apiCredentials.php");
 #
 function getAuthenticationToken()
 {

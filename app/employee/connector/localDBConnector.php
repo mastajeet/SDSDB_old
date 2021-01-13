@@ -80,4 +80,9 @@ class localDBConnector implements EmployeeDataSourceInterface
     {
         // TODO: Implement getEmployees() method.
     }
+
+    public function getViewEmployeeListURI()
+    {
+        return 'index.php?Section=Employe';
+    }
 }

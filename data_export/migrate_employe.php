@@ -10,7 +10,7 @@ include_once('data_export/postRequest.php');
 include_once('data_export/getAuthenticationToken.php');
 include_once('data_export/handleApiViolations.php');
 include_once('data_export/getPersonEntity.php');
-include_once('mysql_class_tr.php');
+include_once('mysql_class_qc.php');
 
 //const ADRESS_END_POINT = "http://sdsdb_nginx_1/api/addresses";
 //const PERSON_END_POINT = "http://sdsdb_nginx_1/api/people";
@@ -49,7 +49,7 @@ const ASSISTANT_TASK_CATEGORY_NAME_IRI = "api/task_categories/3";
 const TELEPHONE_MAISON_IRI = "api/person_phone_number_types/1";
 const TELEPHONE_CELLULAIRE_IRI = "api/person_phone_number_types/2";
 
-const SDS_QC_IRI = "api/companies/3";
+const SDS_QC_IRI = "api/companies/1";
 
 use \ForceUTF8\Encoding;
 
@@ -93,14 +93,12 @@ while($cursorEmployee =  $classSql->FetchAssoc())
         $nbUserDoneSinceLastTokenRetrieval = 0;
         $authorization_header = getAuthenticationToken();
         print("renewing token");
-    }else{
-        $nbUserDoneSinceLastTokenRetrieval++;
     }
 
     $employeeIdFromSDSDB = $cursorEmployee['IDEmploye'];
 
 //    if($employeeIdFromSDSDB>477 and $employeeIdFromSDSDB<28200) {
-    if($employeeIdFromSDSDB>30) {
+    if($employeeIdFromSDSDB == 2820) {
         print("trying".$employeeIdFromSDSDB." \n");
         $personEntity = getPersonEntity($cursorEmployee, $authorization_header);
         if(is_null($personEntity)) {
@@ -202,7 +200,7 @@ while($cursorEmployee =  $classSql->FetchAssoc())
             extractViolationFromResponse($violations, NOTES_ENDPOINT, $employeeIdFromSDSDB, json_decode($response, true));
         }
 
-
+        $nbUserDoneSinceLastTokenRetrieval++;
         print($employeeIdFromSDSDB." : Done \n");
     }
 

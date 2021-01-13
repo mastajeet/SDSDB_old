@@ -41,7 +41,7 @@ class remoteApiConnector implements EmployeeDataSourceInterface
 
     public function getViewEmployeeURI($IDEmploye)
     {
-        return "http://prod.qcnat.o2web.ws/employes";
+        return "http://prod.qcnat.o2web.ws/employes/?employe=".$IDEmploye;
     }
 
     private function buildEmployeeList(Array $objectList)
@@ -66,7 +66,6 @@ class remoteApiConnector implements EmployeeDataSourceInterface
 
     static public function getAuthenticationHeader()
     {
-        print("AuthCalled");
         $url = 'http://prod.qcnat.o2web.ws/authentication_token';
 //        $url = 'http://sdsdb_nginx_1/authentication_token';
         $ch = curl_init($url);
@@ -96,5 +95,10 @@ class remoteApiConnector implements EmployeeDataSourceInterface
         curl_close($ch);
         $objects = json_decode($result, true);
         return($objects);
+    }
+
+    public function getViewEmployeeListURI()
+    {
+        return $this->baseURL."/employes/";
     }
 }

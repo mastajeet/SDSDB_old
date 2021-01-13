@@ -27,6 +27,10 @@ class EmployeeService
         return $this->dataSource->getViewEmployeeURI($IDEmploye);
     }
 
+    public function getViewEmployeeListURI(){
+        return $this->dataSource->getViewEmployeeListURI();
+    }
+
     public function getEmployeesSalaries(){
         return $this->dataSource->getEmployeesSalaries($this->companyId);
     }

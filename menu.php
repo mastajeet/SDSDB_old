@@ -259,161 +259,161 @@ $MainOutput->OpenCol(20);
 $MainOutput->AddPic('f_cat.png');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('230',3);
-$MainOutput->AddLink('index.php?MenuCat=Employe', EMPLOYEE);
+$MainOutput->AddLink($employee_service->getViewEmployeeListURI(), EMPLOYEE, "employee");
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
 
-
-
-
-if(isset($_GET['MenuCat']) && $_GET['MenuCat']=="Employe"){
-
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND $Section=="EmployeList")
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=EmployeList', EMPLOYEE_LIST);
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND $Section=="Employe")
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Modifie_Employe', ADD_EMPLOYEE);
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-if($authorization->verifySuperAdmin($_COOKIE)){
-        $MainOutput->OpenRow();
-        $MainOutput->OpenCol(20);
-        $MainOutput->AddTexte('&nbsp;');
-        $MainOutput->CloseCol();
-        $MainOutput->OpenCol(20);
-        if(isset($Section) AND $Section=="List_Bureau_Employee")
-            $MainOutput->AddPic('f_open.png');
-        else
-            $MainOutput->AddPic('f_close.png');
-        $MainOutput->CloseCol();
-        $MainOutput->OpenCol('230',2);
-        $MainOutput->AddLink('index.php?MenuSection=List_Bureau_Employee', LIST_BUREAU_EMPLOYEE);
-        $MainOutput->CloseCol();
-        $MainOutput->CloseRow();
-}
-
-
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND $Section=="Add_Qualif")
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Add_Qualif', ADD_QUALIFICATION);
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND ($Section=="BoniCrush" || $Section=="BoniCrushed"))
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=BoniCrush', BONUS_CRUSHER);
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND ($Section== MESSAGE || $Section=="Message_Form"))
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Message', MESSAGE);
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-
-
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND ($Section=="Get_NotWorkingEmployee"))
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Get_NotWorkingEmployee&ToPrint=TRUE', NEXT_SHIFT,'_BLANK');
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND $Section=="Add_Saison")
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Add_Saison','Ajouter une saisons');
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-    $MainOutput->OpenRow();
-    $MainOutput->OpenCol(20);
-    $MainOutput->AddTexte('&nbsp;');
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol(20);
-    if(isset($Section) AND $Section=="Close_Saison")
-        $MainOutput->AddPic('f_open.png');
-    else
-        $MainOutput->AddPic('f_close.png');
-
-    $MainOutput->CloseCol();
-    $MainOutput->OpenCol('230',2);
-    $MainOutput->AddLink('index.php?MenuSection=Close_Saison','Fermer une saison');
-    $MainOutput->CloseCol();
-    $MainOutput->CloseRow();
-
-}
+//
+//
+//
+//if(isset($_GET['MenuCat']) && $_GET['MenuCat']=="Employe"){
+//
+//    $MainOutput->OpenRow();
+//    $MainOutput->OpenCol(20);
+//    $MainOutput->AddTexte('&nbsp;');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol(20);
+//    if(isset($Section) AND $Section=="EmployeList")
+//        $MainOutput->AddPic('f_open.png');
+//    else
+//        $MainOutput->AddPic('f_close.png');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol('230',2);
+//    $MainOutput->AddLink('index.php?MenuSection=EmployeList', EMPLOYEE_LIST);
+//    $MainOutput->CloseCol();
+//    $MainOutput->CloseRow();
+//
+//
+//    $MainOutput->OpenRow();
+//    $MainOutput->OpenCol(20);
+//    $MainOutput->AddTexte('&nbsp;');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol(20);
+//    if(isset($Section) AND $Section=="Employe")
+//        $MainOutput->AddPic('f_open.png');
+//    else
+//        $MainOutput->AddPic('f_close.png');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol('230',2);
+//    $MainOutput->AddLink('index.php?MenuSection=Modifie_Employe', ADD_EMPLOYEE);
+//    $MainOutput->CloseCol();
+//    $MainOutput->CloseRow();
+//
+//if($authorization->verifySuperAdmin($_COOKIE)){
+//        $MainOutput->OpenRow();
+//        $MainOutput->OpenCol(20);
+//        $MainOutput->AddTexte('&nbsp;');
+//        $MainOutput->CloseCol();
+//        $MainOutput->OpenCol(20);
+//        if(isset($Section) AND $Section=="List_Bureau_Employee")
+//            $MainOutput->AddPic('f_open.png');
+//        else
+//            $MainOutput->AddPic('f_close.png');
+//        $MainOutput->CloseCol();
+//        $MainOutput->OpenCol('230',2);
+//        $MainOutput->AddLink('index.php?MenuSection=List_Bureau_Employee', LIST_BUREAU_EMPLOYEE);
+//        $MainOutput->CloseCol();
+//        $MainOutput->CloseRow();
+//}
+//
+//
+//    $MainOutput->OpenRow();
+//    $MainOutput->OpenCol(20);
+//    $MainOutput->AddTexte('&nbsp;');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol(20);
+//    if(isset($Section) AND $Section=="Add_Qualif")
+//        $MainOutput->AddPic('f_open.png');
+//    else
+//        $MainOutput->AddPic('f_close.png');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol('230',2);
+//    $MainOutput->AddLink('index.php?MenuSection=Add_Qualif', ADD_QUALIFICATION);
+//    $MainOutput->CloseCol();
+//    $MainOutput->CloseRow();
+//
+//    $MainOutput->OpenRow();
+//    $MainOutput->OpenCol(20);
+//    $MainOutput->AddTexte('&nbsp;');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol(20);
+//    if(isset($Section) AND ($Section=="BoniCrush" || $Section=="BoniCrushed"))
+//        $MainOutput->AddPic('f_open.png');
+//    else
+//        $MainOutput->AddPic('f_close.png');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol('230',2);
+//    $MainOutput->AddLink('index.php?MenuSection=BoniCrush', BONUS_CRUSHER);
+//    $MainOutput->CloseCol();
+//    $MainOutput->CloseRow();
+//
+//
+//    $MainOutput->OpenRow();
+//    $MainOutput->OpenCol(20);
+//    $MainOutput->AddTexte('&nbsp;');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol(20);
+//    if(isset($Section) AND ($Section== MESSAGE || $Section=="Message_Form"))
+//        $MainOutput->AddPic('f_open.png');
+//    else
+//        $MainOutput->AddPic('f_close.png');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol('230',2);
+//    $MainOutput->AddLink('index.php?MenuSection=Message', MESSAGE);
+//    $MainOutput->CloseCol();
+//    $MainOutput->CloseRow();
+//
+//
+//
+//    $MainOutput->OpenRow();
+//    $MainOutput->OpenCol(20);
+//    $MainOutput->AddTexte('&nbsp;');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol(20);
+//    if(isset($Section) AND ($Section=="Get_NotWorkingEmployee"))
+//        $MainOutput->AddPic('f_open.png');
+//    else
+//        $MainOutput->AddPic('f_close.png');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol('230',2);
+//    $MainOutput->AddLink('index.php?MenuSection=Get_NotWorkingEmployee&ToPrint=TRUE', NEXT_SHIFT,'_BLANK');
+//    $MainOutput->CloseCol();
+//    $MainOutput->CloseRow();
+//
+//
+//    $MainOutput->OpenRow();
+//    $MainOutput->OpenCol(20);
+//    $MainOutput->AddTexte('&nbsp;');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol(20);
+//    if(isset($Section) AND $Section=="Add_Saison")
+//        $MainOutput->AddPic('f_open.png');
+//    else
+//        $MainOutput->AddPic('f_close.png');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol('230',2);
+//    $MainOutput->AddLink('index.php?MenuSection=Add_Saison','Ajouter une saisons');
+//    $MainOutput->CloseCol();
+//    $MainOutput->CloseRow();
+//
+//    $MainOutput->OpenRow();
+//    $MainOutput->OpenCol(20);
+//    $MainOutput->AddTexte('&nbsp;');
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol(20);
+//    if(isset($Section) AND $Section=="Close_Saison")
+//        $MainOutput->AddPic('f_open.png');
+//    else
+//        $MainOutput->AddPic('f_close.png');
+//
+//    $MainOutput->CloseCol();
+//    $MainOutput->OpenCol('230',2);
+//    $MainOutput->AddLink('index.php?MenuSection=Close_Saison','Fermer une saison');
+//    $MainOutput->CloseCol();
+//    $MainOutput->CloseRow();
+//
+//}
 $MainOutput->OpenRow();
 $MainOutput->OpenCol(20);
 $MainOutput->AddPic('f_cat.png');
