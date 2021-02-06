@@ -1,6 +1,7 @@
 <?php
 
 include_once('app/employee/connector/remoteApiConnector.php');
+include_once('forceutf8/Encoding.php');
 
 class Employee
 {
@@ -101,19 +102,17 @@ class Employee
         return false;
     }
 
-    public function getHoraireName(){
-        if(isset($this->HName))
-        {
+    public function getHoraireName()
+    {
+        if (isset($this->HName) and $this->HName <> "") {
             return $this->HName;
-        }else{
+        } else {
             $person = $this->employee;
-            return substr($this->Prenom."&nbsp;".$this->Nom,0,20);
+            $nomHoraire = $this->Prenom . "&nbsp;" . $this->Nom;
+            $nomHoraire = \ForceUTF8\Encoding::toLatin1($nomHoraire);
+            return substr($nomHoraire, 0, 20);
         }
-
-
     }
-
-
 
     public function initials(){
         $Initiales = "";

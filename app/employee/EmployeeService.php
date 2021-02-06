@@ -15,7 +15,13 @@ class EmployeeService
 
     function getEmployeSelectList($datetime=null)
     {
-        return $this->dataSource->getEmployeeSelectList($this->companyId, $datetime=null);
+        $employeeList = $this->dataSource->getEmployeeSelectList($this->companyId, $datetime=null);
+        $latin1EmployeeList = array();
+        foreach($employeeList as $id=>$name){
+            $latin1EmployeeList[$id] = \ForceUTF8\Encoding::toLatin1($name);
+        }
+
+        return $latin1EmployeeList;
     }
 
     function getEmployees($datetime=null)
