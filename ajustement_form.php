@@ -7,7 +7,6 @@ $MainOutput->AddForm('Ajouter un Ajustement');
 $MainOutput->inputhidden_env('Action','Ajustement');
 $MainOutput->inputhidden_env('IDPaye',$_GET['IDPaye']);
 
-print("aksdfj");
 $MainOutput->InputSelect('IDEmploye',$employee_service->getEmployeSelectList(),$_GET['IDEmploye'],'Employé');
 $MainOutput->InputText('NBH','Nombre d\'heures',2,0);
 $Tx = array('SalaireS'=>'Sauveteur','SalaireA'=>'Assistant','SalaireB'=>'Bureau','Autre'=>'Autre');
