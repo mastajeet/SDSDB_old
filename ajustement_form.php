@@ -6,8 +6,13 @@ if(!isset($_GET['IDEmploye'])){
 $MainOutput->AddForm('Ajouter un Ajustement');
 $MainOutput->inputhidden_env('Action','Ajustement');
 $MainOutput->inputhidden_env('IDPaye',$_GET['IDPaye']);
+
+
 $Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE Engage && !Cessation ORDER BY Nom ASC";
-$MainOutput->InputSelect('IDEmploye',$Req,$_GET['IDEmploye'],'Employé');
+
+
+
+$MainOutput->InputSelect('IDEmploye',$employee_service->getEmployeSelectList(),$_GET['IDEmploye'],'EmployÃ©');
 $MainOutput->InputText('NBH','Nombre d\'heures',2,0);
 $Tx = array('SalaireS'=>'Sauveteur','SalaireA'=>'Assistant','SalaireB'=>'Bureau','Autre'=>'Autre');
 $MainOutput->InputSelect('Taux',$Tx,'SalaireS');
