@@ -8,10 +8,6 @@ $MainOutput->inputhidden_env('Action','Ajustement');
 $MainOutput->inputhidden_env('IDPaye',$_GET['IDPaye']);
 
 
-$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE Engage && !Cessation ORDER BY Nom ASC";
-
-
-
 $MainOutput->InputSelect('IDEmploye',$employee_service->getEmployeSelectList(),$_GET['IDEmploye'],'Employé');
 $MainOutput->InputText('NBH','Nombre d\'heures',2,0);
 $Tx = array('SalaireS'=>'Sauveteur','SalaireA'=>'Assistant','SalaireB'=>'Bureau','Autre'=>'Autre');
