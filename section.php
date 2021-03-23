@@ -549,6 +549,13 @@ SWITCH($Section){
         BREAK;
     }
 
+
+    CASE "AddEmployeeAccess":{
+        include('sa_form_createemployeeaccess.php');
+        BREAK;
+    }
+
+
     CASE "Responsable_Form":{
         include('responsable_form.php');
         BREAK;

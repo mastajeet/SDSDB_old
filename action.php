@@ -100,6 +100,15 @@ SWITCH($Action){
 	BREAK;
 	}
 
+
+    CASE "createEmployeeAccess":{
+        if($authorization->verifySuperAdmin($_COOKIE)) {
+            createEmployeeAccess($_POST['FORMNoEmployee'],$_POST['FORMNAS']);
+            $_GET['Section'] = "SuperAdmin";
+        }
+        BREAK;
+    }
+
 	CASE "Modifie_Paiement":{
         if($authorization->verifySuperAdmin($_COOKIE)) {
 

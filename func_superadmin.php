@@ -62,6 +62,11 @@ function batch_delete($SDate,$EDate,$IDInstallation,$WhereStr){
 
 }
 
+function createEmployeeAccess($noEmployee, $NAS){
+    $SQL = new sqlclass();
+    $Req = "INSERT INTO employe(`IDEmploye`,`NAS`) VALUES(".$noEmployee.",".$NAS.")";
+    $SQL->Insert($Req);
+}
 
 function modifie_facture_coteseq($ini,$fin){
 	$SQL = new sqlclass();

@@ -68,6 +68,11 @@ if($authorization->verifySuperAdmin($_COOKIE)){
 			$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
 
+		$MainOutput->OpenRow();
+		$MainOutput->OpenCol();
+		$MainOutput->AddLink('index.php?Section=AddEmployeeAccess','Ajouter un accès employé');
+		$MainOutput->CloseCol();
+		$MainOutput->CloseRow();
 
 
 
