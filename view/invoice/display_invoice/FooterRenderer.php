@@ -107,9 +107,8 @@ class FooterRenderer extends HTMLContainerRenderer
     {
         $footer = array();
         $footer[] = "#TPS : 144013992RT  #TVQ : 1087890909TQ";
-        $footer[] = "Pour tous vos besoins en produits et accessoires de piscine,";
-        $footer[] = "ou services de professionnels, faites appel à";
-        $footer[] = "ENTRETIEN DE PISCINE SOUCY au (418) 872-4440.";
+        $footer[] = "Contactez-nous pour tous vos besoins en produits et accessoires de piscine,";
+        $footer[] = "ou services de professionnels";
         $footer[] = "Veuillez effectuer le paiement dans les 7 jours suivant la réception de cette facture.";
         $footer[] = "Les paiements doivent être fait à l'ordre de Service de Sauveteurs qn inc.";
         $footer[] = "";
