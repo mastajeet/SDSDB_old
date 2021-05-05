@@ -1,6 +1,6 @@
 <?php
 include_once('app/invoice/invoice_item/InvoiceItem.php');
-
+include_once('helper/getOrDefault.php');
 class CountableCreditedInvoiceItem extends InvoiceItem
 {
     function add_to_balance(&$Balance){

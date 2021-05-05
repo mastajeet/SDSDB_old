@@ -2,7 +2,6 @@
 namespace employee;
 
 include_once('app/employee/connector/EmployeeDataSourceInterface.php');
-include_once('app/employee/connector/EmployeeDataSourceInterface.php');
 class localDBConnector implements EmployeeDataSourceInterface
 {
     private $connectorClass;

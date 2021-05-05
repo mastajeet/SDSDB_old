@@ -1,6 +1,6 @@
 <?php
 
-include_once('helper/TimeService.php');
+include_once('helper/ItemService.php');
 
 class TestItemService extends PHPUnit_Framework_TestCase{
 
