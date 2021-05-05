@@ -434,6 +434,10 @@ SWITCH($Section){
 
     CASE "DossierFacturation_Show":
     CASE "Display_Facturation":{
+        if(isset($_GET['Cote'])){
+            $installationListInString = $installationService->getInstallationListInStringByCote($_GET['Cote'], true, true);
+        }
+
         include('display_facturation.php');
         BREAK;
     }
@@ -510,7 +514,7 @@ SWITCH($Section){
         BREAK;
     }
 
-    CASE "Copy_Horaire":{
+    CASE "Copy_Horaire":{ # TODO: Installation - Revoir la logique du join
         include('copy_shift.php');
         BREAK;
     }
@@ -618,11 +622,11 @@ SWITCH($Section){
     }
 
 
-    CASE "Add_Shift":{
+    CASE "Add_Shift":{ #
+        $InstallationList = $installationService->getInstallationSelectList(1, 1);
         include('add_shift.php');
         BREAK;
     }
-
 
     CASE "Horshift_Form":{
         include('horshift_form.php');
