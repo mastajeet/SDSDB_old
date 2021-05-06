@@ -8,7 +8,7 @@ if(isset($_GET['Semaine']) && !isset($_POST['FORMGenerateCote'])){
 	$MainOutput->AddTexte('Semaine du '.$ENDS['Start'].' au '.$ENDS['End'],'Titre');
  	$MainOutput->CloseCol();
 	$MainOutput->CloseRow();
-    $installation_to_bill = Installation::get_installations_in_string_to_bill($_GET['Semaine']);
+    $installation_to_bill = $installationService->getInstallatonListInStringToBillByCote($_GET['Semaine']);
 	$MainOutput->OpenRow();
 	$MainOutput->Opencol();
 		$MainOutput->addform(AJOUTER_UNE_FACTURE);

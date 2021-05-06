@@ -20,7 +20,7 @@ $MainOutput->OpenCol('60%');
 	$MainOutput->AddPic('logo.jpg');
 	$MainOutput->br();
 	$MainOutput->AddTexte('Installation(s): ','Titre');
-	$MainOutput->AddTexte(get_installation_by_cote_in_string($_GET['Cote']));
+	$MainOutput->AddTexte($installationListInString);
 	$MainOutput->br();
 	$MainOutput->AddTexte('Cote: ','Titre');
 	$MainOutput->AddTexte($customer->Cote);

@@ -5,9 +5,9 @@
  * Date: 14-08-24
  * Time: 13:26
  */
-const SHIFT_NON_FACTURES = 'Shift n\'ayant pas été facturé';
-const MARK_SHIFT_AS_BILLED = 'Marquer shift comme facturés';
-const GENERATE_FULL_BILL = 'Générer la facture totale';
+const SHIFT_NON_FACTURES = 'Shift n\'ayant pas ï¿½tï¿½ facturï¿½';
+const MARK_SHIFT_AS_BILLED = 'Marquer shift comme facturï¿½s';
+const GENERATE_FULL_BILL = 'Gï¿½nï¿½rer la facture totale';
 
 $SQL = new sqlclass();
 $SQL2 = new sqlclass();
@@ -42,7 +42,7 @@ if(isset($_POST['FORMInstallation']) and isset($_POST['FORMActionRadio'])){
                 while($Rep = $SQL->FetchArray()){
                     $Titre = "Sauveteur";
                     if($Rep[5])
-                        $Titre = "Deuxième Sauveteur";
+                        $Titre = "Deuxiï¿½me Sauveteur";
                     if($i>0 && $Shift[$i-1]['End'] == $Rep[0]){
                         $Shift[$i-1]['End'] = $Rep[1];
                         $Shift[$i-1]['Notes'] = substr($Shift[$i-1]['Notes'],0,-1);
@@ -70,7 +70,7 @@ if(isset($_POST['FORMInstallation']) and isset($_POST['FORMActionRadio'])){
                     if(is_ferie($v['Jour']*86400+$Info[1])){
                         if($v['Ferie']<>1){
                             $v['TXH'] = $v['TXH']*$v['Ferie'];
-                            $v['Notes'] = $v['Notes']." (x".$v['Ferie']." Journée Fériée)";
+                            $v['Notes'] = $v['Notes']." (x".$v['Ferie']." Journï¿½e Fï¿½riï¿½e)";
                         }
                     }
                     $Req = "INSERT INTO factsheet(`IDFacture`,`Start`,`End`,`Jour`,`TXH`,`Notes`) VALUES(".$IDFacture.",'".$v['Start']."','".$v['End']."','".$v['Jour']."','".$v['TXH']."','".addslashes($v['Notes'])."')";
@@ -102,14 +102,14 @@ if(isset($_POST['FORMActionRadio']) and $_POST['FORMActionRadio']=="GenerateFull
         $InsSelected = $_POST['Installation'] ;
     }
 
-    $Req = "Select distinct Cote, Semaine, count(IDShift) as nb from installation join shift on installation.IDInstallation = shift.IDInstallation where !Facture and IDEmploye<>0 and Semaine+60*60*24*Jour>=".$FirstDayOfYear." AND  Semaine<=".$UpperDate."  group by Cote, Semaine order by Semaine ASC";
+    $Req = "Select distinct Cote, Semaine, count(IDShift) as nb from installation join shift on installation.IDInstallation = shift.IDInstallation where !Facture and IDEmploye<>0 and Semaine+60*60*24*Jour>=".$FirstDayOfYear." AND  Semaine<=".$UpperDate."  group by Cote, Semaine order by Semaine ASC"; # TODO : C'EST SALE CA COMME REQUETE
     $SQL->SELECT($Req);
 
     $MainOutput->Addform(SHIFT_NON_FACTURES,'index.php?Section=SuperAdmin&ToDo=Force_Facture');
     $Radio = array();
     while($Rep = $SQL->FetchArray()){
         $Req2 = "Select IDFacture from facture where !Credit and Cote='".$Rep['Cote']."' and Semaine=".$Rep['Semaine'];
-        $Desc = "<a href=index.php?Cote=".$Rep['Cote']." target=_BLANK>".get_installation_by_cote_in_string($Rep['Cote'])."</a>";
+        $Desc = "<a href=index.php?Cote=".$Rep['Cote']." target=_BLANK>".$installationService->getInstallationListInStringByCote($Rep['Cote'],1,1)."</a>";
         $EndDate = get_end_dates(0,$Rep['Semaine']);
         $SQL2->Select($Req2);
         $Desc .= " - <a href=index.php?Section=Display_Shift&Semaine=".$Rep['Semaine']." target=_BLANK1>".$EndDate['Start']."</a> (".$Rep['nb']." Shifts non factur?s)";

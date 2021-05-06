@@ -182,34 +182,13 @@ function get_installation_type($str){
 		}	
 	}
 }
+
 function get_flag($flag){
 	if($flag==1)
 		Return "Oui";
 	Return "Non";
 }
 
-function get_installation_by_cote_in_string($Cote, $Actif=1, $Saison=1){
-	$SQL = new sqlclass;
-	$Req = "SELECT Nom FROM installation WHERE `Cote` = '".$Cote."' AND Actif=".$Actif." ORDER BY Nom ASC";
-	$SQL->SELECT($Req);
-	$ret = "";
-	while($Rep = $SQL->FetchArray())
-		$ret = $ret.", ".stripslashes($Rep[0]);
 
-	return substr($ret,2);
-}
-
-function get_installation_bycote($Cote){
-
-    $SQL = new SqlClass();
-    $Req = "SELECT IDInstallation, Nom FROM installation WHERE `Cote` = '".$Cote."' AND Actif ORDER BY Nom ASC";
-    $SQL->SELECT($Req);
-    $ret=array();
-	while($Rep = $SQL->FetchArray())
-	$ret[$Rep['IDInstallation']] = $Rep['Nom'];
-
-        return $ret;
-
-}
 
 ?>

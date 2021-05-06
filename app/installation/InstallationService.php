@@ -4,7 +4,6 @@ namespace installation;
 
 class InstallationService
 {
-    private $currentSession;
     private $companyId;
 
     function __construct($companyId, InstallationDataSourceInterface $dataSource)
@@ -31,5 +30,17 @@ class InstallationService
     public function getInstallationsCotes(){
         return $this->dataSource->getActiveInstallationsCotes();
     }
+
+    public function getInstallatonListInStringToBillByCote($weekInTimestamp){
+        $installationToBillCotes = $this->dataSource->getInstallationCotesToBill($this->companyId, $weekInTimestamp);
+        $installationListInStringToBillByCotes = array();
+        foreach($installationToBillCotes as $cote)
+        {
+            $installationListInStringToBillByCotes[$cote] = $this->getInstallationListInStringByCote($cote,1,1);
+        }
+
+        return $installationListInStringToBillByCotes;
+    }
+
 }
 

@@ -149,6 +149,10 @@ include_once('app/employee/EmployeeService.php');
 include_once('app/employee/connector/localDBConnector.php');
 include_once('app/employee/connector/remoteApiConnector.php');
 
+include_once('app/installation/InstallationService.php');
+include_once('app/installation/connector/localDBConnector.php');
+
+
 include_once('helper/Authorization.php');
 include_once('helper/PasswordGetter.php');
 include_once('helper/ModelToKVPConverter.php');
@@ -181,6 +185,11 @@ $tvq = $variable->get_value("TVQ");
 $tps= $variable->get_value("TPS");
 $session= $variable->get_value("Saison");
 //$employeeSource = new employee\localDBConnector(SqlClass::class);
+
+$installationSource = new installation\localDBConnector(SqlClass::class);
+$installationService = new installation\InstallationService($_COOKIE['companyId'], $installationSource);
+
+
 $employeeSource = new employee\remoteApiConnector();
 $employee_service = new employee\EmployeeService($_COOKIE['companyId'], $session, $employeeSource);
 

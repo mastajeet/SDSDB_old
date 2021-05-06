@@ -8,12 +8,14 @@ use installation\localDBConnector;
 
 class TestInstallationService extends PHPUnit_Framework_TestCase
 {
+    const A_WEEK_WITH_TWO_SHIFT_ONE_INSTALLATION = 2543122000;
 
     private $installationService;
     /**
      * @before
      */
     function setup_tested_instance(){
+
         $dataSource = new localDBConnector(SqlClass::class);
         $this->installationService = new InstallationService(0, $dataSource);
     }
@@ -39,6 +41,13 @@ class TestInstallationService extends PHPUnit_Framework_TestCase
     function test_whenGetInstallationCote_thenObtainCoteOfActiveInstallations(){
         $installationCoteList = $this->installationService->getInstallationsCotes();
         $this->assertCount(14, $installationCoteList);
+    }
+
+    function test_givenWeekWithShifts_whenGetInstallationToBill_thenObtainAllInstalationWithShift(){
+
+        $installationToBill = $this->installationService->getInstallatonListInStringToBillByCote(self::A_WEEK_WITH_TWO_SHIFT_ONE_INSTALLATION);
+        $this->assertCount(1, $installationToBill);
+        $this->assertArrayHasKey('IR', $installationToBill);
     }
 
 }

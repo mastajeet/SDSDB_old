@@ -16,7 +16,7 @@ if(isset($_GET['Cote'])){
 	}
 
 	$MainOutput->AddTexte('Installation(s): ','Titre');
-	$MainOutput->AddTexte(get_installation_by_cote_in_string($_GET['Cote']));
+	$MainOutput->AddTexte($installationListInString);
 	$MainOutput->br();
 	$MainOutput->AddTexte('Cote: ','Titre');
 	$MainOutput->AddTexte($current_cote);
@@ -212,16 +212,16 @@ if(isset($_GET['Cote'])){
 	}else{
 		$MainOutput->AddForm('Ouvrir le dossier de Facturation','index.php','GET','');
 		$SQL = new sqlclass;
-		$Req = "SELECT distinct Cote FROM installation WHERE Actif ORDER BY Cote ASC";
-		$SQL->SELECT($Req);
-		$Opt = array();
-		while($Rep = $SQL->FetchArray()){
-			$Ins = get_installation_by_cote_in_string($Rep[0]);
-			$Opt[$Rep[0]] = $Rep[0].": ".$Ins;
+
+    $installationCotes = $installationService->getInstallationsCotes();
+        $options = array();
+		foreach($installationCotes as $cote){
+            $installationListInString = $installationService->getInstallationListInStringByCote($cote,true,true);
+            $options[$cote] = $cote.": ".$installationListInString;
 		}
 
 		$MainOutput->inputhidden_env('Section','Display_Facturation');
-		$MainOutput->inputselect('Cote',$Opt);
+		$MainOutput->inputselect('Cote',$options);
 		$MainOutput->FormSubmit('Ouvrir');
 }
 

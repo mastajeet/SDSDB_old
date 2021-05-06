@@ -151,7 +151,9 @@ INSERT INTO `factsheet` (`IDFactsheet`, `IDFacture`, `Start`, `End`, `TXH`, `Not
 INSERT INTO `shift` (`IDShift`, `IDInstallation`, `IDEmploye`, `TXH`, `Salaire`, `Start`, `End`, `Jour`, `Semaine`, `Assistant`, `Commentaire`, `Warn`, `Confirme`, `Empconf`, `Facture`, `Paye`, `Message`) VALUES
   (1337, 21, 2, 16.75, 0, 34200, 75600, 0, 1497153600, 0, '', '', 1, 1, 1, 0, 'Vers 14h30, il est important de contacter le chef réceptionniste avant de confirmer l\\\'heure de fin.  Si tu termines bien à 15h, tu n\\\'auras techniquement pas à faire de démontage.'),
   (1338, 21, 2, 16.75, 0, 34200, 75600, 0, 1497153600, 0, '', '', 1, 1, 1, 0, 'Vers 14h30, il est important de contacter le chef réceptionniste avant de confirmer l\\\'heure de fin.  Si tu termines bien à 15h, tu n\\\'auras techniquement pas à faire de démontage.'),
-  (247735,351 ,0, 21.55 ,       0 , 61200 , 68400 ,    2 , 1593316800 ,         0 ,''             ,''      ,        0 ,       0 ,       0 ,    0 ,'');
+  (247735,351 ,0, 21.55 ,       0 , 61200 , 68400 ,    2 , 1593316800 ,         0 ,''             ,''      ,        0 ,       0 ,       0 ,    0 ,''),
+(1339,21 ,2, 21.55 ,       0 , 61200 , 68400 ,    2 , 2543122000 ,         0 ,''             ,''      ,        0 ,       0 ,       0 ,    0 ,''),
+(1340,21 ,2, 21.55 ,       0 , 61200 , 68400 ,    2 , 2543122000 ,         0 ,''             ,''      ,        0 ,       0 ,       0 ,    0 ,'');
 
 
 

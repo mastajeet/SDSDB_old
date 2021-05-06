@@ -793,7 +793,7 @@ ORDER BY `client`.Nom ASC";
                     $MainOutput->AddTexte('&nbsp;');
                     $MainOutput->CloseCol();
                     $MainOutput->OpenCol(20);
-                    $Installations = get_installation_by_cote_in_string($Rep2[0]);
+                    $Installations = $installationService->getInstallationListInStringByCote($Rep2[0],1,1);
                     if(isset($_GET['MenuInstallation']) AND $_GET['MenuInstallation']==$Rep2[0])
                         $MainOutput->AddLink('index.php?MenuInstallation='.$Rep2[0],'<img src=f_open.png border=0>');
                     else

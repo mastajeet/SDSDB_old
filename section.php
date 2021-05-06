@@ -139,7 +139,7 @@ SWITCH($Section){
             $last_transactions =  $dossier_facturation->get_last_transactions($number_of_shown_transactions);
             $shown_transactions = $last_transactions['transactions'];
             $opening_balance = $last_transactions['opening_balance'];
-
+            $installationListInString = $installationService->getInstallationListInStringByCote($_GET['Cote'],true,true);
             $customer = Customer::find_customer_by_cote($cote);
             include('view/dossier_facturation/display_account_statement.php');
         }

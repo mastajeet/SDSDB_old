@@ -1,6 +1,6 @@
+
 <?PHP
 	$MainOutput->addform('Ajouter un shift');
-
 	$MainOutput->inputhidden_env('Action','ShiftForm');
 	$MainOutput->inputhidden_env('Update',FALSE);
 if(isset($_GET['Semaine'])){
@@ -13,8 +13,8 @@ if(isset($_GET['Semaine'])){
 	
 	$CJour = array(0=>'Dimanche',1=>'Lundi',2=>'Mardi',3=>'Mercredi',4=>'Jeudi',5=>'Vendredi',6=>'Samedi');	
 	$MainOutput->FlagList('Jours',$CJour);
-	$InstallationReq = "SELECT installation.IDInstallation, installation.Nom FROM `installation` WHERE Saison AND Actif ORDER BY installation.Nom ASC";
-	$MainOutput->InputSelect('IDInstallation',$InstallationReq,'','Piscine');
+
+	$MainOutput->InputSelect('IDInstallation',$InstallationList,'','Piscine');
 	$MainOutput->InputTime('Start','Début',0,array('Date'=>FALSE,'Time'=>TRUE));
 	$MainOutput->InputTime('End','Fin',0,array('Date'=>FALSE,'Time'=>TRUE));
 	$MainOutput->InputTime('FROM','Commençant le',$Lower,array('Date'=>TRUE,'Time'=>FALSE));

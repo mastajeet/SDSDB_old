@@ -1,4 +1,8 @@
 <?php
+
+use installation\InstallationService;
+use installation\localDBConnector;
+
 include_once('BaseModel.php');
 include_once('func_divers.php');
 include_once('app/responsable.php');
@@ -59,6 +63,8 @@ class Customer extends BaseModel
         }
         $this->time_service = new TimeService();
         $this->invoice_service = new InvoiceService($notes, $tps, $tvq);
+        $installationServiceDataSource = new localDBConnector(SqlClass::class); #TODO: customer / installation : il faut extraire cette dépendance
+        $this->installationService = new InstallationService(0, $installationServiceDataSource); #TODO: customer / installation : il faut extraire cette dépendance
     }
 
     static function define_table_info(){
@@ -143,12 +149,12 @@ class Customer extends BaseModel
         }
     }
 
-    function generate_factures($Cote, $start_of_billable_time){
-        $customer = customer::find_customer_by_cote($Cote);
-        $installation_to_bill = Installation::get_installations_to_bill($Cote);
+    function generate_factures($cote, $startOfBillableTime){
+        $customer = customer::find_customer_by_cote($cote);
+        $installation_to_bill = Installation::get_installations_to_bill_by_cote($cote);
         $factures = array();
         foreach($installation_to_bill as $installation) {
-            $facture = $this->generate_next_time_facture($Cote, $start_of_billable_time);
+            $facture = $this->generate_next_time_facture($cote, $startOfBillableTime);
             $shift_to_bill = $facture->get_billable_shift($installation);
             if(count($shift_to_bill)>0){
                 $facture->save();

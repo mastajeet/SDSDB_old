@@ -1,8 +1,6 @@
 <?php
 namespace installation;
 
-use phpDocumentor\Reflection\Types\Boolean;
-
 include_once('app/installation/connector/InstallationDataSourceInterface.php');
 
 class localDBConnector implements InstallationDataSourceInterface
@@ -29,14 +27,27 @@ class localDBConnector implements InstallationDataSourceInterface
     public function getActiveInstallationsCotes()
     {
         $selectInstallationsCotesQuery = "SELECT distinct Cote FROM installation WHERE Actif ORDER BY Cote ASC";
-        $sql_class =  new $this->connectorClass();
-        $sql_class->Select($selectInstallationsCotesQuery);
+        $sqlClass =  new $this->connectorClass();
+        $sqlClass->Select($selectInstallationsCotesQuery);
         $coteList = [];
-        while($cursor = $sql_class->FetchAssoc()){
+        while($cursor = $sqlClass->FetchAssoc()){
             $coteList[] = $cursor['Cote'] ;
         }
 
         return $coteList;
+    }
+
+    public function getInstallationCotesToBill($company, $weekInTimestamp)
+    {
+        $sqlClass =  new $this->connectorClass();
+        $Req = "SELECT Cote, sum(Facture) as isBilled FROM shift LEFT JOIN installation on shift.IDInstallation = installation.IDInstallation WHERE `Semaine`=".$weekInTimestamp." GROUP BY Cote HAVING isBilled=0 ORDER BY Cote ASC ";
+        $sqlClass->select($Req);
+        $installationCotes = array();
+        while($installation_results_set = $sqlClass->FetchArray()){
+            $installationCotes[] = $installation_results_set['Cote'];
+        }
+
+        return $installationCotes;
     }
 
     public function getInstallations($company, $datetime = null)
@@ -82,15 +93,16 @@ class localDBConnector implements InstallationDataSourceInterface
     }
 
     private function buildInstallationListFromQuery($query){
-        $sql_class =  new $this->connectorClass();
-        $sql_class->Select($query);
+        $sqlClass =  new $this->connectorClass();
+        $sqlClass->Select($query);
         $installation_list = [];
 
-        while($cursor = $sql_class->FetchAssoc()){
+        while($cursor = $sqlClass->FetchAssoc()){
             $installation_list[$cursor['IDInstallation']] = $cursor['Nom'] ;
         }
 
         return $installation_list;
     }
+
 
 }
