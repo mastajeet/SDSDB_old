@@ -11,15 +11,19 @@ if(!isset($_POST['FORMIDClient'])){
     $MainOutput->AddOutput(format_client($_POST['FORMIDClient']),0,0);
 	$Installations = $customer->get_installations();
 		foreach($Installations as $installation){
-			$MainOutput->OpenTable(500);
-		$MainOutput->Openrow();
-		$MainOutput->OpenCol();
-			$MainOutput->addtexte("-------------------------------------------------------------------------------------------------------------");
-		$MainOutput->CloseCol();
-		$MainOutput->CloseRow();
-		$MainOutput->CloseTable();
-		include('view/installation/display_installation_information.php');
-		}
+		    if ($installation->Actif)
+		    {
+                $MainOutput->OpenTable(500);
+                $MainOutput->Openrow();
+                $MainOutput->OpenCol();
+                $MainOutput->addtexte("-------------------------------------------------------------------------------------------------------------");
+                $MainOutput->CloseCol();
+                $MainOutput->CloseRow();
+                $MainOutput->CloseTable();
+                include('view/installation/display_installation_information.php');
+            }
+        }
+
 	echo $MainOutput->send(1);
 }
 ?>
