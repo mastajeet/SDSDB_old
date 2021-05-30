@@ -38,6 +38,7 @@ while($customerCursor = $mysqlClient->FetchAssoc()){
 }
 print_r($customerIds);
 $installationIds =[];
+$mysqlClient->Select($installationQuery);
 while($installationCursor = $mysqlClient->FetchAssoc()){
     $installationIds[] = $customerCursor['IDInstallation'];
 }
