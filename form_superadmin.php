@@ -75,6 +75,12 @@ if($authorization->verifySuperAdmin($_COOKIE)){
 		$MainOutput->CloseRow();
 
 
+		$MainOutput->OpenRow();
+		$MainOutput->OpenCol();
+		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=syncCustomers','Synchroniser les clients');
+		$MainOutput->CloseCol();
+		$MainOutput->CloseRow();
+
 
         $MainOutput->CloseTable();
 	}else{
@@ -115,6 +121,12 @@ if($authorization->verifySuperAdmin($_COOKIE)){
 			CASE "Force_Facture":{
 				include('sa_form_forcefacture.php');
 			}
+
+			CASE "syncCustomers":{
+				include('data_sync/sa_sync_customers.php');
+			}
+
+
 		}
 
 	}
