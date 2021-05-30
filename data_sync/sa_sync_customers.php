@@ -10,7 +10,9 @@ include_once('mysql_class_qc.php');
 include_once('data_sync/getAuthenticationToken.php');
 include_once('getRequest.php');
 include_once('forceutf8/Encoding.php');
-const BASE_PATH = "http://sdsdb_docker_nginx_1";
+
+# const BASE_PATH = "http://sdsdb_docker_nginx_1";
+const BASE_PATH = "http://prod.qcnat.o2web.ws/";
 const CUSTOMER_API_ENDPOINT = "/api/customers?";
 const INSTALLATION_API_ENDPOINT ="/api/installations";
 
@@ -34,11 +36,12 @@ $customerIds = [];
 while($customerCursor = $mysqlClient->FetchAssoc()){
     $customerIds[] = $customerCursor['IDClient'];
 }
+print_r($customerIds);
 $installationIds =[];
 while($installationCursor = $mysqlClient->FetchAssoc()){
     $installationIds[] = $customerCursor['IDInstallation'];
 }
-
+print_r($installationIds);
 
 
 $customersPayload = getRequest($customerEndPoint, $authToken);
@@ -62,7 +65,7 @@ foreach($customers as $customer){
     $nom = $customer["name"];
     $customerIdMapping[$id] = $legacyId;
     if($companyId==$currentCompany and !in_array($legacyId, $customerIds)) {
-        $customerInsertRequest = "INSERT INTO client(`IDClient`,`Nom`) VALUES(".$legacyId.",'".addslashes($nom)."')";
+        $customerInsertRequest = "INSERT INTO client(`IDClient`,`Nom`,`Actif`) VALUES(".$legacyId.",'".addslashes($nom)."',1)";
         if($confirmInsert) {
             $mysqlClient->Insert($customerInsertRequest);
         }else{
@@ -90,7 +93,7 @@ foreach($installations as $installation){
                 $horaire_id = $rep["IDHoraire"];
             }
 
-            $installationInsertRequest = "INSERT INTO installation(`IDInstallation`,`IDClient`,`IDHoraire`,`Cote`,`Nom`) VALUES(".$legacyId.",".$customerLegacyId.",".$horaire_id.",'".$cote."','".$nom."')";
+            $installationInsertRequest = "INSERT INTO installation(`IDInstallation`,`IDClient`,`IDHoraire`,`Cote`,`Nom`,`Actif`,`Saison`) VALUES(".$legacyId.",".$customerLegacyId.",".$horaire_id.",'".$cote."','".$nom."',1,1)";
             $mysqlClient->Insert($installationInsertRequest);
 
         }else{
