@@ -235,6 +235,7 @@ SWITCH($Section){
             $total_recevable += $solde;
         }
 
+
         include('display_facturation_report.php');
     BREAK;
     }
@@ -244,7 +245,7 @@ SWITCH($Section){
         BREAK;
     }
 
-    CASE "Add_Remplacement":{
+    CASE "Add_Remplacement":{ # TODO: changer pour employee service!
         include('add_remplacement_form.php');
         BREAK;
     }
@@ -319,6 +320,7 @@ SWITCH($Section){
 
     CASE "Modifie_Facture":{
         $Modifie = TRUE;
+
         include('display_facture.php');
         BREAK;
     }
@@ -541,13 +543,13 @@ SWITCH($Section){
         $horaire_factory = new HoraireFactory($time_service, new SqlClass());
 
         $last_session = $variable->get_value('Saison');
-        $employee_list = Employee::get_employee_list_for_session($last_session);
+        $employee_list = $employeeService->getEmployeesForSession($last_session);
         $semaine = $_GET['Semaine'];
         $day = $_GET['Day'];
 
         $day_to_generate = $time_service->get_datetime_from_semaine_and_day(new DateTime("@".$semaine), $day);
         $horaire = $horaire_factory->generate_horaire_for_one_day($day_to_generate);
-
+        print($employee_list);
         $free_employees = $horaire->get_free_employees($employee_list);
         include('generate_free_employee_list.php');
         BREAK;
@@ -606,7 +608,7 @@ SWITCH($Section){
         BREAK;
     }
 
-    CASE "Display_Client":{
+    CASE "Display_Client":{ # customer
         include('display_client.php');
         BREAK;
     }
@@ -629,6 +631,7 @@ SWITCH($Section){
     }
 
     CASE "Horshift_Form":{
+        $employeeList = $employeeService->getEmployeSelectList();
         include('horshift_form.php');
         BREAK;
     }

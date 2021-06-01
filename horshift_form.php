@@ -15,8 +15,8 @@ $CJour = array(0=>'Dimanche',1=>'Lundi',2=>'Mardi',3=>'Mercredi',4=>'Jeudi',5=>'
 $MainOutput->inputselect('Jour',$CJour,$Info['Jour'],'Jour');
 $MainOutput->inputtime('Start','Début',$Info['Start']);
 $MainOutput->inputtime('End','Fin',$Info['End']);
-$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ORDER BY Nom ASC";
-$MainOutput->inputselect('IDEmploye',$Req,$Info['IDEmploye'],'Sauveteur');
+
+$MainOutput->inputselect('IDEmploye',$employeeList ,$Info['IDEmploye'],'Sauveteur');
 $MainOutput->flag('Assistant',$Info['Assistant']);
 $MainOutput->inputtext('Salaire','Salaire',4,$Info['Salaire']);
 $MainOutput->inputtext('TXH','Taux Horaire',4,$Info['TXH']);
