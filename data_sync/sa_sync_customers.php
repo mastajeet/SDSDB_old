@@ -6,14 +6,14 @@
 namespace DataSync;
 use ForceUTF8\Encoding;
 
-include_once('mysql_class_qc.php');
+#include_once('mysql_class_qc.php');
 include_once('data_sync/getAuthenticationToken.php');
 include_once('getRequest.php');
 include_once('forceutf8/Encoding.php');
 
 # const BASE_PATH = "http://sdsdb_docker_nginx_1";
-const BASE_PATH = "http://prod.qcnat.o2web.ws/";
-const CUSTOMER_API_ENDPOINT = "/api/customers?";
+const BASE_PATH = "http://prod.qcnat.o2web.ws";
+const CUSTOMER_API_ENDPOINT = "/api/customers";
 const INSTALLATION_API_ENDPOINT ="/api/installations";
 
 
@@ -21,7 +21,7 @@ $confirmInsert = false;
 if(isset($_GET['confirm'])){
     $confirmInsert = true;
 }
-$currentCompany = 1;
+$currentCompany = $_COOKIE["companyId"];
 $authToken = getAuthenticationToken();
 
 $customerEndPoint = BASE_PATH . CUSTOMER_API_ENDPOINT;
@@ -36,17 +36,16 @@ $customerIds = [];
 while($customerCursor = $mysqlClient->FetchAssoc()){
     $customerIds[] = $customerCursor['IDClient'];
 }
-print_r($customerIds);
+
 $installationIds =[];
 $mysqlClient->Select($installationQuery);
 while($installationCursor = $mysqlClient->FetchAssoc()){
-    $installationIds[] = $customerCursor['IDInstallation'];
+    $installationIds[] = $installationCursor['IDInstallation'];
 }
-print_r($installationIds);
-
 
 $customersPayload = getRequest($customerEndPoint, $authToken);
 $customersLastPage = json_decode($customersPayload, True)["hydra:view"]["hydra:last"];
+
 $customersPayload = getRequest(BASE_PATH.$customersLastPage, $authToken);
 
 $installationPayLoad = getRequest($installationEndPoint, $authToken);
@@ -63,7 +62,7 @@ foreach($customers as $customer){
     $id = $customer["id"];
     $legacyId = $customer["legacyId"];
     $companyId = $customer["company"]["id"];
-    $nom = $customer["name"];
+    $nom = Encoding::toLatin1($customer["name"]);
     $customerIdMapping[$id] = $legacyId;
     if($companyId==$currentCompany and !in_array($legacyId, $customerIds)) {
         $customerInsertRequest = "INSERT INTO client(`IDClient`,`Nom`,`Actif`) VALUES(".$legacyId.",'".addslashes($nom)."',1)";
