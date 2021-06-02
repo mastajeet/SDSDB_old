@@ -16,7 +16,8 @@ $method = $_SERVER['REQUEST_METHOD'];
 $timeService = new TimeService();
 
 
-
+print("lolk");
+http_response_code(200);
 if ($method == "GET") {
 
     $apiBaseInfo = new ApiConnectionBaseInfo($_REQUEST);
