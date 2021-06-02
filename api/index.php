@@ -11,13 +11,12 @@ include_once('helpers/ResourceInfo.php');
 
 include_once('../helper/TimeService.php');
 
-
+print_r($_REQUEST);
+print_r($_GET);
 $method = $_SERVER['REQUEST_METHOD'];
 $timeService = new TimeService();
 
 
-print("lolk");
-http_response_code(200);
 if ($method == "GET") {
 
     $apiBaseInfo = new ApiConnectionBaseInfo($_REQUEST);
