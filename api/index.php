@@ -11,20 +11,18 @@ include_once('helpers/ResourceInfo.php');
 
 include_once('../helper/TimeService.php');
 
-print_r($_REQUEST);
-print_r($_GET);
 $method = $_SERVER['REQUEST_METHOD'];
 $timeService = new TimeService();
 
 
 if ($method == "GET") {
 
-    $apiBaseInfo = new ApiConnectionBaseInfo($_REQUEST);
-    $resourceInfo = new ResourceInfo($_REQUEST, $timeService);
+    $apiBaseInfo = new ApiConnectionBaseInfo($_GET);
+    $resourceInfo = new ResourceInfo($_GET, $timeService);
     if($apiBaseInfo->isAuthorized()){
         $client = new ConnectionClient($apiBaseInfo);
         try{
-            $ressourceRequest = $resourceInfo->getResourceRequest($_REQUEST);
+            $ressourceRequest = $resourceInfo->getResourceRequest($_GET);
             $requestedSet = $client->get($ressourceRequest->buildRequest());
             $formatedResource = $resourceInfo->formatResourceSet($requestedSet);
 
