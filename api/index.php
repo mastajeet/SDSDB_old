@@ -1,8 +1,10 @@
 <?php
 namespace SDSApi;
-use Exception;
 use TimeService;
+ini_set('display_errors', 1);
 ini_set('display_errors', E_ALL);
+setlocale(LC_TIME, 'fr_CA');
+date_default_timezone_set ('America/Montreal');
 include_once('exceptions/MissingValueException.php');
 include_once('exceptions/ValueNotFoundException.php');
 include_once('helpers/ApiConnectionBaseInfo.php');

@@ -39,11 +39,11 @@ class ResourceInfo{
         if(is_null($resourceRequest)){
             throw new ValueNotFoundException("");
         }
+
         return $resourceRequest;
     }
 
     function formatResourceSet($resourceSet){
         return $this->resourceFormater->formatRecordSet($resourceSet);
-
     }
 }
