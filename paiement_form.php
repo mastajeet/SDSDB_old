@@ -17,7 +17,7 @@ if(isset($_GET['ADD']) && $_GET['ADD']==TRUE){
                 $MainOutput->InputText('Montant',$Rep['TXH'],6);
 		$MainOutput->FlagList('ToPay',$opt,'','Factures');
         $MainOutput->InputTime('Date','Date',0,array('Date'=>TRUE,'Time'=>FALSE));
-        $MainOutput->InputText('PayableYear','Année de facturation',4,get_vars("BoniYear"));
+        $MainOutput->InputText('PayableYear','Annï¿½e de facturation',4,get_vars("BoniYear"));
         $MainOutput->InputText('Notes',$Rep['Notes']);
 		$MainOutput->formsubmit('Effectuer');
 	}
@@ -34,7 +34,7 @@ $MainOutput->OpenRow();
 $MainOutput->OpenCol('',4);
     $MainOutput->AddTexte(' ');
     $MainOutput->br();
-    $MainOutput->AddTexte('Détail des paiements');
+    $MainOutput->AddTexte('Dï¿½tail des paiements');
     $MainOutput->br();
 	$MainOutput->AddLink('index.php?Section=Paiement&ADD=TRUE&Cote='. $current_cote,'Ajouter un paiement');
 	$MainOutput->br();
@@ -55,7 +55,7 @@ $MainOutput->OpenCol();
 	$MainOutput->AddTexte('Montant','Titre');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol();
-	$MainOutput->AddTexte('Détail','Titre');
+	$MainOutput->AddTexte('Dï¿½tail','Titre');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
@@ -82,7 +82,7 @@ $MainOutput->CloseRow();
         $MainOutput->CloseCol();
 
         $MainOutput->OpenCol();
-        $MainOutput->addTexte($time_service->format_timestamp($payment->Date,"d F Y"));
+        $MainOutput->addTexte($timeService->format_timestamp($payment->Date,"d F Y"));
         $MainOutput->CloseCol();
 
 
@@ -95,7 +95,7 @@ $MainOutput->CloseRow();
 
         $MainOutput->OpenCol();
         if(abs($payment_unbalance)> 0.01){
-            $MainOutput->AddTexte("<span class=Warning>Débalance: ". number_format($payment_unbalance,2)."</span>");
+            $MainOutput->AddTexte("<span class=Warning>Dï¿½balance: ". number_format($payment_unbalance,2)."</span>");
         }
 
         $payment_has_balance = stristr($payment->Notes,'balance');

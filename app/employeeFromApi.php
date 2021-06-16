@@ -1,5 +1,7 @@
 <?php
 
+use employee\remoteApiConnector;
+
 include_once('app/employee/connector/remoteApiConnector.php');
 include_once('forceutf8/Encoding.php');
 
@@ -7,7 +9,6 @@ class Employee
 {
 
     private $baseApiURL = "http://prod.qcnat.o2web.ws/api/";
-//    private $baseApiURL = "http://sdsdb_nginx_1/api/";
     private static $authenticationHeader = null;
     private static $employeeList = null;
     private static $listeDesSalaires = null;
@@ -23,11 +24,12 @@ class Employee
     public $Cell;
     private $vacations;
 
+
     public function __construct($IDEmploye)
     {
         if(is_null(Employee::$employeeList))
         {
-            $employeeSerivce = new employee\EmployeeService($_COOKIE['companyId'],null, new \employee\remoteApiConnector());
+            $employeeSerivce = new employee\EmployeeService($_COOKIE['companyId'],null, new remoteApiConnector());
             Employee::$employeeList = array();
             $startTime = new DateTime();
             $employees =  $employeeSerivce->getEmployees() ;
@@ -56,6 +58,7 @@ class Employee
             $this->Prenom = $this->employee['first_name'];
             $this->Nom = $this->employee['last_name'];
             $this->HName = $this->employee['nickname'];
+
         }else{
             $this->employee = $this->getNullEmployeeValues();
 
@@ -69,7 +72,7 @@ class Employee
         {
             if(is_null(Employee::$listeDesSalaires))
             {
-                $employeeSerivce = new employee\EmployeeService($_COOKIE['companyId'],null, new \employee\remoteApiConnector());
+                $employeeSerivce = new employee\EmployeeService($_COOKIE['companyId'],null, new remoteApiConnector());
                 $salaires = $employeeSerivce->getEmployeesSalaries();
                 Employee::$listeDesSalaires = array();
                 foreach($salaires as $salaire)

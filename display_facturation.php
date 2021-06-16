@@ -201,7 +201,7 @@ if(isset($_GET['Cote'])){
 					$MainOutput->AddTexte('N/A','Titre'); //METTRE LA DATE OU ENCORE LE NUM?RO DE D?POT OU LE NUM?RO DE CHEQUE...
 				elseif($facture->is_paid() && !$facture->is_credit()){
                     $payement = $facture->get_payment($paiements);
-					$MainOutput->AddTexte($time_service->format_timestamp($payement->Date, "d F Y"));
+					$MainOutput->AddTexte($timeService->format_timestamp($payement->Date, "d F Y"));
 				}
 
 			$MainOutput->CloseCol();

@@ -6,10 +6,11 @@ if(isset($_GET['IDFacture'])){
         $Modifie=FALSE;
 
     $facture = new Invoice($_GET['IDFacture']);
-    $Req = "SELECT * FROM factsheet WHERE IDFacture = ".$_GET['IDFacture']." ORDER BY Jour ASC, Start ASC";
+    $Req = "SELECT * FROM factsheet WHERE IDFacture = ".$_GET['IDFacture']." ORDER BY Jour ASC, Start ASC"; #TODO: Module Facturation
     $SQL->SELECT($Req);
     $Head = new HTMLContainer();
     $Req2 = "SELECT client.`Nom`, client.`Adresse`, client.`Facturation`, client.`Fax`, client.`Email`, responsable.`Nom`, responsable.Prenom, installation.Factname, installation.ASFact, installation.AdresseFact, client.FrequenceFacturation, installation.PONo FROM facture join installation join client join responsable on facture.Cote = installation.Cote AND installation.IDClient = client.IDClient AND client.RespF = responsable.IDResponsable WHERE IDFacture = ".$_GET['IDFacture'];
+        #TODO: Le nouveau logiciel va avoir la logique du dossier de facturation "cote" qui va détenir toutes les données.
 
     $MainOutput->OpenTable(660);
 
@@ -299,7 +300,7 @@ if(isset($_GET['IDFacture'])){
     $MainOutput->AddTexte("Facturé: ",'Titre');
     $month = get_month_list('long');
 
-    $MainOutput->AddTexte($time_service->format_timestamp($facture->EnDate, "d-F-y"));
+    $MainOutput->AddTexte($timeService->format_timestamp($facture->EnDate, "d-F-y"));
 
 
     $MainOutput->br();

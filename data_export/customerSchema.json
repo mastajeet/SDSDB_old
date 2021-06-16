@@ -1,0 +1,55 @@
+{
+  "name": "string",
+  "code": "string",
+  "phoneNumbers": [
+    {
+      "customerPhoneNumberType": {
+        "name": "string"
+      },
+      "phoneNumber": {
+        "number": "stringstring",
+        "extension": 0
+      }
+    }
+  ],
+  "addresses": [
+    {
+      "address": {
+        "street": "string",
+        "streetExtra": "string",
+        "postalCode": "string",
+        "city": "string",
+        "province": "string",
+        "district": {
+          "name": "string"
+        }
+      }
+    }
+  ],
+  "billingOption": {
+    "name": "string"
+  },
+  "billingFrequency": {
+    "name": "string"
+  },
+  "email": "string",
+  "notes": "string",
+  "hourlyRate": 0,
+  "holidayMultiplier": 0,
+  "deposit": 0,
+  "hasDepositPay": true,
+  "responsiblePay": {
+    "name": "string"
+  },
+  "responsibleInvoice": {
+    "name": "string"
+  },
+  "isActive": true,
+  "isCustomerByPiece": true,
+  "company": {
+    "name": "st"
+  },
+  "customerInstallations": [
+    "string"
+  ]
+}

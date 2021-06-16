@@ -28,13 +28,13 @@ $MainOutput->CloseRow();
 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
-	$MainOutput->AddTexte('<u>Information Générale</u>
+	$MainOutput->AddTexte('<u>Information Gï¿½nï¿½rale</u>
 	
 	','Titre');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
-$employe_list = $employee_service->getEmployeSelectList(0);
+$employe_list = $employeeService->getEmployeSelectList(0);
 //$Req = "SELECT IDEmploye, Nom, Prenom FROM employe WHERE !Cessation ORDER BY Nom ASC";
 
 
@@ -61,24 +61,24 @@ if($current_inspection->InspectionType=="Piscine") {
 
     $MainOutput->OpenRow();
     $MainOutput->OpenCol('100%', 2);
-    $MainOutput->AddTexte('<u>Matériel de piscine</u>
+    $MainOutput->AddTexte('<u>Matï¿½riel de piscine</u>
 
         ', 'Titre');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
     $MainOutput->flag('Mirador', $current_inspection->Mirador, 'Mirador (Si la piscine est plus grande que 150m2)');
-    $MainOutput->flag('SMU', $current_inspection->SMU, 'Moyen de communication pour les SMU à moins de 100m et facilement accessible');
-    $MainOutput->flag('Procedures', $current_inspection->Procedures, 'Les procédures d\'urgences sont affichées près du moyen de communication');
-    $MainOutput->flag('Perche', $current_inspection->Perche, 'Perche isolée électriquement de 3.6m');
-    $MainOutput->flag('Bouees', $current_inspection->Bouees, 'Deux bouées de sauvetage
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) annulaires entre 275 et 380mm de diamètre
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;avec cordage de 3m + ½ largeur de la piscine
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OU b) Bouée torpille avec 2m de cordage et une bandouillère');
+    $MainOutput->flag('SMU', $current_inspection->SMU, 'Moyen de communication pour les SMU ï¿½ moins de 100m et facilement accessible');
+    $MainOutput->flag('Procedures', $current_inspection->Procedures, 'Les procï¿½dures d\'urgences sont affichï¿½es prï¿½s du moyen de communication');
+    $MainOutput->flag('Perche', $current_inspection->Perche, 'Perche isolï¿½e ï¿½lectriquement de 3.6m');
+    $MainOutput->flag('Bouees', $current_inspection->Bouees, 'Deux bouï¿½es de sauvetage
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) annulaires entre 275 et 380mm de diamï¿½tre
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;avec cordage de 3m + ï¿½ largeur de la piscine
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OU b) Bouï¿½e torpille avec 2m de cordage et une bandouillï¿½re');
     $MainOutput->textarea('NotesBouees', 'Notes', 25, 5, $current_inspection->NotesBouees);
     $MainOutput->flag('Planche', $current_inspection->Planche, 'Planche dorsale');
     $MainOutput->flag('Couverture', $current_inspection->Couverture);
     $MainOutput->flag('Registre', $current_inspection->Registre, 'Registre des installations');
-    $MainOutput->flag('Chlore', $current_inspection->Chlore, 'Trousse de vérification de Chlore et pH');
+    $MainOutput->flag('Chlore', $current_inspection->Chlore, 'Trousse de vï¿½rification de Chlore et pH');
     $MainOutput->textarea('NotesMateriel', 'Notes', 25, 5, $current_inspection->NotesMateriel);
 
 
@@ -106,11 +106,11 @@ if($current_inspection->InspectionType=="Piscine") {
     $MainOutput->InputText('ProfondeurP', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Profond (en mm)', 3, $current_inspection->ProfondeurP);
     $MainOutput->InputText('ProfondeurPente', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Pente (en mm)', 3, $current_inspection->ProfondeurPente);
 
-    $MainOutput->Flag('Cercle', $current_inspection->Cercle, 'Cercle noir de 150 mm de diamètre au point le plus profond de la piscine');
+    $MainOutput->Flag('Cercle', $current_inspection->Cercle, 'Cercle noir de 150 mm de diamï¿½tre au point le plus profond de la piscine');
 
     $MainOutput->OpenRow();
     $MainOutput->OpenCol('100%', 2);
-    $MainOutput->AddTexte('Règlements (en 25mm) - ou pictogramme', 'Titre');
+    $MainOutput->AddTexte('Rï¿½glements (en 25mm) - ou pictogramme', 'Titre');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -133,47 +133,47 @@ if($current_inspection->InspectionType=="Piscine") {
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
-    $MainOutput->Flag('EchellePP', $current_inspection->EchellePP, 'Une échelle / escalier dans la partie peu profonde si la profondeur dépasse 600mm');
-    $MainOutput->Flag('EchelleX2P', $current_inspection->EchelleX2P, 'Une échelle de chaque côté de la partie profonde');
-    $MainOutput->Flag('Escalier', $current_inspection->Escalier, 'S\'il y a un estcalier, le nez de la marche doit être peint de couleur contrastante');
-    $MainOutput->Flag('Cloture12', $current_inspection->Cloture12, 'La piscine doit être entourée d\'une clôture d\'un minimum de 1,20m');
-    $MainOutput->Flag('Cloture100', $current_inspection->Cloture100, 'La clôture ne doit pas permettre de faire passer un cercle de 100mm de diamètre');
-    $MainOutput->Flag('Maille38', $current_inspection->Maille38, 'S\'il s\'agit d\'une clôture de maille, la maille doit être inférieure à 38mm');
-    $MainOutput->Flag('Promenade', $current_inspection->Promenade, 'Si une partie de la promenade peut être utilisée hors des heures d\'ouverture, une clôture de 900mm doit séparer la promenade de la partie réservée de la piscine');
-    $MainOutput->Flag('Fermeacle', $current_inspection->Fermeacle, 'Toutes les ouvertures qui donnent accès à la piscine doivent être fermées à clef lorsque la piscine est sans surveillance');
+    $MainOutput->Flag('EchellePP', $current_inspection->EchellePP, 'Une ï¿½chelle / escalier dans la partie peu profonde si la profondeur dï¿½passe 600mm');
+    $MainOutput->Flag('EchelleX2P', $current_inspection->EchelleX2P, 'Une ï¿½chelle de chaque cï¿½tï¿½ de la partie profonde');
+    $MainOutput->Flag('Escalier', $current_inspection->Escalier, 'S\'il y a un estcalier, le nez de la marche doit ï¿½tre peint de couleur contrastante');
+    $MainOutput->Flag('Cloture12', $current_inspection->Cloture12, 'La piscine doit ï¿½tre entourï¿½e d\'une clï¿½ture d\'un minimum de 1,20m');
+    $MainOutput->Flag('Cloture100', $current_inspection->Cloture100, 'La clï¿½ture ne doit pas permettre de faire passer un cercle de 100mm de diamï¿½tre');
+    $MainOutput->Flag('Maille38', $current_inspection->Maille38, 'S\'il s\'agit d\'une clï¿½ture de maille, la maille doit ï¿½tre infï¿½rieure ï¿½ 38mm');
+    $MainOutput->Flag('Promenade', $current_inspection->Promenade, 'Si une partie de la promenade peut ï¿½tre utilisï¿½e hors des heures d\'ouverture, une clï¿½ture de 900mm doit sï¿½parer la promenade de la partie rï¿½servï¿½e de la piscine');
+    $MainOutput->Flag('Fermeacle', $current_inspection->Fermeacle, 'Toutes les ouvertures qui donnent accï¿½s ï¿½ la piscine doivent ï¿½tre fermï¿½es ï¿½ clef lorsque la piscine est sans surveillance');
     $MainOutput->textarea('NotesConstruction', 'Notes', 25, 5, $current_inspection->NotesConstruction);
 
 }elseif($current_inspection->InspectionType=="Plage"){
 
     $MainOutput->OpenRow();
     $MainOutput->OpenCol('100%', 2);
-    $MainOutput->AddTexte('<u>Matériel de piscine</u>
+    $MainOutput->AddTexte('<u>Matï¿½riel de piscine</u>
 
     ','Titre');
 
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
-    $MainOutput->flag('Mirador', $current_inspection->Mirador, 'Mirador de 2,4m de hauteur pour chaque unité ou fraction d\'unité de 125m linéaires de plage');
-    $MainOutput->flag('LigneBouee', $current_inspection->LigneBouee, 'Une ligne de bouées de couleur blanche indiquant les limites de la zone de surveillance.
+    $MainOutput->flag('Mirador', $current_inspection->Mirador, 'Mirador de 2,4m de hauteur pour chaque unitï¿½ ou fraction d\'unitï¿½ de 125m linï¿½aires de plage');
+    $MainOutput->flag('LigneBouee', $current_inspection->LigneBouee, 'Une ligne de bouï¿½es de couleur blanche indiquant les limites de la zone de surveillance.
     Profondeur maximale : 1,6m');
-    $MainOutput->flag('Bouees', $current_inspection->Bouees, 'Pour chaque mirador : une bouée de sauvetage
+    $MainOutput->flag('Bouees', $current_inspection->Bouees, 'Pour chaque mirador : une bouï¿½e de sauvetage
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) annulaire entre 275 et 380mm avec 15m de corde
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ou b) torpille avec 2m de corde et une boucle pour les épaules');
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ou b) torpille avec 2m de corde et une boucle pour les ï¿½paules');
     $MainOutput->flag('Couverture', $current_inspection->Couverture);
-    $MainOutput->flag('SMU', $current_inspection->SMU, 'Moyen de communication pour les SMU à moins de 100m et facilement accessible');
-    $MainOutput->flag('Procedures', $current_inspection->Procedures, 'Les procédures d\'urgences sont affichées près du moyen de communication');
+    $MainOutput->flag('SMU', $current_inspection->SMU, 'Moyen de communication pour les SMU ï¿½ moins de 100m et facilement accessible');
+    $MainOutput->flag('Procedures', $current_inspection->Procedures, 'Les procï¿½dures d\'urgences sont affichï¿½es prï¿½s du moyen de communication');
     $MainOutput->flag('Registre', $current_inspection->Registre, 'Registre des installations');
-    $MainOutput->flag('BoueeProfond', $current_inspection->BoueeProfond, 'Une bouée indicant au point le plus profond de la zone pour chaque unité ou fraction d\'unité de 125m linéaires de plage en caractère de 150mm en couleur contrastante lisible de la plage');
-    $MainOutput->flag('Chaloupe', $current_inspection->Chaloupe, 'Chaloupe de sauvetage pour chaque unité ou fraction d\'unité de 250m linéaires de plage.
+    $MainOutput->flag('BoueeProfond', $current_inspection->BoueeProfond, 'Une bouï¿½e indicant au point le plus profond de la zone pour chaque unitï¿½ ou fraction d\'unitï¿½ de 125m linï¿½aires de plage en caractï¿½re de 150mm en couleur contrastante lisible de la plage');
+    $MainOutput->flag('Chaloupe', $current_inspection->Chaloupe, 'Chaloupe de sauvetage pour chaque unitï¿½ ou fraction d\'unitï¿½ de 250m linï¿½aires de plage.
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sauf si :
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i. la plage est entourée d\'un quai dont la plus grande dimension est inférieure à 75m
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ii. La distance entre la plage et la ligne de bouée est inférieure à 50m s\'il y a des postes de surveillance
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qui sont situés à l\'extérieure de la ligne de bouées dans la zone la plus profonde.
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i. la plage est entourï¿½e d\'un quai dont la plus grande dimension est infï¿½rieure ï¿½ 75m
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ii. La distance entre la plage et la ligne de bouï¿½e est infï¿½rieure ï¿½ 50m s\'il y a des postes de surveillance
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qui sont situï¿½s ï¿½ l\'extï¿½rieure de la ligne de bouï¿½es dans la zone la plus profonde.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    cependant :
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    a) Un aquaplane peut remplacer lachaloupe lorsque la distance entre		les bouées et la rive est supérieure
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     à 		50m s\'il y a des postes de 			surveillance situés à l\'extérieur des		lignes de bouées dans la zone la
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    a) Un aquaplane peut remplacer lachaloupe lorsque la distance entre		les bouï¿½es et la rive est supï¿½rieure
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ï¿½ 		50m s\'il y a des postes de 			surveillance situï¿½s ï¿½ l\'extï¿½rieur des		lignes de bouï¿½es dans la zone la
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     plus profonde
 
     ');
@@ -184,9 +184,9 @@ if($current_inspection->InspectionType=="Piscine") {
     $MainOutput->closerow();
 
     $MainOutput->flag('ChaloupeRame', $current_inspection->ChaloupeRame, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a) 2 rames et tolets');
-    $MainOutput->flag('ChaloupeAncre', $current_inspection->ChaloupeAncre, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b) Une bouée d\'amarrage ou un ancre');
+    $MainOutput->flag('ChaloupeAncre', $current_inspection->ChaloupeAncre, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b) Une bouï¿½e d\'amarrage ou un ancre');
     $MainOutput->flag('ChaloupeGilets', $current_inspection->ChaloupeGilets, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c) 3 gilets de sauvetage conforme');
-    $MainOutput->flag('ChaloupeBouee', $current_inspection->ChaloupeBouee, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d) Une bouée annulaire d\'un diamètre intérieur maximal de 380mm et de 15m de corde');
+    $MainOutput->flag('ChaloupeBouee', $current_inspection->ChaloupeBouee, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d) Une bouï¿½e annulaire d\'un diamï¿½tre intï¿½rieur maximal de 380mm et de 15m de corde');
 
     $MainOutput->flag('Chaloupe', $current_inspection->Chaloupe, 'Registre des installations');
     $MainOutput->textarea('NotesMateriel', 'Notes', 25, 5, $current_inspection->NotesMateriel);
@@ -207,7 +207,7 @@ if($current_inspection->InspectionType=="Piscine") {
 
     $MainOutput->OpenRow();
     $MainOutput->OpenCol('100%', 2);
-    $MainOutput->AddTexte('Deux affiches placées en évidence écrite en caractères d\'une grandeur minimale de 25mm comportant les règlements suivants', 'Titre');
+    $MainOutput->AddTexte('Deux affiches placï¿½es en ï¿½vidence ï¿½crite en caractï¿½res d\'une grandeur minimale de 25mm comportant les rï¿½glements suivants', 'Titre');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -218,7 +218,7 @@ if($current_inspection->InspectionType=="Piscine") {
 
     $MainOutput->OpenRow();
     $MainOutput->OpenCol('100%', 2);
-    $MainOutput->AddTexte(' Des affiches aux extrémité de la plage et sur la limite des terrains adjacents à des intervalles maximales de 60m comportant les indications suivantes:', 'Titre');
+    $MainOutput->AddTexte(' Des affiches aux extrï¿½mitï¿½ de la plage et sur la limite des terrains adjacents ï¿½ des intervalles maximales de 60m comportant les indications suivantes:', 'Titre');
     $MainOutput->CloseCol();
     $MainOutput->CloseRow();
 
@@ -234,7 +234,7 @@ if($current_inspection->InspectionType=="Piscine") {
     $MainOutput->OpenRow();
     $MainOutput->OpenCol('100%', 2);
     $MainOutput->AddTexte('
-        <u>Préposés à la surveillance</u>
+        <u>Prï¿½posï¿½s ï¿½ la surveillance</u>
 
         ', 'Titre');
     $MainOutput->CloseCol();
@@ -271,28 +271,28 @@ $MainOutput->CloseRow();
 
 $MainOutput->InputText('Manuel','Manuel de secourisme',2,$current_inspection->Manuel);
 $MainOutput->InputText('Antiseptique','150ml d\'antiseptique OU 20 tampons d\'alcool',2,$current_inspection->Antiseptique);
-$MainOutput->InputText('Epingle','24 épingles de sûreté',2,$current_inspection->Epingle);
-$MainOutput->InputText('Pansement','24 pansements adhésifs enveloppés séparément',2,$current_inspection->Pansement);
+$MainOutput->InputText('Epingle','24 ï¿½pingles de sï¿½retï¿½',2,$current_inspection->Epingle);
+$MainOutput->InputText('Pansement','24 pansements adhï¿½sifs enveloppï¿½s sï¿½parï¿½ment',2,$current_inspection->Pansement);
 $MainOutput->InputText('BTria','6 bandages triangulaires',2,$current_inspection->BTria);
 $MainOutput->InputText('Gaze50','4 rouleaux de bandage de gaze de 50mm',2,$current_inspection->Gaze50);
 $MainOutput->InputText('Gaze100','4 rouleaux de bandage de gaze de 100mm',2,$current_inspection->Gaze100);
 $MainOutput->InputText('Ouate','4 paquets de Ouate de 25g chacun',2,$current_inspection->Ouate);
 $MainOutput->InputText('Gaze75','12 tampons ou compresses de gaze de 75 x 75mm',2,$current_inspection->Gaze75);
-$MainOutput->InputText('Compressif','4 tampons chirurgicaux pour pansements compressifs enveloppés séparément',2,$current_inspection->Compressif);
+$MainOutput->InputText('Compressif','4 tampons chirurgicaux pour pansements compressifs enveloppï¿½s sï¿½parï¿½ment',2,$current_inspection->Compressif);
 $MainOutput->InputText('Tape12','1 rouleau de diachylon de 12 mm de largeur',2,$current_inspection->Tape12);
 $MainOutput->InputText('Tape50','1 rouleau de diachylon de 50 mm de largeur',2,$current_inspection->Tape50);
-$MainOutput->InputText('Eclisses','Éclisses de grandeur assorties ou QuickSplint',2,$current_inspection->Eclisses);
+$MainOutput->InputText('Eclisses','ï¿½clisses de grandeur assorties ou QuickSplint',2,$current_inspection->Eclisses);
 
 $MainOutput->OpenRow();
 $MainOutput->OpenCol('100%',2);
 	$MainOutput->AddTexte('
-	<u>Fortement recommandé</u>
+	<u>Fortement recommandï¿½</u>
 		','Titre');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 
 $MainOutput->InputText('Ciseau','Ciseaux',2,$current_inspection->Ciseau);
-$MainOutput->InputText('Pince','Pinces à écharde',2,$current_inspection->Pince);
+$MainOutput->InputText('Pince','Pinces ï¿½ ï¿½charde',2,$current_inspection->Pince);
 $MainOutput->InputText('Crayon','Crayon',2,$current_inspection->Crayon);
 $MainOutput->InputText('Masque','Masque de poche',2,$current_inspection->Masque);
 $MainOutput->InputText('Gant','Gants chirurgicaux',2,$current_inspection->Gant);

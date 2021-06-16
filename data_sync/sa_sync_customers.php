@@ -65,7 +65,7 @@ foreach($customers as $customer){
     $nom = Encoding::toLatin1($customer["name"]);
     $customerIdMapping[$id] = $legacyId;
     if($companyId==$currentCompany and !in_array($legacyId, $customerIds)) {
-        $customerInsertRequest = "INSERT INTO client(`IDClient`,`Nom`,`Actif`) VALUES(".$legacyId.",'".addslashes($nom)."',1)";
+        $customerInsertRequest = "INSERT INTO client(`IDClient`,`Nom`,`Actif`,`FrequenceFacturation`,`Facturation`) VALUES(".$legacyId.",'".addslashes($nom)."',1,'H','E')";
         if($confirmInsert) {
             $mysqlClient->Insert($customerInsertRequest);
         }else{
@@ -79,10 +79,11 @@ foreach($customers as $customer){
 foreach($installations as $installation){
     $legacyId = $installation["legacyId"];
     $companyId= explode("/",$installation["customer"]["company"])[3];
+    $customerId= $installation["customer"]["id"];
     $nom = addslashes(Encoding::toLatin1($installation["name"]));
     $cote = $installation["billingCode"]["code"];
     if($companyId==$currentCompany and !in_array($legacyId, $installationIds)) {
-        $customerLegacyId = $customerIdMapping[$id];
+        $customerLegacyId = $customerIdMapping[$customerId];
 
         if($confirmInsert) {
             $horaireInstallationRequest = "INSERT into horaire(`Nom`) VALUES('".$nom."')";

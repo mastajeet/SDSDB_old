@@ -60,7 +60,6 @@ function getAddressDTO(array $cursor, $secteur_id_conversion, &$errors)
     return $adress_entity_dto;
 }
 
-
 function getPersonDTO(array $cursor, &$errors)
 {
 
@@ -150,3 +149,4 @@ function getQualificationDTO(array $cursorQualification, $personIRI, $qualificat
 
     return $qualificationDTO;
 }
+

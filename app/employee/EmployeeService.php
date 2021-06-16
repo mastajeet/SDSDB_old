@@ -24,6 +24,20 @@ class EmployeeService
         return $latin1EmployeeList;
     }
 
+
+    function getEmployeesForSession($sessionName)
+    {
+        $employeeList = array();
+        $employeeIds = $this->dataSource->getEmployeeIdForSession($this->companyId, $sessionName);
+        foreach($employeeIds as $id)
+        {
+            $employeeList[] = new \Employee($id);
+        }
+
+        return $employeeList;
+    }
+
+
     function getEmployees($datetime=null)
     {
         return $this->dataSource->getEmployees($this->companyId, $datetime=null);

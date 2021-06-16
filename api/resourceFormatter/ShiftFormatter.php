@@ -6,9 +6,11 @@ use DateInterval;
 use DateTime;
 use JsonSerializable;
 
-include_once('resourceFormatter/resourceFormatter.php');
+include_once('resourceFormatter/ResourceFormatter.php');
+include_once('helpers/JsonfiableDateTime.php');
 
-class shiftFormatter implements resourceFormatter
+
+class ShiftFormatter implements ResourceFormatter
 {
     public function formatRecordSet($recordSet)
     {
@@ -21,8 +23,6 @@ class shiftFormatter implements resourceFormatter
 
     public function formatRecord($record)
     {
-
-
         $color = "ok";
         $message = null;
         if ($record["Warn"] <> "") {
@@ -53,10 +53,10 @@ class shiftFormatter implements resourceFormatter
         $shiftEndDateTime = clone $wdayDateTime;
 
 
-
         $shiftStartDateTime->add(new DateInterval("PT".$record["Start"]."S"));
         $shiftEndDateTime->add(new DateInterval("PT".$record["End"]."S"));
         $shift = array(
+            "legacy_id"=> $record["IDShift"],
             "employee_id" => $employee_id,
             "installation_id" => $record["IDInstallation"],
             "week" => $wdayDateTime,
@@ -71,11 +71,3 @@ class shiftFormatter implements resourceFormatter
     }
 }
 
-
-class JsonfiableDateTime extends DateTime implements JsonSerializable
-{
-    public function jsonSerialize()
-    {
-        return $this->format("c");
-    }
-}

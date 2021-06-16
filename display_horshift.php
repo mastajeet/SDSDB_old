@@ -126,21 +126,16 @@ $MainOutput->CloseRow();
 						$MainOutput->opencol('','1','top','ok');
 					else				
 						$MainOutput->opencol('','1','top','unconfirmed');
-						
-						$SQL2 = new sqlclass;
-						$Req2 = "SELECT Nom, Prenom , HName FROM employe WHERE IDEmploye = '".$v['IDEmploye']."' and IDEmploye <>0";
-						$SQL2->Query($Req2);
-						$Rep2 = $SQL2->FetchArray();
-						if($Rep2[2]=="")
-							$Display = substr($Rep2[1]."&nbsp;".$Rep2[0],0,20);
-						else
-							$Display = $Rep2[2];
 
-						
-						if($SQL2->NumRow())
-							$MainOutput->addlink('index.php?Section=Employe&IDEmploye='.$v['IDEmploye'],$Display);
-						else
-							$MainOutput->addTexte('&nbsp');
+
+					$employe = new Employee($v['IDEmploye']);
+					if(!$employe->isNullEmploye()){
+						$MainOutput->addlink($employeeService->getViewEmployeeURI($v['IDEmploye']),$employe->getHoraireName());
+					}else{
+						$MainOutput->addtexte(" ");
+					}
+
+
 					$MainOutput->closecol();
 					$MainOutput->closerow();
 					

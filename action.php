@@ -237,7 +237,7 @@ SWITCH($Action){
     CASE "KimobyCSV_Generate":{
         $now = time();
         $date_time = new DateTime("@".$now);
-        $shifts = shift::getAllShiftsRunningAtAnInstant($date_time, $time_service);
+        $shifts = shift::getAllShiftsRunningAtAnInstant($date_time, $timeService);
         $employee_dto_list = array();
 
         foreach($shifts as $shift)
@@ -398,11 +398,11 @@ SWITCH($Action){
             #This InterestRate calculation is hardcoded but should change (?!)
             $effective_interest_rate = pow(1. + $interest_rate/100, $nb_days->days/30)-1;
 
-            $today = $time_service->get_today_timestamp();
+            $today = $timeService->get_today_timestamp();
 
             $first_invoice = new Invoice(array_keys($IDfactures)[0]);
             $interest_invoice = $invoice_service->generate_blank_facture(array(
-                "semaine" => $time_service->get_start_of_week(new DateTime("@".time()))->getTimestamp(),
+                "semaine" => $timeService->get_start_of_week(new DateTime("@".time()))->getTimestamp(),
                 "cote" => $first_invoice->Cote,
                 "facture_type" => InvoiceService::INTEREST_INVOICE,
                 InvoiceService::SEQUENCE_FROM_DTO=>"",

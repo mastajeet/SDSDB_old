@@ -11,6 +11,12 @@ class localDBConnector implements EmployeeDataSourceInterface
         $this->connectorClass = $connectorClass;
     }
 
+    function getEmployeeIdForSession($company, $session){
+
+        return \Employee::getEmployeeListForSession($session);
+    }
+
+
     function getEmployeeSelectList($company, $datetime=null)
     {
         if(is_null($datetime)){
@@ -83,5 +89,10 @@ class localDBConnector implements EmployeeDataSourceInterface
     public function getViewEmployeeListURI()
     {
         return 'index.php?Section=Employe';
+    }
+
+    public function getEmployeeForSession($sessionName)
+    {
+        // TODO: Implement getEmployeeForSession() method.
     }
 }

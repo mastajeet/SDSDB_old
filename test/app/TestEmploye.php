@@ -30,7 +30,7 @@ class TestEmploye extends PHPUnit_Framework_TestCase
 
     function test_GivenSession_whenGetEmployeeForSession_thenReturnAllEmployeeForThatSession()
     {
-        $employee_list = Employee::get_employee_list_for_session(self::E_11);
+        $employee_list = Employee::getEmployeeListForSession(self::E_11);
         $this->assertEquals(2, sizeof($employee_list));
     }
 

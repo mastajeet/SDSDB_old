@@ -7,7 +7,7 @@ $MainOutput->OpenCol('100%',7);
 		$MainOutput->addlink('index.php?Section=Add_Remplacement&Semaine='.$_GET['Semaine'], '<img border=0 src=assets/buttons/b_ins.png>');
 		$MainOutput->addlink('index.php?Section=Remplacement&ToPrint=TRUE', '<img border=0 src=assets/buttons/b_print.png>','_BLANK');
 }
-	$MainOutput->AddTexte('Liste des shifts � combler','Titre');
+	$MainOutput->AddTexte('Liste des shiftFormatter � combler','Titre');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 	if(isset($Rapport)){

@@ -26,11 +26,11 @@ if(isset($_GET['IDHorshift'])){
     $MainOutput->inputhidden_env('IDInstallation',$Info['IDInstallation']);
 	$MainOutput->inputhidden_env('Update',TRUE);
 	$MainOutput->inputhidden_env('IDShift',$_GET['IDShift']);
-    $employe_list = $employee_service->getEmployeSelectList(new DateTime("@".$ShiftDay));
+    $employe_list = $employeeService->getEmployeSelectList(new DateTime("@".$ShiftDay));
 }else{
     $MainOutput->inputhidden_env('Update',FALSE);
     $Info = array('Salaire'=>'','IDEmploye'=>'','TXH'=>'','Jour'=>'','Start'=>'','End'=>'','Commentaire'=>'','Warn'=>'','Message'=>'','Assistant'=>'0','Confirme'=>0);
-    $employe_list = $employee_service->getEmployeSelectList();
+    $employe_list = $employeeService->getEmployeSelectList();
 }
 $CJour = array(0=>'Dimanche',1=>'Lundi',2=>'Mardi',3=>'Mercredi',4=>'Jeudi',5=>'Vendredi',6=>'Samedi');
 $MainOutput->inputselect('Jour',$CJour,$Info['Jour'],'Jour');
@@ -61,7 +61,7 @@ if($Section=="Shift_Form"){
 	$MainOutput->textarea('Warn','Pré-shit','25','2',$Info['Warn']);
 	$MainOutput->flag('Confirme',$Info['Confirme'],'Heures Confirmées');
 	}
-$MainOutput->flag('Attach',1,'Attacher les shifts');
+$MainOutput->flag('Attach',1,'Attacher les shiftFormatter');
 
 
 $MainOutput->formsubmit('Ajouter / Modifier');

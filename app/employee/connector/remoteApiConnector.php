@@ -31,6 +31,8 @@ class remoteApiConnector implements EmployeeDataSourceInterface
         return $employees;
     }
 
+
+
     public function getEmployeesSalaries($company)
     {
         $uri = $this->baseURL."/employes/getEmployeesSalaries?companyId=".$company;
@@ -100,5 +102,17 @@ class remoteApiConnector implements EmployeeDataSourceInterface
     public function getViewEmployeeListURI()
     {
         return $this->baseURL."/employes/";
+    }
+
+    public function getEmployeeIdForSession($company, $sessionName)
+    {
+        $uri = $this->baseURL."/employes/getEmployeeShortView?companyId=".$company."&sessionName='".$sessionName."'";
+        $employees = $this->getObjectsFromApi($uri,  $this->authenticationHeader);
+        $employeeIds = array();
+        foreach($employees as $employeeObject){
+            $employeeIds[] = $employeeObject["number"];
+        }
+
+        return $employeeIds;
     }
 }

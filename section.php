@@ -246,6 +246,7 @@ SWITCH($Section){
     }
 
     CASE "Add_Remplacement":{ # TODO: changer pour employee service!
+        $employeeList = $employeeService->getEmployeSelectList();
         include('add_remplacement_form.php');
         BREAK;
     }
@@ -346,7 +347,7 @@ SWITCH($Section){
 
         $invoice = new Invoice($invoice_id);
         $customer = Customer::find_customer_by_cote($invoice->Cote);
-        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($time_service, $item_service);
+        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($timeService, $itemService);
 
         $default_hourly_rate = $customer->TXH;
         $form_target = array(
@@ -374,7 +375,7 @@ SWITCH($Section){
 
     CASE "InvoiceItem_Edit":
     {
-        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($time_service, $item_service);
+        $invoice_item_form_field_renderer_factory = new InvoiceItemFormFieldsRendererFactory($timeService, $itemService);
         $invoice_item_id = $_GET['invoice_item_id'];
         $invoice_id = $_GET['invoice_id'];
         $invoice = InvoiceFactory::getTypedInvoice(new Invoice($invoice_id));
@@ -467,7 +468,7 @@ SWITCH($Section){
         $dossier_facturation = new DossierFacturation($typed_invoice->Cote, null);
         $billing_responsible_details = $dossier_facturation->getBillingResponsibleDetails();
 
-        $header_renderer_factory = new HeaderRendererFactory($time_service);
+        $header_renderer_factory = new HeaderRendererFactory($timeService);
         $header_renderer = $header_renderer_factory->getHeaderRenderer($typed_invoice, $customer, $company, $edit);
         $body_renderer_factory = new BodyRendererFactory();
         $body_renderer = $body_renderer_factory->getBodyRenderer($typed_invoice, $edit);
@@ -540,14 +541,14 @@ SWITCH($Section){
 
 
     CASE "generate_free_employees":{
-        $horaire_factory = new HoraireFactory($time_service, new SqlClass());
+        $horaire_factory = new HoraireFactory($timeService, new SqlClass());
 
         $last_session = $variable->get_value('Saison');
         $employee_list = $employeeService->getEmployeesForSession($last_session);
         $semaine = $_GET['Semaine'];
         $day = $_GET['Day'];
 
-        $day_to_generate = $time_service->get_datetime_from_semaine_and_day(new DateTime("@".$semaine), $day);
+        $day_to_generate = $timeService->get_datetime_from_semaine_and_day(new DateTime("@".$semaine), $day);
         $horaire = $horaire_factory->generate_horaire_for_one_day($day_to_generate);
         print($employee_list);
         $free_employees = $horaire->get_free_employees($employee_list);

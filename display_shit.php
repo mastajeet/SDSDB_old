@@ -43,7 +43,7 @@ if(!$_GET['ToPrint']){
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('450',3);
 	$MainOutput->addoutput('<div align=left>',0,0);
-	$MainOutput->AddLink('index.php?Section=Display_Shit&Semaine='.get_last_sunday(1,$_GET['Semaine']),'Semaine Précédente');
+	$MainOutput->AddLink('index.php?Section=Display_Shit&Semaine='.get_last_sunday(1,$_GET['Semaine']),'Semaine Prï¿½cï¿½dente');
 	$MainOutput->addoutput('</div>',0,0);
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol('450',3);
@@ -135,7 +135,7 @@ WHERE IDInstallation=".$Rep[0]." AND Semaine=".$_GET['Semaine']." AND (shift.IDE
 			$End['i']="";
 		$Output[$Rep2['Jour']]->openrow();
 		$Output[$Rep2['Jour']]->opencol();
-		$Output[$Rep2['Jour']]->addtexte($Start['G']."h".$Start['i']."&nbsp;à&nbsp;".$End['G']."h".$End['i'], 'Titre2');
+		$Output[$Rep2['Jour']]->addtexte($Start['G']."h".$Start['i']."&nbsp;ï¿½&nbsp;".$End['G']."h".$End['i'], 'Titre2');
 		if(!$_GET['ToPrint'])
 			$Output[$Rep2['Jour']]->AddLink('index.php?Section=Shift_Form&IDShift='.$Rep2['IDShift'], '<img src=assets/buttons/b_edit.png border=0>');
 		$Output[$Rep2['Jour']]->closecol();
@@ -159,7 +159,7 @@ WHERE IDInstallation=".$Rep[0]." AND Semaine=".$_GET['Semaine']." AND (shift.IDE
 	if($Rep2['IDEmploye']==0)
 			$Output[$Rep2['Jour']]->addtexte('&nbsp;');
 		else
-			$Output[$Rep2['Jour']]->addlink($employee_service->getViewEmployeeURI($Rep2['IDEmploye']),$Display);
+			$Output[$Rep2['Jour']]->addlink($employeeService->getViewEmployeeURI($Rep2['IDEmploye']),$Display);
 		$Output[$Rep2['Jour']]->closecol();
 		$Output[$Rep2['Jour']]->closerow();
 		$Output[$Rep2['Jour']]->openrow();

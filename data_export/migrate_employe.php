@@ -12,34 +12,34 @@ include_once('data_export/handleApiViolations.php');
 include_once('data_export/getPersonEntity.php');
 include_once('mysql_class_qc.php');
 
-//const ADRESS_END_POINT = "http://sdsdb_nginx_1/api/addresses";
-//const PERSON_END_POINT = "http://sdsdb_nginx_1/api/people";
-//const EMPLOYEE_END_POINT = "http://sdsdb_nginx_1/api/employees";
-//const PERSON_ADDRESS_ENDPOINT = "http://sdsdb_nginx_1/api/person_addresses";
-//const PERSON_QUALIFICATION_ENDPOINT = "http://sdsdb_nginx_1/api/person_qualifications";
-//const EMPLOYEE_TASK_CATEGORY_SALARY_ENDPOINT = "http://sdsdb_nginx_1/api/employee_task_category_salaries";
-//const PHONE_NUMBER_ENDPOINT = "http://sdsdb_nginx_1/api/phone_numbers";
-//const PERSON_PHONE_NUMBER_ENDPOINT = "http://sdsdb_nginx_1/api/person_phone_numbers";
-//const NOTES_ENDPOINT = "http://sdsdb_nginx_1/api/employee_notes";
-//const STATUS_IRI_BASE = "/api/employee_statuses/";
-//const QUALIFICATION_IRI_BASE = "/api/qualifications/";
-//const USERS_ENDPOINT=  "http://sdsdb_nginx_1/api/users";
-//const COMPANY_USERS_ENDPOINT=  "http://sdsdb_nginx_1/api/users";
-
-
-const ADRESS_END_POINT = "http://prod.qcnat.o2web.ws/api/addresses";
-const PERSON_END_POINT = "http://prod.qcnat.o2web.ws/api/people";
-const EMPLOYEE_END_POINT = "http://prod.qcnat.o2web.ws/api/employees";
-const PERSON_ADDRESS_ENDPOINT = "http://prod.qcnat.o2web.ws/api/person_addresses";
-const PERSON_QUALIFICATION_ENDPOINT = "http://prod.qcnat.o2web.ws/api/person_qualifications";
-const EMPLOYEE_TASK_CATEGORY_SALARY_ENDPOINT = "http://prod.qcnat.o2web.ws/api/employee_task_category_salaries";
-const PHONE_NUMBER_ENDPOINT = "http://prod.qcnat.o2web.ws/api/phone_numbers";
-const PERSON_PHONE_NUMBER_ENDPOINT = "http://prod.qcnat.o2web.ws/api/person_phone_numbers";
-const NOTES_ENDPOINT = "http://prod.qcnat.o2web.ws/api/employee_notes";
+const ADRESS_END_POINT = "http://sdsdb_nginx_1/api/addresses";
+const PERSON_END_POINT = "http://sdsdb_nginx_1/api/people";
+const EMPLOYEE_END_POINT = "http://sdsdb_nginx_1/api/employees";
+const PERSON_ADDRESS_ENDPOINT = "http://sdsdb_nginx_1/api/person_addresses";
+const PERSON_QUALIFICATION_ENDPOINT = "http://sdsdb_nginx_1/api/person_qualifications";
+const EMPLOYEE_TASK_CATEGORY_SALARY_ENDPOINT = "http://sdsdb_nginx_1/api/employee_task_category_salaries";
+const PHONE_NUMBER_ENDPOINT = "http://sdsdb_nginx_1/api/phone_numbers";
+const PERSON_PHONE_NUMBER_ENDPOINT = "http://sdsdb_nginx_1/api/person_phone_numbers";
+const NOTES_ENDPOINT = "http://sdsdb_nginx_1/api/employee_notes";
 const STATUS_IRI_BASE = "/api/employee_statuses/";
 const QUALIFICATION_IRI_BASE = "/api/qualifications/";
-const USERS_ENDPOINT=  "http://prod.qcnat.o2web.ws/api/users";
-const COMPANY_USERS_ENDPOINT=  "http://prod.qcnat.o2web.ws/api/users";
+const USERS_ENDPOINT=  "http://sdsdb_nginx_1/api/users";
+const COMPANY_USERS_ENDPOINT=  "http://sdsdb_nginx_1/api/users";
+
+//
+//const ADRESS_END_POINT = "http://prod.qcnat.o2web.ws/api/addresses";
+//const PERSON_END_POINT = "http://prod.qcnat.o2web.ws/api/people";
+//const EMPLOYEE_END_POINT = "http://prod.qcnat.o2web.ws/api/employees";
+//const PERSON_ADDRESS_ENDPOINT = "http://prod.qcnat.o2web.ws/api/person_addresses";
+//const PERSON_QUALIFICATION_ENDPOINT = "http://prod.qcnat.o2web.ws/api/person_qualifications";
+//const EMPLOYEE_TASK_CATEGORY_SALARY_ENDPOINT = "http://prod.qcnat.o2web.ws/api/employee_task_category_salaries";
+//const PHONE_NUMBER_ENDPOINT = "http://prod.qcnat.o2web.ws/api/phone_numbers";
+//const PERSON_PHONE_NUMBER_ENDPOINT = "http://prod.qcnat.o2web.ws/api/person_phone_numbers";
+//const NOTES_ENDPOINT = "http://prod.qcnat.o2web.ws/api/employee_notes";
+//const STATUS_IRI_BASE = "/api/employee_statuses/";
+//const QUALIFICATION_IRI_BASE = "/api/qualifications/";
+//const USERS_ENDPOINT=  "http://prod.qcnat.o2web.ws/api/users";
+//const COMPANY_USERS_ENDPOINT=  "http://prod.qcnat.o2web.ws/api/users";
 
 
 const BUREAU_TASK_CATEGORY_NAME_IRI = "api/task_categories/1";
@@ -98,7 +98,7 @@ while($cursorEmployee =  $classSql->FetchAssoc())
     $employeeIdFromSDSDB = $cursorEmployee['IDEmploye'];
 
 //    if($employeeIdFromSDSDB>477 and $employeeIdFromSDSDB<28200) {
-    if($employeeIdFromSDSDB == 2820) {
+
         print("trying".$employeeIdFromSDSDB." \n");
         $personEntity = getPersonEntity($cursorEmployee, $authorization_header);
         if(is_null($personEntity)) {
@@ -202,7 +202,6 @@ while($cursorEmployee =  $classSql->FetchAssoc())
 
         $nbUserDoneSinceLastTokenRetrieval++;
         print($employeeIdFromSDSDB." : Done \n");
-    }
 
 }
 print_r($violations);

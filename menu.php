@@ -259,7 +259,7 @@ $MainOutput->OpenCol(20);
 $MainOutput->AddPic('f_cat.png');
 $MainOutput->CloseCol();
 $MainOutput->OpenCol('230',3);
-$MainOutput->AddLink($employee_service->getViewEmployeeListURI(), EMPLOYEE, "employee");
+$MainOutput->AddLink($employeeService->getViewEmployeeListURI(), EMPLOYEE, "employee");
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 

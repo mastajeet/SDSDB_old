@@ -10,10 +10,10 @@ $paiement_year = $_POST['FORMDate3'];
 
 
 if($paiement_day==""){
-    $paiement_timestamp = $time_service->get_today_timestamp();
+    $paiement_timestamp = $timeService->get_today_timestamp();
 }
 else
-	$paiement_timestamp = $time_service->get_date_timestamp($paiement_month, $paiement_day, $paiement_year);
+	$paiement_timestamp = $timeService->get_date_timestamp($paiement_month, $paiement_day, $paiement_year);
 
 
 $UpdateQueries = array();
@@ -51,10 +51,10 @@ if($FactureSameYear){
     $Notes = $_POST['FORMNotes']." Paye:".$Paid;
     $Req2 = "INSERT INTO paiement(`Cote`,`Montant`,`Notes`,`PayableYear`,`Date`) VALUES('".$_POST['Cote']."',".$Montant.",'".addslashes($Notes)."',".$PayableYear.",".$paiement_timestamp.")";
     $SQL->INSERT($Req2);
-    $MainOutput->AddTexte('Paiement ajouté','Warning');
+    $MainOutput->AddTexte('Paiement ajoutï¿½','Warning');
 }else{
     
-    $MainOutput->AddTexte('Les factures sélectionnées ne sont pas sur les mêmes années de facturation. Veuillez scinder le paiement afin d\'assurer la cohérence du dossier de facturation','Warning');
+    $MainOutput->AddTexte('Les factures sï¿½lectionnï¿½es ne sont pas sur les mï¿½mes annï¿½es de facturation. Veuillez scinder le paiement afin d\'assurer la cohï¿½rence du dossier de facturation','Warning');
 }
 
 

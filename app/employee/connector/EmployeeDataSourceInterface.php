@@ -8,4 +8,5 @@ interface EmployeeDataSourceInterface
     public function getViewEmployeeListURI();
     public function getViewEmployeeURI($IDEmploye);
     public function getEmployees($company, $datetime=null);
+    public function getEmployeeIdForSession($company, $sessionName);
 }

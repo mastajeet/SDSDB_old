@@ -21,7 +21,7 @@ $MainOutput->flag('Assistant',$Info['Assistant']);
 $MainOutput->inputtext('Salaire','Salaire',4,$Info['Salaire']);
 $MainOutput->inputtext('TXH','Taux Horaire',4,$Info['TXH']);
 $MainOutput->textarea('Commentaire','Commentaire','25','2',$Info['Commentaire']);
-$MainOutput->flag('Attach',1,'Attacher les shifts');
+$MainOutput->flag('Attach',1,'Attacher les shiftFormatter');
 $MainOutput->flag('Confirm',$Info['Confirm'],'Horaire Accepté');
 $MainOutput->formsubmit('Ajouter / Modifier');
 echo $MainOutput->send(1);

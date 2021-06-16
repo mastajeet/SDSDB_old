@@ -278,7 +278,7 @@ $MainOutput->br();
 $MainOutput->AddTexte("Facturé: ",'Titre');
 $month = get_month_list('long');
 
-$MainOutput->AddTexte($time_service->format_timestamp($facture->EnDate, "d-F-y"));
+$MainOutput->AddTexte($timeService->format_timestamp($facture->EnDate, "d-F-y"));
 
 
 $MainOutput->br();

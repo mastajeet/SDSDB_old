@@ -55,7 +55,7 @@ class Invoice extends BaseModel implements customerTransaction
     }
 
     function save(){
-        //stu moi ou ca va decalicer quand on va editer qqch dans la invoice... au moins on peut rien modifier a part les shifts dedans....
+        //stu moi ou ca va decalicer quand on va editer qqch dans la invoice... au moins on peut rien modifier a part les shiftFormatter dedans....
         $this->updated_values[] = "STotal";
         $this->update_balance();
         parent::save();

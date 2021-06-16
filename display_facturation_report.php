@@ -22,9 +22,9 @@ $MainOutput->CloseRow();
 while($Rep = $SQL->FetchArray()){
 	$MainOutput->OpenRow();
 	$MainOutput->OpenCol();
-    $week_end_points = $time_service->get_week_endpoints_from_timestamp($Rep[0]);
-    $start_of_week = $time_service->convert_datetime_to_string_using_locale($week_end_points['start_of_week'], J_MMMM_YYYY);
-    $end_of_week = $time_service->convert_datetime_to_string_using_locale($week_end_points['end_of_week'], J_MMMM_YYYY);
+    $week_end_points = $timeService->get_week_endpoints_from_timestamp($Rep[0]);
+    $start_of_week = $timeService->convert_datetime_to_string_using_locale($week_end_points['start_of_week'], J_MMMM_YYYY);
+    $end_of_week = $timeService->convert_datetime_to_string_using_locale($week_end_points['end_of_week'], J_MMMM_YYYY);
 		$MainOutput->Addtexte($start_of_week.' au '.$end_of_week,'Titre');
 	$MainOutput->CloseCol();
 	$MainOutput->OpenCol();

@@ -7,7 +7,7 @@ $MainOutput->OpenTable();
 
 	$MainOutput->OpenRow();
 		$MainOutput->OpenCol('100%',4);
-		$MainOutput->AddTexte('Rapport des prochains shifts','Titre');
+		$MainOutput->AddTexte('Rapport des prochains shiftFormatter','Titre');
 		$MainOutput->CloseCol();
 	$MainOutput->OpenRow();
 

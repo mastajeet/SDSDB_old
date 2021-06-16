@@ -5,8 +5,8 @@ include_once("apiCredentials.php");
 
 function getAuthenticationToken()
 {
-//    $url = 'http://prod.qcnat.o2web.ws/authentication_token';
-    $url = 'http://sdsdb_docker_nginx_1/authentication_token';
+    $url = 'http://prod.qcnat.o2web.ws/authentication_token';
+#    $url = 'http://sdsdb_docker_nginx_1/authentication_token';
     $ch = curl_init($url);
     $data = array(
         'email' => API_USER,

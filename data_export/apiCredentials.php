@@ -1,3 +1,3 @@
 <?php
 const API_USER = 'jtbaillargeon@hotmail.com';
-const API_PASSWORD = 'lolk1234';
+const API_PASSWORD = 'Lolk1234!';

@@ -1,2 +1,2 @@
 <?PHP
-$Info = get_installation_info($IDInstallation);
+$Info = new Installation($IDInstallation);

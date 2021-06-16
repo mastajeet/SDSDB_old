@@ -44,14 +44,14 @@ if($authorization->verifySuperAdmin($_COOKIE)){
 
 		$MainOutput->OpenRow();
 		$MainOutput->OpenCol();
-		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=Batch_Update','Modifier des shifts en batch');
+		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=Batch_Update','Modifier des shiftFormatter en batch');
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
 
 
 		$MainOutput->OpenRow();
 		$MainOutput->OpenCol();
-		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=Batch_Delete','Supprimer des shifts en batch');
+		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=Batch_Delete','Supprimer des shiftFormatter en batch');
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
 
