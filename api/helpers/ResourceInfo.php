@@ -4,7 +4,7 @@ include_once('exceptions/ValueNotFoundException.php');
 include_once('exceptions/MissingValueException.php');
 include_once('resourceRequestBuilder/ThreeNextWorkingWeekShiftRequestBuilder.php');
 include_once('resourceRequestBuilder/WorkingLocationRequestBuilder.php');
-include_once('resourceRequestBuilder/CurrentWorkingWeekShiftRequestBuilder.php');
+include_once('resourceRequestBuilder/ConfirmableWeekShiftRequestBuilder.php');
 include_once('resourceFormatter/ShiftFormatter.php');
 include_once('resourceFormatter/WorkingInstallationFormatter.php');
 
@@ -44,12 +44,13 @@ class ResourceInfo{
                     $this->resourceFormater = new shiftFormatter();
                     break;
 
-                CASE "currentweek":
+                CASE "confirmableweek":
+
                     if(!isset($request["employee_id"])){
                         throw new MissingValueException("employee_id");
                     }
                     $employeeId = intval($request["employee_id"]);
-                    $resourceRequest = new CurrentWorkingWeekShiftRequestBuilder($employeeId,$this->timeService);
+                    $resourceRequest = new ConfirmableWeekShiftRequestBuilder($employeeId,$this->timeService);
                     $this->resourceFormater = new shiftFormatter();
                     break;
 
