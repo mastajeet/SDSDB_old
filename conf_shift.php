@@ -6,7 +6,7 @@ const SHIFT_TO_CONFIRM = '<div align=center>Heure à confirmer</div>';
 $CJour = array(0=>'Dimanche',1=>'Lundi',2=>'Mardi',3=>'Mercredi',4=>'Jeudi',5=>'Vendredi',6=>'Samedi');
 $SQL = new sqlclass;
 $SQL2 = new sqlclass;
-$Req = "SELECT IDConfirmation, Nom, Prenom, confirmation.Notes FROM confirmation JOIN employe on confirmation.IDEmploye = employe.IDEmploye WHERE Semaine = ".$_GET['Semaine']." AND !Confirme ORDER BY Nom ASC, Prenom ASC";
+$Req = "SELECT IDConfirmation, IDEmploye, confirmation.Notes FROM confirmation WHERE Semaine = ".$_GET['Semaine']." AND !Confirme ";
 $SQL->SELECT($Req);
 $c="two";
 
@@ -26,8 +26,8 @@ if($SQL->NumRow()<>0){
 	
 
 	while($Rep = $SQL->FetchArray()){
-	
-	
+
+        $employe = new Employee($Rep['1']);
 	$MainOutput->addoutput('<form action=index.php method=POST>',0,0);
 	$MainOutput->inputhidden_env('Action','Conf_Shift');
 	$MainOutput->inputhidden_env('IDConfirmation',$Rep[0]);
@@ -40,7 +40,7 @@ if($SQL->NumRow()<>0){
 		
 		$MainOutput->OpenRow('',$c);
 		$MainOutput->OpenCol('',8);
-			$MainOutput->AddTexte($Rep[1].' '.$Rep[2],'Titre');
+			$MainOutput->AddTexte($employe->getHoraireName(),'Titre');
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
 		
@@ -110,7 +110,7 @@ if($SQL->NumRow()<>0){
 		$MainOutput->OpenRow('',$c);
 		$MainOutput->OpenCol('',8);
 			$MainOutput->AddTexte('Notes: ','Titre');
-			$MainOutput->AddTexte($Rep[3]);
+			$MainOutput->AddTexte($Rep[2]);
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
 	

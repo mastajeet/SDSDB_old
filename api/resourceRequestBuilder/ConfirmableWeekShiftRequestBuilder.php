@@ -27,10 +27,8 @@ class ConfirmableWeekShiftRequestBuilder implements ResourceRequestBuilder {
         $currentWeek = $currentWeek->getTimestamp();
 
         $employeId = $this->employeeId;
-        $request = "SELECT shift.IDShift, Semaine, Jour, IDInstallation, Start, End, Warn, Message, IDEmploye, IDEmployeS, IDEmployeE
-                    FROM shift LEFT JOIN remplacement 
-                    ON shift.IDShift = remplacement.IDShift 
-                    WHERE (IDEmploye = ".$employeId."  OR IDEmployeS = ".$employeId.") AND Semaine = ".$currentWeek." 
+        $request = "SELECT shift.IDShift, Semaine, Jour, IDInstallation, Start, End, Warn, Message, IDEmploye
+                    FROM shift WHERE IDEmploye = ".$employeId."  AND Semaine = ".$currentWeek." 
                     ORDER BY Jour ASC, `Start` ASC";
         return $request;
     }

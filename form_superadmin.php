@@ -81,6 +81,14 @@ if($authorization->verifySuperAdmin($_COOKIE)){
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
 
+		$MainOutput->OpenRow();
+		$MainOutput->OpenCol();
+		$MainOutput->AddLink('index.php?Section=SuperAdmin&ToDo=syncShiftConfirmation','Synchroniser les confirmations');
+		$MainOutput->CloseCol();
+		$MainOutput->CloseRow();
+
+
+
 
         $MainOutput->CloseTable();
 	}else{
@@ -124,6 +132,10 @@ if($authorization->verifySuperAdmin($_COOKIE)){
 
 			CASE "syncCustomers":{
 				include('data_sync/sa_sync_customers.php');
+			}
+
+			CASE "syncShiftConfirmation":{
+				include('data_sync/sa_sync_shift_confirmation.php');
 			}
 
 

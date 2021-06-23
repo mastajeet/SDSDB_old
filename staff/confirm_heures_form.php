@@ -22,9 +22,9 @@ if($Week<>$ToConfirm)
 	$Today=8;
 $RN = intval($Today*24*60*60)+intval(date('H',$Time))*60*60+intval(date('i',$Time)*60);
 
-$Req = "SELECT Nom, Prenom FROM employe WHERE IDEmploye = ".$_COOKIE['IDEmploye'];	
-$SQL->SELECT($Req);
-$Rep = $SQL->FetchArray();
+$employe = new Employee($_COOKIE['IDEmploye']);
+
+
 $Req = "SELECT IDConfirmation, Notes FROM confirmation WHERE IDEmploye= ".$_COOKIE['IDEmploye']." AND Semaine=".$ToConfirm;
 $SQL->SELECT($Req);
 $NB = $SQL->NumRow();
@@ -59,7 +59,7 @@ $MainOutput->CloseRow();
 $MainOutput->OpenRow('');
 $MainOutput->OpenCol('',8);
 $ToConfirmDates = get_end_dates(0,$ToConfirm);
-$MainOutput->AddTexte("Heure à confirmer: ".$Rep[1].' '.$Rep[0].' pour la semaine du '.$ToConfirmDates['Start'].' au '.$ToConfirmDates['End'],'Titre');
+$MainOutput->AddTexte("Heure à confirmer: ".$employe->getHoraireName().' pour la semaine du '.$ToConfirmDates['Start'].' au '.$ToConfirmDates['End'],'Titre');
 $MainOutput->CloseCol();
 $MainOutput->CloseRow();
 $MainOutput->OpenRow('');
@@ -160,11 +160,11 @@ $MainOutput->AddOutput('</form>',0,0);
 $MainOutput->CloseTable();
 
 
-	$Req = "SELECT IDConfirmation, Nom, Prenom, confirmation.Notes,Semaine FROM confirmation JOIN employe on confirmation.IDEmploye = employe.IDEmploye WHERE confirmation.IDEmploye=".$_COOKIE['IDEmploye']." ORDER BY semaine DESC Limit 0,1";
+	$Req = "SELECT IDConfirmation, confirmation.Notes, Semaine FROM confirmation  WHERE IDEmploye=".$_COOKIE['IDEmploye']." ORDER BY Semaine DESC Limit 0,1";
 	$SQL->SELECT($Req);
 	if($SQL->NumRow()<>0){
 		$Rep = $SQL->FetchArray();
-		$ENDS = get_end_dates(0,$Rep[4]);
+		$ENDS = get_end_dates(0,$Rep[2]);
 		$MainOutput->opentable('100%');
 		
 			$MainOutput->OpenRow(1);
@@ -225,7 +225,7 @@ $MainOutput->CloseTable();
 		$MainOutput->OpenRow('');
 		$MainOutput->OpenCol('',8);
 		$MainOutput->AddTexte('Notes: ','Titre');
-		$MainOutput->AddTexte($Rep[3]);
+		$MainOutput->AddTexte($Rep[1]);
 		$MainOutput->CloseCol();
 		$MainOutput->CloseRow();
 		$MainOutput->CloseTable();
