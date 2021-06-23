@@ -35,7 +35,7 @@ raisePresence();
 }
 
 ?><td valign=top width=500><?PHP 
-if(!isset($_COOKIE['IDEmploye'])){
+if(!isset($_COOKIE['IDEmploye']) or $_COOKIE['ForcedDelogTimeStamp'] < time()){
 	include('staff/login.php');
 }  elseif (getnbconnections()>10) {
         include('toomuchconn.php');

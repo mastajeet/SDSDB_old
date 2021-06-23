@@ -1,5 +1,8 @@
 <?PHP
+
 define('IN_HALF_A_YEAR', time() + 60 * 60 * 24 * 180);
+define('FORCED_DELOG_TIMESTAMP', 1624485262); #V1.2 release date ish de la new app
+
 if(isset($_POST['FORMIDEmploye']) && isset($_POST['FORMNAS'])){
 
 
@@ -38,6 +41,8 @@ if(isset($_POST['FORMIDEmploye']) && isset($_POST['FORMNAS'])){
         if( strlen($_POST['FORMNAS'])>0 and (substr($Rep[0],6,3)==$_POST['FORMNAS'] or $encrypted_password==get_vars('MP') or $encrypted_password == $password_getter->get_super_admin_password())){
 		setcookie("IDEmploye", $_POST['FORMIDEmploye'], IN_HALF_A_YEAR);
 		setcookie("CIESDS", $_POST['FORMCIESDS'], IN_HALF_A_YEAR);
+		setcookie("ForcedDelogTimeStamp",FORCED_DELOG_TIMESTAMP,  IN_HALF_A_YEAR);
+
 		if($_POST['FORMCIESDS']=="QC")
         {
             $companyId =1 ;
