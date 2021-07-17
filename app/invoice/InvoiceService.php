@@ -35,6 +35,8 @@ class InvoiceService{
             "Semaine"=>$facture_dto["semaine"],
             "EnDate"=> date_timestamp_get(new DateTime()),
             "Sequence"=>$facture_dto[self::SEQUENCE_FROM_DTO],
+            "Monthly"=>$facture_dto["monthly"],
+            "Weekly"=>$facture_dto["weekly"],
         );
 
 

@@ -140,7 +140,7 @@ class Customer extends BaseModel
     }
 
     function get_dossiers_facturation($year){
-        $installations = Installation::get_installation_by_customer_cote($this->Cote);
+        $installations = Installation::get_installations_by_customer_id($this->IDClient);
         $this->dossier_facturation = array();
         foreach ($installations as $installation){
             if(!in_array($installation->Cote, $this->dossier_facturation) ){
